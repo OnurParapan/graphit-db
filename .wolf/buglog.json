@@ -2403,7 +2403,7 @@
     },
     {
       "id": "bug-201",
-      "timestamp": "2026-10-02T23:43:00+03:00",
+      "timestamp": "2026-10-02T23:18:00+03:00",
       "error_message": "A parallel quality-gate invocation yielded before the full pytest process completed; starting a second full suite caused overlapping repository-level tests and transient failures.",
       "file": "Local final quality-gate orchestration",
       "root_cause": "The first 372-test process exceeded the tool's initial yield window and remained active while a diagnostic full suite was started. Some tests intentionally exercise fixed project-level configuration paths and are not safe across two simultaneous full-suite processes.",
@@ -2415,13 +2415,37 @@
     },
     {
       "id": "bug-202",
-      "timestamp": "2026-10-02T23:48:00+03:00",
+      "timestamp": "2026-10-02T23:23:00+03:00",
       "error_message": "The sandboxed isolated 0.2.0 build failed while installing Hatchling and python-build then raised a UnicodeDecodeError while rendering pip's Windows output.",
       "file": "0.2.0 distribution build environment",
       "root_cause": "The isolated PEP 517 environment needed package-index access outside the default sandbox; python-build also assumed UTF-8 for the localized subprocess failure bytes.",
       "fix": "Rerun the same scoped python -m build command with approved dependency-download access. Fresh wheel and sdist then built successfully and passed archive and Twine checks.",
       "tags": ["build", "sandbox", "network", "windows", "encoding"],
       "related_bugs": ["bug-142", "bug-186"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-203",
+      "timestamp": "2026-10-02T23:34:00+03:00",
+      "error_message": "The first public-PyPI install immediately after a successful 0.2.0 Trusted Publishing run still listed only versions 0.1.0 and 0.1.1.",
+      "file": "Public PyPI propagation check",
+      "root_cause": "The PyPI simple index had a short propagation delay after artifact upload completed.",
+      "fix": "Do not republish an immutable version; wait briefly and retry. PyPI then served the 0.2.0 wheel, which installed and passed the full public-package smoke.",
+      "tags": ["pypi", "release", "propagation", "packaging"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-204",
+      "timestamp": "2026-10-02T23:41:00+03:00",
+      "error_message": "A no-cache public installation spent several minutes resolving every transitive dependency over a high-latency connection and was interrupted after the public Graphit wheel was already found.",
+      "file": "Public PyPI clean-install verification",
+      "root_cause": "--no-cache-dir forced dozens of serial metadata and wheel requests; the verification goal only required proving Graphit's wheel came from public PyPI, while dependency compatibility had already been independently clean-tested.",
+      "fix": "Install the public Graphit wheel with --no-deps --no-cache-dir, verify version 0.2.0, then complete dependencies from the normal pip cache and run pip check plus the full installed SQLite/Codex/Claude MCP smoke.",
+      "tags": ["pip", "pypi", "network", "release-verification"],
+      "related_bugs": ["bug-203"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
     }

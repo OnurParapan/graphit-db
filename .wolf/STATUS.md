@@ -695,7 +695,7 @@
   `cbc1942fd6d556de023212154aac03f1c1671d57d0ccb09ce1e87003bc41f4e6`.
   Both have provenance. A fresh public-PyPI install passed version, dependency,
   SQLite, generated Codex/Claude launcher, and representative MCP checks.
-- The 0.2.0 development line adds Microsoft SQL Server and Oracle beside
+- Public release `graphit-db 0.2.0` adds Microsoft SQL Server and Oracle beside
   PostgreSQL behind the shared scanner protocol. Init discovers URL and common
   SQLAlchemy URL schemes, resolves passwords transiently, dispatches bounded
   read-only verification/scanning, and reuses the same immutable SQLite graph,
@@ -709,28 +709,31 @@
   adapter tests, static gates, wheel/sdist inspection, and a clean installed-
   wheel Codex/Claude MCP smoke pass. Separate loopback-only
   disposable SQL Server 2022 and Oracle Free runs now pass real catalog scan,
-  snapshot, and local relationship paths. 0.2.0 is built locally but not
-  published. The refreshed wheel SHA-256 is
-  `135097d6b95f657e9577f2ea0c12296a1f6da267f7f995ceb5ad09ef5a20293d`;
-  the sdist SHA-256 is
-  `69d355f2b427c650afd1349c7691ea7f64bb5e1397804c30c7b8ac471cd9982b`.
-  Both archives pass scope/Twine checks, and a new clean Python 3.14 wheel
-  install passes dependency validation plus Codex/Claude stdio MCP smoke.
+  snapshot, local relationship paths, and MSSQL fixed-role write rejection.
+  Tag/release `v0.2.0` points to commit
+  `9b4ce5fab7e2c9e7b3c1486766edf3c22ca3ef82`; CI run `37060871932` and
+  protected Trusted Publishing run `37061092185` passed. The public wheel
+  SHA-256 is
+  `da2194bd8d1bd88a3548729932294a2a27bfd964bcf5451677f141f0db852fbd`;
+  public sdist SHA-256 is
+  `91c4dbea080ec6f514634b2e1dd5ba8495d378a2bc6adeab3628dae3fd344e25`.
+  A fresh public-PyPI Python 3.14 install passes version, dependency, SQLite,
+  and Codex/Claude stdio MCP smoke.
 
 ---
 
 ## 🚀 Next phase
 
-**Current goal (supersedes the historical goal below):** The 0.2.0 SQL Server
-and Oracle implementation and explicitly disposable live validation are
-complete. Refresh all local quality and distribution evidence, but do not tag
-or publish 0.2.0 without separate explicit release authority.
+**Current goal (supersedes the historical goal below):** `graphit-db 0.2.0` is
+implemented, live-validated, and public. Preserve release evidence and gather
+real external installation/use feedback; do not infer broad version, scale, or
+universal token-savings claims from the current fixtures.
 
 **2026-10-02 multi-engine slice:** Added URL discovery, source validation,
 driver dispatch, safe connection verification, and bounded catalog scanners for
 SQL Server and Oracle. Both flow through existing snapshots, ERD, CLI, and MCP.
 Base dependencies now include pyodbc and python-oracledb; SQL Server's system
-ODBC driver remains external. Version 0.2.0 exists on main only.
+ODBC driver remains external. Version 0.2.0 is public on PyPI.
 
 **Historical prior goal:** The primary one-command onboarding contract is implemented and public
 in `graphit-db 0.1.1`: discover, verify read-only, scan all accessible user
