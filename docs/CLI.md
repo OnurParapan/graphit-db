@@ -31,6 +31,8 @@ graphit init --yes
 graphit init --no-connect
 graphit init --no-scan
 graphit init --no-erd
+graphit init --no-agents
+graphit init --refresh-agents
 ```
 
 Behavior:
@@ -59,16 +61,20 @@ Behavior:
     saved table and confirmed database FK. `--no-erd` skips only this artifact.
     ERD generation fails explicitly rather than writing a partial diagram when
     its 5,000-table or 100,000-FK safety bound is exceeded.
+11. When at least one source is configured, add project-local Graphit MCP
+    entries for Codex and Claude. Init selects Codex's eight-tool compact
+    allowlist; `--no-agents` skips both. A differing existing entry is never
+    overwritten unless `--refresh-agents` recognizes it as Graphit-generated.
 
 `--force` replaces only `graphit.toml`; it preserves existing `.graphit/`
 contents while applying compatible store migrations. Symlinked
 configuration/state/store paths are rejected. By default, project
 discovery stops at the nearest existing `graphit.toml` or Git root. `init`
-does not modify agent settings yet. Explicit project-local Codex setup is available
-with `graphit mcp setup-codex`; `graphit mcp setup-claude` similarly edits only
-the project's `.mcp.json`. Agent setup remains a subsequent init-orchestration
-slice. Global agent
-configuration is never changed here.
+modifies only project-local `.codex/config.toml` and `.mcp.json` Graphit entries.
+Explicit `graphit mcp setup-codex` and `setup-claude` commands remain available
+for advanced profile/refresh control. Global agent configuration is never
+changed here. If one agent file conflicts, init reports every setup failure;
+another independently safe agent entry may already have been created.
 
 Discovery recognizes `postgres://` and `postgresql://` values in conventional
 `DATABASE_URL`, `POSTGRES_URL`, `POSTGRESQL_URL`, `PGURL`, and prefixed variants.

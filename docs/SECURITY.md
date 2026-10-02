@@ -111,6 +111,10 @@ FK limits rather than concealing omitted structure.
 - Show all files before changing them.
 - Do not install global hooks or mutate global agent settings silently.
 - MCP defaults to read-only knowledge access.
+- Default init writes only project-local Codex and Claude Graphit entries,
+  preserves unrelated settings, and refuses unrecognized conflicts.
+  `--refresh-agents` accepts only launchers matching Graphit's generated shape;
+  `--no-agents` performs no agent write.
 
 ## Logging
 

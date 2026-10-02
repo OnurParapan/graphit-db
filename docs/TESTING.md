@@ -531,3 +531,9 @@ whole-database title/counts, search metadata, lack of a fake focus table, and
 offline CSP behavior. CLI tests cover automatic post-scan creation, explicit
 `--no-erd`, snapshot-named regeneration, exclusive file creation, and no source
 database connection during export.
+
+The init-agent slice reuses the independently tested atomic Codex/Claude setup
+services. CLI coverage checks that successful init writes Codex's exact compact
+eight-tool allowlist and Claude's project-local stdio entry, a repeated init is
+idempotent, and `--no-agents` calls neither writer. Existing setup suites cover
+unrelated-setting preservation and recognized-only refresh boundaries.

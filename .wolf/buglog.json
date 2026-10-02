@@ -1944,6 +1944,30 @@
       "related_bugs": ["bug-155", "bug-158"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-163",
+      "timestamp": "2026-10-02T19:08:00+03:00",
+      "error_message": "The first init-agent test patch did not apply because it combined two non-adjacent test contexts into one hunk.",
+      "file": "tests/test_cli.py",
+      "root_cause": "The no-agents test had been formatter-expanded and was not adjacent to the default-init assertions used by the same patch.",
+      "fix": "Split the import, default agent configuration assertions, and no-agents behavior into separate exact-context patches.",
+      "tags": ["patch", "tests", "init", "agents"],
+      "related_bugs": ["bug-154"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-164",
+      "timestamp": "2026-10-02T19:14:00+03:00",
+      "error_message": "The first multi-document init-agent contract patch did not apply because the README paragraph started mid-line relative to the reconstructed context.",
+      "file": "README.md and init-agent contract docs",
+      "root_cause": "A broad patch again depended on approximate prose wrapping across several files.",
+      "fix": "Confirmed no partial application and split README, CLI, and remaining contract updates into exact narrow patches.",
+      "tags": ["patch", "documentation", "agents", "init"],
+      "related_bugs": ["bug-155", "bug-158", "bug-162"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

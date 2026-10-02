@@ -112,6 +112,18 @@ def init(
     generate_erd: Annotated[
         bool, typer.Option("--erd/--no-erd", help="Create a complete offline ERD after scanning.")
     ] = True,
+    setup_agents: Annotated[
+        bool,
+        typer.Option(
+            "--agents/--no-agents", help="Configure project-local Codex and Claude MCP entries."
+        ),
+    ] = True,
+    refresh_agents: Annotated[
+        bool,
+        typer.Option(
+            "--refresh-agents", help="Refresh only recognized generated Graphit MCP entries."
+        ),
+    ] = False,
 ) -> None:
     """Initialize Graphit, scan discovered databases, and create offline ERDs."""
 
@@ -133,6 +145,7 @@ def init(
         typer.echo(
             "No PostgreSQL connection URL discovered in the environment or project .env files."
         )
+        _configure_init_agents(result.root, setup_agents, refresh_agents)
         return
     for candidate in candidates:
         password_status = "present (hidden)" if candidate.has_password else "not present"
@@ -144,6 +157,7 @@ def init(
         typer.echo(f"  SSL mode: {candidate.ssl_mode}")
     if not connect:
         typer.echo("Database connection skipped by --no-connect.")
+        _configure_init_agents(result.root, setup_agents, refresh_agents)
         return
 
     existing = list_sources(result.root)
@@ -230,6 +244,35 @@ def init(
             typer.echo("ERD_FAILED: the offline ERD could not be written.", err=True)
             raise typer.Exit(code=7) from None
         typer.echo(f"Created whole-database ERD: {erd_path.relative_to(result.root)}")
+
+    _configure_init_agents(result.root, setup_agents, refresh_agents)
+
+
+def _configure_init_agents(root: Path, enabled: bool, refresh: bool) -> None:
+    if not enabled:
+        typer.echo("Codex and Claude MCP setup skipped by --no-agents.")
+        return
+    if not list_sources(root):
+        typer.echo("Codex and Claude MCP setup skipped: no database source is configured.")
+        return
+    agent_failures = []
+    try:
+        codex_result = setup_codex(root, refresh=refresh, compact_tools=True)
+        state = "configured" if codex_result.changed else "already configured"
+        typer.echo(f"Codex compact MCP {state}: {codex_result.path.relative_to(root)}")
+    except CodexSetupError as error:
+        agent_failures.append(f"Codex: {error}")
+    try:
+        claude_result = setup_claude(root, refresh=refresh)
+        state = "configured" if claude_result.changed else "already configured"
+        typer.echo(f"Claude MCP {state}: {claude_result.path.relative_to(root)}")
+        if claude_result.changed:
+            typer.echo("Note: .mcp.json contains machine-specific paths; review before committing.")
+    except ClaudeSetupError as error:
+        agent_failures.append(f"Claude: {error}")
+    if agent_failures:
+        typer.echo("AGENT_SETUP_FAILED: " + " | ".join(agent_failures), err=True)
+        raise typer.Exit(code=8)
 
 
 def _discovered_source_name(database_name: str, used: set[str]) -> str:

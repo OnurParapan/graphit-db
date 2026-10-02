@@ -5,7 +5,10 @@ This is the target sequence, not a list of completed phases. See
 2026-10-02. Package/init/SQLite, PostgreSQL table/view/constraint scanning,
 local queries, fourteen MCP tools, conservative review, direct and bounded
 transitive FK impact, and
-one-hop exports are implemented. Index scanning, local persistence, and an
+one-hop exports are implemented. Post-release init now discovers/verifies and
+scans PostgreSQL URLs, creates a complete saved-snapshot ERD, and installs
+project-local compact Codex plus Claude MCP entries by default. Index scanning,
+local persistence, and an
 explicit bounded CLI/MCP lookup now exist. Phase
 exits that demand measured useful inference, application lineage, or multi-hop
 interactive graph exploration have **not** been met. Actual Codex context
@@ -31,7 +34,7 @@ Exit: package installs locally and quality gates pass.
 - `graphit.toml`,
 - `.graphit/` creation and Git ignore handling,
 - project discovery,
-- safe Codex/Claude integration detection,
+- safe project-local Codex/Claude integration with conflict refusal,
 - idempotency and `--force` behavior.
 
 Exit: a user can initialize an existing repository without installing services.

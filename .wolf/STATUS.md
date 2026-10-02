@@ -679,19 +679,25 @@
   5,000-node/100,000-link bounds fail without claiming a partial diagram.
   Full offline suite: 340 passed, 5 skipped; Ruff, formatter, strict mypy, and
   pip check pass.
+- Default init now completes project-local agent wiring when a source exists:
+  Codex receives the exact compact eight-tool allowlist and Claude receives its
+  stdio Graphit entry. `--no-agents` calls neither writer;
+  `--refresh-agents` replaces only recognized generated launchers. Unrelated
+  settings and all global configuration remain untouched. Together with the
+  previous slices, the requested one-command onboarding chain is implemented
+  on `main`; it is not yet part of the published PyPI 0.1.0 release.
 
 ---
 
 ## 🚀 Next phase
 
-**Goal:** Continue correcting the primary onboarding contract exposed by user
-feedback. Discovery, confirmed read-only connection, all-accessible-schema
-scan, and complete local ERD generation are implemented. The next micro-slice
-must make project-local Codex/Claude MCP setup part of the ordinary `graphit
-init` path, with clear consent/conflict behavior and without global settings or
-secrets. Keep explicit source/scan/setup commands as advanced controls. Do not
-publish another version or make paid model calls without fresh explicit
-authority.
+**Goal:** The primary one-command onboarding contract from user feedback is now
+implemented on `main`: discover, verify read-only, scan all accessible user
+schemas, generate a complete local ERD, and wire project-local compact Codex
+plus Claude MCP access without persisting secrets. Next perform release-level
+acceptance/installed-wheel checks and choose a post-0.1.0 version only with
+fresh user authority. Do not publish, tag, create a release, or make paid model
+calls without that authority.
 
 **2026-10-02 discovery slice:** `graphit init` now discovers conventional
 PostgreSQL URL variables from the process environment and a bounded root-level
@@ -728,7 +734,15 @@ target scope and exact ordered column pairs, and fails rather than truncating at
 HTML to `.graphit/exports/<source>-snapshot-<n>-erd.html`; `--no-erd` skips it
 and `graphit erd --source` regenerates it with exclusive-create semantics. No
 frontend, server, Graphviz, remote asset, or source reconnection is involved.
-Project-local Codex/Claude init wiring is next.
+Project-local Codex/Claude init wiring followed in the next slice.
+
+**2026-10-02 init-agent slice:** When at least one source exists, default init
+now reuses the existing safe writers to add Codex's exact compact eight-tool
+Graphit entry and Claude's project-local stdio entry. `--no-agents` skips both;
+`--refresh-agents` recognizes only generated launchers. Conflicts are reported
+without overwriting unrelated/custom settings, and global configuration is
+never touched. This completes the requested onboarding chain in source; PyPI
+0.1.0 remains unchanged.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100

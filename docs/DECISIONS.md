@@ -1488,3 +1488,25 @@ only declared FKs in this complete view avoids presenting hypotheses as facts.
 **Revisit when:** Measured large-schema use requires hierarchical layout,
 schema-specific complete exports, or an explicit reviewed-logical overlay.
 Those additions must retain completeness labels and fail-closed limits.
+
+## ADR-080 — Make project-local agent wiring part of default init
+
+**Status:** Accepted and implemented.
+
+**Decision:** Once init has at least one configured source, reuse the existing
+safe setup services to add Graphit to project-local Codex and Claude
+configuration. Choose Codex's exact eight-tool compact allowlist in the init
+path because first-run use prioritizes progressive database navigation and low
+tool-definition overhead. Keep standalone Codex setup's historical full-profile
+default. `--no-agents` skips both; `--refresh-agents` refreshes only recognized
+generated launchers. Preserve unrelated settings, refuse symlinks and edited or
+custom Graphit entries, and never write global configuration.
+
+**Reason:** Discovery, scanning, and ERD generation alone do not cause Codex or
+Claude to consult Graphit. Project-local automatic wiring completes the normal
+first-run path while retaining a visible opt-out and the established conflict
+boundary. Compact Codex setup supports the user's token goal, but it is not by
+itself a universal token-savings claim.
+
+**Revisit when:** Claude exposes a stable project-level tool allowlist or a
+portable launcher eliminates machine-specific interpreter paths.

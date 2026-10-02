@@ -1,6 +1,7 @@
 """CLI foundation contract tests."""
 
 import json
+import tomllib
 from pathlib import Path
 
 from pytest import MonkeyPatch
@@ -144,6 +145,21 @@ def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
     assert source.credential_file == ".env"
     assert scanned == [(tmp_path, "erp")]
     assert exported == [(tmp_path, "erp", 1)]
+    codex_entry = tomllib.loads((tmp_path / ".codex" / "config.toml").read_text("utf-8"))[
+        "mcp_servers"
+    ]["graphit"]
+    assert codex_entry["enabled_tools"] == [
+        "database_overview",
+        "get_relevant_context",
+        "search_objects",
+        "get_table",
+        "get_view",
+        "get_relationships",
+        "get_graph_context",
+        "find_path",
+    ]
+    claude_entry = json.loads((tmp_path / ".mcp.json").read_text("utf-8"))["mcpServers"]["graphit"]
+    assert claude_entry["type"] == "stdio"
     stored = (tmp_path / ".graphit" / "graphit.db").read_bytes()
     assert secret.encode() not in stored
     assert b"DATABASE_URL" in stored
@@ -222,11 +238,27 @@ def test_init_can_keep_snapshot_without_creating_erd(
             AssertionError("--no-erd must not create an artifact")
         ),
     )
+    monkeypatch.setattr(
+        "graphit.cli.setup_codex",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("--no-agents must not configure Codex")
+        ),
+    )
+    monkeypatch.setattr(
+        "graphit.cli.setup_claude",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("--no-agents must not configure Claude")
+        ),
+    )
 
-    result = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes", "--no-erd"])
+    result = runner.invoke(
+        app,
+        ["init", "--project", str(tmp_path), "--yes", "--no-erd", "--no-agents"],
+    )
 
     assert result.exit_code == 0
     assert "Whole-database ERD skipped for 'erp' by --no-erd" in result.stdout
+    assert "Codex and Claude MCP setup skipped by --no-agents" in result.stdout
 
 
 def test_init_declined_or_failed_connection_does_not_save_source(

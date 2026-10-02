@@ -59,6 +59,12 @@ an explicit smaller profile is available:
 graphit mcp setup-codex --compact-tools
 ```
 
+The ordinary `graphit init` path performs compact Codex setup automatically
+after a source is available and also configures Claude. Use `--no-agents` to
+skip both or `--refresh-agents` to refresh only recognized generated entries.
+The commands below remain advanced controls; standalone Codex setup keeps its
+historical full-profile default unless `--compact-tools` is explicit.
+
 It writes Codex's supported `enabled_tools` allowlist for
 `database_overview`, `get_relevant_context`, `search_objects`, `get_table`,
 `get_view`, `get_relationships`, `get_graph_context`, and `find_path`. Graphit

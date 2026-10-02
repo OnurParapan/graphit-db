@@ -47,6 +47,10 @@
   scanning. It includes every table node, visibly scoped external FK stubs, and
   every confirmed database FK with exact ordered column pairs. It refuses to
   truncate beyond 5,000 nodes/100,000 links; agent context remains progressive.
+- The intended default init chain is now implemented on main: source discovery,
+  transient URL-secret resolution, confirmed read-only verification, all-user-
+  schema scan, complete local ERD, compact project Codex MCP, and project Claude
+  MCP. This is unreleased post-0.1.0 behavior until a separately authorized tag.
 - Repository documentation lives under `docs/`, except `README.md` and
   `AGENTS.md`.
 - Hatchling's default source archive selection can include local OpenWolf and
@@ -665,3 +669,7 @@
   default init writes it under ignored `.graphit/exports`, while `graphit erd`
   regenerates from the latest snapshot. Only declared confirmed FKs appear;
   reviewed logical assertions remain in the focus-table graph.
+- Default init agent wiring deliberately selects Codex's measured compact
+  eight-tool allowlist while standalone setup retains its full-profile default.
+  Both Codex and Claude writes stay project-local; no-agents is a full opt-out
+  and refresh-agents accepts only recognized generated Graphit launchers.

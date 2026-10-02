@@ -82,16 +82,18 @@ and `--no-erd` keeps the snapshot without the HTML artifact. Later
 `graphit scan --source NAME` commands create additional immutable
 structural snapshots. PostgreSQL views and materialized views are searchable
 with their catalog columns through `show-view`/`get_view`; `show` and FK graph
-tools remain base-table-only, and view lineage is not inferred. To connect a
-trusted Codex project explicitly, run `graphit mcp setup-codex` from that
-project and restart Codex. Use `graphit mcp setup-codex --compact-tools` to
-expose only the eight core discovery/table/relationship/graph tools and reduce
-Codex's up-front tool-definition context; the full 14-tool profile remains the
-default. The public distribution is `graphit-db`; the installed command remains
-`graphit`. See
+tools remain base-table-only, and view lineage is not inferred. Default init
+also adds project-local Codex and Claude MCP entries; restart the agents after
+first setup. Codex receives the exact eight-tool compact discovery profile.
+`--no-agents` skips both, while `--refresh-agents` replaces only recognized
+generated Graphit launchers. The standalone `graphit mcp setup-codex` command
+keeps its full 14-tool default; add `--compact-tools` for compact mode. The
+public distribution is `graphit-db`; the installed command remains `graphit`.
+See
 [MCP setup](https://github.com/OnurParapan/graphit-db/blob/main/docs/MCP.md#codex-project-setup-opt-in).
-For Claude Code, use `graphit mcp setup-claude` instead; its project `.mcp.json`
-entry has machine-specific absolute paths, so review it before committing.
+For separate Claude control, use `graphit mcp setup-claude`; its project
+`.mcp.json` entry has machine-specific absolute paths, so review it before
+committing.
 `graphit candidates --source NAME` now previews conservative, evidence-labeled
 `PENDING` relationship hypotheses without changing the saved graph.
 `graphit review reject` locally suppresses one exact candidate across rescans;
@@ -161,8 +163,8 @@ Install the public release with `pipx install graphit-db` or
 `uv tool install graphit-db`. Contributors can instead run
 `python -m pip install -e .` in this repository. Set the named password
 environment variable before `graphit source test` or `graphit scan`, and use a
-read-only PostgreSQL account. Codex/Claude setup is an explicit separate step;
-`graphit init` does not change agent configuration. See
+read-only PostgreSQL account. Default init configures only project-local
+Codex/Claude MCP entries; it never changes global agent configuration. See
 [release readiness](https://github.com/OnurParapan/graphit-db/blob/main/docs/RELEASE_READINESS.md)
 for verified and outstanding gates, and
 [RELEASING.md](https://github.com/OnurParapan/graphit-db/blob/main/docs/RELEASING.md)
