@@ -1,5 +1,8 @@
-"""Bounded, read-only table-neighborhood projection for local visualization."""
+"""Bounded, read-only graph projections for local visualization."""
 
+import json
+import sqlite3
+from contextlib import closing
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -12,6 +15,10 @@ from graphit.inference import (
 from graphit.queries import MAX_RELATIONSHIP_LIMIT, QueryError, table_relationships
 from graphit.review import current_manual_graph_links
 from graphit.scanners.protocol import quote_identifier
+from graphit.sources import require_store_path, show_source
+
+MAX_DATABASE_GRAPH_NODES = 5_000
+MAX_DATABASE_GRAPH_LINKS = 100_000
 
 
 @dataclass(frozen=True)
@@ -50,6 +57,158 @@ class GraphProjection:
     fk_truncated: bool
     approved_truncated: bool
     manual_truncated: bool = False
+
+
+@dataclass(frozen=True)
+class DatabaseGraphProjection:
+    source_name: str
+    snapshot_version: int
+    nodes: tuple[GraphNode, ...]
+    links: tuple[GraphLink, ...]
+    complete: bool = True
+    scope: str = "DATABASE"
+
+
+def _latest_snapshot(connection: sqlite3.Connection, source_name: str) -> tuple[int, int]:
+    row = connection.execute(
+        """SELECT snapshots.id, snapshots.version FROM snapshots
+        JOIN sources ON sources.id = snapshots.source_id
+        JOIN scan_runs ON scan_runs.id = snapshots.scan_run_id
+        WHERE sources.name = ? AND scan_runs.status = 'COMPLETED'
+        ORDER BY snapshots.version DESC LIMIT 1""",
+        (source_name,),
+    ).fetchone()
+    if row is None:
+        raise QueryError("NO_SNAPSHOT", f"Source '{source_name}' has no successful scan.")
+    return int(row[0]), int(row[1])
+
+
+def _table_scope(raw_metadata: str) -> bool:
+    try:
+        metadata = json.loads(raw_metadata)
+    except (TypeError, json.JSONDecodeError):
+        raise QueryError("STORE_READ_FAILED", "Local graph table data is invalid.") from None
+    if not isinstance(metadata, dict):
+        raise QueryError("STORE_READ_FAILED", "Local graph table data is invalid.")
+    in_scope = metadata.get("in_scope", True)
+    if not isinstance(in_scope, bool):
+        raise QueryError("STORE_READ_FAILED", "Local graph table scope is invalid.")
+    return in_scope
+
+
+def _database_link(source: str, target: str, raw_metadata: str) -> GraphLink:
+    try:
+        metadata = json.loads(raw_metadata)
+    except (TypeError, json.JSONDecodeError):
+        raise QueryError("STORE_READ_FAILED", "Local graph relationship data is invalid.") from None
+    if not isinstance(metadata, dict):
+        raise QueryError("STORE_READ_FAILED", "Local graph relationship data is invalid.")
+    name = metadata.get("constraint")
+    pairs = metadata.get("column_pairs")
+    target_in_scope = metadata.get("target_in_scope")
+    validated = metadata.get("validated")
+    inherited = metadata.get("inherited")
+    if (
+        not isinstance(name, str)
+        or metadata.get("level") != "TABLE"
+        or not isinstance(pairs, list)
+        or not pairs
+        or any(
+            not isinstance(pair, list)
+            or len(pair) != 2
+            or not all(isinstance(item, str) for item in pair)
+            for pair in pairs
+        )
+        or not isinstance(target_in_scope, bool)
+        or not isinstance(validated, bool)
+        or not isinstance(inherited, bool)
+    ):
+        raise QueryError("STORE_READ_FAILED", "Local graph relationship data is invalid.")
+    return GraphLink(
+        source_table=source,
+        target_table=target,
+        column_pairs=tuple(
+            (
+                f"{source}.{quote_identifier(pair[0])}",
+                f"{target}.{quote_identifier(pair[1])}",
+            )
+            for pair in pairs
+        ),
+        origin="DATABASE",
+        status="CONFIRMED",
+        name=name,
+        target_in_scope=target_in_scope,
+        validated=validated,
+        inherited=inherited,
+    )
+
+
+def database_graph(
+    root: Path,
+    source_name: str,
+    *,
+    node_limit: int = MAX_DATABASE_GRAPH_NODES,
+    link_limit: int = MAX_DATABASE_GRAPH_LINKS,
+) -> DatabaseGraphProjection:
+    """Project every saved table and confirmed FK, or fail instead of truncating."""
+
+    if not 1 <= node_limit <= MAX_DATABASE_GRAPH_NODES:
+        raise QueryError(
+            "INVALID_LIMIT", f"Database graph node limit must be 1-{MAX_DATABASE_GRAPH_NODES}."
+        )
+    if not 1 <= link_limit <= MAX_DATABASE_GRAPH_LINKS:
+        raise QueryError(
+            "INVALID_LIMIT", f"Database graph link limit must be 1-{MAX_DATABASE_GRAPH_LINKS}."
+        )
+    source = show_source(root, source_name)
+    path = require_store_path(root)
+    try:
+        with closing(sqlite3.connect(path, timeout=5)) as connection:
+            connection.execute("PRAGMA query_only = ON")
+            connection.execute("BEGIN")
+            snapshot_id, version = _latest_snapshot(connection, source.name)
+            node_rows = connection.execute(
+                """SELECT qualified_name, metadata_json FROM objects
+                WHERE snapshot_id = ? AND object_type = 'TABLE'
+                ORDER BY qualified_name LIMIT ?""",
+                (snapshot_id, node_limit + 1),
+            ).fetchall()
+            if len(node_rows) > node_limit:
+                raise QueryError(
+                    "ERD_NODE_LIMIT_EXCEEDED",
+                    f"Snapshot has more than {node_limit} tables; no partial ERD was created.",
+                )
+            link_rows = connection.execute(
+                """SELECT source.qualified_name, target.qualified_name, edge.metadata_json
+                FROM edges AS edge
+                JOIN objects AS source ON source.id = edge.source_object_id
+                  AND source.snapshot_id = edge.snapshot_id AND source.object_type = 'TABLE'
+                JOIN objects AS target ON target.id = edge.target_object_id
+                  AND target.snapshot_id = edge.snapshot_id AND target.object_type = 'TABLE'
+                WHERE edge.snapshot_id = ? AND edge.edge_type = 'REFERENCES'
+                  AND edge.origin = 'DATABASE' AND edge.status = 'CONFIRMED'
+                ORDER BY source.qualified_name, target.qualified_name, edge.id LIMIT ?""",
+                (snapshot_id, link_limit + 1),
+            ).fetchall()
+            if len(link_rows) > link_limit:
+                raise QueryError(
+                    "ERD_LINK_LIMIT_EXCEEDED",
+                    f"Snapshot has more than {link_limit} foreign keys; "
+                    "no partial ERD was created.",
+                )
+    except QueryError:
+        raise
+    except sqlite3.Error:
+        raise QueryError("STORE_READ_FAILED", "Could not read the local graph store.") from None
+    nodes = tuple(
+        GraphNode(str(name), _table_scope(str(raw_metadata)), False)
+        for name, raw_metadata in node_rows
+    )
+    links = tuple(
+        _database_link(str(source_table), str(target_table), str(raw_metadata))
+        for source_table, target_table, raw_metadata in link_rows
+    )
+    return DatabaseGraphProjection(source.name, version, nodes, links)
 
 
 def table_graph(

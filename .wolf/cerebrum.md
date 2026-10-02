@@ -43,6 +43,10 @@
   setup is separate, and its graph export is focus-table/one-hop. That is an
   implementation milestone, not fulfillment of the intended one-command
   onboarding and whole-database ERP/ERD product contract.
+- The post-0.1.0 init path now creates a complete saved-snapshot HTML ERD after
+  scanning. It includes every table node, visibly scoped external FK stubs, and
+  every confirmed database FK with exact ordered column pairs. It refuses to
+  truncate beyond 5,000 nodes/100,000 links; agent context remains progressive.
 - Repository documentation lives under `docs/`, except `README.md` and
   `AGENTS.md`.
 - Hatchling's default source archive selection can include local OpenWolf and
@@ -656,3 +660,8 @@
   known links on the 174-table fixture; current focus ranks are 3/1/2/1/2,
   with `finance.account` correctly available ahead of `billing.invoice` for
   an `account` task. This is lexical ordering, not business identity proof.
+
+- Whole-database ERD projection is a local human artifact, not an agent payload:
+  default init writes it under ignored `.graphit/exports`, while `graphit erd`
+  regenerates from the latest snapshot. Only declared confirmed FKs appear;
+  reviewed logical assertions remain in the focus-table graph.

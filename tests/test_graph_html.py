@@ -8,8 +8,8 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from graphit.cli import app
-from graphit.graph_export import GraphLink, GraphNode, GraphProjection
-from graphit.graph_html import render_html
+from graphit.graph_export import DatabaseGraphProjection, GraphLink, GraphNode, GraphProjection
+from graphit.graph_html import render_database_html, render_html
 from graphit.inference import CandidateEvidence
 from graphit.project import initialize_project
 from graphit.review import approve_candidate
@@ -93,6 +93,45 @@ def test_html_escapes_untrusted_metadata_and_keeps_svg_edges_bounded() -> None:
     assert html.count("<svg ") == 1
     assert "No confirmed or human-approved relationships" in html
     assert "default-src 'none'" in html
+
+
+def test_database_html_is_complete_searchable_and_has_no_fake_focus() -> None:
+    projection = DatabaseGraphProjection(
+        "erp",
+        3,
+        (
+            GraphNode('"billing"."invoice"', True, False),
+            GraphNode('"crm"."customer"', True, False),
+        ),
+        (
+            GraphLink(
+                '"billing"."invoice"',
+                '"crm"."customer"',
+                (
+                    (
+                        '"billing"."invoice"."customer_id"',
+                        '"crm"."customer"."id"',
+                    ),
+                ),
+                "DATABASE",
+                "CONFIRMED",
+                name="invoice_customer_fk",
+                validated=True,
+            ),
+        ),
+    )
+
+    html = render_database_html(projection)
+
+    assert "Graphit whole-database ERD: erp" in html
+    assert "complete saved scope" in html
+    assert "2 tables" in html
+    assert "1 confirmed FKs" in html
+    assert "Whole-database relationship graph" in html
+    assert "invoice_customer_fk" in html
+    assert "customer_id" in html
+    assert "depth" not in html
+    assert 'data-selected="false"' in html
 
 
 def test_graph_cli_html_shows_only_current_approved_links(tmp_path: Path) -> None:

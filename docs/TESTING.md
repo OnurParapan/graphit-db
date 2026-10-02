@@ -503,8 +503,9 @@ URLs, SSL mode, process-environment precedence, deterministic duplicate
 collapse, multiple project dotenv sources, invalid/non-PostgreSQL URLs, example
 files, symlinks, and the 1 MiB file bound. CLI coverage proves a discovered
 password is neither printed nor copied into `graphit.toml` or the SQLite store.
-This slice does not claim that init already connects, scans, exports a complete
-ERD, or configures agents.
+That discovery slice alone did not connect or scan; later slices below add
+verified persistence, scanning, and whole-database ERD generation. Agent setup
+is still separate.
 
 The following credential-reference slice adds migration coverage from SQLite v1
 to v2, legacy password-environment compatibility, URL password resolution,
@@ -521,3 +522,12 @@ snapshot is reported, `--no-scan` performs no scan call, and a scan failure
 retains the verified source without claiming success. The opt-in live
 PostgreSQL fixture asserts accessible fixture schemas are discovered while its
 revoked schema is excluded.
+
+The init-ERD slice tests a complete latest-snapshot projection of all saved
+table nodes and confirmed database FK edges, including external target scope
+and exact ordered column pairs. Limit tests prove that overflow raises an
+explicit error instead of producing a truncated artifact. HTML tests cover the
+whole-database title/counts, search metadata, lack of a fake focus table, and
+offline CSP behavior. CLI tests cover automatic post-scan creation, explicit
+`--no-erd`, snapshot-named regeneration, exclusive file creation, and no source
+database connection during export.

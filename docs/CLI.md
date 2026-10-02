@@ -30,6 +30,7 @@ graphit init --force
 graphit init --yes
 graphit init --no-connect
 graphit init --no-scan
+graphit init --no-erd
 ```
 
 Behavior:
@@ -54,6 +55,10 @@ Behavior:
    metadata into the first immutable snapshot. `--no-scan` stops after source
    persistence. Scan failure keeps the verified source but creates no successful
    snapshot.
+10. Create `.graphit/exports/<source>-snapshot-<version>-erd.html` from every
+    saved table and confirmed database FK. `--no-erd` skips only this artifact.
+    ERD generation fails explicitly rather than writing a partial diagram when
+    its 5,000-table or 100,000-FK safety bound is exceeded.
 
 `--force` replaces only `graphit.toml`; it preserves existing `.graphit/`
 contents while applying compatible store migrations. Symlinked
@@ -61,8 +66,8 @@ configuration/state/store paths are rejected. By default, project
 discovery stops at the nearest existing `graphit.toml` or Git root. `init`
 does not modify agent settings yet. Explicit project-local Codex setup is available
 with `graphit mcp setup-codex`; `graphit mcp setup-claude` similarly edits only
-the project's `.mcp.json`. Whole-database ERD generation and agent setup remain
-subsequent init-orchestration slices. Global agent
+the project's `.mcp.json`. Agent setup remains a subsequent init-orchestration
+slice. Global agent
 configuration is never changed here.
 
 Discovery recognizes `postgres://` and `postgresql://` values in conventional
@@ -449,6 +454,8 @@ All future inspection commands must keep output bounded.
 graphit graph public.claim --source erp
 graphit graph public.claim --source erp --format dot
 graphit graph public.claim --source erp --format html --output claim.html
+graphit erd --source erp
+graphit erd --source erp --output database-erd.html
 ```
 
 The implemented `graph` command writes compact JSON by default or DOT with
@@ -477,6 +484,15 @@ browsers retain the complete graph and lists without filtering. `--output
 PATH` creates a UTF-8 file for any format but refuses to overwrite an existing
 file. Wider depth controls, expand/collapse, and automatic browser launch
 remain unimplemented.
+
+`graphit erd --source NAME` reads the latest completed local snapshot and
+creates one self-contained HTML diagram containing every saved table, including
+explicitly dashed out-of-scope FK target stubs, and every `DATABASE/CONFIRMED`
+table foreign key. It includes exact ordered FK column pairs in the accessible
+relationship list. It does not mix inferred or manual assertions into the
+whole-database fact view, reconnect to PostgreSQL, load remote assets, or
+silently truncate. The default snapshot-named output and an explicit
+`--output` path both refuse overwrite.
 
 ## MCP
 

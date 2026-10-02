@@ -102,6 +102,7 @@ def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
     )
     verified: list[tuple[SourceConfig, Path | None]] = []
     scanned: list[tuple[Path, str]] = []
+    exported: list[tuple[Path, str, int]] = []
 
     def successful_test(
         source: SourceConfig, *, project_root: Path | None = None
@@ -114,8 +115,20 @@ def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
         assert show_source(root, name).schemas == ("billing", "public")
         return StoredSnapshot(name, 1, 1, 87, 143, "fingerprint")
 
+    def successful_erd(
+        root: Path, name: str, version: int | None, output: Path | None = None
+    ) -> Path:
+        assert output is None
+        assert version is not None
+        exported.append((root, name, version))
+        path = root / ".graphit" / "exports" / f"{name}-snapshot-{version}-erd.html"
+        path.parent.mkdir(parents=True)
+        path.write_text("<!doctype html>\n", encoding="utf-8")
+        return path
+
     monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
     monkeypatch.setattr("graphit.cli.scan_source", successful_scan)
+    monkeypatch.setattr("graphit.cli._create_database_erd", successful_erd)
 
     result = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes"])
 
@@ -123,12 +136,14 @@ def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
     assert "Added source 'erp' after read-only verification" in result.stdout
     assert "Schemas: billing, public" in result.stdout
     assert "Snapshot 1 saved for erp: 87 objects, 143 edges" in result.stdout
+    assert "Created whole-database ERD: .graphit" in result.stdout
     assert "Connect read-only" not in result.stdout
     source, project_root = verified[0]
     assert project_root == tmp_path
     assert source.credential_kind == "url_dotenv"
     assert source.credential_file == ".env"
     assert scanned == [(tmp_path, "erp")]
+    assert exported == [(tmp_path, "erp", 1)]
     stored = (tmp_path / ".graphit" / "graphit.db").read_bytes()
     assert secret.encode() not in stored
     assert b"DATABASE_URL" in stored
@@ -182,6 +197,36 @@ def test_init_can_skip_scan_and_reports_scan_failure_after_source_persistence(
     assert failed.exit_code == 5
     assert "TABLE_LIMIT_EXCEEDED" in failed.stderr
     assert len(list_sources(second)) == 1
+
+
+def test_init_can_keep_snapshot_without_creating_erd(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    (tmp_path / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:secret@localhost/erp\n", encoding="utf-8"
+    )
+
+    monkeypatch.setattr(
+        "graphit.cli.verify_connection",
+        lambda source, project_root=None: ConnectionTestResult(
+            source.database_name, "reader", "16.4", ("public",)
+        ),
+    )
+    monkeypatch.setattr(
+        "graphit.cli.scan_source",
+        lambda _root, name: StoredSnapshot(name, 1, 1, 4, 3, "fingerprint"),
+    )
+    monkeypatch.setattr(
+        "graphit.cli._create_database_erd",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("--no-erd must not create an artifact")
+        ),
+    )
+
+    result = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes", "--no-erd"])
+
+    assert result.exit_code == 0
+    assert "Whole-database ERD skipped for 'erp' by --no-erd" in result.stdout
 
 
 def test_init_declined_or_failed_connection_does_not_save_source(

@@ -2,10 +2,11 @@
 
 import base64
 import hashlib
+import math
 from collections import Counter
 from html import escape
 
-from graphit.graph_export import GraphLink, GraphNode, GraphProjection
+from graphit.graph_export import DatabaseGraphProjection, GraphLink, GraphNode, GraphProjection
 
 _STYLE = """
 body{font:16px/1.5 system-ui,sans-serif;color:#17212b;background:#f7f9fc;margin:0}
@@ -239,6 +240,79 @@ def _graph_svg(projection: GraphProjection) -> str:
     return "\n".join(parts)
 
 
+def _database_positions(
+    projection: DatabaseGraphProjection,
+) -> tuple[dict[str, tuple[int, int]], int, int]:
+    count = max(len(projection.nodes), 1)
+    columns = min(math.ceil(math.sqrt(count)), 32)
+    rows = math.ceil(count / columns)
+    width = max(900, columns * 300 + 100)
+    height = max(260, rows * 90 + 100)
+    positions = {
+        node.qualified_name: (200 + (index % columns) * 300, 80 + (index // columns) * 90)
+        for index, node in enumerate(projection.nodes)
+    }
+    return positions, width, height
+
+
+def _database_edge_svg(link: GraphLink, positions: dict[str, tuple[int, int]]) -> str:
+    kind, css_class = _link_kind(link)
+    source = positions.get(link.source_table)
+    target = positions.get(link.target_table)
+    if source is None or target is None:
+        raise ValueError("Database graph link endpoint is missing from projection nodes.")
+    sx, sy = source
+    tx, ty = target
+    if source == target:
+        path = (
+            f"M {sx + 120} {sy - 12} C {sx + 220} {sy - 85}, "
+            f"{sx + 220} {sy + 85}, {sx + 120} {sy + 12}"
+        )
+        label_x, label_y = sx + 205, sy
+    else:
+        path = f"M {sx} {sy} L {tx} {ty}"
+        label_x, label_y = (sx + tx) // 2, (sy + ty) // 2 - 8
+    search_text = " ".join(
+        (
+            link.name or "",
+            link.source_table,
+            link.target_table,
+            *(item for pair in link.column_pairs for item in pair),
+        )
+    ).lower()
+    tooltip = f"FK {link.name or '(unnamed)'}: " + "; ".join(
+        f"{source_column} â†’ {target_column}" for source_column, target_column in link.column_pairs
+    )
+    return (
+        f'<g class="{css_class}" data-edge data-kind="{kind.lower()}" '
+        f'data-source="{escape(link.source_table)}" '
+        f'data-target="{escape(link.target_table)}" '
+        f'data-search="{escape(search_text)}"><title>{escape(tooltip)}</title>'
+        f'<path d="{path}" marker-end="url(#{css_class}-arrow)"/>'
+        f'<text class="edge-label" x="{label_x}" y="{label_y}" '
+        f'text-anchor="middle">{kind}</text></g>'
+    )
+
+
+def _database_graph_svg(projection: DatabaseGraphProjection) -> str:
+    positions, width, height = _database_positions(projection)
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
+        f'width="{width}" height="{height}" role="img" '
+        'aria-labelledby="graph-title graph-desc">',
+        '<title id="graph-title">Whole-database relationship graph</title>',
+        '<desc id="graph-desc">Every saved table and confirmed database foreign key. '
+        "Exact relationship details follow below the diagram.</desc>",
+        '<defs><marker id="edge-fk-arrow" markerWidth="10" markerHeight="10" '
+        'refX="8" refY="5" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" '
+        'fill="#274c77"/></marker></defs>',
+    ]
+    parts.extend(_database_edge_svg(link, positions) for link in projection.links)
+    parts.extend(_node_svg(node, *positions[node.qualified_name]) for node in projection.nodes)
+    parts.append("</svg>")
+    return "\n".join(parts)
+
+
 def _relationship_list(projection: GraphProjection) -> str:
     if not projection.links:
         return "<p>No confirmed or human-approved relationships in this neighborhood.</p>"
@@ -356,6 +430,73 @@ def render_html(projection: GraphProjection) -> str:
                 f'<div class="graph">{_graph_svg(projection)}</div>',
                 "<h2>Tables</h2><ul>" + nodes + "</ul>",
                 "<h2>Relationships and columns</h2>" + _relationship_list(projection),
+                f"<script>{_SCRIPT}</script>",
+                "</main></body></html>",
+            )
+        )
+        + "\n"
+    )
+
+
+def render_database_html(projection: DatabaseGraphProjection) -> str:
+    """Render one complete saved database graph as a self-contained HTML document."""
+
+    if not projection.complete:
+        raise ValueError("Database HTML rendering refuses incomplete projections.")
+    nodes = "".join(
+        f'<li data-table data-node="{escape(node.qualified_name)}" '
+        f'data-search="{escape(node.qualified_name.lower())}" data-selected="false"><code>'
+        f"{escape(node.qualified_name)}</code>"
+        + (" â€” outside scan scope" if not node.in_scope else "")
+        + "</li>"
+        for node in projection.nodes
+    )
+    relationships = (
+        _relationship_list(
+            GraphProjection(
+                projection.source_name,
+                projection.snapshot_version,
+                "whole database",
+                0,
+                projection.nodes,
+                projection.links,
+                False,
+                False,
+                False,
+            )
+        )
+        if projection.links
+        else "<p>No confirmed database foreign keys in this snapshot.</p>"
+    )
+    return (
+        "\n".join(
+            (
+                "<!doctype html>",
+                '<html lang="en"><head><meta charset="utf-8">',
+                '<meta name="viewport" content="width=device-width, initial-scale=1">',
+                '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; '
+                f"style-src 'unsafe-inline'; script-src 'sha256-{_SCRIPT_HASH}'; "
+                "img-src data:; object-src 'none'; base-uri 'none'\">",
+                f"<title>Graphit ERD: {escape(projection.source_name)}</title>",
+                f"<style>{_STYLE}</style></head><body><main>",
+                f"<h1>Graphit whole-database ERD: {escape(projection.source_name)}</h1>",
+                f'<p class="muted">Snapshot {projection.snapshot_version} Â· complete saved scope '
+                f"Â· {len(projection.nodes)} tables Â· {len(projection.links)} confirmed FKs</p>",
+                '<p class="legend"><span>FK: database-confirmed</span>'
+                "<span>Dashed table: referenced outside scan scope</span></p>",
+                '<section class="controls" aria-label="Graph filters">'
+                '<label for="graph-search">Search tables, columns, or constraints'
+                '<input id="graph-search" type="search" autocomplete="off"></label>'
+                '<label for="relationship-filter">Relationship type'
+                '<select id="relationship-filter"><option value="all">All</option>'
+                '<option value="fk">Database FK</option></select></label>'
+                '<button id="reset-filters" type="button">Reset</button></section>',
+                '<p id="filter-status" class="muted filter-status" aria-live="polite"></p>',
+                '<noscript><p class="warning">Search and filters require browser JavaScript; '
+                "the complete accessible lists remain available below.</p></noscript>",
+                f'<div class="graph">{_database_graph_svg(projection)}</div>',
+                "<h2>Tables</h2><ul>" + nodes + "</ul>",
+                "<h2>Confirmed foreign keys and columns</h2>" + relationships,
                 f"<script>{_SCRIPT}</script>",
                 "</main></body></html>",
             )

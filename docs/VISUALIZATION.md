@@ -11,6 +11,7 @@ required server. CLI and MCP must remain fully useful without it.
 graphit graph public.orders --source erp
 graphit graph public.orders --source erp --format dot
 graphit graph public.orders --source erp --format html --output orders.html
+graphit erd --source erp
 ```
 
 The first implemented slice emits JSON to stdout for one exact table and its
@@ -60,6 +61,16 @@ All formats write to stdout by default. `--output PATH` explicitly creates a
 UTF-8 file and refuses to overwrite an existing path; no browser is opened.
 The HTML file can be opened locally in a browser without Graphviz or a server.
 
+The separate `graphit erd --source NAME` command projects the complete latest
+saved table/FK scope instead of a focus-table neighborhood. It includes every
+saved table, out-of-scope FK target stubs, and every confirmed database FK,
+with exact ordered column pairs in the matching accessible list. `graphit init`
+creates this snapshot-named artifact automatically after its default successful
+scan. This complete fact view deliberately excludes inferred/manual assertions.
+It fails without creating a partial artifact above 5,000 table nodes or 100,000
+FK links. The diagram uses a deterministic scrollable grid; dense databases are
+primarily navigated with its local search and exact relationship list.
+
 ## Projection controls
 
 - source and snapshot,
@@ -71,8 +82,9 @@ The HTML file can be opened locally in a browser without Graphviz or a server.
 - minimum confidence,
 - maximum nodes and edges.
 
-Rendering a 5,000-table hairball by default is a product failure. The default
-view should show a useful bounded neighborhood or schema summary.
+The agent-facing default remains progressive and bounded rather than returning
+this whole diagram as context. The complete ERD is an explicit human artifact;
+its safety limits fail closed instead of silently producing an incomplete view.
 
 ## Visual language
 

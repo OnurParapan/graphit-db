@@ -1463,3 +1463,28 @@ complete.
 
 **Revisit when:** PostgreSQL installations with more than 100 intentional user
 schemas require an explicit paged scope-selection workflow.
+
+## ADR-079 — Generate a complete saved-snapshot ERD after init scanning
+
+**Status:** Accepted and implemented.
+
+**Decision:** After each successful default init scan, project every saved
+`TABLE` node (including visibly out-of-scope FK target stubs) and every
+`DATABASE/CONFIRMED` table foreign key into a snapshot-named, self-contained
+HTML file under `.graphit/exports/`. Do not mix inferred or manual assertions
+into this whole-database fact view. Reuse the offline CSP, escaping, accessible
+relationship list, and local search behavior. Refuse overwrite and fail without
+an artifact above 5,000 nodes or 100,000 FKs instead of silently truncating.
+Keep `--no-erd` as an explicit init escape and expose `graphit erd --source`
+for regeneration from the latest local snapshot.
+
+**Reason:** The intended first-run experience includes a direct answer to
+“which tables are connected?” across the scanned database, while Graphit's
+agent context must remain progressive rather than shipping the full schema to
+every prompt. A generated local document supplies human ERD value without a
+frontend, daemon, Graphviz, network request, or second database read. Showing
+only declared FKs in this complete view avoids presenting hypotheses as facts.
+
+**Revisit when:** Measured large-schema use requires hierarchical layout,
+schema-specific complete exports, or an explicit reviewed-logical overlay.
+Those additions must retain completeness labels and fail-closed limits.

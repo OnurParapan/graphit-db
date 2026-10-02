@@ -100,6 +100,10 @@ behavior is a fixed inline script authorized by an exact SHA-256 in the
 document CSP. Untrusted database identifiers, evidence, and human reasons are
 HTML-escaped into markup/data attributes and are never inserted into executable
 code. The full accessible graph remains readable when JavaScript is disabled.
+The automatic whole-database ERD is written under ignored `.graphit/exports/`,
+uses the same escaping and CSP boundary, contains schema metadata only, and
+refuses overwrite. Its complete projection fails closed above explicit node or
+FK limits rather than concealing omitted structure.
 
 ## Agent wiring
 

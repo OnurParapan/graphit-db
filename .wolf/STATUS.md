@@ -671,20 +671,27 @@
   unavailable locally and remain external wrapper-observation gaps. Post-release
   documentation and staged smoke diagnostics pass the full local suite (318
   passed, 5 skipped), Ruff, formatting, strict mypy, and pip check.
+- The post-release onboarding path now generates a complete, snapshot-named
+  offline HTML ERD after each successful default init scan. The projection
+  contains every saved table (including labeled external FK stubs) and every
+  confirmed database FK with exact ordered column pairs. `graphit erd --source`
+  regenerates it, `--no-erd` skips it, files are never overwritten, and the
+  5,000-node/100,000-link bounds fail without claiming a partial diagram.
+  Full offline suite: 340 passed, 5 skipped; Ruff, formatter, strict mypy, and
+  pip check pass.
 
 ---
 
 ## 🚀 Next phase
 
-**Goal:** Correct the primary onboarding contract exposed by user feedback.
-`graphit init` must become the ordinary end-to-end path: safely discover
-project database configuration, let the user verify sanitized candidates,
-scan all selected database structure/relationships, generate a bounded
-whole-database ERP/ERD artifact, and configure project-local Codex/Claude MCP
-use without persisting secrets. Keep explicit source/scan/setup commands as
-advanced controls. Implement this in tested vertical micro-slices, beginning
-with deterministic secret-safe source discovery. Do not publish another version
-or make paid model calls without fresh explicit authority.
+**Goal:** Continue correcting the primary onboarding contract exposed by user
+feedback. Discovery, confirmed read-only connection, all-accessible-schema
+scan, and complete local ERD generation are implemented. The next micro-slice
+must make project-local Codex/Claude MCP setup part of the ordinary `graphit
+init` path, with clear consent/conflict behavior and without global settings or
+secrets. Keep explicit source/scan/setup commands as advanced controls. Do not
+publish another version or make paid model calls without fresh explicit
+authority.
 
 **2026-10-02 discovery slice:** `graphit init` now discovers conventional
 PostgreSQL URL variables from the process environment and a bounded root-level
@@ -711,7 +718,17 @@ scope fails closed. Init persists that verified scope and calls the shared
 `scan_source` service by default, producing the first immutable snapshot of
 tables/views, columns, declared keys/FKs, and indexes. `--no-scan` preserves a
 verified source without scanning; scan failure preserves the source but never a
-partial successful snapshot. Whole-database ERD generation is next.
+partial successful snapshot. Whole-database ERD generation followed in the
+next slice.
+
+**2026-10-02 init-ERD slice:** A new complete database projection reads every
+saved table and confirmed database FK from one latest snapshot, retains external
+target scope and exact ordered column pairs, and fails rather than truncating at
+5,000 nodes or 100,000 links. Default init writes its self-contained searchable
+HTML to `.graphit/exports/<source>-snapshot-<n>-erd.html`; `--no-erd` skips it
+and `graphit erd --source` regenerates it with exclusive-create semantics. No
+frontend, server, Graphviz, remote asset, or source reconnection is involved.
+Project-local Codex/Claude init wiring is next.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100

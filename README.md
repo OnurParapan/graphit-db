@@ -44,6 +44,10 @@ pipx install graphit-db
 # Then switch to your application repository:
 cd /path/to/my-project
 graphit init
+# If a PostgreSQL URL is discovered, init verifies it read-only, scans it,
+# and creates .graphit/exports/<source>-snapshot-<n>-erd.html.
+
+# Advanced/manual controls remain available:
 graphit source add claims --host localhost --database claims_db \
   --username reader --credential-env CLAIMS_DB_PASSWORD
 graphit source test claims
@@ -57,6 +61,7 @@ graphit relationships public.customer --source claims
 graphit path public.invoice public.customer --source claims
 graphit graph public.invoice --source claims --format dot
 graphit graph public.invoice --source claims --format html --output invoice.html
+graphit erd --source claims
 ```
 
 Set `CLAIMS_DB_PASSWORD` in your environment before `source test` or `scan`.
@@ -69,8 +74,11 @@ only sanitized host/database/user facts, and keeps any password transient. It
 asks before connecting unless `--yes` is given, forces a bounded read-only
 verification session, and saves only a non-secret reference after success;
 the verification also discovers accessible non-system schemas and init scans
-them into the first immutable snapshot. `--no-connect` keeps discovery-only
-behavior and `--no-scan` stops after verified source persistence. Later
+them into the first immutable snapshot. After a successful scan, init creates
+a self-contained whole-database ERD from every saved table and confirmed FK at
+`.graphit/exports/<source>-snapshot-<n>-erd.html`. `--no-connect` keeps
+discovery-only behavior, `--no-scan` stops after verified source persistence,
+and `--no-erd` keeps the snapshot without the HTML artifact. Later
 `graphit scan --source NAME` commands create additional immutable
 structural snapshots. PostgreSQL views and materialized views are searchable
 with their catalog columns through `show-view`/`get_view`; `show` and FK graph
@@ -138,6 +146,9 @@ from still-eligible human-approved logical links, and none requires a
 frontend framework, server, or source reconnection. `--output PATH` creates a
 UTF-8 file without
 overwriting; Graphviz is optional for rendering DOT.
+`graphit erd --source NAME` separately regenerates the complete latest-snapshot
+table/FK diagram. It never silently truncates: if its 5,000-table or 100,000-FK
+safety bound is exceeded, no partial file is presented as complete.
 `graphit mcp serve --project PATH` exposes compact task-focused context,
 database overview, saved object search, table context, direct FK relationships and impact,
 reviewed one-hop graph context, shortest FK paths, local version discovery, and explicit snapshot

@@ -13,8 +13,8 @@ from graphit.claude import ClaudeSetupError, setup_claude
 from graphit.codex import CodexSetupError, setup_codex
 from graphit.discovery import discover_postgresql
 from graphit.graph_dot import render_dot
-from graphit.graph_export import table_graph
-from graphit.graph_html import render_html
+from graphit.graph_export import database_graph, table_graph
+from graphit.graph_html import render_database_html, render_html
 from graphit.inference import MAX_CANDIDATE_LIMIT, preview_candidates
 from graphit.mcp_server import create_server
 from graphit.project import ProjectError, find_project_root, initialize_project
@@ -109,8 +109,11 @@ def init(
     scan_metadata: Annotated[
         bool, typer.Option("--scan/--no-scan", help="Scan verified databases immediately.")
     ] = True,
+    generate_erd: Annotated[
+        bool, typer.Option("--erd/--no-erd", help="Create a complete offline ERD after scanning.")
+    ] = True,
 ) -> None:
-    """Initialize Graphit, verify discovered databases, and scan their metadata."""
+    """Initialize Graphit, scan discovered databases, and create offline ERDs."""
 
     try:
         root = project if project is not None else find_project_root(Path.cwd())
@@ -212,6 +215,21 @@ def init(
             f"Snapshot {snapshot.version} saved for {source_name}: "
             f"{snapshot.object_count} objects, {snapshot.edge_count} edges."
         )
+        if not generate_erd:
+            typer.echo(f"Whole-database ERD skipped for '{source_name}' by --no-erd.")
+            continue
+        try:
+            erd_path = _create_database_erd(result.root, source_name, snapshot.version)
+        except QueryError as error:
+            typer.echo(f"ERD_FAILED: {error.code}: {error}", err=True)
+            raise typer.Exit(code=7) from None
+        except FileExistsError:
+            typer.echo("ERD_FAILED: output already exists; no file was overwritten.", err=True)
+            raise typer.Exit(code=7) from None
+        except OSError:
+            typer.echo("ERD_FAILED: the offline ERD could not be written.", err=True)
+            raise typer.Exit(code=7) from None
+        typer.echo(f"Created whole-database ERD: {erd_path.relative_to(result.root)}")
 
 
 def _discovered_source_name(database_name: str, used: set[str]) -> str:
@@ -235,6 +253,28 @@ def _source_root(project: Path | None) -> Path:
         return find_project_root(Path.cwd())
     except ProjectError as error:
         raise ProjectNotInitialized(str(error)) from error
+
+
+def _create_database_erd(
+    root: Path, source_name: str, snapshot_version: int | None, output: Path | None = None
+) -> Path:
+    projection = database_graph(root, source_name)
+    if snapshot_version is not None and projection.snapshot_version != snapshot_version:
+        raise QueryError("SNAPSHOT_CHANGED", "Source was rescanned during ERD generation; retry.")
+    destination = (
+        output
+        if output is not None
+        else root
+        / ".graphit"
+        / "exports"
+        / f"{source_name}-snapshot-{projection.snapshot_version}-erd.html"
+    )
+    if output is None and destination.parent.is_symlink():
+        raise OSError("Automatic ERD export directory must not be a symbolic link.")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with destination.open("x", encoding="utf-8", newline="\n") as handle:
+        handle.write(render_database_html(projection))
+    return destination
 
 
 def _source_failure(error: SourceError) -> None:
@@ -1253,6 +1293,36 @@ def graph(
         typer.echo(f"OUTPUT_WRITE_FAILED: {output}", err=True)
         raise typer.Exit(code=2) from error
     typer.echo(f"Created graph: {output}")
+
+
+@app.command()
+def erd(
+    source: Annotated[str, typer.Option(help="Configured source name.")],
+    output: Annotated[
+        Path | None,
+        typer.Option(
+            "--output",
+            help="Create this HTML file instead of the snapshot-named default; never overwrite.",
+        ),
+    ] = None,
+    project: Annotated[Path | None, typer.Option(help="Graphit project directory.")] = None,
+) -> None:
+    """Create a complete offline ERD from the latest saved snapshot."""
+
+    try:
+        root = _source_root(project)
+        path = _create_database_erd(root, source, None, output)
+    except SourceError as error:
+        _source_failure(error)
+    except QueryError as error:
+        _query_failure(error)
+    except FileExistsError as error:
+        typer.echo(f"OUTPUT_EXISTS: {output or 'default snapshot ERD'}", err=True)
+        raise typer.Exit(code=2) from error
+    except OSError as error:
+        typer.echo(f"OUTPUT_WRITE_FAILED: {output or 'default snapshot ERD'}", err=True)
+        raise typer.Exit(code=2) from error
+    typer.echo(f"Created whole-database ERD: {path}")
 
 
 @app.command()

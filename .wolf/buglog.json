@@ -1896,6 +1896,54 @@
       "related_bugs": ["bug-155"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-159",
+      "timestamp": "2026-10-02T19:25:00+03:00",
+      "error_message": "A targeted rg inspection included tests/test_init.py, which does not exist, and rg returned an OS file-not-found error.",
+      "file": "repository inspection command",
+      "root_cause": "The init test filename was inferred instead of first being resolved from the anatomy index or rg --files.",
+      "fix": "Kept the valid search results and will resolve exact test filenames with rg --files before subsequent targeted reads.",
+      "tags": ["ripgrep", "inspection", "tests"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-160",
+      "timestamp": "2026-10-02T19:34:00+03:00",
+      "error_message": "The database HTML renderer patch inserted render_database_html before the existing render_html body was complete, leaving the original renderer body unreachable after the new function's return.",
+      "file": "src/graphit/graph_html.py",
+      "root_cause": "The patch anchor matched the first closing expression inside render_html instead of the function's end.",
+      "fix": "Replace the entire renderer tail from render_html onward so the neighborhood and database renderers each have a complete independent body.",
+      "tags": ["patch", "html", "renderer", "function-boundary"],
+      "related_bugs": ["bug-145", "bug-147"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-161",
+      "timestamp": "2026-10-02T19:38:00+03:00",
+      "error_message": "The first renderer-tail repair patch did not apply because Unicode punctuation in the expected block was displayed with a different mojibake sequence.",
+      "file": "src/graphit/graph_html.py",
+      "root_cause": "A broad deletion hunk included encoding-sensitive text instead of narrow ASCII-only anchors.",
+      "fix": "Apply the restoration and deletion as separate narrow patches using ASCII-only boundary context.",
+      "tags": ["patch", "unicode", "html", "powershell"],
+      "related_bugs": ["bug-160", "bug-145"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-162",
+      "timestamp": "2026-10-02T19:01:00+03:00",
+      "error_message": "The first multi-file OpenWolf state update did not apply because an approximate cerebrum context line was not present verbatim.",
+      "file": ".wolf/memory.md; .wolf/cerebrum.md; .wolf/STATUS.md",
+      "root_cause": "One broad patch mixed exact state updates with a reconstructed Key Learnings anchor.",
+      "fix": "Confirmed the patch was atomic and split memory, cerebrum, and status updates into narrow exact-context patches.",
+      "tags": ["patch", "openwolf", "state"],
+      "related_bugs": ["bug-155", "bug-158"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

@@ -11,7 +11,7 @@ from typer.testing import CliRunner
 import graphit.graph_export as graph_export
 import graphit.inference as inference
 from graphit.cli import app
-from graphit.graph_export import table_graph
+from graphit.graph_export import database_graph, table_graph
 from graphit.inference import MAX_PREVIEW_TABLES, current_approval_presence
 from graphit.project import initialize_project
 from graphit.queries import QueryError
@@ -76,6 +76,54 @@ def test_fk_projection_deduplicates_self_link_and_labels_external_scope(tmp_path
     assert not external_node.in_scope
     assert projection.focus_table == '"public"."orders"'
     assert projection.depth == 1
+
+
+def test_database_graph_contains_every_table_and_confirmed_fk_without_truncation(
+    tmp_path: Path,
+) -> None:
+    source = _project(tmp_path)
+    persist_snapshot(tmp_path, source, _relationship_metadata())
+
+    projection = database_graph(tmp_path, "erp")
+
+    assert projection.complete
+    assert projection.scope == "DATABASE"
+    assert projection.snapshot_version == 1
+    assert len(projection.links) == 4
+    assert all((link.origin, link.status) == ("DATABASE", "CONFIRMED") for link in projection.links)
+    assert all(not node.selected for node in projection.nodes)
+    external = next(
+        node for node in projection.nodes if node.qualified_name == '"external"."legacy"'
+    )
+    assert not external.in_scope
+    assert '"public"."orders"' in {node.qualified_name for node in projection.nodes}
+
+
+def test_database_graph_fails_instead_of_emitting_partial_erd(tmp_path: Path) -> None:
+    source = _project(tmp_path)
+    persist_snapshot(tmp_path, source, _relationship_metadata())
+
+    with pytest.raises(QueryError) as error:
+        database_graph(tmp_path, "erp", node_limit=1)
+
+    assert error.value.code == "ERD_NODE_LIMIT_EXCEEDED"
+
+
+def test_erd_cli_creates_snapshot_named_html_and_never_overwrites(tmp_path: Path) -> None:
+    source = _project(tmp_path)
+    persist_snapshot(tmp_path, source, _relationship_metadata())
+    runner = CliRunner()
+    args = ["erd", "--source", "erp", "--project", str(tmp_path)]
+
+    created = runner.invoke(app, args)
+    output = tmp_path / ".graphit" / "exports" / "erp-snapshot-1-erd.html"
+
+    assert created.exit_code == 0
+    assert "Created whole-database ERD" in created.stdout
+    assert output.read_text(encoding="utf-8").startswith("<!doctype html>\n")
+    repeated = runner.invoke(app, args)
+    assert repeated.exit_code == 2
+    assert "OUTPUT_EXISTS" in repeated.output
 
 
 def test_graph_cli_json_and_exact_lookup_errors(tmp_path: Path) -> None:
