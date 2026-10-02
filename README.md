@@ -1,5 +1,7 @@
 # Graphit
 
+[![CI](https://github.com/OnurParapan/graphit-db/actions/workflows/ci.yml/badge.svg)](https://github.com/OnurParapan/graphit-db/actions/workflows/ci.yml)
+
 **Turn your database into compact context for AI coding agents.**
 
 Graphit is a local-first database knowledge layer for Codex, Claude, and SQL

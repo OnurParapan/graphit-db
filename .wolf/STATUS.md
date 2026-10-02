@@ -404,9 +404,9 @@
   Python 3.11–3.14, an ephemeral PostgreSQL 16 service, explicit integration
   opt-in, and pip check/Ruff/format/mypy/full pytest gates. Permissions are
   read-only and checkout credentials are not persisted. Local default suite:
-  228 passed, 4 skips (including opt-in PostgreSQL); other gates pass. There
-  GitHub workflow remained unverified at that point; `origin` is now configured
-  for the empty `OnurParapan/graphit-db` repository, but nothing is pushed yet.
+  228 passed, 4 skips (including opt-in PostgreSQL); other gates pass. The
+  GitHub workflow was unverified at that point; it later passed remotely in
+  run `37011201866` after the installed POSIX launcher fix.
 - Added canonical Apache-2.0 LICENSE and package metadata; an explicit source
   archive allowlist excludes local `.wolf`, `.codex`, and `.claude` state.
   Built wheel and sdist, inspected license/entry point/contents, installed the
@@ -521,8 +521,8 @@
   `docs/RELEASE_READINESS.md`. Corrected stale README/roadmap/product claims:
   views and direct impact exist, whereas indexes, transitive/application
   lineage, interactive/deep graph browsing, public installation, and proven
-  real-agent token savings do not. A Git remote now exists, but no commit or
-  observed CI run exists; remote validation and publication remain external
+  real-agent token savings do not. The repository is now public and remote CI
+  passes; installed-user agent validation and publication remain external
   release gates.
   The full local pytest suite passed with the already-cached tiktoken encoding
   explicitly selected (four skips). An uncached offline run initially failed
@@ -792,7 +792,7 @@ occurred. Establish isolation in a working environment before either arm.
 |---|---|---|
 | inspect | Full and compact raw evidence | Honest cross-pair diagnosis |
 | inspect | Scaled raw evidence and aggregate | Repeat-supported task-specific crossover |
-| external | Remote CI, installed-user Claude, and publication workflow | Public release evidence |
+| external | Installed-user Claude and publication workflow | Remaining public release evidence |
 
 ### Closed decisions
 

@@ -979,6 +979,12 @@ four test matrix jobs repeat the same pure-Python artifact build.
 **Revisit when:** The first remote CI run is available, when package versions
 become dynamic, or when release signing/provenance and publication are designed.
 
+**2026-10-02 evidence:** GitHub Actions run `37011201866` passed all four
+Python/PostgreSQL matrix jobs and the separate Python 3.14 distribution job.
+Two earlier package-job failures exposed that resolving a POSIX venv's Python
+symlink escaped the installed environment; preserving the absolute symlink path
+fixed the installed Codex/Claude MCP launcher smoke.
+
 The installed-wheel smoke also creates a disposable project and verifies its
 SQLite store, then runs Codex/Claude project setup and checks both generated
 stdio commands with MCP client handshakes/tool listings. It preserves seeded

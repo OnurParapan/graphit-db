@@ -57,8 +57,9 @@
   a working local CLI/MCP slice is not public availability or measured real-agent
   token savings. README's prior planned list was stale about view and direct
   impact support; index metadata, transitive/application lineage, and actual
-  Codex/Claude task validation remain gaps. Local `origin` points to the empty
-  `https://github.com/OnurParapan/graphit-db` repository; nothing is pushed yet.
+  Codex/Claude task validation remain gaps. The public repository is
+  `https://github.com/OnurParapan/graphit-db`; GitHub Actions run `37011201866`
+  passed Python 3.11–3.14 plus the isolated distribution/MCP smoke job.
 - Offline full pytest requires selecting the already-cached tiktoken encoding
   with `TIKTOKEN_CACHE_DIR=.cache/tiktoken` (resolved absolute path on Windows).
   Otherwise two benchmark tests try a blocked first-time network download;

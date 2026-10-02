@@ -73,8 +73,9 @@ Ruff lint/format checks, strict mypy, and the full pytest suite with the
 explicit disposable integration-test gate. The service password is a fixed
 test-only value inside the isolated CI job; no repository or user database
 credential is required. The job has read-only repository token permissions
-and a 15-minute timeout. A workflow file is not proof that remote CI has run:
-the first GitHub run still needs inspection.
+and a 15-minute timeout. GitHub Actions run
+[`37011201866`](https://github.com/OnurParapan/graphit-db/actions/runs/37011201866)
+passed all Python 3.11–3.14 matrix jobs with this PostgreSQL service.
 
 This CI verifies a small real catalog fixture, not 1,000–5,000-table stress,
 all PostgreSQL versions, package publication, or real Codex/Claude task
@@ -482,5 +483,6 @@ tool set, read-only annotations, and exact `get_column_impact`,
 `get_transitive_impact`, and `get_index_context` results within 15 seconds.
 It does not exercise the actual
 Codex/Claude UI or prove that
-machine-specific absolute paths survive moving the environment. This is a
-local-artifact gate, not a PyPI publication or remote CI run verification.
+machine-specific absolute paths survive moving the environment. The same gate
+passed remotely on Ubuntu/Python 3.14 in run `37011201866`; it is still not a
+PyPI publication or actual agent-application verification.

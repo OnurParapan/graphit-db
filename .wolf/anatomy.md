@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T13:09:51.085Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T13:12:45.302Z
 > Files: 161 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -13,7 +13,7 @@
 - `LICENSE` — Canonical Apache License 2.0 text (~3015 tok)
 - `NOTICE` (~27 tok)
 - `pyproject.toml` — Python project configuration (~482 tok)
-- `README.md` — Project documentation (~2820 tok)
+- `README.md` — Project documentation (~2859 tok)
 
 ## .claude/
 
@@ -49,16 +49,16 @@
 - `CLI.md` — Graphit — CLI Contract (~6963 tok)
 - `CODEX_START.md` — Graphit — Implementation Start Prompt (~236 tok)
 - `DATA_MODEL.md` — Graphit — Local Knowledge Model (~3622 tok)
-- `DECISIONS.md` — Graphit — Architecture Decision Log (~17239 tok)
+- `DECISIONS.md` — Graphit — Architecture Decision Log (~17329 tok)
 - `DEVELOPMENT.md` — Graphit — Development Guide (~745 tok)
 - `MCP.md` — Graphit — MCP Contract (~5527 tok)
 - `OPERATING_MODEL.md` — Graphit — Operating Model (~1173 tok)
 - `PRODUCT.md` — Graphit — Product Specification (~1156 tok)
 - `RELATIONSHIP_ENGINE.md` — Graphit — Relationship Discovery (~3203 tok)
-- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1303 tok)
+- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1326 tok)
 - `ROADMAP.md` — Graphit — Roadmap (~1123 tok)
 - `SECURITY.md` — Graphit — Security Model (~1027 tok)
-- `TESTING.md` — Graphit — Testing Strategy (~6972 tok)
+- `TESTING.md` — Graphit — Testing Strategy (~7007 tok)
 - `VISUALIZATION.md` — Graphit — Visualization (~1171 tok)
 
 ## docs/evidence/agent-eval-2026-10-02/
