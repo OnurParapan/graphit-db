@@ -84,11 +84,17 @@ jobs:
       - name: Inspect distribution contents and metadata
         run: python scripts/check_dist.py
 
-      - name: Smoke test isolated wheel installation
+      - name: Install wheel in isolated environment
         run: |
           python -m venv .package-smoke
           .package-smoke/bin/python -m pip install dist/*.whl
+
+      - name: Validate installed package and CLI
+        run: |
           .package-smoke/bin/python -m pip check
           .package-smoke/bin/graphit version
           .package-smoke/bin/graphit --help > /dev/null
+
+      - name: Smoke test installed init and MCP launchers
+        run: |
           .package-smoke/bin/python scripts/smoke_installed.py

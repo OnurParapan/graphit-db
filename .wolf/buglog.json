@@ -1644,6 +1644,42 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-138",
+      "timestamp": "2026-10-02T18:05:00+03:00",
+      "error_message": "GitHub CLI status checks failed because gh is not installed on this Windows environment.",
+      "file": "post-push CI verification",
+      "root_cause": "The repository was pushed through Git credential support, but the separate gh executable is absent from PATH.",
+      "fix": "Use GitHub's read-only REST API for repository, run, job, and check status without installing another tool.",
+      "tags": ["github", "cli", "environment"],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-139",
+      "timestamp": "2026-10-02T18:08:00+03:00",
+      "error_message": "The first public GitHub CI run passed Python 3.11-3.14 tests but failed its combined isolated-wheel smoke step; unauthenticated job-log download returned HTTP 403 admin required.",
+      "file": ".github/workflows/ci.yml; GitHub Actions run 37010340405",
+      "root_cause": "The workflow combined wheel installation, pip/CLI checks, and init/MCP smoke into one shell step, while the public API exposed only its aggregate exit code and not the authenticated log.",
+      "fix": "Split the smoke workflow into separately named install, package/CLI, and init/MCP steps so the next public check identifies the exact failing boundary without reading credentials.",
+      "tags": ["github-actions", "ci", "packaging", "diagnostics"],
+      "related_bugs": ["bug-138"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-140",
+      "timestamp": "2026-10-02T18:10:00+03:00",
+      "error_message": "A local WSL reproduction probe found Python 3.12 and venv support but no pip module or uv executable.",
+      "file": "WSL Ubuntu package-smoke reproduction",
+      "root_cause": "The existing WSL environment was prepared for isolated Codex evaluation, not Python package building.",
+      "fix": "Avoid changing the WSL system solely for diagnosis; improve CI step granularity and use its public job/step results first.",
+      "tags": ["wsl", "python", "pip", "ci"],
+      "related_bugs": ["bug-139"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }
