@@ -8,7 +8,10 @@ from pathlib import Path, PurePosixPath, PureWindowsPath
 def local_mcp_launch(root: Path) -> tuple[str, list[str]]:
     """Launch Graphit without relying on an agent's PATH or working directory."""
 
-    command = str(Path(sys.executable).resolve())
+    # Keep a virtual environment's interpreter path intact. On POSIX, resolving
+    # its `python` symlink can escape the environment and launch a base Python
+    # where Graphit and its dependencies are not installed.
+    command = str(Path(sys.executable).absolute())
     args = ["-m", "graphit", "mcp", "serve", "--project", str(root.resolve())]
     return command, args
 

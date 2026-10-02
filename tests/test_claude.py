@@ -29,7 +29,7 @@ def test_setup_creates_project_only_config(tmp_path: Path) -> None:
     entry = json.loads(path.read_text(encoding="utf-8"))["mcpServers"]["graphit"]
     assert entry == {
         "type": "stdio",
-        "command": str(Path(sys.executable).resolve()),
+        "command": str(Path(sys.executable).absolute()),
         "args": ["-m", "graphit", "mcp", "serve", "--project", str(tmp_path)],
     }
     assert "machine-specific" in result.stdout
@@ -118,7 +118,7 @@ def test_refresh_replaces_only_old_generated_claude_launcher(
     assert config["mcpServers"]["other"] == {"command": "other"}
     assert config["mcpServers"]["graphit"] == {
         "type": "stdio",
-        "command": str(Path(sys.executable).resolve()),
+        "command": str(Path(sys.executable).absolute()),
         "args": ["-m", "graphit", "mcp", "serve", "--project", str(tmp_path)],
     }
     assert runner.invoke(app, arguments + ["--refresh"]).exit_code == 0

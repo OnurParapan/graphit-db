@@ -984,9 +984,11 @@ SQLite store, then runs Codex/Claude project setup and checks both generated
 stdio commands with MCP client handshakes/tool listings. It preserves seeded
 unrelated project settings, uses the installed interpreter, and closes its
 read-only SQLite inspection connection before removing the temporary project.
-The commands contain absolute interpreter and project paths, so this check
-does not establish portability after moving either location or actual agent
-application loading/approval.
+The absolute interpreter path deliberately preserves a POSIX virtual
+environment's `python` symlink; resolving it would escape to the base Python
+and lose the installed package. The commands contain absolute interpreter and
+project paths, so this check does not establish portability after moving
+either location or actual agent application loading/approval.
 
 ## ADR-058 — Explicit refresh of stale project MCP launchers
 

@@ -29,7 +29,7 @@ def test_setup_creates_project_only_config(tmp_path: Path) -> None:
     assert result.exit_code == 0
     assert path.is_file()
     entry = tomllib.loads(path.read_text(encoding="utf-8"))["mcp_servers"]["graphit"]
-    assert entry["command"] == str(Path(sys.executable).resolve())
+    assert entry["command"] == str(Path(sys.executable).absolute())
     assert entry["args"] == ["-m", "graphit", "mcp", "serve", "--project", str(tmp_path)]
     assert "password" not in path.read_text(encoding="utf-8").lower()
 
@@ -155,7 +155,7 @@ def test_refresh_replaces_only_old_generated_codex_launcher(
     updated = path.read_bytes()
     assert updated.startswith(original)
     entry = tomllib.loads(updated.decode("utf-8"))["mcp_servers"]["graphit"]
-    assert entry["command"] == str(Path(sys.executable).resolve())
+    assert entry["command"] == str(Path(sys.executable).absolute())
     assert entry["args"][-1] == str(tmp_path)
     assert runner.invoke(app, arguments + ["--refresh"]).exit_code == 0
     assert path.read_bytes() == updated

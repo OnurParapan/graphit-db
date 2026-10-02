@@ -1680,6 +1680,30 @@
       "related_bugs": ["bug-139"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-141",
+      "timestamp": "2026-10-02T18:18:00+03:00",
+      "error_message": "The second public CI run proved wheel installation and CLI checks pass, but installed init/MCP smoke fails on Ubuntu.",
+      "file": "src/graphit/mcp_launcher.py; GitHub Actions run 37010719539",
+      "root_cause": "local_mcp_launch resolved sys.executable. POSIX venv Python is a symlink, so resolution escaped .package-smoke to the base interpreter where Graphit was not installed; Windows venv executables did not expose this.",
+      "fix": "Use the absolute active interpreter path without dereferencing symlinks, update launcher expectations, and add a symlink regression test before rerunning installed-wheel CI.",
+      "tags": ["github-actions", "linux", "venv", "symlink", "mcp"],
+      "related_bugs": ["bug-139"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-142",
+      "timestamp": "2026-10-02T18:19:00+03:00",
+      "error_message": "The first combined MCP launcher fix patch failed because the expected docs/MCP.md sentence came from docs/TESTING.md instead.",
+      "file": "docs/MCP.md; src/graphit/mcp_launcher.py; related tests",
+      "root_cause": "A cross-file documentation phrase was applied as patch context in the wrong document.",
+      "fix": "Confirmed no partial changes, applied the code/tests independently, then reread and patched the exact MCP and decision sections.",
+      "tags": ["patch", "documentation", "mcp"],
+      "related_bugs": ["bug-130"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

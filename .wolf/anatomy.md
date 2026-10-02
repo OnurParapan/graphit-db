@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T13:05:21.356Z
-> Files: 160 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T13:09:51.085Z
+> Files: 161 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -49,9 +49,9 @@
 - `CLI.md` — Graphit — CLI Contract (~6963 tok)
 - `CODEX_START.md` — Graphit — Implementation Start Prompt (~236 tok)
 - `DATA_MODEL.md` — Graphit — Local Knowledge Model (~3622 tok)
-- `DECISIONS.md` — Graphit — Architecture Decision Log (~17194 tok)
+- `DECISIONS.md` — Graphit — Architecture Decision Log (~17239 tok)
 - `DEVELOPMENT.md` — Graphit — Development Guide (~745 tok)
-- `MCP.md` — Graphit — MCP Contract (~5493 tok)
+- `MCP.md` — Graphit — MCP Contract (~5527 tok)
 - `OPERATING_MODEL.md` — Graphit — Operating Model (~1173 tok)
 - `PRODUCT.md` — Graphit — Product Specification (~1156 tok)
 - `RELATIONSHIP_ENGINE.md` — Graphit — Relationship Discovery (~3203 tok)
@@ -279,7 +279,7 @@
   - fn `_declared_source_columns` L275-330 (~714 tok)
   - fn `_candidate` L331-353 (~281 tok)
   - fn `preview_candidates` L354-476 (~1552 tok)
-- `mcp_launcher.py` — Stable local subprocess command for the installed Graphit package. (~379 tok)
+- `mcp_launcher.py` — Stable local subprocess command for the installed Graphit package. (~442 tok)
 - `mcp_server.py` — Read-only stdio MCP tools backed by Graphit's local query services. (~4895 tok)
   - fn `_compact_graph` L91-141 (~583 tok)
   - fn `_result` L142-164 (~309 tok)
@@ -420,9 +420,9 @@
   - fn `test_scaled_bundle_is_complete_stable_and_cli_selectable` L83-119 (~380 tok)
   - fn `test_bundle_refuses_existing_output_without_touching_it` L120-130 (~129 tok)
   - fn `test_baseline_rejects_missing_fk_and_truncation` L131-151 (~271 tok)
-- `test_claude.py` — Claude Code project MCP setup preserves existing settings and starts Graphit. (~1678 tok)
+- `test_claude.py` — Claude Code project MCP setup preserves existing settings and starts Graphit. (~1679 tok)
   - fn `_setup_project` L18-22 (~29 tok)
-  - fn `test_setup_creates_project_only_config` L23-38 (~168 tok)
+  - fn `test_setup_creates_project_only_config` L23-38 (~169 tok)
   - fn `test_setup_preserves_existing_settings_and_is_idempotent` L39-78 (~409 tok)
   - fn `test_setup_rejects_conflicting_or_invalid_config` L79-92 (~140 tok)
   - fn `test_refresh_replaces_only_old_generated_claude_launcher` L93-127 (~424 tok)
@@ -445,9 +445,9 @@
   - fn `test_show_cli_not_found_exit_code` L325-336 (~144 tok)
   - fn `test_relationships_cli_human_json_and_error` L337-394 (~570 tok)
   - fn `test_path_cli_human_json_and_budget_error` L395-450 (~604 tok)
-- `test_codex.py` — Project-local Codex MCP setup leaves other settings untouched. (~2433 tok)
+- `test_codex.py` — Project-local Codex MCP setup leaves other settings untouched. (~2434 tok)
   - fn `_setup_project` L19-23 (~33 tok)
-  - fn `test_setup_creates_project_only_config` L24-36 (~161 tok)
+  - fn `test_setup_creates_project_only_config` L24-36 (~162 tok)
   - fn `test_setup_preserves_existing_config_and_is_idempotent` L37-53 (~195 tok)
   - fn `test_setup_compact_tools_is_explicit_and_idempotent` L54-68 (~172 tok)
   - fn `test_setup_switches_between_compact_and_full_only_with_refresh` L69-89 (~255 tok)
@@ -595,6 +595,7 @@
   - fn `test_mcp_index_ambiguous_relation` L128-135 (~94 tok)
   - fn `test_mcp_index_response_ceiling` L136-144 (~116 tok)
   - fn `test_mcp_index_real_stdio` L145-160 (~174 tok)
+- `test_mcp_launcher.py` — Regression coverage for portable local MCP subprocess launchers. (~293 tok)
 - `test_mcp_server.py` — MCP tools expose bounded saved context without querying source databases. (~6392 tok)
   - fn `_json_content` L34-43 (~82 tok)
   - fn `anyio_backend` L44-47 (~15 tok)

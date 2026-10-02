@@ -72,7 +72,9 @@ Or pass `--project PATH`. This writes only that project's `.codex/config.toml`,
 adding `[mcp_servers.graphit]` with a local stdio launcher. It uses the absolute
 Python interpreter running the installed Graphit package and an absolute
 `--project` path, so Codex does not depend on its current working directory or
-on `graphit` being on its own PATH. The command does not scan the source database,
+on `graphit` being on its own PATH. A POSIX virtual environment's interpreter
+symlink is preserved instead of being resolved to a base Python that may not
+contain Graphit. The command does not scan the source database,
 write credentials, change global Codex settings, or modify `AGENTS.md`. Existing
 Codex config bytes and comments are preserved. Re-running the same setup is a
 no-op; a different Graphit entry or invalid TOML is an error requiring manual
