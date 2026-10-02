@@ -1,0 +1,9 @@
+From `baseline.json`:
+
+- Constraint: `payment_customer_fk`
+- Source table: `sales.payment`
+- Target table: `crm.customer`
+- Ordered column pair: `(customer_id, id)` — `sales.payment.customer_id → crm.customer.id`
+- Target in scan scope: **Yes** (`target_in_scope: true`)
+
+**No**, this declared FK does not also point to `legacy.customer.id`; no second relationship is declared.

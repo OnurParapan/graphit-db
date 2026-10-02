@@ -1,0 +1,9 @@
+In the saved `erp` schema:
+
+- Constraint: `payment_customer_fk`
+- Source table: `sales.payment`
+- Target table: `crm.customer`
+- Ordered column pair: `customer_id` → `id`
+- Target in scan scope: **Yes**
+
+**No**, this declared FK does not also point to `legacy.customer.id`; its declared target is `crm.customer.id`.

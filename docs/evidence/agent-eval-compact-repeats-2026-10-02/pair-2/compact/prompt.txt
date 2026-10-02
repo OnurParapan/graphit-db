@@ -1,0 +1,5 @@
+Use only the project-local Graphit MCP tools and source name erp. Do not use web search, external files, a live database, or inferred name matches.
+
+Task: In the saved erp schema, identify the database-declared relationship from sales.payment.customer_id. Report its constraint name, source and target tables, ordered column pair, and whether the target is in scan scope. Does that declared FK also point to legacy.customer.id? Do not infer a second relationship from matching names.
+
+Return a concise final answer.

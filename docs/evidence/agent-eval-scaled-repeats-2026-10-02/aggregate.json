@@ -1,0 +1,36 @@
+{
+  "protocol_minimum_met": true,
+  "success": {
+    "compact": {"passed": 3, "total": 3},
+    "baseline": {"passed": 3, "total": 3}
+  },
+  "runs": [
+    {"pair": 1, "arm": "compact", "input_tokens": 51139, "cached_input_tokens": 45056, "non_cached_input_tokens": 6083, "output_tokens": 174, "reasoning_output_tokens": 0, "wall_seconds": 16.25, "call_count": 1},
+    {"pair": 1, "arm": "baseline", "input_tokens": 53635, "cached_input_tokens": 39040, "non_cached_input_tokens": 14595, "output_tokens": 182, "reasoning_output_tokens": 0, "wall_seconds": 15.59, "call_count": 2},
+    {"pair": 2, "arm": "compact", "input_tokens": 49052, "cached_input_tokens": 41472, "non_cached_input_tokens": 7580, "output_tokens": 176, "reasoning_output_tokens": 0, "wall_seconds": 18.33, "call_count": 1},
+    {"pair": 2, "arm": "baseline", "input_tokens": 55713, "cached_input_tokens": 42624, "non_cached_input_tokens": 13089, "output_tokens": 179, "reasoning_output_tokens": 0, "wall_seconds": 16.86, "call_count": 2},
+    {"pair": 3, "arm": "compact", "input_tokens": 49058, "cached_input_tokens": 36864, "non_cached_input_tokens": 12194, "output_tokens": 178, "reasoning_output_tokens": 0, "wall_seconds": 15.03, "call_count": 1},
+    {"pair": 3, "arm": "baseline", "input_tokens": 68597, "cached_input_tokens": 53504, "non_cached_input_tokens": 15093, "output_tokens": 240, "reasoning_output_tokens": 0, "wall_seconds": 19.58, "call_count": 3}
+  ],
+  "aggregate": {
+    "compact": {
+      "input_tokens": {"mean": 49749.6667, "median": 49058},
+      "cached_input_tokens": {"mean": 41130.6667, "median": 41472},
+      "non_cached_input_tokens": {"mean": 8619, "median": 7580},
+      "output_tokens": {"mean": 176, "median": 176},
+      "wall_seconds": {"mean": 16.5367, "median": 16.25}
+    },
+    "baseline": {
+      "input_tokens": {"mean": 59315, "median": 55713},
+      "cached_input_tokens": {"mean": 45056, "median": 42624},
+      "non_cached_input_tokens": {"mean": 14259, "median": 14595},
+      "output_tokens": {"mean": 200.3333, "median": 182},
+      "wall_seconds": {"mean": 17.3433, "median": 16.86}
+    }
+  },
+  "paired_differences_compact_minus_baseline": [
+    {"pair": 1, "input_tokens": -2496, "non_cached_input_tokens": -8512, "wall_seconds": 0.66},
+    {"pair": 2, "input_tokens": -6661, "non_cached_input_tokens": -5509, "wall_seconds": 1.47},
+    {"pair": 3, "input_tokens": -19539, "non_cached_input_tokens": -2899, "wall_seconds": -4.55}
+  ]
+}

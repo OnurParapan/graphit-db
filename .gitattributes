@@ -1,0 +1,13 @@
+* text=auto
+
+*.py text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Preserve the exact captured evaluation bytes and their published checksums.
+docs/evidence/** -whitespace

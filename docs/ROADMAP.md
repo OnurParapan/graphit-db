@@ -1,0 +1,145 @@
+# Graphit — Roadmap
+
+This is the target sequence, not a list of completed phases. See
+[MVP and release readiness](RELEASE_READINESS.md) for evidence and gaps as of
+2026-10-02. Package/init/SQLite, PostgreSQL table/view/constraint scanning,
+local queries, fourteen MCP tools, conservative review, direct and bounded
+transitive FK impact, and
+one-hop exports are implemented. Index scanning, local persistence, and an
+explicit bounded CLI/MCP lookup now exist. Phase
+exits that demand measured useful inference, application lineage, or multi-hop
+interactive graph exploration have **not** been met. Actual Codex context
+delivery now has separate three-pair small and scaled measurements; the local
+HTML graph now has search and relationship-type filters.
+
+A bounded transitive declared-FK table impact query is implemented through
+CLI/MCP. Validation as a useful agent workflow remains open.
+
+## Phase 0 — Package foundation
+
+- installable Python 3.11+ package,
+- Typer console entry point,
+- version command,
+- pytest, Ruff, and mypy,
+- release-oriented repository layout.
+
+Exit: package installs locally and quality gates pass.
+
+## Phase 1 — Project initialization
+
+- `graphit init`,
+- `graphit.toml`,
+- `.graphit/` creation and Git ignore handling,
+- project discovery,
+- safe Codex/Claude integration detection,
+- idempotency and `--force` behavior.
+
+Exit: a user can initialize an existing repository without installing services.
+
+## Phase 2 — Local knowledge store
+
+- SQLite connection and pragmas,
+- transactional internal migrations,
+- source configuration persistence,
+- scan/snapshot/object/edge tables,
+- store status and recovery errors.
+
+Exit: Graphit can create, migrate, reopen, and validate its local store.
+
+## Phase 3 — PostgreSQL source connection
+
+- source add/list/show/remove,
+- environment-based credentials,
+- SSL modes,
+- read-only connection test,
+- timeout and sanitized errors.
+
+Exit: a user can safely validate a PostgreSQL source.
+
+## Phase 4 — Metadata scanner
+
+- scanner protocol,
+- schemas, tables, columns,
+- data types and nullability,
+- PKs, unique constraints, and FKs,
+- indexes, views, and materialized views,
+- quoted identifiers and multiple schemas.
+
+Exit: a real PostgreSQL schema becomes a complete immutable local snapshot.
+
+## Phase 5 — Explicit knowledge graph
+
+- normalized nodes and edges,
+- table/column/key graph,
+- object search,
+- incoming/outgoing relationships,
+- bounded neighborhood and shortest path,
+- repeatable rescans.
+
+Exit: CLI can answer structural questions without source connectivity.
+
+## Phase 6 — MCP and progressive context
+
+- official Python MCP SDK,
+- stdio transport,
+- overview/search/table/relationship/path tools,
+- deterministic `get_relevant_context`,
+- strict response budgets,
+- agent wiring documentation.
+
+Exit: Codex or Claude can query Graphit before requesting schema dumps.
+
+## Phase 7 — Inferred relationships
+
+- normalization and candidate funnel,
+- type/key/name evidence,
+- optional bounded sampling,
+- deterministic scoring,
+- confidence bands and explanations,
+- precision benchmark.
+
+Exit: undeclared logical relations are useful and clearly labeled.
+
+## Phase 8 — Review and impact
+
+- approve/reject/suppress/restore,
+- decision reconciliation across snapshots,
+- upstream/downstream traversal,
+- path explanations,
+- bounded impact summaries.
+
+Exit: users can curate inference and assess schema-change blast radius.
+
+## Phase 9 — ERD-style visualization
+
+- stable JSON projection,
+- DOT export,
+- self-contained interactive HTML,
+- filters, search, and evidence detail (implemented for the bounded one-hop
+  projection),
+- depth controls and expand/collapse (future),
+- accessible list representation.
+
+Exit: users can search and filter a useful bounded local graph without running
+a server; multi-hop interactive exploration remains open.
+
+## Phase 10 — History and lineage
+
+- snapshot diff,
+- initial exact local schema/relation/column diff is implemented through
+  `graphit diff`; declared key/FK changes are now included, while index and
+  view-definition/lineage drift remain later slices,
+- schema drift summaries,
+- supported PostgreSQL view lineage,
+- table-level then resolvable column-level lineage.
+
+## Later, only with evidence
+
+- standalone binaries,
+- MySQL/SQL Server/Oracle adapters,
+- source-code references,
+- optional shared/team metadata service,
+- optional local server UI,
+- optional semantic ranking.
+
+These are not allowed to increase MVP installation friction prematurely.

@@ -1,0 +1,364 @@
+"""Offline interactive HTML/SVG rendering of one bounded graph projection."""
+
+import base64
+import hashlib
+from collections import Counter
+from html import escape
+
+from graphit.graph_export import GraphLink, GraphNode, GraphProjection
+
+_STYLE = """
+body{font:16px/1.5 system-ui,sans-serif;color:#17212b;background:#f7f9fc;margin:0}
+main{max-width:1280px;margin:auto;padding:1.25rem}
+h1,h2{line-height:1.2} .muted{color:#45576b}
+.warning{border:2px solid #8a4b00;background:#fff4d9;padding:.75rem}
+.legend{display:flex;flex-wrap:wrap;gap:1rem;margin:1rem 0}
+.legend span{border-left:5px solid #274c77;padding-left:.5rem}
+.legend .approved{border-color:#176b4b}
+.legend .manual{border-color:#854d0e}
+.graph{overflow:auto;max-height:70vh;border:1px solid #9bacc0;background:white}
+svg{display:block;min-width:900px;max-width:none}
+svg .edge-fk path{fill:none;stroke:#274c77;stroke-width:2}
+svg .edge-approved path{fill:none;stroke:#176b4b;stroke-width:3}
+svg .edge-manual path{fill:none;stroke:#854d0e;stroke-width:3;stroke-dasharray:8 4}
+svg .edge-label{fill:#17212b;font-size:12px;font-weight:700}
+svg .edge-label{paint-order:stroke;stroke:white;stroke-width:4}
+svg .node rect{fill:white;stroke:#273b50;stroke-width:2}
+svg .node.selected rect{stroke-width:4}
+svg .node.external rect{stroke-dasharray:7 4}
+svg .node text{fill:#17212b;font-size:13px}
+ol{padding-left:1.5rem} li{margin:.7rem 0;overflow-wrap:anywhere}
+code{background:#e9eef5;padding:.1rem .25rem}
+details{margin:.5rem 0} summary{cursor:pointer} summary:focus-visible{outline:3px solid #274c77}
+.controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:end;padding:1rem;
+border:1px solid #9bacc0;background:white;margin:1rem 0}
+.controls label{display:grid;gap:.25rem;font-weight:700}
+.controls input,.controls select,.controls button{font:inherit;padding:.45rem .6rem}
+.controls input{min-width:min(28rem,70vw)}
+[hidden]{display:none!important}.filter-status{min-height:1.5rem}
+""".strip()
+
+_SCRIPT = """(() => {
+"use strict";
+const search = document.querySelector("#graph-search");
+const kind = document.querySelector("#relationship-filter");
+const reset = document.querySelector("#reset-filters");
+const status = document.querySelector("#filter-status");
+const edges = [...document.querySelectorAll("svg [data-edge]")];
+const nodes = [...document.querySelectorAll("svg [data-node]")];
+const tableRows = [...document.querySelectorAll("[data-table]")];
+const relationshipRows = [...document.querySelectorAll("[data-relationship]")];
+function applyFilters() {
+  const query = search.value.trim().toLocaleLowerCase();
+  const requestedKind = kind.value;
+  const visibleNodes = new Set();
+  let visibleRelationships = 0;
+  for (const edge of edges) {
+    const visible = (!query || edge.dataset.search.includes(query)) &&
+      (requestedKind === "all" || edge.dataset.kind === requestedKind);
+    edge.toggleAttribute("hidden", !visible);
+    if (visible) {
+      visibleNodes.add(edge.dataset.source);
+      visibleNodes.add(edge.dataset.target);
+    }
+  }
+  for (const row of relationshipRows) {
+    const visible = (!query || row.dataset.search.includes(query)) &&
+      (requestedKind === "all" || row.dataset.kind === requestedKind);
+    row.toggleAttribute("hidden", !visible);
+    if (visible) visibleRelationships += 1;
+  }
+  const active = query !== "" || requestedKind !== "all";
+  let visibleTables = 0;
+  for (const node of nodes) {
+    const visible = !active || node.dataset.selected === "true" ||
+      visibleNodes.has(node.dataset.node) || (query && node.dataset.search.includes(query));
+    node.toggleAttribute("hidden", !visible);
+  }
+  for (const row of tableRows) {
+    const visible = !active || row.dataset.selected === "true" ||
+      visibleNodes.has(row.dataset.node) || (query && row.dataset.search.includes(query));
+    row.toggleAttribute("hidden", !visible);
+    if (visible) visibleTables += 1;
+  }
+  status.textContent = `${visibleTables} tables and ${visibleRelationships} relationships shown.`;
+}
+search.addEventListener("input", applyFilters);
+kind.addEventListener("change", applyFilters);
+reset.addEventListener("click", () => {
+  search.value = "";
+  kind.value = "all";
+  applyFilters();
+  search.focus();
+});
+applyFilters();
+})();"""
+
+_SCRIPT_HASH = base64.b64encode(hashlib.sha256(_SCRIPT.encode("utf-8")).digest()).decode("ascii")
+
+
+def _link_kind(link: GraphLink) -> tuple[str, str]:
+    if (link.origin, link.status) == ("DATABASE", "CONFIRMED"):
+        return "FK", "edge-fk"
+    if (link.origin, link.status) == ("INFERRED", "APPROVED"):
+        return "APPROVED", "edge-approved"
+    if (link.origin, link.status) == ("MANUAL", "APPROVED") and link.reason:
+        return "MANUAL", "edge-manual"
+    raise ValueError("HTML rendering accepts only confirmed FKs and approved logical links.")
+
+
+def _positions(projection: GraphProjection) -> tuple[dict[str, tuple[int, int]], int]:
+    focus = projection.focus_table
+    if not any(node.qualified_name == focus for node in projection.nodes):
+        raise ValueError("Focus table is missing from projection nodes.")
+    incoming = {
+        link.source_table
+        for link in projection.links
+        if link.target_table == focus and link.source_table != focus
+    }
+    outgoing = {
+        link.target_table
+        for link in projection.links
+        if link.source_table == focus and link.target_table != focus
+    }
+    other_nodes = sorted(
+        node.qualified_name for node in projection.nodes if node.qualified_name != focus
+    )
+    left = [name for name in other_nodes if name in incoming and name not in outgoing]
+    right = [name for name in other_nodes if name not in left]
+    height = max(len(left), len(right), 1) * 86 + 160
+    positions = {focus: (600, height // 2)}
+    positions.update({name: (200, 110 + index * 86) for index, name in enumerate(left)})
+    positions.update({name: (1000, 110 + index * 86) for index, name in enumerate(right)})
+    return positions, height
+
+
+def _node_svg(node: GraphNode, x: int, y: int) -> str:
+    classes = ["node"]
+    if node.selected:
+        classes.append("selected")
+    if not node.in_scope:
+        classes.append("external")
+    label = node.qualified_name
+    if len(label) > 30:
+        label = label[:29] + "…"
+    scope = " (outside scan scope)" if not node.in_scope else ""
+    return (
+        f'<g class="{" ".join(classes)}" data-node="{escape(node.qualified_name)}" '
+        f'data-search="{escape(node.qualified_name.lower())}" '
+        f'data-selected="{str(node.selected).lower()}">'
+        f"<title>{escape(node.qualified_name + scope)}</title>"
+        f'<rect x="{x - 120}" y="{y - 25}" width="240" height="50" rx="8"/>'
+        f'<text x="{x}" y="{y + 5}" text-anchor="middle">{escape(label)}</text>'
+        "</g>"
+    )
+
+
+def _edge_svg(link: GraphLink, positions: dict[str, tuple[int, int]], offset: int) -> str:
+    kind, css_class = _link_kind(link)
+    source = positions.get(link.source_table)
+    target = positions.get(link.target_table)
+    if source is None or target is None:
+        raise ValueError("Graph link endpoint is missing from projection nodes.")
+    sx, sy = source
+    tx, ty = target
+    sy += offset
+    ty += offset
+    if source == target:
+        path = (
+            f"M {sx + 120} {sy - 12} C {sx + 220} {sy - 85}, "
+            f"{sx + 220} {sy + 85}, {sx + 120} {sy + 12}"
+        )
+        label_x, label_y = sx + 205, sy
+    else:
+        x1 = sx + (120 if sx < tx else -120)
+        x2 = tx + (-120 if sx < tx else 120)
+        path = f"M {x1} {sy} L {x2} {ty}"
+        label_x, label_y = (x1 + x2) // 2, (sy + ty) // 2 - 8
+    heading = (
+        f"FK {link.name or '(unnamed)'}"
+        if kind == "FK"
+        else "Human-approved manual link"
+        if kind == "MANUAL"
+        else "Human-approved logical link"
+    )
+    tooltip = (
+        heading
+        + ": "
+        + "; ".join(
+            f"{source_column} → {target_column}"
+            for source_column, target_column in link.column_pairs
+        )
+    )
+    search_text = " ".join(
+        (
+            link.name or "",
+            link.source_table,
+            link.target_table,
+            *(item for pair in link.column_pairs for item in pair),
+        )
+    ).lower()
+    return (
+        f'<g class="{css_class}" data-edge data-kind="{kind.lower()}" '
+        f'data-source="{escape(link.source_table)}" '
+        f'data-target="{escape(link.target_table)}" '
+        f'data-search="{escape(search_text)}"><title>{escape(tooltip)}</title>'
+        f'<path d="{path}" marker-end="url(#{css_class}-arrow)"/>'
+        f'<text class="edge-label" x="{label_x}" y="{label_y}" '
+        f'text-anchor="middle">{kind}</text></g>'
+    )
+
+
+def _graph_svg(projection: GraphProjection) -> str:
+    positions, height = _positions(projection)
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 {height}" '
+        f'width="1200" height="{height}" role="img" aria-labelledby="graph-title graph-desc">',
+        '<title id="graph-title">One-hop database relationship graph</title>',
+        '<desc id="graph-desc">Exact table and relationship details '
+        "follow below the diagram.</desc>",
+        '<defs><marker id="edge-fk-arrow" markerWidth="10" markerHeight="10" '
+        'refX="8" refY="5" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" '
+        'fill="#274c77"/></marker><marker id="edge-approved-arrow" '
+        'markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">'
+        '<path d="M 0 0 L 9 5 L 0 10 z" fill="#176b4b"/></marker>'
+        '<marker id="edge-manual-arrow" markerWidth="10" markerHeight="10" '
+        'refX="8" refY="5" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" '
+        'fill="#854d0e"/></marker></defs>',
+    ]
+    totals = Counter((link.source_table, link.target_table) for link in projection.links)
+    seen: Counter[tuple[str, str]] = Counter()
+    for link in projection.links:
+        key = link.source_table, link.target_table
+        offset = round((seen[key] - (totals[key] - 1) / 2) * 8)
+        seen[key] += 1
+        parts.append(_edge_svg(link, positions, offset))
+    for node in projection.nodes:
+        parts.append(_node_svg(node, *positions[node.qualified_name]))
+    parts.append("</svg>")
+    return "\n".join(parts)
+
+
+def _relationship_list(projection: GraphProjection) -> str:
+    if not projection.links:
+        return "<p>No confirmed or human-approved relationships in this neighborhood.</p>"
+    items = []
+    for link in projection.links:
+        kind, _ = _link_kind(link)
+        heading = (
+            f"FK {link.name or '(unnamed)'}"
+            if kind == "FK"
+            else "Human-approved manual link"
+            if kind == "MANUAL"
+            else "Human-approved logical link"
+        )
+        facts = []
+        if kind == "FK":
+            if link.validated is False:
+                facts.append("not validated")
+            if link.inherited:
+                facts.append("inherited")
+            if not link.target_in_scope:
+                facts.append("target outside scan scope")
+        elif link.confidence is not None:
+            facts.append(f"metadata score {link.confidence:.2f}; not a probability")
+        if kind == "MANUAL" and link.reason:
+            facts.append(f"Human reason: {link.reason}")
+        pairs = "".join(
+            f"<li><code>{escape(source)}</code> → <code>{escape(target)}</code></li>"
+            for source, target in link.column_pairs
+        )
+        evidence = ""
+        if link.evidence:
+            signals = "".join(
+                f"<li>{escape(item.signal)}: {item.score:.2f} × {item.weight:.2f}"
+                f" — {escape(item.detail)}</li>"
+                for item in link.evidence
+            )
+            evidence = f"<details><summary>Metadata evidence</summary><ul>{signals}</ul></details>"
+        note = f"<p>{escape('; '.join(facts))}</p>" if facts else ""
+        search_text = " ".join(
+            (
+                heading,
+                link.source_table,
+                link.target_table,
+                *(item for pair in link.column_pairs for item in pair),
+                link.reason or "",
+            )
+        ).lower()
+        items.append(
+            f'<li data-relationship data-kind="{kind.lower()}" '
+            f'data-search="{escape(search_text)}"><strong>{escape(heading)}</strong> '
+            f"<code>{escape(link.source_table)}</code> → "
+            f"<code>{escape(link.target_table)}</code>{note}<ol>{pairs}</ol>{evidence}</li>"
+        )
+    return "<ol>" + "".join(items) + "</ol>"
+
+
+def render_html(projection: GraphProjection) -> str:
+    """Render a complete offline document with hash-authorized local interaction."""
+
+    warnings = []
+    if projection.fk_truncated:
+        warnings.append("foreign keys")
+    if projection.approved_truncated:
+        warnings.append("approved links")
+    if projection.manual_truncated:
+        warnings.append("manual links")
+    warning = (
+        '<p class="warning" role="status">Partial graph: more '
+        + escape(" and ".join(warnings))
+        + " exist beyond the safety limit.</p>"
+        if warnings
+        else ""
+    )
+    nodes = "".join(
+        f'<li data-table data-node="{escape(node.qualified_name)}" '
+        f'data-search="{escape(node.qualified_name.lower())}" '
+        f'data-selected="{str(node.selected).lower()}"><code>'
+        f"{escape(node.qualified_name)}</code>"
+        + (" — selected" if node.selected else "")
+        + (" — outside scan scope" if not node.in_scope else "")
+        + "</li>"
+        for node in projection.nodes
+    )
+    return (
+        "\n".join(
+            (
+                "<!doctype html>",
+                '<html lang="en"><head><meta charset="utf-8">',
+                '<meta name="viewport" content="width=device-width, initial-scale=1">',
+                '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; '
+                f"style-src 'unsafe-inline'; script-src 'sha256-{_SCRIPT_HASH}'; "
+                "img-src data:; object-src 'none'; base-uri 'none'\">",
+                f"<title>Graphit: {escape(projection.focus_table)}</title>",
+                f"<style>{_STYLE}</style></head><body><main>",
+                f"<h1>Graphit: {escape(projection.focus_table)}</h1>",
+                f'<p class="muted">Source <code>{escape(projection.source_name)}</code> · '
+                f"snapshot {projection.snapshot_version} · depth {projection.depth} · "
+                f"{len(projection.nodes)} tables · {len(projection.links)} links</p>",
+                warning,
+                '<p class="legend"><span>FK: database-confirmed</span>'
+                '<span class="approved">APPROVED: human logical link, not a database FK</span>'
+                '<span class="manual">MANUAL: human-approved reason, not a database FK</span></p>',
+                '<section class="controls" aria-label="Graph filters">'
+                '<label for="graph-search">Search tables, columns, or constraints'
+                '<input id="graph-search" type="search" autocomplete="off"></label>'
+                '<label for="relationship-filter">Relationship type'
+                '<select id="relationship-filter"><option value="all">All</option>'
+                '<option value="fk">Database FK</option>'
+                '<option value="approved">Approved inferred</option>'
+                '<option value="manual">Approved manual</option></select></label>'
+                '<button id="reset-filters" type="button">Reset</button></section>',
+                '<p id="filter-status" class="muted filter-status" aria-live="polite"></p>',
+                '<noscript><p class="warning">Search and filters require browser JavaScript; '
+                "the complete accessible lists remain available below.</p></noscript>",
+                f'<div class="graph">{_graph_svg(projection)}</div>',
+                "<h2>Tables</h2><ul>" + nodes + "</ul>",
+                "<h2>Relationships and columns</h2>" + _relationship_list(projection),
+                f"<script>{_SCRIPT}</script>",
+                "</main></body></html>",
+            )
+        )
+        + "\n"
+    )

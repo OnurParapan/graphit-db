@@ -1,0 +1,5176 @@
+{
+  "version": 1,
+  "meta": {
+    "lastScanned": "2026-10-02T13:01:15.389Z",
+    "fileCount": 160,
+    "hits": 0,
+    "misses": 0,
+    "renderedHash": "84ff8aaad37461c40f6fdd5acc9b755da766617db27154c68362884c206b299a",
+    "storeUpdatedAt": "2026-10-02T13:01:15.392Z"
+  },
+  "files": {
+    ".claude/commands/reframe.md": {
+      "description": "Mode: migrate [framework]",
+      "tokens": 551,
+      "hash": "17a75695be5d4629",
+      "size": 2221,
+      "mtimeMs": 1789538356605.9893,
+      "updatedAt": "2026-10-02T13:01:15.337Z",
+      "source": "scan"
+    },
+    ".claude/commands/security-audit.md": {
+      "description": "Layer 1 — Dependencies",
+      "tokens": 510,
+      "hash": "e6f7e0b7337c9c86",
+      "size": 2060,
+      "mtimeMs": 1789538356603.9878,
+      "updatedAt": "2026-10-02T13:01:15.338Z",
+      "source": "scan"
+    },
+    ".claude/rules/openwolf.md": {
+      "description": "",
+      "tokens": 328,
+      "hash": "6d735b2c1c54a916",
+      "size": 1323,
+      "mtimeMs": 1789538356429.0818,
+      "updatedAt": "2026-10-02T13:01:15.340Z",
+      "source": "scan"
+    },
+    ".claude/settings.json": {
+      "description": "",
+      "tokens": 514,
+      "hash": "f68759bb50af5ee4",
+      "size": 1799,
+      "mtimeMs": 1789538356421.3833,
+      "updatedAt": "2026-10-02T13:01:15.340Z",
+      "source": "scan"
+    },
+    ".codex/config.toml": {
+      "description": "",
+      "tokens": 7,
+      "hash": "d37497c327812159",
+      "size": 24,
+      "mtimeMs": 1789538356596.993,
+      "updatedAt": "2026-10-02T13:01:15.341Z",
+      "source": "scan"
+    },
+    ".codex/hooks.json": {
+      "description": "",
+      "tokens": 691,
+      "hash": "dd98e7b77ead1a7f",
+      "size": 2418,
+      "mtimeMs": 1789538356595.988,
+      "updatedAt": "2026-10-02T13:01:15.342Z",
+      "source": "scan"
+    },
+    ".codex/prompts/reframe.md": {
+      "description": "Mode: migrate [framework]",
+      "tokens": 551,
+      "hash": "17a75695be5d4629",
+      "size": 2221,
+      "mtimeMs": 1789538356609.9875,
+      "updatedAt": "2026-10-02T13:01:15.343Z",
+      "source": "scan"
+    },
+    ".codex/prompts/security-audit.md": {
+      "description": "Layer 1 — Dependencies",
+      "tokens": 510,
+      "hash": "e6f7e0b7337c9c86",
+      "size": 2060,
+      "mtimeMs": 1789538356607.989,
+      "updatedAt": "2026-10-02T13:01:15.344Z",
+      "source": "scan"
+    },
+    ".editorconfig": {
+      "description": "Editor configuration",
+      "tokens": 79,
+      "hash": "83e82746303fdd2e",
+      "size": 295,
+      "mtimeMs": 1789541346105.375,
+      "updatedAt": "2026-10-02T13:01:15.344Z",
+      "source": "scan"
+    },
+    ".gitattributes": {
+      "description": "Git attributes",
+      "tokens": 72,
+      "hash": "f15a63073d50bfe1",
+      "size": 268,
+      "mtimeMs": 1790946069414.8171,
+      "updatedAt": "2026-10-02T13:01:15.345Z",
+      "source": "scan"
+    },
+    ".github/workflows/ci.yml": {
+      "description": "CI: CI",
+      "tokens": 676,
+      "hash": "b578f11d86646f82",
+      "size": 2364,
+      "mtimeMs": 1789636731041.7043,
+      "updatedAt": "2026-10-02T13:01:15.345Z",
+      "source": "scan"
+    },
+    ".gitignore": {
+      "description": "Git ignore rules",
+      "tokens": 131,
+      "hash": "7eb7dc0009427418",
+      "size": 490,
+      "mtimeMs": 1789542099870.826,
+      "updatedAt": "2026-10-02T13:01:15.345Z",
+      "source": "scan"
+    },
+    "AGENTS.md": {
+      "description": "OpenWolf",
+      "tokens": 1207,
+      "hash": "75bb776b790b8568",
+      "size": 4834,
+      "mtimeMs": 1790946070369.6802,
+      "updatedAt": "2026-10-02T13:01:15.346Z",
+      "source": "scan"
+    },
+    "CLAUDE.md": {
+      "description": "OpenWolf",
+      "tokens": 57,
+      "hash": "b1ca356fa9d5f3a6",
+      "size": 225,
+      "mtimeMs": 1789538356432.0945,
+      "updatedAt": "2026-10-02T13:01:15.346Z",
+      "source": "scan"
+    },
+    "docs/AGENT_EVALUATION.md": {
+      "description": "Graphit — controlled agent evaluation protocol",
+      "tokens": 4374,
+      "hash": "d53349bbf4eda1a3",
+      "size": 17500,
+      "mtimeMs": 1790943720513.978,
+      "updatedAt": "2026-10-02T13:01:15.346Z",
+      "source": "scan"
+    },
+    "docs/ARCHITECTURE.md": {
+      "description": "Graphit — Architecture",
+      "tokens": 1499,
+      "hash": "79da5e0579116a74",
+      "size": 6138,
+      "mtimeMs": 1789660273466.051,
+      "updatedAt": "2026-10-02T13:01:15.346Z",
+      "source": "scan"
+    },
+    "docs/CLI.md": {
+      "description": "Graphit — CLI Contract",
+      "tokens": 6963,
+      "hash": "1bfce3114770032f",
+      "size": 27860,
+      "mtimeMs": 1790944054414.7078,
+      "updatedAt": "2026-10-02T13:01:15.347Z",
+      "source": "scan"
+    },
+    "docs/CODEX_START.md": {
+      "description": "Graphit — Implementation Start Prompt",
+      "tokens": 236,
+      "hash": "5b64090b623bae4a",
+      "size": 944,
+      "mtimeMs": 1790946071347.8523,
+      "updatedAt": "2026-10-02T13:01:15.347Z",
+      "source": "scan"
+    },
+    "docs/DATA_MODEL.md": {
+      "description": "Graphit — Local Knowledge Model",
+      "tokens": 3622,
+      "hash": "3f45f4e979e11d34",
+      "size": 14487,
+      "mtimeMs": 1789659134233.145,
+      "updatedAt": "2026-10-02T13:01:15.348Z",
+      "source": "scan"
+    },
+    "docs/DECISIONS.md": {
+      "description": "Graphit — Architecture Decision Log",
+      "tokens": 17194,
+      "hash": "52b7c0bcefb3ec49",
+      "size": 68937,
+      "mtimeMs": 1790944740224.557,
+      "updatedAt": "2026-10-02T13:01:15.348Z",
+      "source": "scan"
+    },
+    "docs/DEVELOPMENT.md": {
+      "description": "Graphit — Development Guide",
+      "tokens": 745,
+      "hash": "9e0f57c001134ec4",
+      "size": 3024,
+      "mtimeMs": 1789666598851.9128,
+      "updatedAt": "2026-10-02T13:01:15.348Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/baseline/final.txt": {
+      "description": "",
+      "tokens": 92,
+      "hash": "cb4bd2bdf2128716",
+      "size": 368,
+      "mtimeMs": 1790940179455.811,
+      "updatedAt": "2026-10-02T13:01:15.349Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 140,
+      "hash": "c49245c9dcbf6cff",
+      "size": 557,
+      "mtimeMs": 1790940177662.2244,
+      "updatedAt": "2026-10-02T13:01:15.349Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "85f4e4d6b7511dae",
+      "size": 20,
+      "mtimeMs": 1790940180326.0273,
+      "updatedAt": "2026-10-02T13:01:15.349Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 1737,
+      "hash": "a7214049659e152f",
+      "size": 6528,
+      "mtimeMs": 1790940249251.45,
+      "updatedAt": "2026-10-02T13:01:15.349Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/graphit/final.txt": {
+      "description": "",
+      "tokens": 82,
+      "hash": "39ec78a253ac738d",
+      "size": 327,
+      "mtimeMs": 1790940175235.8801,
+      "updatedAt": "2026-10-02T13:01:15.350Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/graphit/prompt.txt": {
+      "description": "",
+      "tokens": 130,
+      "hash": "8d3f67a43f02cd42",
+      "size": 517,
+      "mtimeMs": 1790940173543.4094,
+      "updatedAt": "2026-10-02T13:01:15.350Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/graphit/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "44acc889b88749a7",
+      "size": 20,
+      "mtimeMs": 1790940176106.401,
+      "updatedAt": "2026-10-02T13:01:15.350Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/graphit/transcript.jsonl": {
+      "description": "",
+      "tokens": 490,
+      "hash": "7954707a64446fc9",
+      "size": 1845,
+      "mtimeMs": 1790940248375.1208,
+      "updatedAt": "2026-10-02T13:01:15.350Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-2026-10-02/README.md": {
+      "description": "Project documentation",
+      "tokens": 736,
+      "hash": "7ac17c7f10f2cf1c",
+      "size": 2945,
+      "mtimeMs": 1790940282630.2935,
+      "updatedAt": "2026-10-02T13:01:15.350Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/baseline/final.txt": {
+      "description": "",
+      "tokens": 85,
+      "hash": "255eacafdfdf5bdc",
+      "size": 342,
+      "mtimeMs": 1790941407195.507,
+      "updatedAt": "2026-10-02T13:01:15.351Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 139,
+      "hash": "22ae53ad329f5fb8",
+      "size": 556,
+      "mtimeMs": 1790941405494.697,
+      "updatedAt": "2026-10-02T13:01:15.351Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "ff2096680ceca852",
+      "size": 19,
+      "mtimeMs": 1790941408180.4045,
+      "updatedAt": "2026-10-02T13:01:15.351Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 1729,
+      "hash": "cf0453cc555ef79c",
+      "size": 6488,
+      "mtimeMs": 1790941406349.8943,
+      "updatedAt": "2026-10-02T13:01:15.351Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/compact/final.txt": {
+      "description": "",
+      "tokens": 82,
+      "hash": "ae210c4fa8a23d84",
+      "size": 329,
+      "mtimeMs": 1790941411344.1157,
+      "updatedAt": "2026-10-02T13:01:15.351Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/compact/prompt.txt": {
+      "description": "",
+      "tokens": 129,
+      "hash": "6154cb80ad2ea312",
+      "size": 516,
+      "mtimeMs": 1790941409576.6826,
+      "updatedAt": "2026-10-02T13:01:15.352Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/compact/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "f803b9cae2ca3fef",
+      "size": 19,
+      "mtimeMs": 1790941412186.162,
+      "updatedAt": "2026-10-02T13:01:15.352Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/compact/transcript.jsonl": {
+      "description": "",
+      "tokens": 498,
+      "hash": "1d3e09712c6256ac",
+      "size": 1868,
+      "mtimeMs": 1790941410459.9197,
+      "updatedAt": "2026-10-02T13:01:15.352Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-2026-10-02/README.md": {
+      "description": "Project documentation",
+      "tokens": 801,
+      "hash": "ed0412e7184c0a48",
+      "size": 3208,
+      "mtimeMs": 1790941442591.7798,
+      "updatedAt": "2026-10-02T13:01:15.352Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/aggregate.json": {
+      "description": "",
+      "tokens": 702,
+      "hash": "a207539533e92834",
+      "size": 2457,
+      "mtimeMs": 1790941940251.2495,
+      "updatedAt": "2026-10-02T13:01:15.352Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/final.txt": {
+      "description": "",
+      "tokens": 88,
+      "hash": "3e6767e11b0f5f54",
+      "size": 354,
+      "mtimeMs": 1790941886952.593,
+      "updatedAt": "2026-10-02T13:01:15.353Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 139,
+      "hash": "22ae53ad329f5fb8",
+      "size": 556,
+      "mtimeMs": 1790941885264.2012,
+      "updatedAt": "2026-10-02T13:01:15.353Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "7d8918309a1d9578",
+      "size": 19,
+      "mtimeMs": 1790941887800.7537,
+      "updatedAt": "2026-10-02T13:01:15.353Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 1739,
+      "hash": "213d8a7fe53793b4",
+      "size": 6523,
+      "mtimeMs": 1790941886107.3577,
+      "updatedAt": "2026-10-02T13:01:15.353Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/final.txt": {
+      "description": "",
+      "tokens": 92,
+      "hash": "d04406c890f1b941",
+      "size": 369,
+      "mtimeMs": 1790941882831.77,
+      "updatedAt": "2026-10-02T13:01:15.353Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/prompt.txt": {
+      "description": "",
+      "tokens": 129,
+      "hash": "6154cb80ad2ea312",
+      "size": 516,
+      "mtimeMs": 1790941881157.843,
+      "updatedAt": "2026-10-02T13:01:15.354Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "066b6c9284e6475e",
+      "size": 19,
+      "mtimeMs": 1790941883683.354,
+      "updatedAt": "2026-10-02T13:01:15.354Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/transcript.jsonl": {
+      "description": "",
+      "tokens": 516,
+      "hash": "41137af331cf588f",
+      "size": 1939,
+      "mtimeMs": 1790941881994.342,
+      "updatedAt": "2026-10-02T13:01:15.354Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/final.txt": {
+      "description": "",
+      "tokens": 87,
+      "hash": "c9b10f9d6ad2dd09",
+      "size": 347,
+      "mtimeMs": 1790941895119.6594,
+      "updatedAt": "2026-10-02T13:01:15.354Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 139,
+      "hash": "22ae53ad329f5fb8",
+      "size": 556,
+      "mtimeMs": 1790941893455.513,
+      "updatedAt": "2026-10-02T13:01:15.354Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "89aff2a0bcf7579d",
+      "size": 19,
+      "mtimeMs": 1790941895984.306,
+      "updatedAt": "2026-10-02T13:01:15.355Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 1729,
+      "hash": "6bd73fc633d78551",
+      "size": 6487,
+      "mtimeMs": 1790941894279.905,
+      "updatedAt": "2026-10-02T13:01:15.355Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/final.txt": {
+      "description": "",
+      "tokens": 87,
+      "hash": "8f8b10a7bb613229",
+      "size": 348,
+      "mtimeMs": 1790941891160.8594,
+      "updatedAt": "2026-10-02T13:01:15.355Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/prompt.txt": {
+      "description": "",
+      "tokens": 129,
+      "hash": "6154cb80ad2ea312",
+      "size": 516,
+      "mtimeMs": 1790941889409.4749,
+      "updatedAt": "2026-10-02T13:01:15.355Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "d9e4275ab7a1d2e1",
+      "size": 19,
+      "mtimeMs": 1790941892041.2505,
+      "updatedAt": "2026-10-02T13:01:15.355Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/transcript.jsonl": {
+      "description": "",
+      "tokens": 499,
+      "hash": "af593d4fd0f500d1",
+      "size": 1877,
+      "mtimeMs": 1790941890284.9065,
+      "updatedAt": "2026-10-02T13:01:15.356Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/README.md": {
+      "description": "Project documentation",
+      "tokens": 644,
+      "hash": "28995af6a08ecb45",
+      "size": 2584,
+      "mtimeMs": 1790941969354.933,
+      "updatedAt": "2026-10-02T13:01:15.356Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-compact-repeats-2026-10-02/SHA256SUMS.txt": {
+      "description": "",
+      "tokens": 396,
+      "hash": "a35815fdbf47a09d",
+      "size": 1581,
+      "mtimeMs": 1790941968459.5317,
+      "updatedAt": "2026-10-02T13:01:15.356Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/baseline/final.txt": {
+      "description": "",
+      "tokens": 95,
+      "hash": "d1e202314d68a11d",
+      "size": 382,
+      "mtimeMs": 1790942961713.9382,
+      "updatedAt": "2026-10-02T13:01:15.356Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 139,
+      "hash": "22ae53ad329f5fb8",
+      "size": 556,
+      "mtimeMs": 1790942952318.4592,
+      "updatedAt": "2026-10-02T13:01:15.356Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "b72f50ae20b97882",
+      "size": 19,
+      "mtimeMs": 1790942967160.946,
+      "updatedAt": "2026-10-02T13:01:15.357Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 16272,
+      "hash": "71ad565f8d3a7801",
+      "size": 61027,
+      "mtimeMs": 1790942955848.037,
+      "updatedAt": "2026-10-02T13:01:15.357Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/compact/final.txt": {
+      "description": "",
+      "tokens": 73,
+      "hash": "01e6c3240c2930dc",
+      "size": 292,
+      "mtimeMs": 1790942944589.85,
+      "updatedAt": "2026-10-02T13:01:15.357Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/compact/prompt.txt": {
+      "description": "",
+      "tokens": 129,
+      "hash": "6154cb80ad2ea312",
+      "size": 516,
+      "mtimeMs": 1790942937441.2466,
+      "updatedAt": "2026-10-02T13:01:15.357Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/compact/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "cf1fc9c7f9718f05",
+      "size": 19,
+      "mtimeMs": 1790942948127.831,
+      "updatedAt": "2026-10-02T13:01:15.358Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/compact/transcript.jsonl": {
+      "description": "",
+      "tokens": 487,
+      "hash": "bea4b5b9782ccd86",
+      "size": 1830,
+      "mtimeMs": 1790942940810.001,
+      "updatedAt": "2026-10-02T13:01:15.358Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/README.md": {
+      "description": "Project documentation",
+      "tokens": 612,
+      "hash": "0b42bfaef2c34f92",
+      "size": 2453,
+      "mtimeMs": 1790942993074.2578,
+      "updatedAt": "2026-10-02T13:01:15.358Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-2026-10-02/SHA256SUMS.txt": {
+      "description": "",
+      "tokens": 174,
+      "hash": "a28f1e508722341d",
+      "size": 694,
+      "mtimeMs": 1790942993947.5435,
+      "updatedAt": "2026-10-02T13:01:15.358Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/aggregate.json": {
+      "description": "",
+      "tokens": 703,
+      "hash": "342190a98dcd0574",
+      "size": 2458,
+      "mtimeMs": 1790943675233.2642,
+      "updatedAt": "2026-10-02T13:01:15.358Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/final.txt": {
+      "description": "",
+      "tokens": 92,
+      "hash": "1084b8745a72e970",
+      "size": 368,
+      "mtimeMs": 1790943597520.6162,
+      "updatedAt": "2026-10-02T13:01:15.359Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 139,
+      "hash": "22ae53ad329f5fb8",
+      "size": 556,
+      "mtimeMs": 1790943590310.4363,
+      "updatedAt": "2026-10-02T13:01:15.359Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "f7ee3490c9d6cfbd",
+      "size": 19,
+      "mtimeMs": 1790943601220.4849,
+      "updatedAt": "2026-10-02T13:01:15.359Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 16267,
+      "hash": "0b7fb3ee0b63ea48",
+      "size": 61003,
+      "mtimeMs": 1790943593965.0918,
+      "updatedAt": "2026-10-02T13:01:15.360Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/final.txt": {
+      "description": "",
+      "tokens": 76,
+      "hash": "d518ea3244aaf5b6",
+      "size": 303,
+      "mtimeMs": 1790943582760.5835,
+      "updatedAt": "2026-10-02T13:01:15.360Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/prompt.txt": {
+      "description": "",
+      "tokens": 129,
+      "hash": "6154cb80ad2ea312",
+      "size": 516,
+      "mtimeMs": 1790943575086.7385,
+      "updatedAt": "2026-10-02T13:01:15.361Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "4f0bf3311cd110e4",
+      "size": 19,
+      "mtimeMs": 1790943586595.241,
+      "updatedAt": "2026-10-02T13:01:15.361Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/transcript.jsonl": {
+      "description": "",
+      "tokens": 487,
+      "hash": "75555ad5d52dcc99",
+      "size": 1832,
+      "mtimeMs": 1790943579159.202,
+      "updatedAt": "2026-10-02T13:01:15.361Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/final.txt": {
+      "description": "",
+      "tokens": 89,
+      "hash": "a0ab893bb113abc8",
+      "size": 358,
+      "mtimeMs": 1790943627206.287,
+      "updatedAt": "2026-10-02T13:01:15.361Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/prompt.txt": {
+      "description": "",
+      "tokens": 139,
+      "hash": "22ae53ad329f5fb8",
+      "size": 556,
+      "mtimeMs": 1790943619806.5051,
+      "updatedAt": "2026-10-02T13:01:15.361Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "e26120fd11c11995",
+      "size": 19,
+      "mtimeMs": 1790943630955.0347,
+      "updatedAt": "2026-10-02T13:01:15.362Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/transcript.jsonl": {
+      "description": "",
+      "tokens": 16427,
+      "hash": "d8b0623cba23d6d6",
+      "size": 61604,
+      "mtimeMs": 1790943623602.008,
+      "updatedAt": "2026-10-02T13:01:15.362Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/final.txt": {
+      "description": "",
+      "tokens": 79,
+      "hash": "c2da2efad46824e1",
+      "size": 318,
+      "mtimeMs": 1790943612419.4128,
+      "updatedAt": "2026-10-02T13:01:15.362Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/prompt.txt": {
+      "description": "",
+      "tokens": 129,
+      "hash": "6154cb80ad2ea312",
+      "size": 516,
+      "mtimeMs": 1790943605250.5815,
+      "updatedAt": "2026-10-02T13:01:15.362Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/timing.txt": {
+      "description": "",
+      "tokens": 5,
+      "hash": "99fc2be46d31df1b",
+      "size": 19,
+      "mtimeMs": 1790943616077.461,
+      "updatedAt": "2026-10-02T13:01:15.363Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/transcript.jsonl": {
+      "description": "",
+      "tokens": 491,
+      "hash": "f8a961c2ae5f8e14",
+      "size": 1845,
+      "mtimeMs": 1790943608970.6294,
+      "updatedAt": "2026-10-02T13:01:15.363Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/README.md": {
+      "description": "Project documentation",
+      "tokens": 695,
+      "hash": "e94b21da0335f721",
+      "size": 2785,
+      "mtimeMs": 1790943676103.0803,
+      "updatedAt": "2026-10-02T13:01:15.363Z",
+      "source": "scan"
+    },
+    "docs/evidence/agent-eval-scaled-repeats-2026-10-02/SHA256SUMS.txt": {
+      "description": "",
+      "tokens": 396,
+      "hash": "397809aa7fdfdfdf",
+      "size": 1581,
+      "mtimeMs": 1790943693299.2283,
+      "updatedAt": "2026-10-02T13:01:15.363Z",
+      "source": "scan"
+    },
+    "docs/MCP.md": {
+      "description": "Graphit — MCP Contract",
+      "tokens": 5493,
+      "hash": "4be945ea22909abf",
+      "size": 21997,
+      "mtimeMs": 1790940620560.7246,
+      "updatedAt": "2026-10-02T13:01:15.363Z",
+      "source": "scan"
+    },
+    "docs/OPERATING_MODEL.md": {
+      "description": "Graphit — Operating Model",
+      "tokens": 1173,
+      "hash": "4a1f48c63cac95ba",
+      "size": 4730,
+      "mtimeMs": 1789666454607.4753,
+      "updatedAt": "2026-10-02T13:01:15.363Z",
+      "source": "scan"
+    },
+    "docs/PRODUCT.md": {
+      "description": "Graphit — Product Specification",
+      "tokens": 1156,
+      "hash": "02e5e6a0f1acf39c",
+      "size": 4636,
+      "mtimeMs": 1790944225670.7097,
+      "updatedAt": "2026-10-02T13:01:15.364Z",
+      "source": "scan"
+    },
+    "docs/RELATIONSHIP_ENGINE.md": {
+      "description": "Graphit — Relationship Discovery",
+      "tokens": 3203,
+      "hash": "b6e98a09d94f3e09",
+      "size": 12838,
+      "mtimeMs": 1789633292458.7703,
+      "updatedAt": "2026-10-02T13:01:15.364Z",
+      "source": "scan"
+    },
+    "docs/RELEASE_READINESS.md": {
+      "description": "Graphit — MVP and release readiness",
+      "tokens": 1303,
+      "hash": "6b3c5bb79e87c7d7",
+      "size": 5214,
+      "mtimeMs": 1790945855808.288,
+      "updatedAt": "2026-10-02T13:01:15.364Z",
+      "source": "scan"
+    },
+    "docs/ROADMAP.md": {
+      "description": "Graphit — Roadmap",
+      "tokens": 1123,
+      "hash": "807c9cff21575d86",
+      "size": 4516,
+      "mtimeMs": 1790944226540.6807,
+      "updatedAt": "2026-10-02T13:01:15.364Z",
+      "source": "scan"
+    },
+    "docs/SECURITY.md": {
+      "description": "Graphit — Security Model",
+      "tokens": 1027,
+      "hash": "a5761c51d5d5ebd3",
+      "size": 4107,
+      "mtimeMs": 1790944056135.4683,
+      "updatedAt": "2026-10-02T13:01:15.364Z",
+      "source": "scan"
+    },
+    "docs/TESTING.md": {
+      "description": "Graphit — Testing Strategy",
+      "tokens": 6972,
+      "hash": "5361547f6f875d65",
+      "size": 27891,
+      "mtimeMs": 1790944725538.3555,
+      "updatedAt": "2026-10-02T13:01:15.365Z",
+      "source": "scan"
+    },
+    "docs/VISUALIZATION.md": {
+      "description": "Graphit — Visualization",
+      "tokens": 1171,
+      "hash": "3d64191380b06843",
+      "size": 4683,
+      "mtimeMs": 1790944055282.7615,
+      "updatedAt": "2026-10-02T13:01:15.365Z",
+      "source": "scan"
+    },
+    "LICENSE": {
+      "description": "Canonical Apache License 2.0 text",
+      "tokens": 3015,
+      "hash": "3a0b32a74c46bdda",
+      "size": 11303,
+      "mtimeMs": 1789635916720.077,
+      "updatedAt": "2026-10-02T13:01:15.365Z",
+      "source": "scan"
+    },
+    "NOTICE": {
+      "description": "",
+      "tokens": 27,
+      "hash": "6709c86c10311f81",
+      "size": 101,
+      "mtimeMs": 1790944360047.68,
+      "updatedAt": "2026-10-02T13:01:15.365Z",
+      "source": "scan"
+    },
+    "pyproject.toml": {
+      "description": "Python project configuration",
+      "tokens": 482,
+      "hash": "ff2fbfdf153dd03e",
+      "size": 1686,
+      "mtimeMs": 1790945759097.5906,
+      "updatedAt": "2026-10-02T13:01:15.365Z",
+      "source": "scan"
+    },
+    "README.md": {
+      "description": "Project documentation",
+      "tokens": 2820,
+      "hash": "396c23a0c96de8dc",
+      "size": 11362,
+      "mtimeMs": 1790944363682.51,
+      "updatedAt": "2026-10-02T13:01:15.365Z",
+      "source": "scan"
+    },
+    "scripts/__init__.py": {
+      "description": "Development-only release check package",
+      "tokens": 22,
+      "hash": "284aea876a7789ea",
+      "size": 77,
+      "mtimeMs": 1789636397284.3328,
+      "updatedAt": "2026-10-02T13:01:15.366Z",
+      "source": "scan"
+    },
+    "scripts/check_dist.py": {
+      "description": "Validate local Graphit release archives before installation or publication.",
+      "tokens": 1777,
+      "hash": "e5262e47aae34f9f",
+      "size": 6217,
+      "mtimeMs": 1790945802232.5784,
+      "updatedAt": "2026-10-02T13:01:15.366Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "archive_parts",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 21,
+          "tokens": 79
+        },
+        {
+          "name": "check_distributions",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 128,
+          "tokens": 1605
+        }
+      ]
+    },
+    "scripts/prepare_agent_eval.py": {
+      "description": "Prepare an offline, synthetic ERP bundle for controlled agent evaluation.",
+      "tokens": 2275,
+      "hash": "cf87749f1459b25d",
+      "size": 7962,
+      "mtimeMs": 1790942194839.4558,
+      "updatedAt": "2026-10-02T13:01:15.366Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "scaled_distractor_columns",
+          "kind": "fn",
+          "startLine": 25,
+          "endLine": 39,
+          "tokens": 145
+        },
+        {
+          "name": "build_baseline_packet",
+          "kind": "fn",
+          "startLine": 40,
+          "endLine": 181,
+          "tokens": 1558
+        },
+        {
+          "name": "prepare_eval_bundle",
+          "kind": "fn",
+          "startLine": 182,
+          "endLine": 199,
+          "tokens": 216
+        },
+        {
+          "name": "main",
+          "kind": "fn",
+          "startLine": 200,
+          "endLine": 218,
+          "tokens": 193
+        }
+      ]
+    },
+    "scripts/smoke_installed.py": {
+      "description": "Exercise an installed Graphit wheel in a disposable project and MCP session.",
+      "tokens": 3467,
+      "hash": "2bd30daf9555be90",
+      "size": 12134,
+      "mtimeMs": 1790940851900.5217,
+      "updatedAt": "2026-10-02T13:01:15.367Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "seed_local_snapshot",
+          "kind": "fn",
+          "startLine": 51,
+          "endLine": 115,
+          "tokens": 558
+        },
+        {
+          "name": "check_mcp",
+          "kind": "fn",
+          "startLine": 116,
+          "endLine": 204,
+          "tokens": 1354
+        },
+        {
+          "name": "run_cli",
+          "kind": "fn",
+          "startLine": 205,
+          "endLine": 217,
+          "tokens": 115
+        },
+        {
+          "name": "run_smoke",
+          "kind": "fn",
+          "startLine": 218,
+          "endLine": 301,
+          "tokens": 1122
+        }
+      ]
+    },
+    "src/graphit/__init__.py": {
+      "description": "Graphit: local-first database knowledge for AI coding agents.",
+      "tokens": 26,
+      "hash": "a6a13f9db2c67633",
+      "size": 91,
+      "mtimeMs": 1789541440243.864,
+      "updatedAt": "2026-10-02T13:01:15.367Z",
+      "source": "scan"
+    },
+    "src/graphit/__main__.py": {
+      "description": "Allow Graphit to run as `python -m graphit`.",
+      "tokens": 25,
+      "hash": "6af09cea9951611e",
+      "size": 87,
+      "mtimeMs": 1789541440243.864,
+      "updatedAt": "2026-10-02T13:01:15.367Z",
+      "source": "scan"
+    },
+    "src/graphit/claude.py": {
+      "description": "Opt-in, project-scoped Claude Code MCP configuration.",
+      "tokens": 1056,
+      "hash": "4a04eb93350284fc",
+      "size": 3694,
+      "mtimeMs": 1789643748772.486,
+      "updatedAt": "2026-10-02T13:01:15.367Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ClaudeSetupError",
+          "kind": "class",
+          "startLine": 14,
+          "endLine": 18,
+          "tokens": 37
+        },
+        {
+          "name": "ClaudeSetupResult",
+          "kind": "class",
+          "startLine": 19,
+          "endLine": 25,
+          "tokens": 32
+        },
+        {
+          "name": "_unique_pairs",
+          "kind": "fn",
+          "startLine": 26,
+          "endLine": 34,
+          "tokens": 82
+        },
+        {
+          "name": "setup_claude",
+          "kind": "fn",
+          "startLine": 35,
+          "endLine": 96,
+          "tokens": 828
+        }
+      ]
+    },
+    "src/graphit/cli.py": {
+      "description": "Graphit's command-line entry point.",
+      "tokens": 13461,
+      "hash": "165074ec2ecd6628",
+      "size": 47112,
+      "mtimeMs": 1790940478403.2124,
+      "updatedAt": "2026-10-02T13:01:15.368Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "main",
+          "kind": "fn",
+          "startLine": 86,
+          "endLine": 90,
+          "tokens": 31
+        },
+        {
+          "name": "version",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 97,
+          "tokens": 37
+        },
+        {
+          "name": "init",
+          "kind": "fn",
+          "startLine": 98,
+          "endLine": 117,
+          "tokens": 238
+        },
+        {
+          "name": "_source_root",
+          "kind": "fn",
+          "startLine": 118,
+          "endLine": 126,
+          "tokens": 71
+        },
+        {
+          "name": "_source_failure",
+          "kind": "fn",
+          "startLine": 127,
+          "endLine": 134,
+          "tokens": 88
+        },
+        {
+          "name": "mcp_serve",
+          "kind": "fn",
+          "startLine": 135,
+          "endLine": 148,
+          "tokens": 116
+        },
+        {
+          "name": "mcp_setup_codex",
+          "kind": "fn",
+          "startLine": 149,
+          "endLine": 177,
+          "tokens": 297
+        },
+        {
+          "name": "mcp_setup_claude",
+          "kind": "fn",
+          "startLine": 178,
+          "endLine": 200,
+          "tokens": 256
+        },
+        {
+          "name": "_query_failure",
+          "kind": "fn",
+          "startLine": 201,
+          "endLine": 238,
+          "tokens": 298
+        },
+        {
+          "name": "_column_flags",
+          "kind": "fn",
+          "startLine": 239,
+          "endLine": 247,
+          "tokens": 74
+        },
+        {
+          "name": "_foreign_key_flags",
+          "kind": "fn",
+          "startLine": 248,
+          "endLine": 259,
+          "tokens": 106
+        },
+        {
+          "name": "source_add",
+          "kind": "fn",
+          "startLine": 260,
+          "endLine": 296,
+          "tokens": 439
+        },
+        {
+          "name": "source_list",
+          "kind": "fn",
+          "startLine": 297,
+          "endLine": 314,
+          "tokens": 161
+        },
+        {
+          "name": "source_show",
+          "kind": "fn",
+          "startLine": 315,
+          "endLine": 336,
+          "tokens": 249
+        },
+        {
+          "name": "source_test",
+          "kind": "fn",
+          "startLine": 337,
+          "endLine": 358,
+          "tokens": 216
+        },
+        {
+          "name": "scan",
+          "kind": "fn",
+          "startLine": 359,
+          "endLine": 381,
+          "tokens": 248
+        },
+        {
+          "name": "candidates",
+          "kind": "fn",
+          "startLine": 382,
+          "endLine": 428,
+          "tokens": 596
+        },
+        {
+          "name": "review_reject",
+          "kind": "fn",
+          "startLine": 429,
+          "endLine": 456,
+          "tokens": 357
+        },
+        {
+          "name": "review_propose",
+          "kind": "fn",
+          "startLine": 457,
+          "endLine": 485,
+          "tokens": 388
+        },
+        {
+          "name": "review_proposals",
+          "kind": "fn",
+          "startLine": 486,
+          "endLine": 519,
+          "tokens": 430
+        },
+        {
+          "name": "review_approve_proposal",
+          "kind": "fn",
+          "startLine": 520,
+          "endLine": 548,
+          "tokens": 388
+        },
+        {
+          "name": "review_revoke_proposal",
+          "kind": "fn",
+          "startLine": 549,
+          "endLine": 576,
+          "tokens": 365
+        },
+        {
+          "name": "review_approve",
+          "kind": "fn",
+          "startLine": 577,
+          "endLine": 605,
+          "tokens": 376
+        },
+        {
+          "name": "review_restore",
+          "kind": "fn",
+          "startLine": 606,
+          "endLine": 633,
+          "tokens": 351
+        },
+        {
+          "name": "review_revoke",
+          "kind": "fn",
+          "startLine": 634,
+          "endLine": 661,
+          "tokens": 349
+        },
+        {
+          "name": "snapshot_diff_command",
+          "kind": "fn",
+          "startLine": 662,
+          "endLine": 712,
+          "tokens": 609
+        },
+        {
+          "name": "snapshot_list_command",
+          "kind": "fn",
+          "startLine": 713,
+          "endLine": 741,
+          "tokens": 349
+        },
+        {
+          "name": "impact_command",
+          "kind": "fn",
+          "startLine": 742,
+          "endLine": 781,
+          "tokens": 501
+        },
+        {
+          "name": "impact_tree_command",
+          "kind": "fn",
+          "startLine": 782,
+          "endLine": 822,
+          "tokens": 536
+        },
+        {
+          "name": "impact_column_command",
+          "kind": "fn",
+          "startLine": 823,
+          "endLine": 1175,
+          "tokens": 4252
+        }
+      ]
+    },
+    "src/graphit/codex.py": {
+      "description": "Opt-in, project-scoped Codex MCP configuration.",
+      "tokens": 1667,
+      "hash": "19b4c55f33ced6c8",
+      "size": 5834,
+      "mtimeMs": 1790940528158.1882,
+      "updatedAt": "2026-10-02T13:01:15.368Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CodexSetupError",
+          "kind": "class",
+          "startLine": 25,
+          "endLine": 29,
+          "tokens": 36
+        },
+        {
+          "name": "CodexSetupResult",
+          "kind": "class",
+          "startLine": 30,
+          "endLine": 36,
+          "tokens": 31
+        },
+        {
+          "name": "_graphit_entry",
+          "kind": "fn",
+          "startLine": 37,
+          "endLine": 43,
+          "tokens": 75
+        },
+        {
+          "name": "_graphit_stanza",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 59,
+          "tokens": 160
+        },
+        {
+          "name": "setup_codex",
+          "kind": "fn",
+          "startLine": 60,
+          "endLine": 154,
+          "tokens": 1235
+        }
+      ]
+    },
+    "src/graphit/graph_dot.py": {
+      "description": "Deterministic Graphviz DOT rendering of a bounded local graph projection.",
+      "tokens": 1070,
+      "hash": "9460f500dbad23ad",
+      "size": 3743,
+      "mtimeMs": 1789632840501.2036,
+      "updatedAt": "2026-10-02T13:01:15.368Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_dot_string",
+          "kind": "fn",
+          "startLine": 6,
+          "endLine": 23,
+          "tokens": 157
+        },
+        {
+          "name": "_edge_label",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 43,
+          "tokens": 279
+        },
+        {
+          "name": "render_dot",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 91,
+          "tokens": 593
+        }
+      ]
+    },
+    "src/graphit/graph_export.py": {
+      "description": "Bounded, read-only table-neighborhood projection for local visualization.",
+      "tokens": 1887,
+      "hash": "732268a91d11d821",
+      "size": 6604,
+      "mtimeMs": 1789632945066.0337,
+      "updatedAt": "2026-10-02T13:01:15.369Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "GraphNode",
+          "kind": "class",
+          "startLine": 18,
+          "endLine": 25,
+          "tokens": 37
+        },
+        {
+          "name": "GraphLink",
+          "kind": "class",
+          "startLine": 26,
+          "endLine": 41,
+          "tokens": 117
+        },
+        {
+          "name": "GraphProjection",
+          "kind": "class",
+          "startLine": 42,
+          "endLine": 54,
+          "tokens": 80
+        },
+        {
+          "name": "table_graph",
+          "kind": "fn",
+          "startLine": 55,
+          "endLine": 175,
+          "tokens": 1511
+        }
+      ]
+    },
+    "src/graphit/graph_html.py": {
+      "description": "Offline interactive HTML/SVG rendering of one bounded graph projection.",
+      "tokens": 4622,
+      "hash": "a1ad8cede194a11e",
+      "size": 16194,
+      "mtimeMs": 1790943979864.3552,
+      "updatedAt": "2026-10-02T13:01:15.369Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_link_kind",
+          "kind": "fn",
+          "startLine": 100,
+          "endLine": 109,
+          "tokens": 133
+        },
+        {
+          "name": "_positions",
+          "kind": "fn",
+          "startLine": 110,
+          "endLine": 135,
+          "tokens": 332
+        },
+        {
+          "name": "_node_svg",
+          "kind": "fn",
+          "startLine": 136,
+          "endLine": 156,
+          "tokens": 233
+        },
+        {
+          "name": "_edge_svg",
+          "kind": "fn",
+          "startLine": 157,
+          "endLine": 211,
+          "tokens": 548
+        },
+        {
+          "name": "_graph_svg",
+          "kind": "fn",
+          "startLine": 212,
+          "endLine": 241,
+          "tokens": 451
+        },
+        {
+          "name": "_relationship_list",
+          "kind": "fn",
+          "startLine": 242,
+          "endLine": 297,
+          "tokens": 656
+        },
+        {
+          "name": "render_html",
+          "kind": "fn",
+          "startLine": 298,
+          "endLine": 365,
+          "tokens": 1030
+        }
+      ]
+    },
+    "src/graphit/inference.py": {
+      "description": "Conservative, read-only relationship candidate preview over one snapshot.",
+      "tokens": 5320,
+      "hash": "20a8c3afedf6aa06",
+      "size": 18620,
+      "mtimeMs": 1789559791848.8896,
+      "updatedAt": "2026-10-02T13:01:15.370Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CandidateEvidence",
+          "kind": "class",
+          "startLine": 35,
+          "endLine": 42,
+          "tokens": 34
+        },
+        {
+          "name": "RelationshipCandidate",
+          "kind": "class",
+          "startLine": 43,
+          "endLine": 55,
+          "tokens": 86
+        },
+        {
+          "name": "CandidatePreview",
+          "kind": "class",
+          "startLine": 56,
+          "endLine": 66,
+          "tokens": 73
+        },
+        {
+          "name": "_Column",
+          "kind": "class",
+          "startLine": 67,
+          "endLine": 78,
+          "tokens": 58
+        },
+        {
+          "name": "candidate_review_keys",
+          "kind": "fn",
+          "startLine": 79,
+          "endLine": 87,
+          "tokens": 87
+        },
+        {
+          "name": "_review_decisions",
+          "kind": "fn",
+          "startLine": 88,
+          "endLine": 110,
+          "tokens": 268
+        },
+        {
+          "name": "current_approval_presence",
+          "kind": "fn",
+          "startLine": 111,
+          "endLine": 155,
+          "tokens": 568
+        },
+        {
+          "name": "_table_scope",
+          "kind": "fn",
+          "startLine": 156,
+          "endLine": 163,
+          "tokens": 69
+        },
+        {
+          "name": "_read_columns",
+          "kind": "fn",
+          "startLine": 164,
+          "endLine": 210,
+          "tokens": 579
+        },
+        {
+          "name": "_approved_source_names",
+          "kind": "fn",
+          "startLine": 211,
+          "endLine": 230,
+          "tokens": 200
+        },
+        {
+          "name": "_read_approved_relevant_columns",
+          "kind": "fn",
+          "startLine": 231,
+          "endLine": 274,
+          "tokens": 510
+        },
+        {
+          "name": "_declared_source_columns",
+          "kind": "fn",
+          "startLine": 275,
+          "endLine": 330,
+          "tokens": 714
+        },
+        {
+          "name": "_candidate",
+          "kind": "fn",
+          "startLine": 331,
+          "endLine": 353,
+          "tokens": 281
+        },
+        {
+          "name": "preview_candidates",
+          "kind": "fn",
+          "startLine": 354,
+          "endLine": 476,
+          "tokens": 1552
+        }
+      ]
+    },
+    "src/graphit/mcp_launcher.py": {
+      "description": "Stable local subprocess command for the installed Graphit package.",
+      "tokens": 379,
+      "hash": "0452aeaebc165b16",
+      "size": 1325,
+      "mtimeMs": 1789643661304.4348,
+      "updatedAt": "2026-10-02T13:01:15.370Z",
+      "source": "scan"
+    },
+    "src/graphit/mcp_server.py": {
+      "description": "Read-only stdio MCP tools backed by Graphit's local query services.",
+      "tokens": 4895,
+      "hash": "9f13a99f697fa131",
+      "size": 17130,
+      "mtimeMs": 1789666215610.844,
+      "updatedAt": "2026-10-02T13:01:15.370Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_compact_graph",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 141,
+          "tokens": 583
+        },
+        {
+          "name": "_result",
+          "kind": "fn",
+          "startLine": 142,
+          "endLine": 164,
+          "tokens": 309
+        },
+        {
+          "name": "create_server",
+          "kind": "fn",
+          "startLine": 165,
+          "endLine": 437,
+          "tokens": 3350
+        }
+      ]
+    },
+    "src/graphit/project.py": {
+      "description": "Safe, project-local Graphit initialization.",
+      "tokens": 1171,
+      "hash": "17ba0a106e6eeb1c",
+      "size": 4098,
+      "mtimeMs": 1789542346962.4382,
+      "updatedAt": "2026-10-02T13:01:15.370Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ProjectError",
+          "kind": "class",
+          "startLine": 31,
+          "endLine": 35,
+          "tokens": 40
+        },
+        {
+          "name": "InitResult",
+          "kind": "class",
+          "startLine": 36,
+          "endLine": 43,
+          "tokens": 46
+        },
+        {
+          "name": "find_project_root",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 58,
+          "tokens": 153
+        },
+        {
+          "name": "_is_git_project",
+          "kind": "fn",
+          "startLine": 59,
+          "endLine": 62,
+          "tokens": 37
+        },
+        {
+          "name": "initialize_project",
+          "kind": "fn",
+          "startLine": 63,
+          "endLine": 126,
+          "tokens": 725
+        }
+      ]
+    },
+    "src/graphit/py.typed": {
+      "description": "",
+      "tokens": 1,
+      "hash": "01ba4719c80b6fe9",
+      "size": 1,
+      "mtimeMs": 1789541329856.958,
+      "updatedAt": "2026-10-02T13:01:15.371Z",
+      "source": "scan"
+    },
+    "src/graphit/queries.py": {
+      "description": "Bounded, snapshot-aware queries over the project-local knowledge graph.",
+      "tokens": 17736,
+      "hash": "248962d914e27b29",
+      "size": 62074,
+      "mtimeMs": 1789666069342.2666,
+      "updatedAt": "2026-10-02T13:01:15.371Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "QueryError",
+          "kind": "class",
+          "startLine": 63,
+          "endLine": 71,
+          "tokens": 66
+        },
+        {
+          "name": "SearchMatch",
+          "kind": "class",
+          "startLine": 72,
+          "endLine": 83,
+          "tokens": 67
+        },
+        {
+          "name": "SearchResult",
+          "kind": "class",
+          "startLine": 84,
+          "endLine": 91,
+          "tokens": 43
+        },
+        {
+          "name": "OverviewTable",
+          "kind": "class",
+          "startLine": 92,
+          "endLine": 97,
+          "tokens": 28
+        },
+        {
+          "name": "DatabaseOverview",
+          "kind": "class",
+          "startLine": 98,
+          "endLine": 113,
+          "tokens": 110
+        },
+        {
+          "name": "RelevantObject",
+          "kind": "class",
+          "startLine": 114,
+          "endLine": 126,
+          "tokens": 76
+        },
+        {
+          "name": "SuggestedCall",
+          "kind": "class",
+          "startLine": 127,
+          "endLine": 132,
+          "tokens": 26
+        },
+        {
+          "name": "RelevantContext",
+          "kind": "class",
+          "startLine": 133,
+          "endLine": 145,
+          "tokens": 98
+        },
+        {
+          "name": "relevant_context_payload",
+          "kind": "fn",
+          "startLine": 146,
+          "endLine": 174,
+          "tokens": 214
+        },
+        {
+          "name": "ColumnDetail",
+          "kind": "class",
+          "startLine": 175,
+          "endLine": 183,
+          "tokens": 41
+        },
+        {
+          "name": "KeyDetail",
+          "kind": "class",
+          "startLine": 184,
+          "endLine": 191,
+          "tokens": 34
+        },
+        {
+          "name": "ForeignKeyDetail",
+          "kind": "class",
+          "startLine": 192,
+          "endLine": 201,
+          "tokens": 57
+        },
+        {
+          "name": "TableContext",
+          "kind": "class",
+          "startLine": 202,
+          "endLine": 217,
+          "tokens": 111
+        },
+        {
+          "name": "ViewColumnDetail",
+          "kind": "class",
+          "startLine": 218,
+          "endLine": 224,
+          "tokens": 32
+        },
+        {
+          "name": "ViewContext",
+          "kind": "class",
+          "startLine": 225,
+          "endLine": 234,
+          "tokens": 67
+        },
+        {
+          "name": "IndexPart",
+          "kind": "class",
+          "startLine": 235,
+          "endLine": 240,
+          "tokens": 26
+        },
+        {
+          "name": "IndexDetail",
+          "kind": "class",
+          "startLine": 241,
+          "endLine": 254,
+          "tokens": 78
+        },
+        {
+          "name": "TableIndexContext",
+          "kind": "class",
+          "startLine": 255,
+          "endLine": 266,
+          "tokens": 78
+        },
+        {
+          "name": "RelationshipDetail",
+          "kind": "class",
+          "startLine": 267,
+          "endLine": 279,
+          "tokens": 80
+        },
+        {
+          "name": "RelationshipContext",
+          "kind": "class",
+          "startLine": 280,
+          "endLine": 291,
+          "tokens": 83
+        },
+        {
+          "name": "ImpactContext",
+          "kind": "class",
+          "startLine": 292,
+          "endLine": 304,
+          "tokens": 86
+        },
+        {
+          "name": "ColumnImpactReference",
+          "kind": "class",
+          "startLine": 305,
+          "endLine": 319,
+          "tokens": 88
+        },
+        {
+          "name": "ColumnImpactContext",
+          "kind": "class",
+          "startLine": 320,
+          "endLine": 330,
+          "tokens": 76
+        },
+        {
+          "name": "PathStep",
+          "kind": "class",
+          "startLine": 331,
+          "endLine": 346,
+          "tokens": 96
+        },
+        {
+          "name": "PathResult",
+          "kind": "class",
+          "startLine": 347,
+          "endLine": 355,
+          "tokens": 47
+        },
+        {
+          "name": "TransitiveImpactItem",
+          "kind": "class",
+          "startLine": 356,
+          "endLine": 362,
+          "tokens": 36
+        },
+        {
+          "name": "TransitiveImpactContext",
+          "kind": "class",
+          "startLine": 363,
+          "endLine": 374,
+          "tokens": 83
+        },
+        {
+          "name": "_latest_snapshot",
+          "kind": "fn",
+          "startLine": 375,
+          "endLine": 388,
+          "tokens": 176
+        },
+        {
+          "name": "database_overview",
+          "kind": "fn",
+          "startLine": 389,
+          "endLine": 467,
+          "tokens": 1195
+        },
+        {
+          "name": "_metadata",
+          "kind": "fn",
+          "startLine": 468,
+          "endLine": 1621,
+          "tokens": 14093
+        }
+      ]
+    },
+    "src/graphit/review.py": {
+      "description": "Explicit, source-scoped decisions about local relationship hypotheses.",
+      "tokens": 8218,
+      "hash": "144d1e3fb1985e07",
+      "size": 28763,
+      "mtimeMs": 1789632897137.5564,
+      "updatedAt": "2026-10-02T13:01:15.372Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ReviewResult",
+          "kind": "class",
+          "startLine": 19,
+          "endLine": 28,
+          "tokens": 50
+        },
+        {
+          "name": "ProposalResult",
+          "kind": "class",
+          "startLine": 29,
+          "endLine": 40,
+          "tokens": 59
+        },
+        {
+          "name": "ProposalItem",
+          "kind": "class",
+          "startLine": 41,
+          "endLine": 50,
+          "tokens": 46
+        },
+        {
+          "name": "ProposalList",
+          "kind": "class",
+          "startLine": 51,
+          "endLine": 59,
+          "tokens": 48
+        },
+        {
+          "name": "ManualGraphLink",
+          "kind": "class",
+          "startLine": 60,
+          "endLine": 68,
+          "tokens": 44
+        },
+        {
+          "name": "ManualGraphLinks",
+          "kind": "class",
+          "startLine": 69,
+          "endLine": 74,
+          "tokens": 32
+        },
+        {
+          "name": "current_manual_graph_links",
+          "kind": "fn",
+          "startLine": 75,
+          "endLine": 158,
+          "tokens": 1291
+        },
+        {
+          "name": "list_proposals",
+          "kind": "fn",
+          "startLine": 159,
+          "endLine": 216,
+          "tokens": 829
+        },
+        {
+          "name": "_proposal_eligibility",
+          "kind": "fn",
+          "startLine": 217,
+          "endLine": 284,
+          "tokens": 866
+        },
+        {
+          "name": "_valid_manual_reason",
+          "kind": "fn",
+          "startLine": 285,
+          "endLine": 293,
+          "tokens": 61
+        },
+        {
+          "name": "approve_manual_proposal",
+          "kind": "fn",
+          "startLine": 294,
+          "endLine": 351,
+          "tokens": 814
+        },
+        {
+          "name": "revoke_manual_proposal",
+          "kind": "fn",
+          "startLine": 352,
+          "endLine": 398,
+          "tokens": 633
+        },
+        {
+          "name": "propose_relationship",
+          "kind": "fn",
+          "startLine": 399,
+          "endLine": 494,
+          "tokens": 1450
+        },
+        {
+          "name": "_validate_request",
+          "kind": "fn",
+          "startLine": 495,
+          "endLine": 507,
+          "tokens": 148
+        },
+        {
+          "name": "_latest_decision",
+          "kind": "fn",
+          "startLine": 508,
+          "endLine": 520,
+          "tokens": 128
+        },
+        {
+          "name": "_append_decision",
+          "kind": "fn",
+          "startLine": 521,
+          "endLine": 531,
+          "tokens": 103
+        },
+        {
+          "name": "_decide_current_candidate",
+          "kind": "fn",
+          "startLine": 532,
+          "endLine": 576,
+          "tokens": 540
+        },
+        {
+          "name": "reject_candidate",
+          "kind": "fn",
+          "startLine": 577,
+          "endLine": 590,
+          "tokens": 106
+        },
+        {
+          "name": "approve_candidate",
+          "kind": "fn",
+          "startLine": 591,
+          "endLine": 604,
+          "tokens": 105
+        },
+        {
+          "name": "_reverse_decision",
+          "kind": "fn",
+          "startLine": 605,
+          "endLine": 641,
+          "tokens": 458
+        },
+        {
+          "name": "restore_candidate",
+          "kind": "fn",
+          "startLine": 642,
+          "endLine": 662,
+          "tokens": 129
+        },
+        {
+          "name": "revoke_approval",
+          "kind": "fn",
+          "startLine": 663,
+          "endLine": 682,
+          "tokens": 126
+        }
+      ]
+    },
+    "src/graphit/scanners/__init__.py": {
+      "description": "Read-only database source adapters.",
+      "tokens": 12,
+      "hash": "2709b0b8db8a58ab",
+      "size": 42,
+      "mtimeMs": 1789542837357.3357,
+      "updatedAt": "2026-10-02T13:01:15.372Z",
+      "source": "scan"
+    },
+    "src/graphit/scanners/postgresql.py": {
+      "description": "Bounded, read-only PostgreSQL connection and catalog scanning.",
+      "tokens": 5212,
+      "hash": "8f6b1bb93e835640",
+      "size": 18242,
+      "mtimeMs": 1789658185650.357,
+      "updatedAt": "2026-10-02T13:01:15.372Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ConnectionTestError",
+          "kind": "class",
+          "startLine": 127,
+          "endLine": 134,
+          "tokens": 62
+        },
+        {
+          "name": "MetadataScanError",
+          "kind": "class",
+          "startLine": 135,
+          "endLine": 143,
+          "tokens": 68
+        },
+        {
+          "name": "ConnectionTestResult",
+          "kind": "class",
+          "startLine": 144,
+          "endLine": 151,
+          "tokens": 48
+        },
+        {
+          "name": "_safe_error",
+          "kind": "fn",
+          "startLine": 152,
+          "endLine": 171,
+          "tokens": 345
+        },
+        {
+          "name": "_read_only_connection",
+          "kind": "fn",
+          "startLine": 172,
+          "endLine": 196,
+          "tokens": 261
+        },
+        {
+          "name": "_assert_read_only",
+          "kind": "fn",
+          "startLine": 197,
+          "endLine": 207,
+          "tokens": 128
+        },
+        {
+          "name": "verify_connection",
+          "kind": "fn",
+          "startLine": 208,
+          "endLine": 228,
+          "tokens": 262
+        },
+        {
+          "name": "PostgreSQLScanner",
+          "kind": "class",
+          "startLine": 229,
+          "endLine": 433,
+          "tokens": 2774
+        }
+      ]
+    },
+    "src/graphit/scanners/protocol.py": {
+      "description": "Typed, database-neutral boundary for structural metadata scans.",
+      "tokens": 797,
+      "hash": "4eaa52d0b911a504",
+      "size": 2788,
+      "mtimeMs": 1789658105038.6821,
+      "updatedAt": "2026-10-02T13:01:15.372Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "quote_identifier",
+          "kind": "fn",
+          "startLine": 11,
+          "endLine": 17,
+          "tokens": 55
+        },
+        {
+          "name": "ScanScope",
+          "kind": "class",
+          "startLine": 18,
+          "endLine": 28,
+          "tokens": 76
+        },
+        {
+          "name": "SchemaMetadata",
+          "kind": "class",
+          "startLine": 29,
+          "endLine": 33,
+          "tokens": 18
+        },
+        {
+          "name": "TableMetadata",
+          "kind": "class",
+          "startLine": 34,
+          "endLine": 45,
+          "tokens": 78
+        },
+        {
+          "name": "ColumnMetadata",
+          "kind": "class",
+          "startLine": 46,
+          "endLine": 62,
+          "tokens": 109
+        },
+        {
+          "name": "KeyConstraintMetadata",
+          "kind": "class",
+          "startLine": 63,
+          "endLine": 72,
+          "tokens": 58
+        },
+        {
+          "name": "ForeignKeyMetadata",
+          "kind": "class",
+          "startLine": 73,
+          "endLine": 86,
+          "tokens": 84
+        },
+        {
+          "name": "IndexMetadata",
+          "kind": "class",
+          "startLine": 87,
+          "endLine": 101,
+          "tokens": 82
+        },
+        {
+          "name": "MetadataSnapshot",
+          "kind": "class",
+          "startLine": 102,
+          "endLine": 113,
+          "tokens": 110
+        },
+        {
+          "name": "DatabaseScanner",
+          "kind": "class",
+          "startLine": 114,
+          "endLine": 118,
+          "tokens": 56
+        }
+      ]
+    },
+    "src/graphit/snapshot_diff.py": {
+      "description": "Bounded, read-only comparison of two completed local schema snapshots.",
+      "tokens": 3275,
+      "hash": "882f69272986638a",
+      "size": 11460,
+      "mtimeMs": 1789654299641.7512,
+      "updatedAt": "2026-10-02T13:01:15.372Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SnapshotChange",
+          "kind": "class",
+          "startLine": 23,
+          "endLine": 31,
+          "tokens": 52
+        },
+        {
+          "name": "SnapshotDiff",
+          "kind": "class",
+          "startLine": 32,
+          "endLine": 43,
+          "tokens": 74
+        },
+        {
+          "name": "_Fact",
+          "kind": "class",
+          "startLine": 44,
+          "endLine": 49,
+          "tokens": 24
+        },
+        {
+          "name": "_snapshot_id",
+          "kind": "fn",
+          "startLine": 50,
+          "endLine": 65,
+          "tokens": 174
+        },
+        {
+          "name": "_metadata",
+          "kind": "fn",
+          "startLine": 66,
+          "endLine": 72,
+          "tokens": 68
+        },
+        {
+          "name": "_foreign_key_facts",
+          "kind": "fn",
+          "startLine": 73,
+          "endLine": 147,
+          "tokens": 854
+        },
+        {
+          "name": "_facts",
+          "kind": "fn",
+          "startLine": 148,
+          "endLine": 242,
+          "tokens": 1186
+        },
+        {
+          "name": "compare_snapshots",
+          "kind": "fn",
+          "startLine": 243,
+          "endLine": 301,
+          "tokens": 687
+        }
+      ]
+    },
+    "src/graphit/snapshot_history.py": {
+      "description": "Bounded, source-scoped discovery of completed local snapshot versions.",
+      "tokens": 810,
+      "hash": "88c42de2384fc4f9",
+      "size": 2832,
+      "mtimeMs": 1789653998024.402,
+      "updatedAt": "2026-10-02T13:01:15.373Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SnapshotSummary",
+          "kind": "class",
+          "startLine": 17,
+          "endLine": 23,
+          "tokens": 35
+        },
+        {
+          "name": "SnapshotHistory",
+          "kind": "class",
+          "startLine": 24,
+          "endLine": 30,
+          "tokens": 38
+        },
+        {
+          "name": "list_snapshots",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 76,
+          "tokens": 626
+        }
+      ]
+    },
+    "src/graphit/snapshots.py": {
+      "description": "Atomic local persistence for successful structural metadata scans.",
+      "tokens": 4736,
+      "hash": "ca3df228c2dcc5a0",
+      "size": 16576,
+      "mtimeMs": 1789658633143.9297,
+      "updatedAt": "2026-10-02T13:01:15.373Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SnapshotError",
+          "kind": "class",
+          "startLine": 21,
+          "endLine": 29,
+          "tokens": 65
+        },
+        {
+          "name": "StoredSnapshot",
+          "kind": "class",
+          "startLine": 30,
+          "endLine": 38,
+          "tokens": 42
+        },
+        {
+          "name": "_json",
+          "kind": "fn",
+          "startLine": 39,
+          "endLine": 42,
+          "tokens": 35
+        },
+        {
+          "name": "_identity",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 47,
+          "tokens": 54
+        },
+        {
+          "name": "_add_object",
+          "kind": "fn",
+          "startLine": 48,
+          "endLine": 78,
+          "tokens": 264
+        },
+        {
+          "name": "_add_edge",
+          "kind": "fn",
+          "startLine": 79,
+          "endLine": 95,
+          "tokens": 144
+        },
+        {
+          "name": "_required",
+          "kind": "fn",
+          "startLine": 96,
+          "endLine": 104,
+          "tokens": 80
+        },
+        {
+          "name": "_write_graph",
+          "kind": "fn",
+          "startLine": 105,
+          "endLine": 333,
+          "tokens": 2613
+        },
+        {
+          "name": "persist_snapshot",
+          "kind": "fn",
+          "startLine": 334,
+          "endLine": 404,
+          "tokens": 954
+        },
+        {
+          "name": "_record_failed_scan",
+          "kind": "fn",
+          "startLine": 405,
+          "endLine": 419,
+          "tokens": 187
+        },
+        {
+          "name": "scan_source",
+          "kind": "fn",
+          "startLine": 420,
+          "endLine": 431,
+          "tokens": 152
+        }
+      ]
+    },
+    "src/graphit/sources.py": {
+      "description": "Validated PostgreSQL source configuration in the local knowledge store.",
+      "tokens": 1870,
+      "hash": "029dd45875512f0d",
+      "size": 6543,
+      "mtimeMs": 1789544167433.86,
+      "updatedAt": "2026-10-02T13:01:15.374Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SourceError",
+          "kind": "class",
+          "startLine": 18,
+          "endLine": 21,
+          "tokens": 28
+        },
+        {
+          "name": "ProjectNotInitialized",
+          "kind": "class",
+          "startLine": 22,
+          "endLine": 25,
+          "tokens": 33
+        },
+        {
+          "name": "SourceNotFound",
+          "kind": "class",
+          "startLine": 26,
+          "endLine": 29,
+          "tokens": 23
+        },
+        {
+          "name": "SourceAlreadyExists",
+          "kind": "class",
+          "startLine": 30,
+          "endLine": 34,
+          "tokens": 34
+        },
+        {
+          "name": "SourceConfig",
+          "kind": "class",
+          "startLine": 35,
+          "endLine": 48,
+          "tokens": 86
+        },
+        {
+          "name": "validate_source",
+          "kind": "fn",
+          "startLine": 49,
+          "endLine": 83,
+          "tokens": 499
+        },
+        {
+          "name": "require_store_path",
+          "kind": "fn",
+          "startLine": 84,
+          "endLine": 106,
+          "tokens": 199
+        },
+        {
+          "name": "_record",
+          "kind": "fn",
+          "startLine": 107,
+          "endLine": 120,
+          "tokens": 129
+        },
+        {
+          "name": "add_source",
+          "kind": "fn",
+          "startLine": 121,
+          "endLine": 150,
+          "tokens": 344
+        },
+        {
+          "name": "list_sources",
+          "kind": "fn",
+          "startLine": 151,
+          "endLine": 163,
+          "tokens": 158
+        },
+        {
+          "name": "show_source",
+          "kind": "fn",
+          "startLine": 164,
+          "endLine": 177,
+          "tokens": 190
+        }
+      ]
+    },
+    "src/graphit/store.py": {
+      "description": "Versioned, project-local SQLite knowledge store.",
+      "tokens": 2484,
+      "hash": "9401159368d2c4fe",
+      "size": 8693,
+      "mtimeMs": 1789542400205.0725,
+      "updatedAt": "2026-10-02T13:01:15.374Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "StoreError",
+          "kind": "class",
+          "startLine": 9,
+          "endLine": 13,
+          "tokens": 37
+        },
+        {
+          "name": "Migration",
+          "kind": "class",
+          "startLine": 14,
+          "endLine": 133,
+          "tokens": 1516
+        },
+        {
+          "name": "initialize_store",
+          "kind": "fn",
+          "startLine": 134,
+          "endLine": 204,
+          "tokens": 889
+        }
+      ]
+    },
+    "tests/__init__.py": {
+      "description": "Graphit test suite.",
+      "tokens": 8,
+      "hash": "9e94d30fc1fad065",
+      "size": 26,
+      "mtimeMs": 1789541440243.864,
+      "updatedAt": "2026-10-02T13:01:15.374Z",
+      "source": "scan"
+    },
+    "tests/test_agent_eval_bundle.py": {
+      "description": "Offline agent evaluation packets are complete, stable, and non-destructive.",
+      "tokens": 1595,
+      "hash": "cc1ea61ef75e9d09",
+      "size": 5582,
+      "mtimeMs": 1790942174183.9502,
+      "updatedAt": "2026-10-02T13:01:15.374Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_bundle_has_equal_answer_facts_without_source_or_model",
+          "kind": "fn",
+          "startLine": 20,
+          "endLine": 64,
+          "tokens": 492
+        },
+        {
+          "name": "test_baseline_packet_is_byte_stable_and_cli_entry_works",
+          "kind": "fn",
+          "startLine": 65,
+          "endLine": 82,
+          "tokens": 196
+        },
+        {
+          "name": "test_scaled_bundle_is_complete_stable_and_cli_selectable",
+          "kind": "fn",
+          "startLine": 83,
+          "endLine": 119,
+          "tokens": 380
+        },
+        {
+          "name": "test_bundle_refuses_existing_output_without_touching_it",
+          "kind": "fn",
+          "startLine": 120,
+          "endLine": 130,
+          "tokens": 129
+        },
+        {
+          "name": "test_baseline_rejects_missing_fk_and_truncation",
+          "kind": "fn",
+          "startLine": 131,
+          "endLine": 151,
+          "tokens": 271
+        }
+      ]
+    },
+    "tests/test_claude.py": {
+      "description": "Claude Code project MCP setup preserves existing settings and starts Graphit.",
+      "tokens": 1678,
+      "hash": "3e23fa4de5acd01a",
+      "size": 5873,
+      "mtimeMs": 1789643776760.3867,
+      "updatedAt": "2026-10-02T13:01:15.375Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_setup_project",
+          "kind": "fn",
+          "startLine": 18,
+          "endLine": 22,
+          "tokens": 29
+        },
+        {
+          "name": "test_setup_creates_project_only_config",
+          "kind": "fn",
+          "startLine": 23,
+          "endLine": 38,
+          "tokens": 168
+        },
+        {
+          "name": "test_setup_preserves_existing_settings_and_is_idempotent",
+          "kind": "fn",
+          "startLine": 39,
+          "endLine": 78,
+          "tokens": 409
+        },
+        {
+          "name": "test_setup_rejects_conflicting_or_invalid_config",
+          "kind": "fn",
+          "startLine": 79,
+          "endLine": 92,
+          "tokens": 140
+        },
+        {
+          "name": "test_refresh_replaces_only_old_generated_claude_launcher",
+          "kind": "fn",
+          "startLine": 93,
+          "endLine": 127,
+          "tokens": 424
+        },
+        {
+          "name": "test_setup_requires_initialized_project",
+          "kind": "fn",
+          "startLine": 128,
+          "endLine": 134,
+          "tokens": 68
+        },
+        {
+          "name": "test_setup_rejects_symlinked_config",
+          "kind": "fn",
+          "startLine": 135,
+          "endLine": 150,
+          "tokens": 150
+        },
+        {
+          "name": "test_configured_command_starts_real_mcp_process",
+          "kind": "fn",
+          "startLine": 151,
+          "endLine": 164,
+          "tokens": 178
+        },
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 165,
+          "endLine": 167,
+          "tokens": 14
+        }
+      ]
+    },
+    "tests/test_cli.py": {
+      "description": "CLI foundation contract tests.",
+      "tokens": 4440,
+      "hash": "1a4e15540ec2cbbe",
+      "size": 15538,
+      "mtimeMs": 1789546319057.4934,
+      "updatedAt": "2026-10-02T13:01:15.375Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_version_reports_installed_version",
+          "kind": "fn",
+          "startLine": 30,
+          "endLine": 36,
+          "tokens": 54
+        },
+        {
+          "name": "test_root_help_describes_product_boundary",
+          "kind": "fn",
+          "startLine": 37,
+          "endLine": 44,
+          "tokens": 69
+        },
+        {
+          "name": "test_init_explicit_project_and_conflict",
+          "kind": "fn",
+          "startLine": 45,
+          "endLine": 56,
+          "tokens": 145
+        },
+        {
+          "name": "test_init_uses_git_root_from_nested_directory",
+          "kind": "fn",
+          "startLine": 57,
+          "endLine": 69,
+          "tokens": 118
+        },
+        {
+          "name": "test_source_add_list_show_without_password_output",
+          "kind": "fn",
+          "startLine": 70,
+          "endLine": 107,
+          "tokens": 359
+        },
+        {
+          "name": "test_source_cli_missing_project_and_duplicate",
+          "kind": "fn",
+          "startLine": 108,
+          "endLine": 138,
+          "tokens": 265
+        },
+        {
+          "name": "test_source_test_cli_success_and_missing_credential",
+          "kind": "fn",
+          "startLine": 139,
+          "endLine": 176,
+          "tokens": 329
+        },
+        {
+          "name": "test_source_test_cli_sanitizes_driver_failure",
+          "kind": "fn",
+          "startLine": 177,
+          "endLine": 208,
+          "tokens": 274
+        },
+        {
+          "name": "test_scan_cli_reports_snapshot_and_sanitized_failure",
+          "kind": "fn",
+          "startLine": 209,
+          "endLine": 234,
+          "tokens": 305
+        },
+        {
+          "name": "test_search_cli_human_json_and_no_snapshot",
+          "kind": "fn",
+          "startLine": 235,
+          "endLine": 279,
+          "tokens": 493
+        },
+        {
+          "name": "test_show_cli_compact_human_and_json_output",
+          "kind": "fn",
+          "startLine": 280,
+          "endLine": 324,
+          "tokens": 537
+        },
+        {
+          "name": "test_show_cli_not_found_exit_code",
+          "kind": "fn",
+          "startLine": 325,
+          "endLine": 336,
+          "tokens": 144
+        },
+        {
+          "name": "test_relationships_cli_human_json_and_error",
+          "kind": "fn",
+          "startLine": 337,
+          "endLine": 394,
+          "tokens": 570
+        },
+        {
+          "name": "test_path_cli_human_json_and_budget_error",
+          "kind": "fn",
+          "startLine": 395,
+          "endLine": 450,
+          "tokens": 604
+        }
+      ]
+    },
+    "tests/test_codex.py": {
+      "description": "Project-local Codex MCP setup leaves other settings untouched.",
+      "tokens": 2433,
+      "hash": "3b310c27eab2a8cd",
+      "size": 8515,
+      "mtimeMs": 1790940621423.3691,
+      "updatedAt": "2026-10-02T13:01:15.375Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_setup_project",
+          "kind": "fn",
+          "startLine": 19,
+          "endLine": 23,
+          "tokens": 33
+        },
+        {
+          "name": "test_setup_creates_project_only_config",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 36,
+          "tokens": 161
+        },
+        {
+          "name": "test_setup_preserves_existing_config_and_is_idempotent",
+          "kind": "fn",
+          "startLine": 37,
+          "endLine": 53,
+          "tokens": 195
+        },
+        {
+          "name": "test_setup_compact_tools_is_explicit_and_idempotent",
+          "kind": "fn",
+          "startLine": 54,
+          "endLine": 68,
+          "tokens": 172
+        },
+        {
+          "name": "test_setup_switches_between_compact_and_full_only_with_refresh",
+          "kind": "fn",
+          "startLine": 69,
+          "endLine": 89,
+          "tokens": 255
+        },
+        {
+          "name": "test_compact_refresh_rejects_custom_tool_allowlist",
+          "kind": "fn",
+          "startLine": 90,
+          "endLine": 117,
+          "tokens": 310
+        },
+        {
+          "name": "test_setup_rejects_conflicting_or_invalid_config",
+          "kind": "fn",
+          "startLine": 118,
+          "endLine": 132,
+          "tokens": 146
+        },
+        {
+          "name": "test_refresh_replaces_only_old_generated_codex_launcher",
+          "kind": "fn",
+          "startLine": 133,
+          "endLine": 163,
+          "tokens": 380
+        },
+        {
+          "name": "test_refresh_rejects_edited_codex_stanza",
+          "kind": "fn",
+          "startLine": 164,
+          "endLine": 185,
+          "tokens": 230
+        },
+        {
+          "name": "test_setup_requires_initialized_project",
+          "kind": "fn",
+          "startLine": 186,
+          "endLine": 192,
+          "tokens": 67
+        },
+        {
+          "name": "test_setup_rejects_symlinked_config",
+          "kind": "fn",
+          "startLine": 193,
+          "endLine": 209,
+          "tokens": 162
+        },
+        {
+          "name": "test_configured_command_starts_real_mcp_process",
+          "kind": "fn",
+          "startLine": 210,
+          "endLine": 225,
+          "tokens": 201
+        },
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 226,
+          "endLine": 228,
+          "tokens": 14
+        }
+      ]
+    },
+    "tests/test_column_impact.py": {
+      "description": "Exact column-level FK impact preserves composite position and provenance.",
+      "tokens": 2229,
+      "hash": "cc7295da351d510e",
+      "size": 7800,
+      "mtimeMs": 1789655207267.38,
+      "updatedAt": "2026-10-02T13:01:15.375Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 28,
+          "endLine": 31,
+          "tokens": 15
+        },
+        {
+          "name": "_seed",
+          "kind": "fn",
+          "startLine": 32,
+          "endLine": 66,
+          "tokens": 328
+        },
+        {
+          "name": "_payload",
+          "kind": "fn",
+          "startLine": 67,
+          "endLine": 77,
+          "tokens": 100
+        },
+        {
+          "name": "_error",
+          "kind": "fn",
+          "startLine": 78,
+          "endLine": 83,
+          "tokens": 56
+        },
+        {
+          "name": "test_column_impact_matches_only_exact_target_pairs_and_preserves_position",
+          "kind": "fn",
+          "startLine": 84,
+          "endLine": 114,
+          "tokens": 441
+        },
+        {
+          "name": "test_column_impact_errors_and_work_budget",
+          "kind": "fn",
+          "startLine": 115,
+          "endLine": 140,
+          "tokens": 328
+        },
+        {
+          "name": "test_column_impact_cli_mcp_parity_and_ceiling",
+          "kind": "fn",
+          "startLine": 141,
+          "endLine": 184,
+          "tokens": 559
+        },
+        {
+          "name": "test_column_impact_real_stdio",
+          "kind": "fn",
+          "startLine": 185,
+          "endLine": 200,
+          "tokens": 171
+        }
+      ]
+    },
+    "tests/test_context_benchmark.py": {
+      "description": "Fixed ERP-like grounding and response-size baseline for focused MCP graph context.",
+      "tokens": 9012,
+      "hash": "45c1606f2d477f2a",
+      "size": 31541,
+      "mtimeMs": 1789645475906.129,
+      "updatedAt": "2026-10-02T13:01:15.376Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "GroundedQuestion",
+          "kind": "class",
+          "startLine": 28,
+          "endLine": 87,
+          "tokens": 443
+        },
+        {
+          "name": "_distractor_columns",
+          "kind": "fn",
+          "startLine": 88,
+          "endLine": 100,
+          "tokens": 114
+        },
+        {
+          "name": "_overlap_columns",
+          "kind": "fn",
+          "startLine": 101,
+          "endLine": 107,
+          "tokens": 58
+        },
+        {
+          "name": "_full_structural_baseline",
+          "kind": "fn",
+          "startLine": 108,
+          "endLine": 160,
+          "tokens": 537
+        },
+        {
+          "name": "_link_for_pair",
+          "kind": "fn",
+          "startLine": 161,
+          "endLine": 174,
+          "tokens": 114
+        },
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 175,
+          "endLine": 179,
+          "tokens": 20
+        },
+        {
+          "name": "test_fixed_erp_graph_context_coverage_and_size",
+          "kind": "fn",
+          "startLine": 180,
+          "endLine": 257,
+          "tokens": 923
+        },
+        {
+          "name": "test_fixed_erp_focus_discovery_without_oracle",
+          "kind": "fn",
+          "startLine": 258,
+          "endLine": 416,
+          "tokens": 2238
+        },
+        {
+          "name": "test_manual_synonym_approval_changes_agent_style_erp_context",
+          "kind": "fn",
+          "startLine": 417,
+          "endLine": 528,
+          "tokens": 1411
+        },
+        {
+          "name": "test_scaled_erp_discovery_with_unrelated_tables",
+          "kind": "fn",
+          "startLine": 529,
+          "endLine": 675,
+          "tokens": 1949
+        },
+        {
+          "name": "test_erp_discovery_with_name_overlap",
+          "kind": "fn",
+          "startLine": 676,
+          "endLine": 750,
+          "tokens": 998
+        }
+      ]
+    },
+    "tests/test_distribution_check.py": {
+      "description": "Regression tests for the unpublished distribution archive gate.",
+      "tokens": 1358,
+      "hash": "3ab0e1139b2f6eca",
+      "size": 4751,
+      "mtimeMs": 1790945784118.5134,
+      "updatedAt": "2026-10-02T13:01:15.376Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "make_archives",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 72,
+          "tokens": 693
+        },
+        {
+          "name": "test_distribution_check_accepts_scoped_archives",
+          "kind": "fn",
+          "startLine": 73,
+          "endLine": 78,
+          "tokens": 46
+        },
+        {
+          "name": "test_distribution_check_rejects_private_source_state",
+          "kind": "fn",
+          "startLine": 79,
+          "endLine": 85,
+          "tokens": 80
+        },
+        {
+          "name": "test_distribution_check_rejects_nested_private_source_state",
+          "kind": "fn",
+          "startLine": 86,
+          "endLine": 92,
+          "tokens": 84
+        },
+        {
+          "name": "test_distribution_check_rejects_missing_license_expression",
+          "kind": "fn",
+          "startLine": 93,
+          "endLine": 99,
+          "tokens": 78
+        },
+        {
+          "name": "test_distribution_check_rejects_wrong_cli_entry_point",
+          "kind": "fn",
+          "startLine": 100,
+          "endLine": 106,
+          "tokens": 78
+        },
+        {
+          "name": "test_distribution_check_rejects_wrong_author",
+          "kind": "fn",
+          "startLine": 107,
+          "endLine": 113,
+          "tokens": 74
+        },
+        {
+          "name": "test_distribution_check_rejects_wrong_project_url",
+          "kind": "fn",
+          "startLine": 114,
+          "endLine": 120,
+          "tokens": 83
+        },
+        {
+          "name": "test_distribution_check_rejects_missing_notice",
+          "kind": "fn",
+          "startLine": 121,
+          "endLine": 126,
+          "tokens": 72
+        }
+      ]
+    },
+    "tests/test_graph_dot.py": {
+      "description": "DOT rendering remains local, bounded, deterministic, and provenance-aware.",
+      "tokens": 1069,
+      "hash": "bb6cb5e709969aae",
+      "size": 3739,
+      "mtimeMs": 1789560852836.052,
+      "updatedAt": "2026-10-02T13:01:15.376Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_dot_renders_fk_and_approved_link_with_distinct_labels",
+          "kind": "fn",
+          "startLine": 16,
+          "endLine": 64,
+          "tokens": 486
+        },
+        {
+          "name": "test_dot_escapes_untrusted_names_and_rejects_unrecognized_links",
+          "kind": "fn",
+          "startLine": 65,
+          "endLine": 79,
+          "tokens": 192
+        },
+        {
+          "name": "test_graph_cli_dot_keeps_json_default_and_excludes_pending",
+          "kind": "fn",
+          "startLine": 80,
+          "endLine": 98,
+          "tokens": 257
+        }
+      ]
+    },
+    "tests/test_graph_export.py": {
+      "description": "One-hop JSON projection keeps database facts and human decisions separate.",
+      "tokens": 3166,
+      "hash": "00781212306bcc38",
+      "size": 11081,
+      "mtimeMs": 1789559823500.5525,
+      "updatedAt": "2026-10-02T13:01:15.376Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_approved_projection_is_local_and_revocation_removes_link",
+          "kind": "fn",
+          "startLine": 32,
+          "endLine": 60,
+          "tokens": 343
+        },
+        {
+          "name": "test_fk_projection_deduplicates_self_link_and_labels_external_scope",
+          "kind": "fn",
+          "startLine": 61,
+          "endLine": 80,
+          "tokens": 280
+        },
+        {
+          "name": "test_graph_cli_json_and_exact_lookup_errors",
+          "kind": "fn",
+          "startLine": 81,
+          "endLine": 99,
+          "tokens": 194
+        },
+        {
+          "name": "test_graph_rejects_ambiguous_table_and_reports_latest_snapshot",
+          "kind": "fn",
+          "startLine": 100,
+          "endLine": 109,
+          "tokens": 133
+        },
+        {
+          "name": "test_graph_reports_fk_truncation_instead_of_implying_completeness",
+          "kind": "fn",
+          "startLine": 110,
+          "endLine": 149,
+          "tokens": 396
+        },
+        {
+          "name": "test_fk_only_graph_skips_whole_snapshot_inference_on_large_schema",
+          "kind": "fn",
+          "startLine": 150,
+          "endLine": 180,
+          "tokens": 289
+        },
+        {
+          "name": "test_approval_presence_uses_latest_event_and_exact_table_prefix",
+          "kind": "fn",
+          "startLine": 181,
+          "endLine": 196,
+          "tokens": 271
+        },
+        {
+          "name": "test_graph_fails_on_rescan_between_fk_and_review_reads",
+          "kind": "fn",
+          "startLine": 197,
+          "endLine": 208,
+          "tokens": 130
+        },
+        {
+          "name": "test_approved_graph_on_large_snapshot_revalidates_pair_and_declared_fk",
+          "kind": "fn",
+          "startLine": 209,
+          "endLine": 261,
+          "tokens": 572
+        },
+        {
+          "name": "test_approved_graph_keeps_ambiguous_alternative_count",
+          "kind": "fn",
+          "startLine": 262,
+          "endLine": 272,
+          "tokens": 136
+        },
+        {
+          "name": "test_targeted_approval_validation_fails_on_work_cap",
+          "kind": "fn",
+          "startLine": 273,
+          "endLine": 284,
+          "tokens": 145
+        }
+      ]
+    },
+    "tests/test_graph_html.py": {
+      "description": "Self-contained HTML graph is interactive, safe, and source-independent.",
+      "tokens": 1698,
+      "hash": "0a0e1159b136fdeb",
+      "size": 5941,
+      "mtimeMs": 1790943980725.01,
+      "updatedAt": "2026-10-02T13:01:15.376Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_html_shows_graph_list_scope_provenance_and_truncation",
+          "kind": "fn",
+          "startLine": 19,
+          "endLine": 83,
+          "tokens": 756
+        },
+        {
+          "name": "test_html_escapes_untrusted_metadata_and_keeps_svg_edges_bounded",
+          "kind": "fn",
+          "startLine": 84,
+          "endLine": 97,
+          "tokens": 171
+        },
+        {
+          "name": "test_graph_cli_html_shows_only_current_approved_links",
+          "kind": "fn",
+          "startLine": 98,
+          "endLine": 115,
+          "tokens": 244
+        },
+        {
+          "name": "test_graph_cli_explicit_output_is_utf8_and_never_overwrites",
+          "kind": "fn",
+          "startLine": 116,
+          "endLine": 163,
+          "tokens": 373
+        }
+      ]
+    },
+    "tests/test_impact.py": {
+      "description": "Direct structural impact stays bounded and clearly FK-only.",
+      "tokens": 4721,
+      "hash": "f485b86d786a0a7e",
+      "size": 16521,
+      "mtimeMs": 1789666272575.2615,
+      "updatedAt": "2026-10-02T13:01:15.376Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 35,
+          "endLine": 38,
+          "tokens": 15
+        },
+        {
+          "name": "_metadata",
+          "kind": "fn",
+          "startLine": 39,
+          "endLine": 126,
+          "tokens": 776
+        },
+        {
+          "name": "_seed",
+          "kind": "fn",
+          "startLine": 127,
+          "endLine": 136,
+          "tokens": 108
+        },
+        {
+          "name": "_payload",
+          "kind": "fn",
+          "startLine": 137,
+          "endLine": 148,
+          "tokens": 105
+        },
+        {
+          "name": "test_direct_fk_impact_counts_unique_tables_and_excludes_transitive_links",
+          "kind": "fn",
+          "startLine": 149,
+          "endLine": 206,
+          "tokens": 808
+        },
+        {
+          "name": "test_impact_exact_resolution_and_failures",
+          "kind": "fn",
+          "startLine": 207,
+          "endLine": 221,
+          "tokens": 191
+        },
+        {
+          "name": "test_transitive_impact_follows_shortest_declared_fk_paths",
+          "kind": "fn",
+          "startLine": 222,
+          "endLine": 260,
+          "tokens": 479
+        },
+        {
+          "name": "test_transitive_impact_rejects_invalid_bounds_and_budget",
+          "kind": "fn",
+          "startLine": 261,
+          "endLine": 283,
+          "tokens": 258
+        },
+        {
+          "name": "test_impact_cli_mcp_parity_and_response_ceiling",
+          "kind": "fn",
+          "startLine": 284,
+          "endLine": 355,
+          "tokens": 794
+        },
+        {
+          "name": "test_impact_real_stdio",
+          "kind": "fn",
+          "startLine": 356,
+          "endLine": 373,
+          "tokens": 184
+        },
+        {
+          "name": "test_transitive_impact_cli_mcp_parity_and_limits",
+          "kind": "fn",
+          "startLine": 374,
+          "endLine": 415,
+          "tokens": 573
+        },
+        {
+          "name": "test_transitive_impact_real_stdio",
+          "kind": "fn",
+          "startLine": 416,
+          "endLine": 430,
+          "tokens": 172
+        }
+      ]
+    },
+    "tests/test_index_queries.py": {
+      "description": "Explicit, bounded lookup of saved index facts without source reconnection.",
+      "tokens": 2140,
+      "hash": "e3d0cc0e7b13c298",
+      "size": 7488,
+      "mtimeMs": 1789659087214.573,
+      "updatedAt": "2026-10-02T13:01:15.377Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_project",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 30,
+          "tokens": 41
+        },
+        {
+          "name": "test_index_lookup_pages_saved_facts_and_never_connects",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 69,
+          "tokens": 522
+        },
+        {
+          "name": "test_old_snapshot_and_rescan_without_indexes_return_empty",
+          "kind": "fn",
+          "startLine": 70,
+          "endLine": 84,
+          "tokens": 227
+        },
+        {
+          "name": "test_index_lookup_relation_kind_ambiguity_and_source_isolation",
+          "kind": "fn",
+          "startLine": 85,
+          "endLine": 126,
+          "tokens": 513
+        },
+        {
+          "name": "test_index_lookup_rejects_invalid_bounds_and_corrupt_edges",
+          "kind": "fn",
+          "startLine": 127,
+          "endLine": 150,
+          "tokens": 282
+        },
+        {
+          "name": "test_indexes_cli_json_human_and_errors",
+          "kind": "fn",
+          "startLine": 151,
+          "endLine": 177,
+          "tokens": 353
+        }
+      ]
+    },
+    "tests/test_inference_benchmark.py": {
+      "description": "Fixed ERP-like challenge set for the metadata-only inference baseline.",
+      "tokens": 3017,
+      "hash": "f55b75ee504e0c63",
+      "size": 10557,
+      "mtimeMs": 1789570752568.087,
+      "updatedAt": "2026-10-02T13:01:15.377Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "LabeledPair",
+          "kind": "class",
+          "startLine": 28,
+          "endLine": 113,
+          "tokens": 736
+        },
+        {
+          "name": "_column",
+          "kind": "fn",
+          "startLine": 114,
+          "endLine": 117,
+          "tokens": 51
+        },
+        {
+          "name": "_fixture_columns",
+          "kind": "fn",
+          "startLine": 118,
+          "endLine": 142,
+          "tokens": 378
+        },
+        {
+          "name": "_fixture_keys",
+          "kind": "fn",
+          "startLine": 143,
+          "endLine": 161,
+          "tokens": 169
+        },
+        {
+          "name": "_save_fixture",
+          "kind": "fn",
+          "startLine": 162,
+          "endLine": 203,
+          "tokens": 379
+        },
+        {
+          "name": "_display",
+          "kind": "fn",
+          "startLine": 204,
+          "endLine": 207,
+          "tokens": 28
+        },
+        {
+          "name": "test_metadata_v3_ground_truth_precision_and_recall",
+          "kind": "fn",
+          "startLine": 208,
+          "endLine": 273,
+          "tokens": 785
+        },
+        {
+          "name": "test_external_identity_cannot_be_resolved_by_metadata_preview",
+          "kind": "fn",
+          "startLine": 274,
+          "endLine": 303,
+          "tokens": 300
+        }
+      ]
+    },
+    "tests/test_inference.py": {
+      "description": "Conservative metadata-only relationship candidate preview.",
+      "tokens": 3590,
+      "hash": "fb5e7645b789b3f6",
+      "size": 12563,
+      "mtimeMs": 1789554659241.5183,
+      "updatedAt": "2026-10-02T13:01:15.377Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_project",
+          "kind": "fn",
+          "startLine": 30,
+          "endLine": 44,
+          "tokens": 98
+        },
+        {
+          "name": "_save",
+          "kind": "fn",
+          "startLine": 45,
+          "endLine": 67,
+          "tokens": 211
+        },
+        {
+          "name": "_base_columns",
+          "kind": "fn",
+          "startLine": 68,
+          "endLine": 75,
+          "tokens": 86
+        },
+        {
+          "name": "_customer_key",
+          "kind": "fn",
+          "startLine": 76,
+          "endLine": 81,
+          "tokens": 47
+        },
+        {
+          "name": "test_exact_key_candidate_has_evidence_and_does_not_write_edge",
+          "kind": "fn",
+          "startLine": 82,
+          "endLine": 113,
+          "tokens": 357
+        },
+        {
+          "name": "test_declared_fk_is_excluded_and_latest_snapshot_wins",
+          "kind": "fn",
+          "startLine": 114,
+          "endLine": 137,
+          "tokens": 194
+        },
+        {
+          "name": "test_external_single_and_composite_fks_suppress_only_their_source_columns",
+          "kind": "fn",
+          "startLine": 138,
+          "endLine": 190,
+          "tokens": 530
+        },
+        {
+          "name": "test_declared_fk_work_cap_and_invalid_pair_metadata_fail_closed",
+          "kind": "fn",
+          "startLine": 191,
+          "endLine": 224,
+          "tokens": 349
+        },
+        {
+          "name": "test_type_key_and_name_filters_prevent_false_positives",
+          "kind": "fn",
+          "startLine": 225,
+          "endLine": 241,
+          "tokens": 218
+        },
+        {
+          "name": "test_ambiguous_targets_are_labeled_and_over_cap_are_skipped",
+          "kind": "fn",
+          "startLine": 242,
+          "endLine": 305,
+          "tokens": 681
+        },
+        {
+          "name": "test_missing_snapshot_invalid_limit_and_work_budget",
+          "kind": "fn",
+          "startLine": 306,
+          "endLine": 334,
+          "tokens": 377
+        },
+        {
+          "name": "test_cli_preview_human_json_and_errors",
+          "kind": "fn",
+          "startLine": 335,
+          "endLine": 352,
+          "tokens": 242
+        }
+      ]
+    },
+    "tests/test_installed_smoke.py": {
+      "description": "Contract for the clean-wheel smoke script using the development installation.",
+      "tokens": 86,
+      "hash": "8bb7ce35f3f52474",
+      "size": 301,
+      "mtimeMs": 1789656474323.4795,
+      "updatedAt": "2026-10-02T13:01:15.377Z",
+      "source": "scan"
+    },
+    "tests/test_manual_graph.py": {
+      "description": "Approved manual links appear only in opt-in local graph projections.",
+      "tokens": 3581,
+      "hash": "59178cb02ab7d47c",
+      "size": 12531,
+      "mtimeMs": 1789633239231.9153,
+      "updatedAt": "2026-10-02T13:01:15.378Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 47,
+          "tokens": 15
+        },
+        {
+          "name": "_approved",
+          "kind": "fn",
+          "startLine": 48,
+          "endLine": 52,
+          "tokens": 46
+        },
+        {
+          "name": "test_manual_link_is_local_opt_in_and_rendered_with_reason",
+          "kind": "fn",
+          "startLine": 53,
+          "endLine": 99,
+          "tokens": 644
+        },
+        {
+          "name": "test_manual_graph_limit_and_stale_rescan_do_not_claim_completeness",
+          "kind": "fn",
+          "startLine": 100,
+          "endLine": 133,
+          "tokens": 463
+        },
+        {
+          "name": "test_manual_graph_prefers_human_reason_over_same_inferred_pair",
+          "kind": "fn",
+          "startLine": 134,
+          "endLine": 146,
+          "tokens": 206
+        },
+        {
+          "name": "test_manual_graph_link_is_bounded_and_provenance_safe_in_mcp",
+          "kind": "fn",
+          "startLine": 147,
+          "endLine": 205,
+          "tokens": 797
+        },
+        {
+          "name": "test_manual_graph_mcp_real_stdio_and_source_isolation",
+          "kind": "fn",
+          "startLine": 206,
+          "endLine": 245,
+          "tokens": 459
+        },
+        {
+          "name": "test_manual_mcp_truncation_and_stale_rescan",
+          "kind": "fn",
+          "startLine": 246,
+          "endLine": 286,
+          "tokens": 587
+        }
+      ]
+    },
+    "tests/test_manual_proposal.py": {
+      "description": "Human proposals stay local and separate from approved graph relationships.",
+      "tokens": 5588,
+      "hash": "e537bacdffc85892",
+      "size": 19558,
+      "mtimeMs": 1789574593422.4224,
+      "updatedAt": "2026-10-02T13:01:15.378Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_manual_synonym_proposal_is_local_pending_and_idempotent",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 80,
+          "tokens": 438
+        },
+        {
+          "name": "test_manual_proposal_rejects_invalid_or_stale_pairs",
+          "kind": "fn",
+          "startLine": 81,
+          "endLine": 103,
+          "tokens": 384
+        },
+        {
+          "name": "test_manual_proposal_cli_json_and_reason_update",
+          "kind": "fn",
+          "startLine": 104,
+          "endLine": 141,
+          "tokens": 335
+        },
+        {
+          "name": "test_manual_proposal_fails_closed_on_damaged_fk_metadata",
+          "kind": "fn",
+          "startLine": 142,
+          "endLine": 162,
+          "tokens": 238
+        },
+        {
+          "name": "test_manual_proposals_latest_reason_paging_and_source_isolation",
+          "kind": "fn",
+          "startLine": 163,
+          "endLine": 220,
+          "tokens": 618
+        },
+        {
+          "name": "test_manual_proposal_list_marks_rescan_staleness_without_hiding_history",
+          "kind": "fn",
+          "startLine": 221,
+          "endLine": 286,
+          "tokens": 763
+        },
+        {
+          "name": "test_manual_proposal_list_rejects_bad_limits_and_corrupt_history",
+          "kind": "fn",
+          "startLine": 287,
+          "endLine": 304,
+          "tokens": 245
+        },
+        {
+          "name": "test_manual_proposal_approval_is_explicit_local_and_idempotent",
+          "kind": "fn",
+          "startLine": 305,
+          "endLine": 360,
+          "tokens": 595
+        },
+        {
+          "name": "test_manual_approval_requires_exact_current_unconflicted_proposal",
+          "kind": "fn",
+          "startLine": 361,
+          "endLine": 385,
+          "tokens": 338
+        },
+        {
+          "name": "test_manual_revocation_preserves_reason_and_requires_explicit_reproposal",
+          "kind": "fn",
+          "startLine": 386,
+          "endLine": 456,
+          "tokens": 810
+        },
+        {
+          "name": "test_manual_revocation_is_source_scoped_and_works_after_stale_rescan",
+          "kind": "fn",
+          "startLine": 457,
+          "endLine": 494,
+          "tokens": 515
+        }
+      ]
+    },
+    "tests/test_mcp_diff.py": {
+      "description": "MCP snapshot diff exposes saved structural drift through the shared service.",
+      "tokens": 1736,
+      "hash": "77cb0a31eb058849",
+      "size": 6076,
+      "mtimeMs": 1789654396676.032,
+      "updatedAt": "2026-10-02T13:01:15.378Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 25,
+          "endLine": 28,
+          "tokens": 15
+        },
+        {
+          "name": "_seed_versions",
+          "kind": "fn",
+          "startLine": 29,
+          "endLine": 37,
+          "tokens": 92
+        },
+        {
+          "name": "_payload",
+          "kind": "fn",
+          "startLine": 38,
+          "endLine": 48,
+          "tokens": 97
+        },
+        {
+          "name": "_has_error",
+          "kind": "fn",
+          "startLine": 49,
+          "endLine": 55,
+          "tokens": 62
+        },
+        {
+          "name": "test_mcp_diff_reuses_local_service_and_preserves_bounds",
+          "kind": "fn",
+          "startLine": 56,
+          "endLine": 97,
+          "tokens": 517
+        },
+        {
+          "name": "test_mcp_diff_rejects_invalid_missing_and_cross_source_versions",
+          "kind": "fn",
+          "startLine": 98,
+          "endLine": 130,
+          "tokens": 416
+        },
+        {
+          "name": "test_mcp_diff_rejects_oversized_response",
+          "kind": "fn",
+          "startLine": 131,
+          "endLine": 143,
+          "tokens": 135
+        },
+        {
+          "name": "test_mcp_diff_real_stdio_protocol",
+          "kind": "fn",
+          "startLine": 144,
+          "endLine": 161,
+          "tokens": 202
+        }
+      ]
+    },
+    "tests/test_mcp_indexes.py": {
+      "description": "MCP index context stays opt-in, local, bounded, and CLI-compatible.",
+      "tokens": 1733,
+      "hash": "c42eeca5a462295f",
+      "size": 6063,
+      "mtimeMs": 1789660267546.3943,
+      "updatedAt": "2026-10-02T13:01:15.378Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 27,
+          "endLine": 30,
+          "tokens": 15
+        },
+        {
+          "name": "_seed",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 39,
+          "tokens": 60
+        },
+        {
+          "name": "_seed_ambiguous",
+          "kind": "fn",
+          "startLine": 40,
+          "endLine": 55,
+          "tokens": 134
+        },
+        {
+          "name": "_payload",
+          "kind": "fn",
+          "startLine": 56,
+          "endLine": 66,
+          "tokens": 96
+        },
+        {
+          "name": "_error",
+          "kind": "fn",
+          "startLine": 67,
+          "endLine": 73,
+          "tokens": 61
+        },
+        {
+          "name": "test_mcp_index_parity_pagination_and_no_source_connection",
+          "kind": "fn",
+          "startLine": 74,
+          "endLine": 103,
+          "tokens": 399
+        },
+        {
+          "name": "test_mcp_index_errors_and_corrupt_store",
+          "kind": "fn",
+          "startLine": 104,
+          "endLine": 127,
+          "tokens": 366
+        },
+        {
+          "name": "test_mcp_index_ambiguous_relation",
+          "kind": "fn",
+          "startLine": 128,
+          "endLine": 135,
+          "tokens": 94
+        },
+        {
+          "name": "test_mcp_index_response_ceiling",
+          "kind": "fn",
+          "startLine": 136,
+          "endLine": 144,
+          "tokens": 116
+        },
+        {
+          "name": "test_mcp_index_real_stdio",
+          "kind": "fn",
+          "startLine": 145,
+          "endLine": 160,
+          "tokens": 174
+        }
+      ]
+    },
+    "tests/test_mcp_server.py": {
+      "description": "MCP tools expose bounded saved context without querying source databases.",
+      "tokens": 6392,
+      "hash": "db496e995b4635dd",
+      "size": 22372,
+      "mtimeMs": 1789666241113.2588,
+      "updatedAt": "2026-10-02T13:01:15.379Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_json_content",
+          "kind": "fn",
+          "startLine": 34,
+          "endLine": 43,
+          "tokens": 82
+        },
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 47,
+          "tokens": 15
+        },
+        {
+          "name": "_seed_project",
+          "kind": "fn",
+          "startLine": 48,
+          "endLine": 74,
+          "tokens": 226
+        },
+        {
+          "name": "_seed_relationship_project",
+          "kind": "fn",
+          "startLine": 75,
+          "endLine": 137,
+          "tokens": 594
+        },
+        {
+          "name": "test_mcp_tools_read_local_snapshot",
+          "kind": "fn",
+          "startLine": 138,
+          "endLine": 183,
+          "tokens": 516
+        },
+        {
+          "name": "test_mcp_errors_are_safe_and_explicit",
+          "kind": "fn",
+          "startLine": 184,
+          "endLine": 222,
+          "tokens": 406
+        },
+        {
+          "name": "test_mcp_rejects_oversized_context",
+          "kind": "fn",
+          "startLine": 223,
+          "endLine": 237,
+          "tokens": 153
+        },
+        {
+          "name": "test_mcp_relationships_preserve_directions_and_scope",
+          "kind": "fn",
+          "startLine": 238,
+          "endLine": 267,
+          "tokens": 397
+        },
+        {
+          "name": "test_mcp_graph_context_separates_reviewed_links_from_fk_facts",
+          "kind": "fn",
+          "startLine": 268,
+          "endLine": 315,
+          "tokens": 666
+        },
+        {
+          "name": "test_mcp_graph_context_bounds_and_errors",
+          "kind": "fn",
+          "startLine": 316,
+          "endLine": 341,
+          "tokens": 369
+        },
+        {
+          "name": "test_mcp_overview_is_compact_and_uses_latest_local_snapshot",
+          "kind": "fn",
+          "startLine": 342,
+          "endLine": 368,
+          "tokens": 367
+        },
+        {
+          "name": "test_mcp_relevant_context_is_explainable_and_bounded",
+          "kind": "fn",
+          "startLine": 369,
+          "endLine": 433,
+          "tokens": 768
+        },
+        {
+          "name": "test_mcp_path_preserves_direction_and_reports_failures",
+          "kind": "fn",
+          "startLine": 434,
+          "endLine": 481,
+          "tokens": 577
+        },
+        {
+          "name": "test_mcp_graph_tools_reject_oversized_context",
+          "kind": "fn",
+          "startLine": 482,
+          "endLine": 507,
+          "tokens": 289
+        },
+        {
+          "name": "test_mcp_serve_missing_project_keeps_stdout_clean",
+          "kind": "fn",
+          "startLine": 508,
+          "endLine": 516,
+          "tokens": 86
+        },
+        {
+          "name": "test_mcp_cli_uses_real_stdio_protocol",
+          "kind": "fn",
+          "startLine": 517,
+          "endLine": 564,
+          "tokens": 602
+        }
+      ]
+    },
+    "tests/test_postgresql_connection.py": {
+      "description": "PostgreSQL connection-test safety without a live target server.",
+      "tokens": 1544,
+      "hash": "b0c1c9096447a0da",
+      "size": 5404,
+      "mtimeMs": 1789543226719.8472,
+      "updatedAt": "2026-10-02T13:01:15.379Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_source",
+          "kind": "fn",
+          "startLine": 13,
+          "endLine": 25,
+          "tokens": 86
+        },
+        {
+          "name": "FakeCursor",
+          "kind": "class",
+          "startLine": 26,
+          "endLine": 43,
+          "tokens": 126
+        },
+        {
+          "name": "FakeConnection",
+          "kind": "class",
+          "startLine": 44,
+          "endLine": 61,
+          "tokens": 148
+        },
+        {
+          "name": "test_one_bounded_read_only_query_and_no_persisted_secret",
+          "kind": "fn",
+          "startLine": 62,
+          "endLine": 89,
+          "tokens": 343
+        },
+        {
+          "name": "test_missing_credential_does_not_attempt_connection",
+          "kind": "fn",
+          "startLine": 90,
+          "endLine": 114,
+          "tokens": 275
+        },
+        {
+          "name": "test_driver_errors_are_classified_without_exposing_secrets",
+          "kind": "fn",
+          "startLine": 115,
+          "endLine": 131,
+          "tokens": 180
+        },
+        {
+          "name": "test_statement_timeout_has_distinct_code",
+          "kind": "fn",
+          "startLine": 132,
+          "endLine": 145,
+          "tokens": 165
+        },
+        {
+          "name": "test_unconfirmed_read_only_state_fails_closed",
+          "kind": "fn",
+          "startLine": 146,
+          "endLine": 158,
+          "tokens": 143
+        }
+      ]
+    },
+    "tests/test_postgresql_integration.py": {
+      "description": "Opt-in catalog integration against an explicitly disposable PostgreSQL server.",
+      "tokens": 3878,
+      "hash": "4d9d14fd239a1662",
+      "size": 13570,
+      "mtimeMs": 1789660507619.1995,
+      "updatedAt": "2026-10-02T13:01:15.379Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_disposable_admin_dsn",
+          "kind": "fn",
+          "startLine": 38,
+          "endLine": 59,
+          "tokens": 260
+        },
+        {
+          "name": "_create_fixture",
+          "kind": "fn",
+          "startLine": 60,
+          "endLine": 147,
+          "tokens": 912
+        },
+        {
+          "name": "test_real_postgresql_catalog_scan_and_snapshot",
+          "kind": "fn",
+          "startLine": 148,
+          "endLine": 319,
+          "tokens": 2423
+        }
+      ]
+    },
+    "tests/test_postgresql_scanner.py": {
+      "description": "PostgreSQL catalog scanner scope, safety, and identifier tests.",
+      "tokens": 5420,
+      "hash": "02a76891ae59fd10",
+      "size": 18974,
+      "mtimeMs": 1789658191282.0403,
+      "updatedAt": "2026-10-02T13:01:15.379Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_source",
+          "kind": "fn",
+          "startLine": 14,
+          "endLine": 25,
+          "tokens": 79
+        },
+        {
+          "name": "ScriptedCursor",
+          "kind": "class",
+          "startLine": 26,
+          "endLine": 61,
+          "tokens": 395
+        },
+        {
+          "name": "ScriptedConnection",
+          "kind": "class",
+          "startLine": 62,
+          "endLine": 79,
+          "tokens": 151
+        },
+        {
+          "name": "_results",
+          "kind": "fn",
+          "startLine": 80,
+          "endLine": 92,
+          "tokens": 124
+        },
+        {
+          "name": "test_scans_multiple_schemas_and_preserves_quoted_names",
+          "kind": "fn",
+          "startLine": 93,
+          "endLine": 131,
+          "tokens": 521
+        },
+        {
+          "name": "test_views_and_materialized_views_keep_kind_columns_and_shared_limit",
+          "kind": "fn",
+          "startLine": 132,
+          "endLine": 182,
+          "tokens": 570
+        },
+        {
+          "name": "test_unsupported_relation_kind_fails_closed",
+          "kind": "fn",
+          "startLine": 183,
+          "endLine": 206,
+          "tokens": 272
+        },
+        {
+          "name": "test_invalid_scope_fails_before_connection",
+          "kind": "fn",
+          "startLine": 207,
+          "endLine": 252,
+          "tokens": 449
+        },
+        {
+          "name": "test_missing_permission_and_limits_fail_closed",
+          "kind": "fn",
+          "startLine": 253,
+          "endLine": 271,
+          "tokens": 200
+        },
+        {
+          "name": "test_driver_permission_failure_is_sanitized",
+          "kind": "fn",
+          "startLine": 272,
+          "endLine": 285,
+          "tokens": 172
+        },
+        {
+          "name": "test_read_only_must_be_confirmed_before_catalog_reads",
+          "kind": "fn",
+          "startLine": 286,
+          "endLine": 300,
+          "tokens": 172
+        },
+        {
+          "name": "test_composite_keys_and_cross_schema_foreign_key_preserve_order",
+          "kind": "fn",
+          "startLine": 301,
+          "endLine": 380,
+          "tokens": 672
+        },
+        {
+          "name": "test_self_fk_and_out_of_scope_target_are_explicit",
+          "kind": "fn",
+          "startLine": 381,
+          "endLine": 437,
+          "tokens": 513
+        },
+        {
+          "name": "test_incomplete_constraints_fail_closed",
+          "kind": "fn",
+          "startLine": 438,
+          "endLine": 451,
+          "tokens": 158
+        },
+        {
+          "name": "_index_row",
+          "kind": "fn",
+          "startLine": 452,
+          "endLine": 469,
+          "tokens": 82
+        },
+        {
+          "name": "test_index_catalog_preserves_key_order_and_only_safe_flags",
+          "kind": "fn",
+          "startLine": 470,
+          "endLine": 509,
+          "tokens": 482
+        },
+        {
+          "name": "test_incomplete_index_metadata_fails_closed",
+          "kind": "fn",
+          "startLine": 510,
+          "endLine": 523,
+          "tokens": 162
+        },
+        {
+          "name": "test_index_limit_fails_closed",
+          "kind": "fn",
+          "startLine": 524,
+          "endLine": 534,
+          "tokens": 152
+        }
+      ]
+    },
+    "tests/test_project.py": {
+      "description": "Project initialization and discovery tests.",
+      "tokens": 1737,
+      "hash": "4328fdbc570a00b0",
+      "size": 6079,
+      "mtimeMs": 1789542388586.021,
+      "updatedAt": "2026-10-02T13:01:15.379Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_initialize_git_project_with_local_store",
+          "kind": "fn",
+          "startLine": 13,
+          "endLine": 33,
+          "tokens": 252
+        },
+        {
+          "name": "test_non_git_project_does_not_create_gitignore",
+          "kind": "fn",
+          "startLine": 34,
+          "endLine": 43,
+          "tokens": 91
+        },
+        {
+          "name": "test_find_root_prefers_nearest_existing_graphit_config",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 52,
+          "tokens": 94
+        },
+        {
+          "name": "test_find_root_uses_git_root_for_nested_directory",
+          "kind": "fn",
+          "startLine": 53,
+          "endLine": 60,
+          "tokens": 68
+        },
+        {
+          "name": "test_find_root_does_not_escape_nearest_git_boundary",
+          "kind": "fn",
+          "startLine": 61,
+          "endLine": 70,
+          "tokens": 90
+        },
+        {
+          "name": "test_existing_config_is_untouched_without_force",
+          "kind": "fn",
+          "startLine": 71,
+          "endLine": 81,
+          "tokens": 115
+        },
+        {
+          "name": "test_force_replaces_config_but_preserves_existing_state",
+          "kind": "fn",
+          "startLine": 82,
+          "endLine": 97,
+          "tokens": 179
+        },
+        {
+          "name": "test_force_preserves_existing_store_rows",
+          "kind": "fn",
+          "startLine": 98,
+          "endLine": 115,
+          "tokens": 200
+        },
+        {
+          "name": "test_invalid_existing_store_does_not_replace_config",
+          "kind": "fn",
+          "startLine": 116,
+          "endLine": 128,
+          "tokens": 136
+        },
+        {
+          "name": "test_gitignore_append_is_idempotent_across_force",
+          "kind": "fn",
+          "startLine": 129,
+          "endLine": 140,
+          "tokens": 114
+        },
+        {
+          "name": "test_gitignore_keeps_existing_crlf_line_endings",
+          "kind": "fn",
+          "startLine": 141,
+          "endLine": 150,
+          "tokens": 86
+        },
+        {
+          "name": "test_explicit_nested_project_under_git_gets_local_ignore",
+          "kind": "fn",
+          "startLine": 151,
+          "endLine": 160,
+          "tokens": 83
+        },
+        {
+          "name": "test_symlinked_config_is_rejected_before_any_write",
+          "kind": "fn",
+          "startLine": 161,
+          "endLine": 174,
+          "tokens": 163
+        }
+      ]
+    },
+    "tests/test_queries.py": {
+      "description": "Local graph search contracts and safety bounds.",
+      "tokens": 9963,
+      "hash": "374f0fb93cc7cdbd",
+      "size": 34873,
+      "mtimeMs": 1789645416613.3928,
+      "updatedAt": "2026-10-02T13:01:15.380Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_project",
+          "kind": "fn",
+          "startLine": 34,
+          "endLine": 48,
+          "tokens": 101
+        },
+        {
+          "name": "_metadata",
+          "kind": "fn",
+          "startLine": 49,
+          "endLine": 62,
+          "tokens": 125
+        },
+        {
+          "name": "_overview_metadata",
+          "kind": "fn",
+          "startLine": 63,
+          "endLine": 121,
+          "tokens": 528
+        },
+        {
+          "name": "test_overview_counts_scanned_vs_external_and_ranks_connected_tables",
+          "kind": "fn",
+          "startLine": 122,
+          "endLine": 145,
+          "tokens": 303
+        },
+        {
+          "name": "test_overview_empty_latest_snapshot_and_errors",
+          "kind": "fn",
+          "startLine": 146,
+          "endLine": 163,
+          "tokens": 226
+        },
+        {
+          "name": "test_overview_ignores_pending_edges_and_rejects_corrupt_metadata",
+          "kind": "fn",
+          "startLine": 164,
+          "endLine": 195,
+          "tokens": 420
+        },
+        {
+          "name": "test_relevant_context_ranks_name_matches_and_suggests_exact_tables",
+          "kind": "fn",
+          "startLine": 196,
+          "endLine": 222,
+          "tokens": 420
+        },
+        {
+          "name": "test_relevant_context_prefers_exact_object_name_with_equal_term_hits",
+          "kind": "fn",
+          "startLine": 223,
+          "endLine": 234,
+          "tokens": 168
+        },
+        {
+          "name": "test_relevant_context_budgets_no_match_and_latest_snapshot",
+          "kind": "fn",
+          "startLine": 235,
+          "endLine": 262,
+          "tokens": 354
+        },
+        {
+          "name": "test_relevant_context_rejects_invalid_task_and_budgets",
+          "kind": "fn",
+          "startLine": 263,
+          "endLine": 280,
+          "tokens": 229
+        },
+        {
+          "name": "test_relevant_context_reports_term_and_candidate_caps",
+          "kind": "fn",
+          "startLine": 281,
+          "endLine": 312,
+          "tokens": 324
+        },
+        {
+          "name": "test_relevant_context_detects_rescan_between_searches",
+          "kind": "fn",
+          "startLine": 313,
+          "endLine": 326,
+          "tokens": 156
+        },
+        {
+          "name": "test_no_successful_snapshot_is_explicit",
+          "kind": "fn",
+          "startLine": 327,
+          "endLine": 335,
+          "tokens": 69
+        },
+        {
+          "name": "test_search_uses_latest_successful_snapshot_only",
+          "kind": "fn",
+          "startLine": 336,
+          "endLine": 354,
+          "tokens": 219
+        },
+        {
+          "name": "test_casefold_multi_term_literal_search_and_column_details",
+          "kind": "fn",
+          "startLine": 355,
+          "endLine": 372,
+          "tokens": 217
+        },
+        {
+          "name": "test_search_limit_is_bounded_and_order_stable",
+          "kind": "fn",
+          "startLine": 373,
+          "endLine": 388,
+          "tokens": 175
+        },
+        {
+          "name": "test_unicode_casefold_and_corrupt_metadata_error",
+          "kind": "fn",
+          "startLine": 389,
+          "endLine": 405,
+          "tokens": 198
+        },
+        {
+          "name": "test_out_of_scope_fk_target_is_labeled_as_partial",
+          "kind": "fn",
+          "startLine": 406,
+          "endLine": 443,
+          "tokens": 312
+        },
+        {
+          "name": "test_invalid_search_is_rejected_before_store_access",
+          "kind": "fn",
+          "startLine": 444,
+          "endLine": 451,
+          "tokens": 75
+        },
+        {
+          "name": "test_show_exact_quoted_table_preserves_composite_facts",
+          "kind": "fn",
+          "startLine": 452,
+          "endLine": 556,
+          "tokens": 1148
+        },
+        {
+          "name": "test_show_resolves_unquoted_names_and_reports_ambiguity",
+          "kind": "fn",
+          "startLine": 557,
+          "endLine": 580,
+          "tokens": 255
+        },
+        {
+          "name": "test_show_quoted_identifier_with_escaped_quote",
+          "kind": "fn",
+          "startLine": 581,
+          "endLine": 589,
+          "tokens": 85
+        },
+        {
+          "name": "test_show_uses_latest_snapshot_and_labels_external_stub",
+          "kind": "fn",
+          "startLine": 590,
+          "endLine": 624,
+          "tokens": 321
+        },
+        {
+          "name": "test_show_rejects_malformed_table_reference",
+          "kind": "fn",
+          "startLine": 625,
+          "endLine": 630,
+          "tokens": 66
+        },
+        {
+          "name": "test_show_rejects_limits_and_missing_snapshot",
+          "kind": "fn",
+          "startLine": 631,
+          "endLine": 641,
+          "tokens": 121
+        },
+        {
+          "name": "_relationship_metadata",
+          "kind": "fn",
+          "startLine": 642,
+          "endLine": 713,
+          "tokens": 651
+        },
+        {
+          "name": "test_direct_relationships_both_directions_self_and_external",
+          "kind": "fn",
+          "startLine": 714,
+          "endLine": 737,
+          "tokens": 320
+        },
+        {
+          "name": "test_direct_relationships_bounds_and_excludes_inferred_edges",
+          "kind": "fn",
+          "startLine": 738,
+          "endLine": 766,
+          "tokens": 382
+        },
+        {
+          "name": "test_direct_relationships_latest_snapshot_and_errors",
+          "kind": "fn",
+          "startLine": 767,
+          "endLine": 783,
+          "tokens": 231
+        },
+        {
+          "name": "test_direct_relationships_rejects_ambiguous_bare_table",
+          "kind": "fn",
+          "startLine": 784,
+          "endLine": 913,
+          "tokens": 1566
+        }
+      ]
+    },
+    "tests/test_review.py": {
+      "description": "Local review decisions for inferred, never database-confirmed, pairs.",
+      "tokens": 7120,
+      "hash": "b13fad858e19eb6f",
+      "size": 24920,
+      "mtimeMs": 1789558749822.6274,
+      "updatedAt": "2026-10-02T13:01:15.380Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_source",
+          "kind": "fn",
+          "startLine": 32,
+          "endLine": 45,
+          "tokens": 104
+        },
+        {
+          "name": "_save",
+          "kind": "fn",
+          "startLine": 46,
+          "endLine": 104,
+          "tokens": 561
+        },
+        {
+          "name": "test_reject_is_idempotent_source_scoped_and_survives_rescan",
+          "kind": "fn",
+          "startLine": 105,
+          "endLine": 140,
+          "tokens": 465
+        },
+        {
+          "name": "test_reject_requires_current_exact_candidate_and_snapshot",
+          "kind": "fn",
+          "startLine": 141,
+          "endLine": 160,
+          "tokens": 278
+        },
+        {
+          "name": "test_reject_one_ambiguous_target_reveals_the_other",
+          "kind": "fn",
+          "startLine": 161,
+          "endLine": 176,
+          "tokens": 233
+        },
+        {
+          "name": "test_current_review_detects_rescan_between_preview_and_write",
+          "kind": "fn",
+          "startLine": 177,
+          "endLine": 213,
+          "tokens": 362
+        },
+        {
+          "name": "test_exact_review_lookup_still_honors_inference_work_budget",
+          "kind": "fn",
+          "startLine": 214,
+          "endLine": 227,
+          "tokens": 181
+        },
+        {
+          "name": "test_restore_preserves_history_and_can_be_rejected_again",
+          "kind": "fn",
+          "startLine": 228,
+          "endLine": 263,
+          "tokens": 459
+        },
+        {
+          "name": "test_restore_requires_existing_source_scoped_rejection_and_current_version",
+          "kind": "fn",
+          "startLine": 264,
+          "endLine": 292,
+          "tokens": 381
+        },
+        {
+          "name": "test_restore_reintroduces_ambiguity_after_rejecting_alternative",
+          "kind": "fn",
+          "startLine": 293,
+          "endLine": 306,
+          "tokens": 211
+        },
+        {
+          "name": "test_approval_is_human_logical_status_not_database_fk",
+          "kind": "fn",
+          "startLine": 307,
+          "endLine": 346,
+          "tokens": 485
+        },
+        {
+          "name": "test_approval_of_one_ambiguous_target_keeps_other_pending_in_diagnostics",
+          "kind": "fn",
+          "startLine": 347,
+          "endLine": 370,
+          "tokens": 294
+        },
+        {
+          "name": "test_approval_requires_current_candidate_and_nonconflicting_review",
+          "kind": "fn",
+          "startLine": 371,
+          "endLine": 397,
+          "tokens": 408
+        },
+        {
+          "name": "test_unknown_review_state_fails_preview_closed",
+          "kind": "fn",
+          "startLine": 398,
+          "endLine": 414,
+          "tokens": 213
+        },
+        {
+          "name": "test_revoke_approval_is_append_only_idempotent_and_source_scoped",
+          "kind": "fn",
+          "startLine": 415,
+          "endLine": 452,
+          "tokens": 489
+        },
+        {
+          "name": "test_revoke_requires_prior_approval_and_current_snapshot",
+          "kind": "fn",
+          "startLine": 453,
+          "endLine": 481,
+          "tokens": 425
+        },
+        {
+          "name": "test_revoking_ambiguous_approval_restores_default_abstention",
+          "kind": "fn",
+          "startLine": 482,
+          "endLine": 497,
+          "tokens": 243
+        },
+        {
+          "name": "test_cli_reject_json_and_stale_error",
+          "kind": "fn",
+          "startLine": 498,
+          "endLine": 526,
+          "tokens": 238
+        },
+        {
+          "name": "test_cli_restore_json_and_missing_decision_error",
+          "kind": "fn",
+          "startLine": 527,
+          "endLine": 555,
+          "tokens": 261
+        },
+        {
+          "name": "test_cli_approve_status_and_declared_fk_warning",
+          "kind": "fn",
+          "startLine": 556,
+          "endLine": 589,
+          "tokens": 320
+        },
+        {
+          "name": "test_cli_revoke_json_and_missing_approval_error",
+          "kind": "fn",
+          "startLine": 590,
+          "endLine": 617,
+          "tokens": 259
+        }
+      ]
+    },
+    "tests/test_snapshot_diff.py": {
+      "description": "Exact, bounded drift comparison over immutable local snapshots.",
+      "tokens": 4902,
+      "hash": "e05c2d502a361fce",
+      "size": 17155,
+      "mtimeMs": 1789654397574.131,
+      "updatedAt": "2026-10-02T13:01:15.380Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_changed_metadata",
+          "kind": "fn",
+          "startLine": 30,
+          "endLine": 58,
+          "tokens": 302
+        },
+        {
+          "name": "test_exact_diff_additions_column_changes_and_external_stub_exclusion",
+          "kind": "fn",
+          "startLine": 59,
+          "endLine": 97,
+          "tokens": 521
+        },
+        {
+          "name": "test_diff_removals_versions_source_isolation_and_pagination",
+          "kind": "fn",
+          "startLine": 98,
+          "endLine": 134,
+          "tokens": 464
+        },
+        {
+          "name": "test_diff_offset_pages_are_stable_and_reach_beyond_first_500",
+          "kind": "fn",
+          "startLine": 135,
+          "endLine": 161,
+          "tokens": 403
+        },
+        {
+          "name": "test_diff_budget_and_corrupt_saved_column_fail_closed",
+          "kind": "fn",
+          "startLine": 162,
+          "endLine": 190,
+          "tokens": 401
+        },
+        {
+          "name": "test_identical_rescans_have_no_structural_diff",
+          "kind": "fn",
+          "startLine": 191,
+          "endLine": 202,
+          "tokens": 126
+        },
+        {
+          "name": "test_relation_kind_change_is_addition_and_removal_not_rename",
+          "kind": "fn",
+          "startLine": 203,
+          "endLine": 223,
+          "tokens": 232
+        },
+        {
+          "name": "test_diff_tracks_ordered_keys_and_fk_target_scope_and_flags",
+          "kind": "fn",
+          "startLine": 224,
+          "endLine": 329,
+          "tokens": 941
+        },
+        {
+          "name": "test_diff_reports_new_declared_keys_and_fks_without_stub_additions",
+          "kind": "fn",
+          "startLine": 330,
+          "endLine": 347,
+          "tokens": 213
+        },
+        {
+          "name": "test_diff_accepts_legacy_unique_edge_name",
+          "kind": "fn",
+          "startLine": 348,
+          "endLine": 364,
+          "tokens": 193
+        },
+        {
+          "name": "test_diff_rejects_missing_or_inconsistent_fk_edge",
+          "kind": "fn",
+          "startLine": 365,
+          "endLine": 389,
+          "tokens": 334
+        },
+        {
+          "name": "test_diff_cli_human_json_and_errors",
+          "kind": "fn",
+          "startLine": 390,
+          "endLine": 438,
+          "tokens": 568
+        }
+      ]
+    },
+    "tests/test_snapshot_history.py": {
+      "description": "Completed local snapshot versions are discoverable through CLI and MCP.",
+      "tokens": 1699,
+      "hash": "3c1e3de0e5793ae4",
+      "size": 5944,
+      "mtimeMs": 1789654162174.5278,
+      "updatedAt": "2026-10-02T13:01:15.381Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 29,
+          "endLine": 32,
+          "tokens": 15
+        },
+        {
+          "name": "_seed",
+          "kind": "fn",
+          "startLine": 33,
+          "endLine": 41,
+          "tokens": 81
+        },
+        {
+          "name": "_payload",
+          "kind": "fn",
+          "startLine": 42,
+          "endLine": 52,
+          "tokens": 100
+        },
+        {
+          "name": "_error",
+          "kind": "fn",
+          "startLine": 53,
+          "endLine": 58,
+          "tokens": 56
+        },
+        {
+          "name": "test_snapshot_history_is_newest_first_bounded_and_source_scoped",
+          "kind": "fn",
+          "startLine": 59,
+          "endLine": 77,
+          "tokens": 250
+        },
+        {
+          "name": "test_snapshot_history_empty_invalid_source_limit_and_noncompleted",
+          "kind": "fn",
+          "startLine": 78,
+          "endLine": 102,
+          "tokens": 317
+        },
+        {
+          "name": "test_snapshot_history_cli_mcp_parity_errors_and_ceiling",
+          "kind": "fn",
+          "startLine": 103,
+          "endLine": 137,
+          "tokens": 470
+        },
+        {
+          "name": "test_snapshot_history_real_stdio",
+          "kind": "fn",
+          "startLine": 138,
+          "endLine": 152,
+          "tokens": 181
+        }
+      ]
+    },
+    "tests/test_snapshots.py": {
+      "description": "Immutable SQLite snapshot persistence and rollback tests.",
+      "tokens": 5738,
+      "hash": "01beceb399e72295",
+      "size": 20083,
+      "mtimeMs": 1789658649345.6582,
+      "updatedAt": "2026-10-02T13:01:15.381Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_source",
+          "kind": "fn",
+          "startLine": 28,
+          "endLine": 39,
+          "tokens": 73
+        },
+        {
+          "name": "_metadata",
+          "kind": "fn",
+          "startLine": 40,
+          "endLine": 90,
+          "tokens": 462
+        },
+        {
+          "name": "_project",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 97,
+          "tokens": 44
+        },
+        {
+          "name": "_index",
+          "kind": "fn",
+          "startLine": 98,
+          "endLine": 113,
+          "tokens": 108
+        },
+        {
+          "name": "test_persist_complete_graph_with_external_target",
+          "kind": "fn",
+          "startLine": 114,
+          "endLine": 166,
+          "tokens": 705
+        },
+        {
+          "name": "test_rescan_creates_new_version_without_changing_history",
+          "kind": "fn",
+          "startLine": 167,
+          "endLine": 192,
+          "tokens": 302
+        },
+        {
+          "name": "test_index_facts_are_immutable_and_do_not_enter_default_search",
+          "kind": "fn",
+          "startLine": 193,
+          "endLine": 243,
+          "tokens": 698
+        },
+        {
+          "name": "test_materialized_view_index_is_saved_but_view_index_is_rejected",
+          "kind": "fn",
+          "startLine": 244,
+          "endLine": 275,
+          "tokens": 462
+        },
+        {
+          "name": "test_invalid_index_reference_rolls_back_entire_new_snapshot",
+          "kind": "fn",
+          "startLine": 276,
+          "endLine": 295,
+          "tokens": 281
+        },
+        {
+          "name": "test_view_kinds_and_columns_are_searchable_in_latest_immutable_snapshot",
+          "kind": "fn",
+          "startLine": 296,
+          "endLine": 361,
+          "tokens": 832
+        },
+        {
+          "name": "test_invalid_view_partition_flag_rolls_back_new_snapshot",
+          "kind": "fn",
+          "startLine": 362,
+          "endLine": 378,
+          "tokens": 193
+        },
+        {
+          "name": "test_invalid_graph_rolls_back_snapshot_and_preserves_latest",
+          "kind": "fn",
+          "startLine": 379,
+          "endLine": 403,
+          "tokens": 292
+        },
+        {
+          "name": "test_sqlite_failure_mid_graph_rolls_back_every_new_row",
+          "kind": "fn",
+          "startLine": 404,
+          "endLine": 431,
+          "tokens": 374
+        },
+        {
+          "name": "test_source_mismatch_fails_without_writing",
+          "kind": "fn",
+          "startLine": 432,
+          "endLine": 440,
+          "tokens": 121
+        },
+        {
+          "name": "test_failed_source_scan_records_failure_but_keeps_latest",
+          "kind": "fn",
+          "startLine": 441,
+          "endLine": 468,
+          "tokens": 373
+        },
+        {
+          "name": "test_scan_source_success_uses_adapter_and_persists",
+          "kind": "fn",
+          "startLine": 469,
+          "endLine": 486,
+          "tokens": 210
+        }
+      ]
+    },
+    "tests/test_sources.py": {
+      "description": "Source configuration safety and persistence tests.",
+      "tokens": 1087,
+      "hash": "cc94a35714663263",
+      "size": 3803,
+      "mtimeMs": 1789542627895.5137,
+      "updatedAt": "2026-10-02T13:01:15.382Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "_source",
+          "kind": "fn",
+          "startLine": 21,
+          "endLine": 35,
+          "tokens": 124
+        },
+        {
+          "name": "test_add_list_show_persist_without_password_value",
+          "kind": "fn",
+          "startLine": 36,
+          "endLine": 51,
+          "tokens": 161
+        },
+        {
+          "name": "test_list_is_sorted_and_duplicates_do_not_replace",
+          "kind": "fn",
+          "startLine": 52,
+          "endLine": 79,
+          "tokens": 317
+        },
+        {
+          "name": "test_invalid_metadata_is_rejected_before_write",
+          "kind": "fn",
+          "startLine": 80,
+          "endLine": 90,
+          "tokens": 86
+        },
+        {
+          "name": "test_missing_project_and_store_do_not_get_created_by_source_commands",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 102,
+          "tokens": 145
+        },
+        {
+          "name": "test_show_missing_source",
+          "kind": "fn",
+          "startLine": 103,
+          "endLine": 108,
+          "tokens": 55
+        },
+        {
+          "name": "test_store_constraint_is_enforced_without_replacing_existing_source",
+          "kind": "fn",
+          "startLine": 109,
+          "endLine": 115,
+          "tokens": 99
+        }
+      ]
+    },
+    "tests/test_store.py": {
+      "description": "Versioned SQLite store behavior and failure safety.",
+      "tokens": 1161,
+      "hash": "85befd08e29652c7",
+      "size": 4062,
+      "mtimeMs": 1789542400205.0725,
+      "updatedAt": "2026-10-02T13:01:15.382Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "test_creates_versioned_store_with_documented_tables",
+          "kind": "fn",
+          "startLine": 12,
+          "endLine": 42,
+          "tokens": 284
+        },
+        {
+          "name": "test_reopen_preserves_existing_rows",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 58,
+          "tokens": 174
+        },
+        {
+          "name": "test_rejects_newer_schema_without_changing_version",
+          "kind": "fn",
+          "startLine": 59,
+          "endLine": 71,
+          "tokens": 139
+        },
+        {
+          "name": "test_rejects_tampered_migration_history",
+          "kind": "fn",
+          "startLine": 72,
+          "endLine": 81,
+          "tokens": 107
+        },
+        {
+          "name": "test_failed_migration_rolls_back_all_its_statements",
+          "kind": "fn",
+          "startLine": 82,
+          "endLine": 104,
+          "tokens": 263
+        },
+        {
+          "name": "test_unversioned_database_is_not_adopted",
+          "kind": "fn",
+          "startLine": 105,
+          "endLine": 117,
+          "tokens": 145
+        }
+      ]
+    },
+    "tests/test_view_detail.py": {
+      "description": "Exact, bounded saved-view detail across domain, CLI, and MCP.",
+      "tokens": 2213,
+      "hash": "dd0a568252fc513e",
+      "size": 7743,
+      "mtimeMs": 1789634130523.7502,
+      "updatedAt": "2026-10-02T13:01:15.382Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "anyio_backend",
+          "kind": "fn",
+          "startLine": 28,
+          "endLine": 31,
+          "tokens": 15
+        },
+        {
+          "name": "_source",
+          "kind": "fn",
+          "startLine": 32,
+          "endLine": 43,
+          "tokens": 77
+        },
+        {
+          "name": "_snapshot",
+          "kind": "fn",
+          "startLine": 44,
+          "endLine": 68,
+          "tokens": 309
+        },
+        {
+          "name": "_project",
+          "kind": "fn",
+          "startLine": 69,
+          "endLine": 76,
+          "tokens": 73
+        },
+        {
+          "name": "test_saved_view_detail_bounds_identity_and_source_isolation",
+          "kind": "fn",
+          "startLine": 77,
+          "endLine": 128,
+          "tokens": 630
+        },
+        {
+          "name": "test_view_cli_and_mcp_share_bounded_local_contract",
+          "kind": "fn",
+          "startLine": 129,
+          "endLine": 201,
+          "tokens": 897
+        }
+      ]
+    }
+  }
+}

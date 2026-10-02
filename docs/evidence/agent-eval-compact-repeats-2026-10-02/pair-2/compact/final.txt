@@ -1,0 +1,9 @@
+In saved `erp` snapshot 1:
+
+- Constraint: `payment_customer_fk`
+- Source table: `sales.payment`
+- Target table: `crm.customer`
+- Ordered column pair: `customer_id` → `id`
+- Target in scan scope: **Yes**
+
+**No**, this declared FK does not point to `legacy.customer.id`. Its declared target is `crm.customer.id`; no second relationship is inferred from matching names.

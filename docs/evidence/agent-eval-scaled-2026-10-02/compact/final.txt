@@ -1,0 +1,9 @@
+In saved `erp` snapshot 1:
+
+- Constraint: `payment_customer_fk`
+- Source table: `sales.payment`
+- Target table: `crm.customer`
+- Ordered column pair: `customer_id` → `id`
+- Target in scan scope: **Yes**
+
+This confirmed, database-declared FK does **not** also point to `legacy.customer.id`.

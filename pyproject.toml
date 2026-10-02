@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.30,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "graphit-db"
+version = "0.1.0"
+description = "Local-first database knowledge and context for AI coding agents"
+authors = [{ name = "Onur Parapan" }]
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+dependencies = [
+  "typer>=0.27,<1",
+  "psycopg[binary]>=3.2,<4",
+  "mcp>=2.2,<3",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: Console",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Database",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/OnurParapan/graphit-db"
+Repository = "https://github.com/OnurParapan/graphit-db"
+Issues = "https://github.com/OnurParapan/graphit-db/issues"
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.18,<2",
+  "pytest>=9,<10",
+  "ruff>=0.16,<1",
+  "tiktoken==0.14.0",
+]
+
+[project.scripts]
+graphit = "graphit.cli:app"
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src", "tests", "docs", "README.md", "LICENSE", "NOTICE", "pyproject.toml"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/graphit"]
+
+[tool.pytest.ini_options]
+addopts = "-q --basetemp=.pytest-tmp"
+testpaths = ["tests"]
+cache_dir = ".cache/pytest"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests"]

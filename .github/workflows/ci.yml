@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: graphit_ci
+          POSTGRES_PASSWORD: graphit_ci_only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d graphit_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install project and test dependencies
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check dependencies
+        run: python -m pip check
+
+      - name: Lint
+        run: python -m ruff check .
+
+      - name: Check formatting
+        run: python -m ruff format --check .
+
+      - name: Type check
+        run: python -m mypy
+
+      - name: Test, including disposable PostgreSQL integration
+        env:
+          GRAPHIT_TEST_PG_DISPOSABLE: "1"
+          GRAPHIT_TEST_PG_ADMIN_DSN: postgresql://postgres:graphit_ci_only@127.0.0.1:5432/graphit_ci
+        run: python -m pytest
+
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+
+      - name: Build source and wheel distributions
+        run: |
+          python -m pip install build
+          python -m build
+
+      - name: Inspect distribution contents and metadata
+        run: python scripts/check_dist.py
+
+      - name: Smoke test isolated wheel installation
+        run: |
+          python -m venv .package-smoke
+          .package-smoke/bin/python -m pip install dist/*.whl
+          .package-smoke/bin/python -m pip check
+          .package-smoke/bin/graphit version
+          .package-smoke/bin/graphit --help > /dev/null
+          .package-smoke/bin/python scripts/smoke_installed.py
