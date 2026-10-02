@@ -69,8 +69,8 @@ implementing future phases. Update `docs/DECISIONS.md` for significant choices.
 
 ## Release direction
 
-Initial releases target PyPI and isolated installation through pipx/uv tool.
-For a local, unpublished packaging check:
+Releases are published to PyPI for isolated installation through pipx/uv tool.
+For a local packaging check:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install build
@@ -95,10 +95,9 @@ The protected Trusted Publishing procedure and exact one-time configuration are
 documented in [`RELEASING.md`](RELEASING.md). Do not upload from a developer
 machine or store a long-lived PyPI token.
 
-Before publishing:
+Before each publication:
 
-- verify and secure the `graphit-db` distribution name at publication time;
-  availability and ownership are not established by this local checkout,
+- verify the owned `graphit-db` project and Trusted Publisher identity,
 - test Python 3.11 through the latest supported version,
 - publish checksums/provenance,
 - document upgrade and local-store backup behavior.

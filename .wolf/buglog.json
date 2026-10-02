@@ -1740,6 +1740,54 @@
       "related_bugs": ["bug-130", "bug-142"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-146",
+      "timestamp": "2026-10-02T17:41:00+03:00",
+      "error_message": "The first combined public-PyPI smoke wrapper stayed active after package, pip-check, and version output, and a Win32_Process diagnostic query was denied.",
+      "file": "public PyPI disposable-environment verification",
+      "root_cause": "The combined install, smoke, and recursive cleanup command did not expose stage boundaries, so delayed Windows cleanup was indistinguishable from an MCP hang; sandboxed CIM inspection was unavailable.",
+      "fix": "Interrupted the wrapper, added flushed stage labels to the reusable installed smoke, reran the installed artifact directly, observed every init/Codex/Claude MCP stage pass in 9 seconds, then validated and removed the temporary environment separately.",
+      "tags": ["pypi", "smoke-test", "windows", "diagnostics"],
+      "related_bugs": ["bug-139", "bug-141"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-147",
+      "timestamp": "2026-10-02T17:45:00+03:00",
+      "error_message": "The first combined post-release evidence patch failed because docs/TESTING.md wrapped 'The same gate' on the preceding line.",
+      "file": "docs/TESTING.md; .wolf/STATUS.md; .wolf/cerebrum.md",
+      "root_cause": "Patch context was reconstructed from a truncated earlier output instead of the exact final lines.",
+      "fix": "Confirmed the first patch made no partial changes, reread the exact tail, and applied a narrowly matched patch.",
+      "tags": ["patch", "documentation", "release"],
+      "related_bugs": ["bug-130", "bug-145"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-148",
+      "timestamp": "2026-10-02T17:48:00+03:00",
+      "error_message": "git add/commit failed with 'Unable to create .git/index.lock: Permission denied'.",
+      "file": ".git/index",
+      "root_cause": "The managed workspace permits source writes but exposes .git as read-only inside the default sandbox.",
+      "fix": "Confirmed no files were staged or committed and repeated the exact scoped Git add/commit operation with elevated repository-write approval.",
+      "tags": ["git", "sandbox", "permissions", "release"],
+      "related_bugs": ["bug-125", "bug-134"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-149",
+      "timestamp": "2026-10-02T17:49:00+03:00",
+      "error_message": "Elevated Git add/commit rejected the repository as dubious ownership because .git is owned by the sandbox identity.",
+      "file": ".git; elevated Git operation",
+      "root_cause": "The scoped elevated command runs as Onur Parapan while the repository metadata was created by CodexSandboxOffline, activating Git's ownership guard.",
+      "fix": "Avoid changing global Git configuration; pass the exact workspace as a command-local safe.directory value for the scoped add, commit, status, and push operations.",
+      "tags": ["git", "safe-directory", "windows", "sandbox"],
+      "related_bugs": ["bug-148"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

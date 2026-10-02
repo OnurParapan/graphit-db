@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T14:08:52.122Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T14:44:37.797Z
 > Files: 164 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -13,7 +13,7 @@
 - `LICENSE` — Canonical Apache License 2.0 text (~3015 tok)
 - `NOTICE` (~27 tok)
 - `pyproject.toml` — Python project configuration (~482 tok)
-- `README.md` — Project documentation (~2981 tok)
+- `README.md` — Project documentation (~3051 tok)
 
 ## .claude/
 
@@ -50,17 +50,17 @@
 - `CLI.md` — Graphit — CLI Contract (~6963 tok)
 - `CODEX_START.md` — Graphit — Implementation Start Prompt (~236 tok)
 - `DATA_MODEL.md` — Graphit — Local Knowledge Model (~3622 tok)
-- `DECISIONS.md` — Graphit — Architecture Decision Log (~17681 tok)
-- `DEVELOPMENT.md` — Graphit — Development Guide (~797 tok)
-- `MCP.md` — Graphit — MCP Contract (~5527 tok)
+- `DECISIONS.md` — Graphit — Architecture Decision Log (~17809 tok)
+- `DEVELOPMENT.md` — Graphit — Development Guide (~777 tok)
+- `MCP.md` — Graphit — MCP Contract (~5531 tok)
 - `OPERATING_MODEL.md` — Graphit — Operating Model (~1173 tok)
 - `PRODUCT.md` — Graphit — Product Specification (~1156 tok)
 - `RELATIONSHIP_ENGINE.md` — Graphit — Relationship Discovery (~3203 tok)
-- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1352 tok)
-- `RELEASING.md` — Releasing Graphit (~687 tok)
+- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1464 tok)
+- `RELEASING.md` — Releasing Graphit (~922 tok)
 - `ROADMAP.md` — Graphit — Roadmap (~1123 tok)
 - `SECURITY.md` — Graphit — Security Model (~1137 tok)
-- `TESTING.md` — Graphit — Testing Strategy (~7007 tok)
+- `TESTING.md` — Graphit — Testing Strategy (~7185 tok)
 - `VISUALIZATION.md` — Graphit — Visualization (~1171 tok)
 
 ## docs/evidence/agent-eval-2026-10-02/
@@ -197,11 +197,11 @@
   - fn `build_baseline_packet` L40-181 (~1558 tok)
   - fn `prepare_eval_bundle` L182-199 (~216 tok)
   - fn `main` L200-218 (~193 tok)
-- `smoke_installed.py` — Exercise an installed Graphit wheel in a disposable project and MCP session. (~3467 tok)
+- `smoke_installed.py` — Exercise an installed Graphit wheel in a disposable project and MCP session. (~3549 tok)
   - fn `seed_local_snapshot` L51-115 (~558 tok)
   - fn `check_mcp` L116-204 (~1354 tok)
   - fn `run_cli` L205-217 (~115 tok)
-  - fn `run_smoke` L218-301 (~1122 tok)
+  - fn `run_smoke` L218-306 (~1203 tok)
 
 ## src/graphit/
 

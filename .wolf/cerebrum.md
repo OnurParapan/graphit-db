@@ -332,6 +332,10 @@
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
 
+- [2026-10-02] Do not combine public-package behavior and recursive temporary
+  environment cleanup behind silent output. Emit flushed smoke stage labels and
+  keep verified cleanup separate so a slow Windows deletion cannot masquerade
+  as an MCP hang.
 - [2026-09-16] `openwolf init` left `AGENTS.md` with only the OpenWolf block.
   Preserve the OpenWolf block while retaining Graphit-specific coding rules.
 - [2026-09-16] Do not assume documented files are at repository root; the
@@ -479,13 +483,12 @@
   `graphit-db` as the distribution name while keeping the `graphit`
   command/import name.
 - Apache-2.0 is approved and included in package metadata/artifacts. Onur
-  Parapan is the confirmed copyright holder and package author; remaining
-  release gates must still finish before public distribution.
-- `graphit-db` returned HTTP 404 from the official PyPI JSON API on 2026-10-02,
-  but that does not reserve the name. Release automation uses a pinned,
-  build/publish-separated `release.yml` with a protected `pypi` environment and
-  Trusted Publishing; it remains inert until the user completes pending-publisher
-  setup and explicitly approves the first release.
+  Parapan is the confirmed copyright holder and package author.
+- `graphit-db 0.1.0` was published on PyPI on 2026-10-02 from protected GitHub
+  workflow run `37020399874` after explicit environment approval. Both artifacts
+  have PyPI attestations; clean public-PyPI install, init, SQLite, generated
+  Codex/Claude launchers, and MCP calls pass. Future releases must keep the same
+  separated build/publish and human-approval boundary.
 - Stale project MCP paths are repaired only with an explicit `--refresh` flag;
   default setup still rejects any differing Graphit entry. This is safe
   regeneration, not a portable launcher for every machine.

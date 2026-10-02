@@ -657,10 +657,20 @@
   It runs only for a published GitHub Release, requires an exact `vVERSION`
   tag, pins all actions and build/Twine tools, verifies and smoke-tests artifacts
   in a build job, and gives only a separate `pypi` publish job OIDC permission.
-  Publication remains inert until Onur Parapan registers the exact pending PyPI
-  publisher and protected GitHub environment, then explicitly publishes and
-  approves the release. `graphit-db` returned HTTP 404 on PyPI at check time;
-  no name reservation or upload occurred.
+  The first protected publication subsequently completed as described below.
+- Published `graphit-db 0.1.0` on PyPI from immutable tag `v0.1.0` at commit
+  `33cef8b16c7ae9de9adb0d07baba81a2776ca5f5`. GitHub release workflow run
+  `37020399874` passed build/archive/installed smoke, paused for the protected
+  `pypi` environment, received explicit human approval, and uploaded through
+  OIDC Trusted Publishing. PyPI exposes attestations for both artifacts. The
+  wheel SHA-256 is `f79229a3edbab13dcc37249dddaf967449c9f6de8468adb0cb1145674e0c8eb2`;
+  the sdist SHA-256 is
+  `6a90adf14f06328f75e4f8b271c20427aa401767fc4653a0ae7c590c1515799b`.
+  A separate clean public-PyPI venv passed dependency, version, init, SQLite,
+  generated Codex/Claude launcher, and representative MCP checks. pipx/uv were
+  unavailable locally and remain external wrapper-observation gaps. Post-release
+  documentation and staged smoke diagnostics pass the full local suite (318
+  passed, 5 skipped), Ruff, formatting, strict mypy, and pip check.
 
 ---
 
@@ -668,10 +678,11 @@
 
 **Goal:** Treat the local MVP, controlled Codex context-delivery evaluation,
 copyright-attribution package gate, public GitHub repository, remote CI, and
-protected release workflow as complete. Preserve the small/large crossover
-boundary honestly. Remaining publication requires the user-owned PyPI pending
-publisher/environment setup and an explicit release approval; do not make more
-model calls or upload without fresh explicit authority.
+first protected PyPI release as complete. Preserve the small/large crossover
+boundary honestly. Next evidence should come from real installed-user feedback,
+Claude validation, broader PostgreSQL versions/scale, or an upgrade from 0.1.0;
+do not make more model calls or publish another version without fresh explicit
+authority.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100
@@ -817,8 +828,9 @@ occurred. Establish isolation in a working environment before either arm.
 
 ### Open decisions
 
-- `graphit-db` is confirmed by the user but cannot be reserved until the first
-  successful PyPI publication.
+- The `graphit-db` distribution name is now owned through the successful
+  `0.1.0` PyPI publication; future versioning and compatibility policy remain
+  to be shaped by installed-user feedback.
 - Claude and Codex project MCP formats were verified against current official
   documentation; portable multi-machine launcher design remains open.
 - Copyright holder and package author are confirmed as Onur Parapan; exact

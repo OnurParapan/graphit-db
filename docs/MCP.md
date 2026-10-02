@@ -24,8 +24,8 @@ The implemented server exposes `get_relevant_context`, `database_overview`,
 `search_objects`, `get_table`, `get_view`, `get_relationships`, `get_impact_context`,
 `get_transitive_impact`, `get_column_impact`, `get_index_context`,
 `get_graph_context`, `find_path`, `list_snapshots`, and `compare_snapshots`. During
-development, install this repository locally (`python -m pip install -e .`);
-the `graphit-db` distribution is not published yet. Run `graphit init`,
+development, install this repository locally (`python -m pip install -e .`).
+For normal use, install `graphit-db` from PyPI with pipx or uv tool. Run `graphit init`,
 configure a source, and complete at least one `graphit scan --source NAME`
 before starting the server:
 

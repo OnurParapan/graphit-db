@@ -14,7 +14,7 @@ a separately scoped shared-team mode is designed.
 
 ## ADR-002 — CLI and stdio MCP are the primary product surfaces
 
-**Status:** Accepted.
+**Status:** Accepted and implemented by release `0.1.0`.
 
 **Decision:** Build Typer CLI and stdio MCP before any web application.
 
@@ -103,17 +103,18 @@ from application graph queries.
 
 ## ADR-012 — Separate distribution name from product command
 
-**Status:** Accepted.
+**Status:** Accepted and implemented.
 
-**Decision:** Use `graphit-db` as the PyPI distribution-name candidate while
+**Decision:** Use `graphit-db` as the PyPI distribution name while
 keeping the product, Python import package, and CLI command named `Graphit`,
 `graphit`, and `graphit` respectively.
 
 **Reason:** The `graphit` PyPI name belongs to an unrelated legacy monitoring
-project. `graphit-db` had no matching distribution when checked on 2026-09-16.
+project. `graphit-db` had no matching distribution when checked on 2026-09-16
+and was secured by the successful `0.1.0` publication on 2026-10-02.
 
-**Revisit when:** The name cannot be claimed at first publication or trademark
-review requires a broader product rename.
+**Revisit when:** Trademark review or another material conflict requires a
+broader product rename.
 
 ## ADR-013 — Initialize project state before initializing the store
 
@@ -1402,6 +1403,15 @@ running with publishing authority, full action hashes reduce mutable-action
 risk, and the environment approval preserves an explicit human decision at the
 only step that can upload. Trusted Publishing avoids copying a reusable secret.
 
-**Revisit when:** The first `graphit-db` release succeeds. Record the PyPI file
-hashes, verified repository URL, attestations, clean public installation checks,
-and any required publisher/workflow correction before releasing another version.
+**Outcome:** Release `0.1.0` succeeded through the protected workflow run
+`37020399874`. PyPI published the wheel with SHA-256
+`f79229a3edbab13dcc37249dddaf967449c9f6de8468adb0cb1145674e0c8eb2` and the
+sdist with SHA-256
+`6a90adf14f06328f75e4f8b271c20427aa401767fc4653a0ae7c590c1515799b`.
+Both files expose GitHub Trusted Publishing attestations for
+`OnurParapan/graphit-db`, `release.yml`, and environment `pypi`. A clean install
+from public PyPI passed dependency, version, init, SQLite, generated
+Codex/Claude launcher, and representative MCP checks.
+
+**Revisit when:** A publisher identity, environment, artifact-transfer boundary,
+or release trigger must change.

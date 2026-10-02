@@ -224,6 +224,7 @@ def run_smoke(project: Path, *, require_installed: bool = True) -> None:
     ):
         raise RuntimeError("Graphit was loaded from source, not the isolated installation")
 
+    print("Smoke: initialize project", flush=True)
     run_cli(project, "init")
 
     config = project / "graphit.toml"
@@ -239,6 +240,7 @@ def run_smoke(project: Path, *, require_installed: bool = True) -> None:
     if version < 1 or not {"sources", "snapshots", "objects"} <= tables:
         raise RuntimeError("Installed graphit init created an incomplete SQLite store")
 
+    print("Smoke: seed local snapshot", flush=True)
     seed_local_snapshot(project)
 
     codex_path = project / ".codex" / "config.toml"
@@ -261,6 +263,7 @@ def run_smoke(project: Path, *, require_installed: bool = True) -> None:
     }
     claude_path.write_text(json.dumps(existing_claude), encoding="utf-8")
 
+    print("Smoke: configure Codex and Claude", flush=True)
     run_cli(project, "mcp", "setup-codex")
     run_cli(project, "mcp", "setup-claude")
     run_cli(project, "mcp", "setup-codex", "--refresh", "--compact-tools")
@@ -289,7 +292,9 @@ def run_smoke(project: Path, *, require_installed: bool = True) -> None:
             raise RuntimeError(f"{name} setup did not use the installed Graphit launcher")
         if name == "Claude" and entry.get("type") != "stdio":
             raise RuntimeError("Claude setup did not declare the stdio transport")
+        print(f"Smoke: exercise {name} MCP entry", flush=True)
         anyio.run(check_mcp, entry["command"], entry["args"])
+        print(f"Smoke: {name} MCP entry passed", flush=True)
 
 
 if __name__ == "__main__":

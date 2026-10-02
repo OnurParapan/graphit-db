@@ -484,5 +484,16 @@ tool set, read-only annotations, and exact `get_column_impact`,
 It does not exercise the actual
 Codex/Claude UI or prove that
 machine-specific absolute paths survive moving the environment. The same gate
-passed remotely on Ubuntu/Python 3.14 in run `37011201866`; it is still not a
-PyPI publication or actual agent-application verification.
+passed remotely on Ubuntu/Python 3.14 in run `37011201866`; it is not a
+substitute for actual agent-application verification.
+
+Release `0.1.0` repeated that archive and installed-wheel gate in protected
+workflow run `37020399874` before Trusted Publishing. After publication, a new
+Windows virtual environment installed `graphit-db==0.1.0` directly from public
+PyPI. `pip check`, `graphit version`, project initialization, SQLite-store
+inspection, Codex/Claude configuration preservation, both generated stdio MCP
+launchers, the exact read-only tool list, and representative FK/transitive/index
+calls passed. Stage labels in `scripts/smoke_installed.py` make future failures
+distinguish initialization, setup, and each agent launcher. This verifies the
+published wheel, not the actual Codex/Claude application or an external user's
+pipx/uv wrapper.
