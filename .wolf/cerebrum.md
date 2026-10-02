@@ -24,6 +24,12 @@
   columns, accurate relationship paths, and minimal installation friction.
 - An ERD-like graph is valuable as an optional local export, not as the primary
   product surface.
+- The intended zero-configuration experience is stronger than the 0.1.0 flow:
+  running `graphit init` in an existing project should discover its database
+  configuration, connect safely, scan structure and relationships, generate a
+  whole-database ERP/ERD view, and wire compact Graphit context into Codex and
+  Claude. Separate source/setup/one-hop commands may remain advanced controls,
+  but must not be the ordinary first-run path.
 
 ## Key Learnings
 
@@ -32,6 +38,11 @@
   and AI coding agents through compact, progressive context.
 - Current architecture: Python 3.11+ Typer CLI, project-local SQLite, PostgreSQL
   source adapter first, stdio MCP, and optional local graph exports.
+- Release 0.1.0 contains the underlying scanner, graph, and agent-integration
+  pieces, but its `init` intentionally avoids database connections, its MCP
+  setup is separate, and its graph export is focus-table/one-hop. That is an
+  implementation milestone, not fulfillment of the intended one-command
+  onboarding and whole-database ERP/ERD product contract.
 - Repository documentation lives under `docs/`, except `README.md` and
   `AGENTS.md`.
 - Hatchling's default source archive selection can include local OpenWolf and

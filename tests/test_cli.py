@@ -67,6 +67,30 @@ def test_init_uses_git_root_from_nested_directory(tmp_path: Path, monkeypatch: M
     assert not (nested / "graphit.toml").exists()
 
 
+def test_init_discovers_dotenv_postgresql_url_without_leaking_or_persisting_password(
+    tmp_path: Path,
+) -> None:
+    secret = "never-print-or-persist-this"
+    (tmp_path / ".env").write_text(
+        f"DATABASE_URL=postgresql://reader:{secret}@localhost:5434/erp?sslmode=require\n",
+        encoding="utf-8",
+    )
+
+    result = runner.invoke(app, ["init", "--project", str(tmp_path)])
+
+    assert result.exit_code == 0
+    assert "Discovered PostgreSQL from .env -> DATABASE_URL" in result.stdout
+    assert "Host: localhost:5434" in result.stdout
+    assert "Database: erp" in result.stdout
+    assert "User: reader" in result.stdout
+    assert "Password: present (hidden)" in result.stdout
+    assert "SSL mode: require" in result.stdout
+    assert "no database connection was made" in result.stdout
+    assert secret not in result.stdout + result.stderr
+    assert secret.encode() not in (tmp_path / "graphit.toml").read_bytes()
+    assert secret.encode() not in (tmp_path / ".graphit" / "graphit.db").read_bytes()
+
+
 def test_source_add_list_show_without_password_output(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:

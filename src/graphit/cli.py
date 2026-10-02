@@ -10,6 +10,7 @@ import typer
 from graphit import __version__
 from graphit.claude import ClaudeSetupError, setup_claude
 from graphit.codex import CodexSetupError, setup_codex
+from graphit.discovery import discover_postgresql
 from graphit.graph_dot import render_dot
 from graphit.graph_export import table_graph
 from graphit.graph_html import render_html
@@ -113,6 +114,22 @@ def init(
         typer.echo(f"created: {path.relative_to(result.root)}")
     for path in result.updated:
         typer.echo(f"updated: {path.relative_to(result.root)}")
+
+    candidates = discover_postgresql(result.root)
+    if not candidates:
+        typer.echo(
+            "No PostgreSQL connection URL discovered in the environment or project .env files."
+        )
+        return
+    for candidate in candidates:
+        password_status = "present (hidden)" if candidate.has_password else "not present"
+        typer.echo(f"Discovered PostgreSQL from {candidate.origin} -> {candidate.variable_name}")
+        typer.echo(f"  Host: {candidate.host}:{candidate.port}")
+        typer.echo(f"  Database: {candidate.database_name}")
+        typer.echo(f"  User: {candidate.username}")
+        typer.echo(f"  Password: {password_status}")
+        typer.echo(f"  SSL mode: {candidate.ssl_mode}")
+    typer.echo("Discovery only: no database connection was made in this step.")
 
 
 def _source_root(project: Path | None) -> Path:

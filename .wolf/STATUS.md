@@ -676,13 +676,24 @@
 
 ## 🚀 Next phase
 
-**Goal:** Treat the local MVP, controlled Codex context-delivery evaluation,
-copyright-attribution package gate, public GitHub repository, remote CI, and
-first protected PyPI release as complete. Preserve the small/large crossover
-boundary honestly. Next evidence should come from real installed-user feedback,
-Claude validation, broader PostgreSQL versions/scale, or an upgrade from 0.1.0;
-do not make more model calls or publish another version without fresh explicit
-authority.
+**Goal:** Correct the primary onboarding contract exposed by user feedback.
+`graphit init` must become the ordinary end-to-end path: safely discover
+project database configuration, let the user verify sanitized candidates,
+scan all selected database structure/relationships, generate a bounded
+whole-database ERP/ERD artifact, and configure project-local Codex/Claude MCP
+use without persisting secrets. Keep explicit source/scan/setup commands as
+advanced controls. Implement this in tested vertical micro-slices, beginning
+with deterministic secret-safe source discovery. Do not publish another version
+or make paid model calls without fresh explicit authority.
+
+**2026-10-02 discovery slice:** `graphit init` now discovers conventional
+PostgreSQL URL variables from the process environment and a bounded root-level
+`.env*` allowlist. It parses URL-contained passwords transiently but prints only
+password presence and sanitized connection facts; passwords are excluded from
+representation and never copied into Graphit config/SQLite. Environment
+precedence, duplicate collapse, percent decoding, SSL mode, invalid inputs,
+example files, symlinks, and the 1 MiB bound have focused tests. Connection and
+persistence intentionally remain the next micro-slice.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100

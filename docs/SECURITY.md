@@ -18,6 +18,16 @@ Configuration stores the name of a credential environment variable, not its
 value. Credentials are never written to `graphit.toml`, SQLite, generated graph
 exports, logs, exceptions, or MCP responses.
 
+Initialization discovery may read a PostgreSQL URL from the current process
+environment or a bounded allowlist of project-root `.env*` files. It parses a
+password only into a transient in-process candidate and reports its presence as
+`present (hidden)`. It never prints the URL, represents the password in the
+candidate's debug output, or persists either value. Discovery refuses symlinked
+dotenv files, ignores example/template names, caps each file at 1 MiB, and does
+not recursively search the repository. A later connection step must preserve
+these guarantees and obtain sanitized user confirmation before contacting a
+candidate database.
+
 `graphit source test` reads the configured environment variable only at call
 time. It passes host, username, database, password, and SSL mode as separate
 driver parameters rather than constructing a secret-bearing connection string.

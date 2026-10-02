@@ -1788,6 +1788,42 @@
       "related_bugs": ["bug-148"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-150",
+      "timestamp": "2026-10-02T18:00:00+03:00",
+      "error_message": "A PowerShell rg command split an alternation pattern containing pipes into path arguments and returned invalid-path errors.",
+      "file": "repository inspection command",
+      "root_cause": "The regex argument was not kept as one shell-safe literal in the composed inspection command.",
+      "fix": "Used simpler separately quoted searches and direct targeted file reads; do not pass unprotected regex pipes through PowerShell command strings.",
+      "tags": ["powershell", "ripgrep", "quoting", "diagnostics"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-151",
+      "timestamp": "2026-10-02T18:02:00+03:00",
+      "error_message": "User reported that graphit init does not automatically connect to project databases, scan all relationships, show a whole ERP diagram, or make that context available to Codex and Claude as expected.",
+      "file": "src/graphit/cli.py; src/graphit/project.py; graph export and agent setup workflow",
+      "root_cause": "The implementation optimized safe primitives and released them as 0.1.0, while the core first-run contract remained fragmented: init creates only local state, source/scan/agent setup are manual, and graph export is one-hop around one table.",
+      "fix": "Reclassify zero-configuration onboarding and whole-database ERP/ERD plus automatic project-local MCP wiring as the primary product goal; implement it through secret-safe discovery, orchestrated scan, full bounded projection, and agent setup slices.",
+      "tags": ["product", "init", "discovery", "erd", "mcp", "user-feedback"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-152",
+      "timestamp": "2026-10-02T18:09:00+03:00",
+      "error_message": "The first discovery slice passed behavior tests but failed Ruff formatting/line length and strict mypy on reuse of a dict-inferred loop variable as Mapping.",
+      "file": "src/graphit/discovery.py; src/graphit/cli.py; tests/test_discovery.py",
+      "root_cause": "One local name was reused for dotenv dictionaries and the later generic Mapping iteration; initial patch formatting also differed from Ruff's canonical output.",
+      "fix": "Renamed the dotenv-local value to preserve the declared Mapping type and ran the repository formatter before repeating focused tests and quality gates.",
+      "tags": ["mypy", "ruff", "discovery", "formatting"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

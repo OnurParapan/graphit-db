@@ -497,3 +497,11 @@ calls passed. Stage labels in `scripts/smoke_installed.py` make future failures
 distinguish initialization, setup, and each agent launcher. This verifies the
 published wheel, not the actual Codex/Claude application or an external user's
 pipx/uv wrapper.
+
+The post-0.1.0 initialization discovery tests cover percent-decoded PostgreSQL
+URLs, SSL mode, process-environment precedence, deterministic duplicate
+collapse, multiple project dotenv sources, invalid/non-PostgreSQL URLs, example
+files, symlinks, and the 1 MiB file bound. CLI coverage proves a discovered
+password is neither printed nor copied into `graphit.toml` or the SQLite store.
+This slice does not claim that init already connects, scans, exports a complete
+ERD, or configures agents.

@@ -1415,3 +1415,26 @@ Codex/Claude launcher, and representative MCP checks.
 
 **Revisit when:** A publisher identity, environment, artifact-transfer boundary,
 or release trigger must change.
+
+## ADR-077 — Discover connection URLs without persisting secrets
+
+**Status:** Accepted; discovery implemented, orchestration pending.
+
+**Decision:** During `graphit init`, inspect only the process environment and a
+fixed project-root `.env*` allowlist for conventional PostgreSQL URL variable
+names. Parse valid URLs into transient candidates whose password field is
+excluded from representation. Print only origin, variable name, host, port,
+database, username, password presence, and SSL mode. Give the process
+environment precedence, collapse duplicate non-secret identities, refuse
+symlinked or oversized dotenv files, and do not connect or persist a source in
+this first slice.
+
+**Reason:** One-command onboarding requires Graphit to understand configuration
+already present in a project, including URL-contained passwords. A narrow,
+deterministic reader avoids executing framework code or recursively harvesting
+secrets, while a separate connection/orchestration slice keeps irreversible or
+external behavior independently testable.
+
+**Revisit when:** Split `PG*`/`DB_*`, Docker Compose, or framework-specific
+discovery is added, or when the confirmed candidate is passed into source
+persistence and read-only scanning.

@@ -37,15 +37,29 @@ Behavior:
    unknown or tampered store versions and preserve existing store rows.
 4. Ensure `.graphit/` is ignored by Git when a Git repository exists.
 5. Show exactly which files were created or updated.
+6. Discover PostgreSQL URL candidates from the process environment and the
+   bounded project files `.env`, `.env.local`, `.env.development*`, `.env.test*`,
+   and `.env.production*`. Show variable origin, host, port, database, user,
+   password presence, and SSL mode without showing the URL or password.
 
 `--force` replaces only `graphit.toml`; it preserves existing `.graphit/`
 contents while applying compatible store migrations. Symlinked
 configuration/state/store paths are rejected. By default, project
 discovery stops at the nearest existing `graphit.toml` or Git root. `init`
-does not modify agent settings. Explicit project-local Codex setup is available
+does not modify agent settings or connect to a discovered database yet. Explicit
+project-local Codex setup is available
 with `graphit mcp setup-codex`; `graphit mcp setup-claude` similarly edits only
-the project's `.mcp.json`. Automatic detection remains a separate future
-slice. Global agent configuration is never changed here.
+the project's `.mcp.json`. Connection, scan, whole-database ERD generation, and
+agent setup remain subsequent init-orchestration slices. Global agent
+configuration is never changed here.
+
+Discovery recognizes `postgres://` and `postgresql://` values in conventional
+`DATABASE_URL`, `POSTGRES_URL`, `POSTGRESQL_URL`, `PGURL`, and prefixed variants.
+Process-environment values take precedence over matching dotenv variables;
+duplicate connection identities collapse deterministically. Example/template,
+symlinked, invalid UTF-8, and files larger than 1 MiB are not read. A discovered
+password exists only in the transient candidate object and is never written by
+`init`.
 
 ## Source management
 
