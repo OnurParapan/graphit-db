@@ -51,6 +51,9 @@
   transient URL-secret resolution, confirmed read-only verification, all-user-
   schema scan, complete local ERD, compact project Codex MCP, and project Claude
   MCP. This is unreleased post-0.1.0 behavior until a separately authorized tag.
+- The user explicitly authorized publishing the completed onboarding work as
+  the next compatible patch release. Version 0.1.1 is available on PyPI and its
+  local isolated wheel/sdist plus installed MCP smoke passed before tagging.
 - Repository documentation lives under `docs/`, except `README.md` and
   `AGENTS.md`.
 - Hatchling's default source archive selection can include local OpenWolf and

@@ -68,7 +68,7 @@ Set `CLAIMS_DB_PASSWORD` in your environment before `source test` or `scan`.
 Run a second scan before comparing versions with `graphit diff`.
 
 `graphit init` creates project-local configuration and a versioned SQLite store
-at `.graphit/graphit.db`. The unreleased next version also discovers PostgreSQL
+at `.graphit/graphit.db`. Version 0.1.1 also discovers PostgreSQL
 URLs from the current environment and supported project `.env*` files, reports
 only sanitized host/database/user facts, and keeps any password transient. It
 asks before connecting unless `--yes` is given, forces a bounded read-only

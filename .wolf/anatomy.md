@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T16:09:03.999Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T16:25:56.227Z
 > Files: 166 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -13,7 +13,7 @@
 - `LICENSE` — Canonical Apache License 2.0 text (~3015 tok)
 - `NOTICE` (~27 tok)
 - `pyproject.toml` — Python project configuration (~482 tok)
-- `README.md` — Project documentation (~3389 tok)
+- `README.md` — Project documentation (~3385 tok)
 
 ## .claude/
 

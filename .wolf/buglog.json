@@ -1968,6 +1968,42 @@
       "related_bugs": ["bug-155", "bug-158", "bug-162"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-165",
+      "timestamp": "2026-10-02T19:30:00+03:00",
+      "error_message": "The web open tool could not fetch the official PyPI 0.1.1 JSON endpoint and returned a cache-miss internal error.",
+      "file": "pre-release PyPI availability check",
+      "root_cause": "The browser connector did not make the uncached JSON endpoint accessible.",
+      "fix": "Use a scoped read-only Invoke-RestMethod request to the official PyPI JSON API and distinguish HTTP 404 from other failures.",
+      "tags": ["pypi", "release", "web", "availability"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-166",
+      "timestamp": "2026-10-02T19:36:00+03:00",
+      "error_message": "The isolated 0.1.1 build could not install Hatchling inside the sandbox, build then raised a UnicodeDecodeError while reporting pip output, and the semicolon-separated archive check ran despite the missing artifacts.",
+      "file": "local 0.1.1 release build command",
+      "root_cause": "Isolated build dependency download requires scoped network elevation on this Windows sandbox; PowerShell semicolons do not stop later commands after a nonzero native exit.",
+      "fix": "Rerun only the build with scoped elevation, then run archive inspection as a separate command after successful artifacts exist.",
+      "tags": ["build", "sandbox", "network", "powershell", "release"],
+      "related_bugs": ["bug-145"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-167",
+      "timestamp": "2026-10-02T19:43:00+03:00",
+      "error_message": "The combined clean-wheel command printed Graphit 0.1.1 but produced no smoke stage output for over 100 seconds; a read-only Win32_Process CIM diagnostic was denied by the sandbox.",
+      "file": "0.1.1 installed-wheel smoke command",
+      "root_cause": "The combined command obscured which process remained active, and the sandbox disallowed command-line process inspection.",
+      "fix": "Interrupt the stalled combined session, verify its exit state, and rerun scripts/smoke_installed.py as a separate command with its existing flushed stage labels and bounded internal subprocess timeouts.",
+      "tags": ["release", "smoke", "windows", "diagnostics", "sandbox"],
+      "related_bugs": ["bug-145"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

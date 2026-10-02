@@ -694,10 +694,12 @@
 **Goal:** The primary one-command onboarding contract from user feedback is now
 implemented on `main`: discover, verify read-only, scan all accessible user
 schemas, generate a complete local ERD, and wire project-local compact Codex
-plus Claude MCP access without persisting secrets. Next perform release-level
-acceptance/installed-wheel checks and choose a post-0.1.0 version only with
-fresh user authority. Do not publish, tag, create a release, or make paid model
-calls without that authority.
+plus Claude MCP access without persisting secrets. The user authorized release
+0.1.1. Local release-level acceptance is complete: official PyPI JSON reports
+0.1.1 absent, isolated archives and Twine pass, clean-wheel CLI/Codex/Claude
+smoke passes, and the full suite is green. Next commit the version, tag
+`v0.1.1`, publish the GitHub Release, obtain the protected `pypi` deployment
+approval, and verify the public artifacts. No paid model calls are authorized.
 
 **2026-10-02 discovery slice:** `graphit init` now discovers conventional
 PostgreSQL URL variables from the process environment and a bounded root-level
