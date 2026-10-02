@@ -2,11 +2,11 @@
 
 This is the target sequence, not a list of completed phases. See
 [MVP and release readiness](RELEASE_READINESS.md) for evidence and gaps as of
-2026-10-02. Package/init/SQLite, PostgreSQL table/view/constraint scanning,
+2026-10-02. Package/init/SQLite, PostgreSQL/SQL Server/Oracle structural scanning,
 local queries, fourteen MCP tools, conservative review, direct and bounded
 transitive FK impact, and
 one-hop exports are implemented. Post-release init now discovers/verifies and
-scans PostgreSQL URLs, creates a complete saved-snapshot ERD, and installs
+scans supported database URLs, creates a complete saved-snapshot ERD, and installs
 project-local compact Codex plus Claude MCP entries by default. Index scanning,
 local persistence, and an
 explicit bounded CLI/MCP lookup now exist. Phase
@@ -57,7 +57,7 @@ Exit: Graphit can create, migrate, reopen, and validate its local store.
 - read-only connection test,
 - timeout and sanitized errors.
 
-Exit: a user can safely validate a PostgreSQL source.
+Exit: a user can safely validate PostgreSQL, SQL Server, and Oracle sources.
 
 ## Phase 4 — Metadata scanner
 
@@ -68,7 +68,7 @@ Exit: a user can safely validate a PostgreSQL source.
 - indexes, views, and materialized views,
 - quoted identifiers and multiple schemas.
 
-Exit: a real PostgreSQL schema becomes a complete immutable local snapshot.
+Exit: a supported database schema becomes a complete immutable local snapshot.
 
 ## Phase 5 — Explicit knowledge graph
 
@@ -141,7 +141,7 @@ a server; multi-hop interactive exploration remains open.
 ## Later, only with evidence
 
 - standalone binaries,
-- MySQL/SQL Server/Oracle adapters,
+- MySQL adapter and additional engine-specific metadata,
 - source-code references,
 - optional shared/team metadata service,
 - optional local server UI,

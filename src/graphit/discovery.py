@@ -1,4 +1,4 @@
-"""Secret-safe discovery of project PostgreSQL connection URLs."""
+"""Secret-safe discovery of supported project database connection URLs."""
 
 from __future__ import annotations
 
@@ -11,7 +11,8 @@ from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, unquote, urlsplit
 
 _URL_ENV_NAME = re.compile(
-    r"(?:^|_)(?:DATABASE|POSTGRES|POSTGRESQL)_URL\Z|^PGURL\Z",
+    r"(?:^|_)(?:DATABASE|DB|POSTGRES|POSTGRESQL|MSSQL|SQLSERVER|ORACLE)_(?:URL|URI)\Z"
+    r"|^SQLALCHEMY_DATABASE_URI\Z|^PGURL\Z",
     re.IGNORECASE,
 )
 _ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
@@ -26,7 +27,9 @@ _DOTENV_NAMES = (
     ".env.production.local",
 )
 _MAX_DOTENV_BYTES = 1024 * 1024
-_SSL_MODES = frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"})
+_POSTGRES_SSL_MODES = frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"})
+_MSSQL_SSL_MODES = frozenset({"disable", "require"})
+_ORACLE_SSL_MODES = frozenset({"disable", "require"})
 
 if TYPE_CHECKING:
     from graphit.sources import SourceConfig
@@ -37,11 +40,12 @@ class CredentialResolutionError(Exception):
 
 
 @dataclass(frozen=True)
-class PostgreSQLCandidate:
+class DatabaseCandidate:
     """One transient connection candidate; its password is never represented."""
 
     variable_name: str
     origin: str
+    engine: str
     host: str
     port: int
     database_name: str
@@ -98,19 +102,41 @@ def _safe_text(value: str) -> bool:
     return bool(value) and not any(ord(character) < 32 for character in value)
 
 
-def _parse_candidate(variable_name: str, value: str, origin: str) -> PostgreSQLCandidate | None:
+def _parse_candidate(variable_name: str, value: str, origin: str) -> DatabaseCandidate | None:
     try:
         parsed = urlsplit(value)
-        if parsed.scheme.lower() not in {"postgres", "postgresql"}:
+        scheme = parsed.scheme.lower()
+        engine = {
+            "postgres": "postgresql",
+            "postgresql": "postgresql",
+            "mssql": "mssql",
+            "mssql+pyodbc": "mssql",
+            "sqlserver": "mssql",
+            "oracle": "oracle",
+            "oracle+oracledb": "oracle",
+            "oracle+cx_oracle": "oracle",
+            "oracles": "oracle",
+        }.get(scheme)
+        if engine is None:
             return None
         host = parsed.hostname
-        port = parsed.port or 5432
+        port = parsed.port or {"postgresql": 5432, "mssql": 1433, "oracle": 1521}[engine]
         username = unquote(parsed.username) if parsed.username is not None else ""
         password = unquote(parsed.password) if parsed.password is not None else None
         database_name = unquote(parsed.path.removeprefix("/"))
         query = parse_qs(parsed.query, keep_blank_values=True)
-        ssl_values = query.get("sslmode", ["prefer"])
-        ssl_mode = ssl_values[-1]
+        if engine == "postgresql":
+            ssl_mode = query.get("sslmode", ["prefer"])[-1].lower()
+            valid_ssl_modes = _POSTGRES_SSL_MODES
+        elif engine == "mssql":
+            encrypt = query.get("encrypt", ["true"])[-1].lower()
+            if encrypt not in {"true", "yes", "1", "false", "no", "0"}:
+                return None
+            ssl_mode = "disable" if encrypt in {"false", "no", "0"} else "require"
+            valid_ssl_modes = _MSSQL_SSL_MODES
+        else:
+            ssl_mode = "require" if scheme == "oracles" else "disable"
+            valid_ssl_modes = _ORACLE_SSL_MODES
     except (TypeError, ValueError):
         return None
 
@@ -121,12 +147,13 @@ def _parse_candidate(variable_name: str, value: str, origin: str) -> PostgreSQLC
         or not _safe_text(username)
         or not _safe_text(database_name)
         or not 1 <= port <= 65535
-        or ssl_mode not in _SSL_MODES
+        or ssl_mode not in valid_ssl_modes
     ):
         return None
-    return PostgreSQLCandidate(
+    return DatabaseCandidate(
         variable_name=variable_name,
         origin=origin,
+        engine=engine,
         host=host,
         port=port,
         database_name=database_name,
@@ -136,10 +163,10 @@ def _parse_candidate(variable_name: str, value: str, origin: str) -> PostgreSQLC
     )
 
 
-def discover_postgresql(
+def discover_databases(
     root: Path, *, environ: Mapping[str, str] | None = None
-) -> tuple[PostgreSQLCandidate, ...]:
-    """Find bounded PostgreSQL URL candidates without persisting or printing secrets."""
+) -> tuple[DatabaseCandidate, ...]:
+    """Find bounded supported URL candidates without persisting or printing secrets."""
 
     root = root.resolve()
     process_environment = os.environ if environ is None else environ
@@ -152,9 +179,9 @@ def discover_postgresql(
         if dotenv_values:
             locations.append((name, dotenv_values))
 
-    candidates: list[PostgreSQLCandidate] = []
+    candidates: list[DatabaseCandidate] = []
     seen_variables: set[str] = set()
-    seen_connections: set[tuple[str, int, str, str]] = set()
+    seen_connections: set[tuple[str, str, int, str, str]] = set()
     for origin, values in locations:
         for variable_name in sorted(values):
             normalized_name = variable_name.upper()
@@ -165,6 +192,7 @@ def discover_postgresql(
             if candidate is None:
                 continue
             identity = (
+                candidate.engine,
                 candidate.host.casefold(),
                 candidate.port,
                 candidate.database_name,
@@ -177,7 +205,22 @@ def discover_postgresql(
     return tuple(candidates)
 
 
-def resolve_postgresql_password(
+PostgreSQLCandidate = DatabaseCandidate
+
+
+def discover_postgresql(
+    root: Path, *, environ: Mapping[str, str] | None = None
+) -> tuple[DatabaseCandidate, ...]:
+    """Backward-compatible PostgreSQL-only discovery helper."""
+
+    return tuple(
+        candidate
+        for candidate in discover_databases(root, environ=environ)
+        if candidate.engine == "postgresql"
+    )
+
+
+def resolve_database_password(
     source: SourceConfig,
     *,
     root: Path | None = None,
@@ -211,8 +254,9 @@ def resolve_postgresql_password(
         )
     candidate = _parse_candidate(source.credential_env, value, origin)
     if candidate is None:
-        raise CredentialResolutionError("The saved PostgreSQL URL is invalid.")
+        raise CredentialResolutionError("The saved database URL is invalid.")
     expected = (
+        source.engine,
         source.host.casefold(),
         source.port,
         source.database_name,
@@ -220,6 +264,7 @@ def resolve_postgresql_password(
         source.ssl_mode,
     )
     actual = (
+        candidate.engine,
         candidate.host.casefold(),
         candidate.port,
         candidate.database_name,
@@ -228,8 +273,19 @@ def resolve_postgresql_password(
     )
     if actual != expected:
         raise CredentialResolutionError(
-            "The PostgreSQL URL identity changed; run init again before connecting."
+            "The database URL identity changed; run init again before connecting."
         )
     if not candidate.has_password or candidate.password is None:
-        raise CredentialResolutionError("The saved PostgreSQL URL has no password.")
+        raise CredentialResolutionError("The saved database URL has no password.")
     return candidate.password
+
+
+def resolve_postgresql_password(
+    source: SourceConfig,
+    *,
+    root: Path | None = None,
+    environ: Mapping[str, str] | None = None,
+) -> str:
+    """Backward-compatible alias for resolving a saved source password."""
+
+    return resolve_database_password(source, root=root, environ=environ)

@@ -115,3 +115,29 @@ class DatabaseScanner(Protocol):
     """Source adapter independent of CLI, HTTP, MCP, and SQLite."""
 
     def scan_metadata(self, source: SourceConfig, scope: ScanScope) -> MetadataSnapshot: ...
+
+
+class ConnectionTestError(Exception):
+    """A source adapter could not safely verify a database connection."""
+
+    def __init__(self, code: str, message: str) -> None:
+        super().__init__(message)
+        self.code = code
+
+
+class MetadataScanError(Exception):
+    """A source adapter could not complete a bounded catalog scan."""
+
+    def __init__(self, code: str, message: str) -> None:
+        super().__init__(message)
+        self.code = code
+
+
+@dataclass(frozen=True)
+class ConnectionTestResult:
+    """Non-secret identity returned by an adapter's read-only verification."""
+
+    database: str
+    username: str
+    server_version: str
+    schemas: tuple[str, ...] = ()

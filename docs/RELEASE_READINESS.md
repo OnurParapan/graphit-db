@@ -5,8 +5,11 @@ reviewed 2026-10-02. "Verified locally" means the implemented behavior and
 tests were exercised in this workspace; it does not mean a public user has
 completed the workflow.
 The full local test suite passed with the already-cached `tiktoken` encoding
-selected explicitly; the opt-in disposable PostgreSQL test passed locally,
-with five environment-dependent tests skipped in the latest Windows suite.
+selected explicitly; the opt-in disposable PostgreSQL test passed locally.
+After adding SQL Server and Oracle adapters, the ordinary Windows suite has
+365 passing tests and seven environment-dependent skips, including their two
+explicitly gated live fixtures. Both fixtures also passed separately against
+disposable loopback-only SQL Server and Oracle Free containers.
 Without that cache setting, two benchmark tests fail while attempting a
 blocked first-time network fetch, not while querying Graphit.
 
@@ -19,6 +22,14 @@ blocked first-time network fetch, not while querying Graphit.
 | Discover logical relations | Conservative metadata-only candidate evidence, human review, and approved graph context are implemented. | A tiny synthetic ERP fixture yields 3 true positives, 1 false positive, and 5 false negatives by default; this is not production precision. No automatic business-identity proof. |
 | Explore a graph | Bounded JSON/DOT/HTML one-hop exports and the complete confirmed-FK whole-database HTML ERD are implemented. Default init writes the snapshot-named ERD; HTML remains offline, searchable, escaped, CSP-bounded, and accessible without scripts. | Multi-hop interactive depth controls, expand/collapse, and richer layout are not implemented. |
 | Reduce agent cost | Deterministic progressive context and response ceilings exist. The three-pair 14-table compact aggregate and separate three-pair 114-table aggregate are preserved; all 12 arms were correct. On the scaled task, Graphit returned 99.2% fewer fact bytes and averaged 16.1% lower total / 39.6% lower non-cached input, with both lower in all three pairs. | The small aggregate remained negative, proving workload size matters. Scaled latency was inconsistent, pair 3 baseline read twice, and no billing, production, SQL-MCP, Claude, or controlled profile-ablation result exists; do not claim universal savings. |
+
+The 0.2.0 development line additionally has scripted-driver contract coverage
+and one successful disposable live run each for SQL Server and Oracle:
+URL-secret handling, read-only safety checks, bounded catalogs, immutable
+snapshots, engine-scoped logical keys, and the end-to-end relationship path are
+covered. This is concrete server-side compatibility evidence for the tested
+SQL Server 2022 and Oracle Free images, not a claim of every version, managed
+service, authentication mode, TLS configuration, or production-scale schema.
 
 ## Public release gates
 

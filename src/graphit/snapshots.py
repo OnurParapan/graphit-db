@@ -8,14 +8,15 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from graphit.scanners.postgresql import MetadataScanError, PostgreSQLScanner
 from graphit.scanners.protocol import (
     DatabaseScanner,
+    MetadataScanError,
     MetadataSnapshot,
     ScanScope,
     quote_identifier,
 )
-from graphit.sources import SourceConfig, require_store_path, show_source
+from graphit.scanners.registry import scanner_for
+from graphit.sources import SourceConfig, logical_namespace, require_store_path, show_source
 
 
 class SnapshotError(Exception):
@@ -40,20 +41,21 @@ def _json(value: object) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
-def _identity(kind: str, *parts: str) -> tuple[str, str]:
+def _identity(engine: str, kind: str, *parts: str) -> tuple[str, str]:
     qualified = ".".join(quote_identifier(part) for part in parts)
-    return f"postgres:{kind.lower()}:{qualified}", qualified
+    return f"{logical_namespace(engine)}:{kind.lower()}:{qualified}", qualified
 
 
 def _add_object(
     connection: sqlite3.Connection,
     snapshot_id: int,
+    engine: str,
     kind: str,
     parts: tuple[str, ...],
     parent_id: int | None,
     metadata: dict[str, Any] | None = None,
 ) -> int:
-    logical_key, qualified_name = _identity(kind, *parts)
+    logical_key, qualified_name = _identity(engine, kind, *parts)
     cursor = connection.execute(
         """INSERT INTO objects
         (snapshot_id, parent_id, logical_key, object_type, schema_name,
@@ -103,7 +105,10 @@ def _required(mapping: dict[tuple[str, ...], int], key: tuple[str, ...]) -> int:
 
 
 def _write_graph(
-    connection: sqlite3.Connection, snapshot_id: int, metadata: MetadataSnapshot
+    connection: sqlite3.Connection,
+    snapshot_id: int,
+    engine: str,
+    metadata: MetadataSnapshot,
 ) -> None:
     schemas: dict[tuple[str, ...], int] = {}
     tables: dict[tuple[str, ...], int] = {}
@@ -111,7 +116,9 @@ def _write_graph(
 
     for schema in metadata.schemas:
         schema_key = (schema.name,)
-        schemas[schema_key] = _add_object(connection, snapshot_id, "SCHEMA", schema_key, None)
+        schemas[schema_key] = _add_object(
+            connection, snapshot_id, engine, "SCHEMA", schema_key, None
+        )
 
     for table in metadata.tables:
         if table.kind not in ("TABLE", "VIEW", "MATERIALIZED_VIEW") or (
@@ -123,6 +130,7 @@ def _write_graph(
         tables[table_key] = _add_object(
             connection,
             snapshot_id,
+            engine,
             table.kind,
             table_key,
             parent,
@@ -147,7 +155,9 @@ def _write_graph(
     for column in metadata.columns:
         column_key = (column.schema_name, column.table_name, column.name)
         parent = _required(tables, (column.schema_name, column.table_name))
-        columns[column_key] = _add_object(connection, snapshot_id, "COLUMN", column_key, parent)
+        columns[column_key] = _add_object(
+            connection, snapshot_id, engine, "COLUMN", column_key, parent
+        )
         connection.execute(
             """INSERT INTO columns
             (object_id, table_object_id, ordinal_position, data_type,
@@ -170,6 +180,7 @@ def _write_graph(
         constraint_id = _add_object(
             connection,
             snapshot_id,
+            engine,
             "CONSTRAINT",
             (constraint.schema_name, constraint.table_name, constraint.name),
             table_id,
@@ -219,6 +230,7 @@ def _write_graph(
         index_id = _add_object(
             connection,
             snapshot_id,
+            engine,
             "INDEX",
             (*table_key, index.name),
             table_id,
@@ -270,6 +282,7 @@ def _write_graph(
                 schemas[schema_key] = _add_object(
                     connection,
                     snapshot_id,
+                    engine,
                     "SCHEMA",
                     schema_key,
                     None,
@@ -280,6 +293,7 @@ def _write_graph(
                 target_table_id = _add_object(
                     connection,
                     snapshot_id,
+                    engine,
                     "TABLE",
                     target_table_key,
                     schemas[schema_key],
@@ -291,6 +305,7 @@ def _write_graph(
         constraint_id = _add_object(
             connection,
             snapshot_id,
+            engine,
             "CONSTRAINT",
             (*source_table_key, foreign_key.name),
             source_table_id,
@@ -370,7 +385,7 @@ def persist_snapshot(
                 ).lastrowid
                 if snapshot_id is None:
                     raise SnapshotError("STORE_WRITE_FAILED", "Could not create a snapshot.")
-                _write_graph(connection, snapshot_id, metadata)
+                _write_graph(connection, snapshot_id, source.engine, metadata)
                 object_count = int(
                     connection.execute(
                         "SELECT COUNT(*) FROM objects WHERE snapshot_id = ?", (snapshot_id,)
@@ -421,7 +436,7 @@ def scan_source(root: Path, name: str, *, scanner: DatabaseScanner | None = None
     """Scan one configured source and persist only a complete successful result."""
 
     source = show_source(root, name)
-    adapter = scanner if scanner is not None else PostgreSQLScanner(root)
+    adapter = scanner if scanner is not None else scanner_for(source, root)
     try:
         metadata = adapter.scan_metadata(source, ScanScope(source.schemas))
     except MetadataScanError as error:

@@ -1510,3 +1510,40 @@ itself a universal token-savings claim.
 
 **Revisit when:** Claude exposes a stable project-level tool allowlist or a
 portable launcher eliminates machine-specific interpreter paths.
+
+## ADR-081 - Normalize SQL Server and Oracle through the existing scanner port
+
+**Status:** Accepted and implemented for the 0.2.0 development line.
+
+**Decision:** Register `mssql` and `oracle` beside `postgresql` behind one
+verification/scanner dispatcher. Discover URL and SQLAlchemy URL forms without
+persisting secrets. Include pyodbc and python-oracledb in the base distribution;
+require Microsoft ODBC Driver 18/17 externally for SQL Server and use Oracle
+Thin mode by default. SQL Server requests advisory ODBC read-only mode and
+fails verification when the principal has direct write permissions. Oracle
+starts `SET TRANSACTION READ ONLY` and rejects SYS. Both adapters issue only
+fixed, bounded catalog reads and normalize schemas, tables/views, columns,
+declared keys/FKs, and safe indexes into the existing `MetadataSnapshot`.
+Preserve the historical `postgres:` logical-key namespace while adding
+`mssql:` and `oracle:` namespaces. Reuse unchanged SQLite snapshot, ERD, CLI
+query, MCP, and agent-setup layers.
+
+**Reason:** Multiple database engines are useful only if they keep Graphit's
+compact local graph and one-command onboarding contract. Adapter-specific
+stores or MCP tools would fragment agent behavior. SQL Server's ODBC read-only
+attribute is advisory, so permission rejection is required rather than claiming
+transactional enforcement equivalent to PostgreSQL or Oracle.
+
+**Validation:** Explicitly gated, loopback-only disposable tests now exercise
+both real catalog implementations end to end. SQL Server 2022 validates ODBC
+connection safety, permission rejection, tables/views, composite PK/FK facts,
+a filtered included-column index, snapshot persistence, and local relationship
+queries. Oracle Free validates Thin connectivity, the read-only transaction,
+separate owner/reader users, cross-schema composite FK facts, tables/views,
+indexes, persistence, and relationship queries. The containers were stopped
+and auto-removed after the passing runs.
+
+**Revisit when:** CI can carry both service images without unacceptable runtime
+or storage cost, or compatibility must be expanded across older versions,
+managed services, wallets/integrated authentication, or production-scale
+catalogs.

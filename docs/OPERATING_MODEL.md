@@ -25,7 +25,7 @@ graphit init
 ```
 
 Initialization creates safe configuration and a versioned local SQLite store.
-It discovers conventional PostgreSQL URLs in the process environment and a
+It discovers conventional PostgreSQL, SQL Server, and Oracle URLs in the process environment and a
 bounded project-root dotenv allowlist. After sanitized confirmation—or explicit
 `--yes`—it verifies each password-bearing candidate through a forced read-only
 session and saves only a credential reference. `--no-connect` performs
@@ -47,7 +47,7 @@ my-project/
 
 ## Configuration
 
-Current `graphit.toml` stores scan, sampling, and context defaults. PostgreSQL
+Current `graphit.toml` stores scan, sampling, and context defaults. Database
 source definitions are stored in the project-local SQLite database by
 `graphit source add`; they are not currently represented in `graphit.toml`.
 
@@ -58,6 +58,11 @@ graphit source add claims --host localhost --database claims \
   --username graphit_reader --credential-env CLAIMS_DATABASE_PASSWORD \
   --schema public
 ```
+
+Use `--engine mssql` or `--engine oracle` for those adapters. Graphit includes
+their Python drivers; SQL Server also requires Microsoft ODBC Driver 18 or 17
+on the machine. Oracle's default Thin-mode Easy Connect path does not require
+Oracle Client libraries.
 
 Future shareable configuration might include a source entry like:
 

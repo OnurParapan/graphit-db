@@ -43,7 +43,7 @@ Behavior:
    unknown or tampered store versions and preserve existing store rows.
 4. Ensure `.graphit/` is ignored by Git when a Git repository exists.
 5. Show exactly which files were created or updated.
-6. Discover PostgreSQL URL candidates from the process environment and the
+6. Discover PostgreSQL, SQL Server, and Oracle URL candidates from the process environment and the
    bounded project files `.env`, `.env.local`, `.env.development*`, `.env.test*`,
    and `.env.production*`. Show variable origin, host, port, database, user,
    password presence, and SSL mode without showing the URL or password.
@@ -76,8 +76,11 @@ for advanced profile/refresh control. Global agent configuration is never
 changed here. If one agent file conflicts, init reports every setup failure;
 another independently safe agent entry may already have been created.
 
-Discovery recognizes `postgres://` and `postgresql://` values in conventional
-`DATABASE_URL`, `POSTGRES_URL`, `POSTGRESQL_URL`, `PGURL`, and prefixed variants.
+Discovery recognizes `postgres://`, `postgresql://`, `mssql://`,
+`mssql+pyodbc://`, `sqlserver://`, `oracle://`, `oracles://`,
+`oracle+oracledb://`, and `oracle+cx_oracle://` values in conventional
+`DATABASE_URL`/`DATABASE_URI`, engine-specific URL variables, `PGURL`,
+`SQLALCHEMY_DATABASE_URI`, and prefixed variants.
 Process-environment values take precedence over matching dotenv variables;
 duplicate connection identities collapse deterministically. Example/template,
 symlinked, invalid UTF-8, and files larger than 1 MiB are not read. A discovered
@@ -85,9 +88,8 @@ password exists only in transient process memory and is never written by
 `init`. SQLite schema v2 stores `credential_kind` and an optional allowlisted
 `credential_file` reference. Later tests/scans reread the password at call time
 and fail closed if the URL host, port, database, user, or SSL mode changed.
-The verification query excludes PostgreSQL catalog, information-schema, toast,
-and temporary schemas; it fails rather than silently truncating above 100 user
-schemas or when none is accessible.
+Each adapter excludes its system/catalog namespaces and fails rather than
+silently truncating above 100 visible user schemas or when none is accessible.
 
 ## Source management
 
@@ -106,14 +108,18 @@ it does not read or write the password value. Init-discovered sources instead
 store the URL variable name and optional allowlisted dotenv filename, never the
 URL. Sources are not currently written
 to `graphit.toml`. Source names must be unique. `--schema` is repeatable and
-defaults to `public`; `--ssl-mode` defaults to `prefer`. `--project` can select
-an initialized Graphit project. Approved init verification, `source test`, and
-`scan` may connect to PostgreSQL. They resolve the saved credential reference at
-call time; verification runs one bounded read-only query. Authentication, TLS,
+defaults to `public` for PostgreSQL, `dbo` for SQL Server, and the uppercase
+username for Oracle. Ports default to 5432, 1433, and 1521 respectively.
+Transport mode defaults to `prefer`, `require`, and `disable` respectively.
+`--project` can select an initialized Graphit project. Approved init
+verification, `source test`, and `scan` may connect to the configured database.
+They resolve the saved credential reference at call time; verification uses
+bounded adapter-owned catalog queries. Authentication, TLS,
 connection timeout, and
 query timeout failures have sanitized error codes and exit code 4. The default
-SSL mode `prefer` can fall back to an unencrypted connection; use `require` or
-`verify-full` when transport encryption or identity verification is required.
+PostgreSQL's `prefer` mode can fall back to an unencrypted connection. SQL
+Server `require` uses encryption with certificate validation. Oracle `require`
+uses TCPS; wallet and certificate setup remains the deployment's responsibility.
 
 Non-interactive form:
 
@@ -127,6 +133,10 @@ graphit source add claims \
   --credential-env CLAIMS_DATABASE_PASSWORD \
   --schema public
 ```
+
+For SQL Server use `--engine mssql`; for Oracle use `--engine oracle`. The base
+Graphit package includes pyodbc and python-oracledb. SQL Server still requires
+Microsoft ODBC Driver 18 or 17 to be installed on the host.
 
 ## Scanning
 
@@ -232,7 +242,7 @@ remain visible and are never silently promoted. `--limit` defaults to 20
 and permits 1-50; `--offset` permits 0-5000. JSON includes `proposals`,
 `offset`, and `truncated` for paging. More than 5,000 source-scoped proposal
 events fails explicitly instead of silently omitting history. Listing reads
-only project-local SQLite; it does not connect to PostgreSQL. Only current
+only project-local SQLite; it does not connect to the source database. Only current
 manual `APPROVED` pairs can appear in local graph and MCP graph context.
 
 `review approve-proposal SOURCE_COLUMN TARGET_COLUMN --source NAME
@@ -326,7 +336,7 @@ fails with `SOURCE_NOT_FOUND`. Use two listed versions for `diff`.
 
 `diff --source NAME --from-version OLD --to-version NEW` compares two explicit
 completed local snapshots of the same source, with `OLD < NEW`. It does not
-connect to PostgreSQL or alter either snapshot. This first slice compares
+connect to the source database or alter either snapshot. This first slice compares
 exact in-scope schema, table, view, materialized-view, and column identities;
 column changes include ordinal, type, nullability, primary-key membership,
 and single-column uniqueness flags. Table partitioning is also compared.
@@ -429,7 +439,7 @@ is made.
 
 `impact-column TABLE.COLUMN --source NAME` narrows that structural view to
 one exact saved target column. `schema.table.column` is also accepted; quoted
-PostgreSQL identifiers keep case, dots, and escaped quotes. Bare ambiguous
+Graphit's canonical double-quoted identifiers keep case, dots, and escaped quotes. Bare ambiguous
 table names fail, and an external FK target stub without saved columns returns
 `COLUMN_NOT_FOUND` (exit 6) rather than inventing a column. Each returned
 source-to-target pair includes its FK name, composite `pair_position` and
@@ -496,7 +506,7 @@ creates one self-contained HTML diagram containing every saved table, including
 explicitly dashed out-of-scope FK target stubs, and every `DATABASE/CONFIRMED`
 table foreign key. It includes exact ordered FK column pairs in the accessible
 relationship list. It does not mix inferred or manual assertions into the
-whole-database fact view, reconnect to PostgreSQL, load remote assets, or
+whole-database fact view, reconnect to the source database, load remote assets, or
 silently truncate. The default snapshot-named output and an explicit
 `--output` path both refuse overwrite.
 

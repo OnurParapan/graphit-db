@@ -19,33 +19,39 @@ URLs, one allowlisted project-root filename—not either value. Credentials and
 full URLs are never written to `graphit.toml`, SQLite, generated graph exports,
 logs, exceptions, or MCP responses.
 
-Initialization discovery may read a PostgreSQL URL from the current process
+Initialization discovery may read a PostgreSQL, SQL Server, or Oracle URL from the current process
 environment or a bounded allowlist of project-root `.env*` files. It parses a
 password only into a transient in-process candidate and reports its presence as
 `present (hidden)`. It never prints the URL, represents the password in the
 candidate's debug output, or persists either value. Discovery refuses symlinked
 dotenv files, ignores example/template names, caps each file at 1 MiB, and does
 not recursively search the repository. Init obtains sanitized user confirmation
-before contacting a candidate unless `--yes` was explicit. It enforces the same
-read-only startup options, transaction assertion, and timeouts as `source test`,
+before contacting a candidate unless `--yes` was explicit. It enforces the
+selected adapter's read-only checks and timeouts as `source test`,
 then persists only the non-secret reference after success. Rejected and failed
 candidates are not saved. Later resolution also checks that the URL's non-secret
 connection identity still matches the saved source before using its password.
-The same bounded verification SELECT discovers accessible user schemas while
-excluding catalog, information-schema, toast, and temporary namespaces. Init
+Bounded verification catalog reads discover accessible user schemas while
+excluding engine-specific system namespaces. Init
 then runs the existing bounded catalog scanner under a new forced read-only
 connection. Schema overflow or catalog limits fail closed; no partial successful
 snapshot is presented.
 
 `graphit source test` reads the configured environment variable only at call
-time. It passes host, username, database, password, and SSL mode as separate
-driver parameters rather than constructing a secret-bearing connection string.
-The session starts with PostgreSQL's read-only transaction default and bounded
-statement/lock/idle timeouts; the client also applies a connect timeout and
-verifies the first transaction is read-only. Driver error details are classified
-but never printed because they may contain secrets or connection parameters.
-The `prefer` SSL mode may fall back to plaintext; select `require` or
-`verify-full` based on deployment policy.
+time. PostgreSQL receives separate driver parameters. SQL Server receives a
+transient, escaped ODBC connection string that is never retained or printed.
+Oracle receives separate user/password parameters plus a non-secret generated
+Easy Connect descriptor. PostgreSQL forces and confirms a read-only transaction.
+Oracle starts `SET TRANSACTION READ ONLY` before any catalog query and rejects
+SYS, for which Oracle does not provide the same guarantee. SQL Server requests
+ODBC read-only mode and also refuses principals with direct database/object
+INSERT, UPDATE, DELETE, ALTER, CONTROL, or CREATE TABLE permission; ODBC's own
+read-only flag is advisory and is not treated as proof. Every adapter applies
+connect/query timeouts and only executes fixed bounded catalog reads. Driver
+error details are classified but never printed because they may contain secrets
+or connection parameters. PostgreSQL `prefer` may fall back to plaintext;
+SQL Server `require` validates the server certificate; Oracle `require` uses
+TCPS and relies on the deployment's trust/wallet configuration.
 
 ## Scan modes
 

@@ -11,7 +11,7 @@ import typer
 from graphit import __version__
 from graphit.claude import ClaudeSetupError, setup_claude
 from graphit.codex import CodexSetupError, setup_codex
-from graphit.discovery import discover_postgresql
+from graphit.discovery import discover_databases
 from graphit.graph_dot import render_dot
 from graphit.graph_export import database_graph, table_graph
 from graphit.graph_html import render_database_html, render_html
@@ -52,7 +52,8 @@ from graphit.review import (
     revoke_approval,
     revoke_manual_proposal,
 )
-from graphit.scanners.postgresql import ConnectionTestError, MetadataScanError, verify_connection
+from graphit.scanners.protocol import ConnectionTestError, MetadataScanError
+from graphit.scanners.registry import verify_connection
 from graphit.snapshot_diff import (
     DEFAULT_DIFF_LIMIT,
     MAX_DIFF_LIMIT,
@@ -76,7 +77,7 @@ app = typer.Typer(
     help="Turn database structure into compact context for AI coding agents.",
     no_args_is_help=True,
 )
-source_app = typer.Typer(help="Manage and verify PostgreSQL sources.")
+source_app = typer.Typer(help="Manage and verify PostgreSQL, SQL Server, and Oracle sources.")
 app.add_typer(source_app, name="source")
 mcp_app = typer.Typer(help="Serve local database knowledge to AI agents.")
 app.add_typer(mcp_app, name="mcp")
@@ -140,16 +141,17 @@ def init(
     for path in result.updated:
         typer.echo(f"updated: {path.relative_to(result.root)}")
 
-    candidates = discover_postgresql(result.root)
+    candidates = discover_databases(result.root)
     if not candidates:
-        typer.echo(
-            "No PostgreSQL connection URL discovered in the environment or project .env files."
-        )
+        typer.echo("No supported database URL discovered in the environment or project .env files.")
         _configure_init_agents(result.root, setup_agents, refresh_agents)
         return
     for candidate in candidates:
         password_status = "present (hidden)" if candidate.has_password else "not present"
-        typer.echo(f"Discovered PostgreSQL from {candidate.origin} -> {candidate.variable_name}")
+        engine_label = _engine_label(candidate.engine)
+        typer.echo(
+            f"Discovered {engine_label} from {candidate.origin} -> {candidate.variable_name}"
+        )
         typer.echo(f"  Host: {candidate.host}:{candidate.port}")
         typer.echo(f"  Database: {candidate.database_name}")
         typer.echo(f"  User: {candidate.username}")
@@ -167,6 +169,7 @@ def init(
         credential_file = None if candidate.origin == "environment" else candidate.origin
         if any(
             source.host.casefold() == candidate.host.casefold()
+            and source.engine == candidate.engine
             and source.port == candidate.port
             and source.database_name == candidate.database_name
             and source.username == candidate.username
@@ -178,7 +181,7 @@ def init(
             typer.echo(f"Source for {candidate.variable_name} is already configured.")
             continue
         if not candidate.has_password:
-            typer.echo(f"Skipped {candidate.variable_name}: the PostgreSQL URL has no password.")
+            typer.echo(f"Skipped {candidate.variable_name}: the database URL has no password.")
             continue
         if not yes and not typer.confirm(
             f"Connect read-only to {candidate.host}:{candidate.port}/{candidate.database_name}?",
@@ -194,8 +197,9 @@ def init(
             database_name=candidate.database_name,
             username=candidate.username,
             credential_env=candidate.variable_name,
-            schemas=("public",),
+            schemas=(_default_schema(candidate.engine, candidate.username),),
             ssl_mode=candidate.ssl_mode,
+            engine=candidate.engine,
             credential_kind=credential_kind,
             credential_file=credential_file,
         )
@@ -211,7 +215,8 @@ def init(
         used_names.add(source_name)
         typer.echo(
             f"Added source '{source_name}' after read-only verification: "
-            f"PostgreSQL {verified.server_version}, {verified.database} as {verified.username}."
+            f"{_engine_label(candidate.engine)} {verified.server_version}, "
+            f"{verified.database} as {verified.username}."
         )
         typer.echo(f"  Schemas: {', '.join(verified.schemas)}")
         if not scan_metadata:
@@ -287,6 +292,20 @@ def _discovered_source_name(database_name: str, used: set[str]) -> str:
         candidate = f"{base[: 64 - len(ending)]}{ending}"
         suffix += 1
     return candidate
+
+
+def _engine_label(engine: str) -> str:
+    return {"postgresql": "PostgreSQL", "mssql": "SQL Server", "oracle": "Oracle"}.get(
+        engine, engine
+    )
+
+
+def _default_schema(engine: str, username: str) -> str:
+    if engine == "postgresql":
+        return "public"
+    if engine == "mssql":
+        return "dbo"
+    return username.upper()
 
 
 def _source_root(project: Path | None) -> Path:
@@ -455,38 +474,55 @@ def _foreign_key_flags(validated: bool, target_in_scope: bool, inherited: bool) 
 @source_app.command("add")
 def source_add(
     name: Annotated[str, typer.Argument(help="Short local source name.")],
-    host: Annotated[str, typer.Option(help="PostgreSQL hostname or IP address.")],
+    host: Annotated[str, typer.Option(help="Database hostname or IP address.")],
     database: Annotated[str, typer.Option(help="Database name.")],
     username: Annotated[str, typer.Option(help="Read-only database username.")],
     credential_env: Annotated[
         str, typer.Option(help="Environment variable NAME containing the password.")
     ],
-    port: Annotated[int, typer.Option(help="PostgreSQL port.")] = 5432,
+    port: Annotated[int | None, typer.Option(help="Database port; defaults by engine.")] = None,
     schema: Annotated[list[str] | None, typer.Option(help="Schema; repeat for more.")] = None,
-    ssl_mode: Annotated[str, typer.Option(help="PostgreSQL SSL mode.")] = "prefer",
+    ssl_mode: Annotated[
+        str | None, typer.Option(help="TLS mode; defaults by engine (prefer/require/disable).")
+    ] = None,
     engine: Annotated[
-        str, typer.Option(help="Source engine; PostgreSQL only for now.")
+        str, typer.Option(help="Source engine: postgresql, mssql, or oracle.")
     ] = "postgresql",
     project: Annotated[Path | None, typer.Option(help="Graphit project directory.")] = None,
 ) -> None:
-    """Save a PostgreSQL source definition; do not connect or read a password."""
+    """Save a supported source definition; do not connect or read a password."""
+
+    normalized_engine = engine.casefold()
+    selected_port = (
+        port
+        if port is not None
+        else {"postgresql": 5432, "mssql": 1433, "oracle": 1521}.get(normalized_engine, 0)
+    )
+    selected_ssl = (
+        ssl_mode
+        if ssl_mode is not None
+        else {"postgresql": "prefer", "mssql": "require", "oracle": "disable"}.get(
+            normalized_engine, ""
+        )
+    )
 
     source = SourceConfig(
         name=name,
-        engine=engine,
+        engine=normalized_engine,
         host=host,
-        port=port,
+        port=selected_port,
         database_name=database,
         username=username,
         credential_env=credential_env,
-        schemas=tuple(schema) if schema else ("public",),
-        ssl_mode=ssl_mode,
+        schemas=tuple(schema) if schema else (_default_schema(normalized_engine, username),),
+        ssl_mode=selected_ssl,
     )
     try:
         add_source(_source_root(project), source)
     except SourceError as error:
         _source_failure(error)
-    typer.echo(f"Added PostgreSQL source '{name}'. No database connection was made.")
+    label = _engine_label(normalized_engine)
+    typer.echo(f"Added {label} source '{name}'. No database connection was made.")
 
 
 @source_app.command("list")
@@ -539,7 +575,7 @@ def source_test(
     name: Annotated[str, typer.Argument(help="Configured source name.")],
     project: Annotated[Path | None, typer.Option(help="Graphit project directory.")] = None,
 ) -> None:
-    """Verify a PostgreSQL source using one bounded read-only SELECT."""
+    """Verify a supported source with bounded read-only catalog access."""
 
     try:
         root = _source_root(project)
@@ -552,7 +588,7 @@ def source_test(
         typer.echo(f"{error.code}: {error}", err=True)
         raise typer.Exit(code=4) from None
     typer.echo(
-        f"Connected to PostgreSQL {result.server_version}: "
+        f"Connected to {_engine_label(source.engine)} {result.server_version}: "
         f"{result.database} as {result.username} (read-only)."
     )
 

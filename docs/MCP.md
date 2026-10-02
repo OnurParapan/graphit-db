@@ -221,7 +221,7 @@ includes `source_name`, `snapshot_version`, `matches`, and `truncated`.
 
 Returns the exact table's saved columns, declared primary/unique keys, and
 outgoing declared foreign keys, each bounded by `limit` with separate truncation
-flags. `limit` defaults to 20 and must be between 1 and 50. PostgreSQL name
+flags. `limit` defaults to 20 and must be between 1 and 50. Canonical name
 rules apply: quote mixed-case or otherwise non-lowercase identifiers (for
 example, `"public"."Customer"`). Ambiguous bare table names are rejected.
 
@@ -254,7 +254,7 @@ separate ordered `INCLUDE` positions. A `null` key column is an expression
 placeholder, not a resolved column; Graphit does not expose its SQL expression
 or partial predicate. `limit` defaults to 5 and must be 1–20; `offset` must be
 0–100,000. Advance offset by the number of returned indexes while `truncated`
-is true. PostgreSQL identifier quoting rules apply; ambiguous bare names and
+is true. Graphit's canonical double-quoted identifier rules apply; ambiguous bare names and
 non-indexable relations are rejected. The tool reuses `graphit indexes`' local
 query, makes no source connection, and retains the 12,000-character ceiling.
 Default overview and table context remain index-free.

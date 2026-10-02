@@ -38,6 +38,18 @@
   and AI coding agents through compact, progressive context.
 - Current architecture: Python 3.11+ Typer CLI, project-local SQLite, PostgreSQL
   source adapter first, stdio MCP, and optional local graph exports.
+- The 0.2.0 development architecture registers PostgreSQL, SQL Server, and
+  Oracle behind one verification/scanner dispatcher. Downstream snapshots, ERD,
+  queries, and MCP stay engine-neutral. PostgreSQL must retain its historical
+  `postgres:` logical-key namespace; SQL Server and Oracle use `mssql:` and
+  `oracle:` so review decisions remain stable and source-scoped.
+- SQL Server's ODBC read-only mode is advisory, so Graphit also rejects
+  principals with effective direct database/schema/object write grants and runs
+  only fixed bounded catalog SELECTs. Oracle starts `SET TRANSACTION READ ONLY`,
+  rejects SYS, and uses python-oracledb Thin mode. Explicitly gated disposable
+  SQL Server 2022 and Oracle Free runs passed the full scanner-to-snapshot-to-
+  relationship path; this is one-image compatibility evidence, not universal
+  version or production-scale coverage.
 - Release 0.1.0 contains the underlying scanner, graph, and agent-integration
   pieces, but its `init` intentionally avoids database connections, its MCP
   setup is separate, and its graph export is focus-table/one-hop. That is an

@@ -44,8 +44,9 @@ pipx install graphit-db
 # Then switch to your application repository:
 cd /path/to/my-project
 graphit init
-# If a PostgreSQL URL is discovered, init verifies it read-only, scans it,
-# and creates .graphit/exports/<source>-snapshot-<n>-erd.html.
+# If a PostgreSQL, SQL Server, or Oracle URL is discovered, init verifies it
+# through the adapter's read-only safety contract, scans it, and creates
+# .graphit/exports/<source>-snapshot-<n>-erd.html.
 
 # Advanced/manual controls remain available:
 graphit source add claims --host localhost --database claims_db \
@@ -68,7 +69,8 @@ Set `CLAIMS_DB_PASSWORD` in your environment before `source test` or `scan`.
 Run a second scan before comparing versions with `graphit diff`.
 
 `graphit init` creates project-local configuration and a versioned SQLite store
-at `.graphit/graphit.db`. Version 0.1.1 also discovers PostgreSQL
+at `.graphit/graphit.db`. The current version discovers PostgreSQL, Microsoft
+SQL Server, and Oracle
 URLs from the current environment and supported project `.env*` files, reports
 only sanitized host/database/user facts, and keeps any password transient. It
 asks before connecting unless `--yes` is given, forces a bounded read-only
@@ -80,7 +82,7 @@ a self-contained whole-database ERD from every saved table and confirmed FK at
 discovery-only behavior, `--no-scan` stops after verified source persistence,
 and `--no-erd` keeps the snapshot without the HTML artifact. Later
 `graphit scan --source NAME` commands create additional immutable
-structural snapshots. PostgreSQL views and materialized views are searchable
+structural snapshots. Supported views and materialized views are searchable
 with their catalog columns through `show-view`/`get_view`; `show` and FK graph
 tools remain base-table-only, and view lineage is not inferred. Default init
 also adds project-local Codex and Claude MCP entries; restart the agents after
@@ -163,7 +165,9 @@ Install the public release with `pipx install graphit-db` or
 `uv tool install graphit-db`. Contributors can instead run
 `python -m pip install -e .` in this repository. Set the named password
 environment variable before `graphit source test` or `graphit scan`, and use a
-read-only PostgreSQL account. Default init configures only project-local
+read-only database account. SQL Server additionally requires Microsoft ODBC
+Driver 18 or 17 on the host; the Python driver is included. Oracle uses
+python-oracledb Thin mode for Easy Connect sources. Default init configures only project-local
 Codex/Claude MCP entries; it never changes global agent configuration. See
 [release readiness](https://github.com/OnurParapan/graphit-db/blob/main/docs/RELEASE_READINESS.md)
 for verified and outstanding gates, and
@@ -180,7 +184,7 @@ Implemented today:
 - declared FK relationships and bounded graph paths,
 - compact lexical task context from saved object names.
 
-Also implemented: catalog columns for PostgreSQL views and materialized views,
+Also implemented: catalog columns for supported views and materialized views,
 metadata-only inferred candidate preview with evidence and human review,
 and direct declared-FK table/column impact, plus bounded transitive table-FK
 reachability. Safe index metadata is now saved
@@ -245,8 +249,10 @@ assets. Deeper graph traversal and expand/collapse are not implemented.
 
 ## Scope
 
-PostgreSQL is the first source engine. The architecture supports later adapters,
-but quality of one end-to-end path takes priority over breadth.
+PostgreSQL, Microsoft SQL Server, and Oracle are supported source engines. All
+three normalize structural metadata into the same local snapshot, ERD, and MCP
+graph. Live disposable integration coverage is currently strongest for
+PostgreSQL.
 
 Graphit does not:
 

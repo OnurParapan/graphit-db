@@ -1,4 +1,4 @@
-"""Validated PostgreSQL source configuration in the local knowledge store."""
+"""Validated database source configuration in the local knowledge store."""
 
 import json
 import re
@@ -12,7 +12,12 @@ from graphit.store import StoreError, initialize_store
 
 _NAME = re.compile(r"[A-Za-z][A-Za-z0-9_-]{0,63}\Z")
 _ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
-_SSL_MODES = frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"})
+_ENGINES = frozenset({"postgresql", "mssql", "oracle"})
+_SSL_MODES = {
+    "postgresql": frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"}),
+    "mssql": frozenset({"disable", "require"}),
+    "oracle": frozenset({"disable", "require"}),
+}
 _CREDENTIAL_KINDS = frozenset({"password_env", "url_env", "url_dotenv"})
 _DOTENV_NAMES = frozenset(
     {
@@ -61,17 +66,27 @@ class SourceConfig:
     credential_file: str | None = None
 
 
+def logical_namespace(engine: str) -> str:
+    """Return the stable graph-key namespace, preserving PostgreSQL v1 keys."""
+
+    if engine == "postgresql":
+        return "postgres"
+    if engine in {"mssql", "oracle"}:
+        return engine
+    raise SourceError("Engine must be postgresql, mssql, or oracle.")
+
+
 def validate_source(source: SourceConfig) -> None:
     """Reject malformed or unsafe source metadata before any SQLite write."""
 
     if not _NAME.fullmatch(source.name):
         raise SourceError("Source name must start with a letter and use letters, digits, _ or -.")
-    if source.engine != "postgresql":
-        raise SourceError("Only PostgreSQL sources are supported.")
+    if source.engine not in _ENGINES:
+        raise SourceError("Engine must be postgresql, mssql, or oracle.")
     if (
         not source.host
         or source.host != source.host.strip()
-        or any(char.isspace() or ord(char) < 32 or char in "@/\\" for char in source.host)
+        or any(char.isspace() or ord(char) < 32 or char in "@/\\,;{}" for char in source.host)
     ):
         raise SourceError("Host must be a non-empty hostname or IP address without whitespace.")
     if not 1 <= source.port <= 65535:
@@ -99,8 +114,9 @@ def validate_source(source: SourceConfig) -> None:
         for schema in source.schemas
     ):
         raise SourceError("Schema names must be non-empty and contain no control characters.")
-    if source.ssl_mode not in _SSL_MODES:
-        raise SourceError("SSL mode must be disable, prefer, require, verify-ca, or verify-full.")
+    if source.ssl_mode not in _SSL_MODES[source.engine]:
+        allowed = ", ".join(sorted(_SSL_MODES[source.engine]))
+        raise SourceError(f"SSL mode for {source.engine} must be one of: {allowed}.")
 
 
 def require_store_path(root: Path) -> Path:

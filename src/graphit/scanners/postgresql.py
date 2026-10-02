@@ -2,7 +2,6 @@
 
 from collections.abc import Iterator
 from contextlib import contextmanager
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -11,9 +10,12 @@ import psycopg
 from graphit.discovery import CredentialResolutionError, resolve_postgresql_password
 from graphit.scanners.protocol import (
     ColumnMetadata,
+    ConnectionTestError,
+    ConnectionTestResult,
     ForeignKeyMetadata,
     IndexMetadata,
     KeyConstraintMetadata,
+    MetadataScanError,
     MetadataSnapshot,
     RelationKind,
     ScanScope,
@@ -21,6 +23,14 @@ from graphit.scanners.protocol import (
     TableMetadata,
 )
 from graphit.sources import SourceConfig
+
+__all__ = [
+    "ConnectionTestError",
+    "ConnectionTestResult",
+    "MetadataScanError",
+    "PostgreSQLScanner",
+    "verify_connection",
+]
 
 CONNECT_TIMEOUT_SECONDS = 5
 STATEMENT_TIMEOUT_MS = 5000
@@ -123,32 +133,6 @@ WHERE n.nspname::text = ANY(%s::text[])
 ORDER BY n.nspname, source_table.relname, index_table.relname
 LIMIT %s
 """
-
-
-class ConnectionTestError(Exception):
-    """A sanitized PostgreSQL connection-test failure."""
-
-    def __init__(self, code: str, message: str) -> None:
-        super().__init__(message)
-        self.code = code
-
-
-class MetadataScanError(Exception):
-    """A sanitized failure of a bounded catalog scan."""
-
-    def __init__(self, code: str, message: str) -> None:
-        super().__init__(message)
-        self.code = code
-
-
-@dataclass(frozen=True)
-class ConnectionTestResult:
-    """Non-secret identity returned by the read-only verification query."""
-
-    database: str
-    username: str
-    server_version: str
-    schemas: tuple[str, ...] = ()
 
 
 def _safe_error(error: psycopg.Error) -> ConnectionTestError:

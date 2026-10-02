@@ -86,6 +86,33 @@ parameters, read-only settings, hard caps, quoted identifiers, and sanitized
 failure paths. These tests do not substitute for a live PostgreSQL integration
 test; catalog SQL must be exercised against a disposable server before the
 metadata-scan milestone is declared complete.
+SQL Server and Oracle have separate scripted-driver suites covering URL-secret
+handling, connection safety, timeouts, schema discovery, tables/views/columns,
+ordered composite keys and foreign keys, indexes, expression placeholders,
+hard limits, missing drivers, and sanitized errors. Opt-in live tests then run
+the same scanner, immutable snapshot, and local relationship-query path against
+explicitly disposable loopback databases. Both live fixtures passed locally;
+they are not yet part of the GitHub Actions matrix and cover one server image
+and one small catalog each, not every supported server release or production
+topology.
+
+`tests/test_mssql_integration.py` requires
+`GRAPHIT_TEST_MSSQL_DISPOSABLE=1` plus a loopback-only
+`GRAPHIT_TEST_MSSQL_ADMIN_URL`. Its admin fixture creates and drops a unique
+database and login. The Graphit source uses a separate principal with only
+schema `SELECT` and `VIEW DEFINITION`; it verifies tables, a view, ordered
+composite PK/FK metadata, a filtered index with included columns, SQLite
+snapshot persistence, and local relationship lookup. The same live fixture
+then grants the reader `db_datawriter` and verifies Graphit rejects it before
+catalog scanning.
+
+`tests/test_oracle_integration.py` similarly requires
+`GRAPHIT_TEST_ORACLE_DISPOSABLE=1` plus a loopback-only
+`GRAPHIT_TEST_ORACLE_ADMIN_URL`. Its admin fixture creates and drops unique CRM,
+sales, and reader users. Graphit connects only as the reader, starts a read-only
+transaction, and verifies cross-schema composite FK metadata, tables, a view,
+indexes, SQLite persistence, and local relationship lookup. The local run used
+Oracle Free Thin connectivity; no Oracle Client installation was required.
 The view slice additionally checks `r`/`p`/`v`/`m` catalog classification,
 view/materialized-view columns, shared table/view and column caps, immutable
 local persistence, latest-snapshot search/context visibility, and failure

@@ -87,7 +87,8 @@ be measured.
 
 1. Installable Python package and Typer CLI.
 2. `graphit init` with project-local state and agent wiring.
-3. PostgreSQL source configuration and connection testing.
+3. PostgreSQL, Microsoft SQL Server, and Oracle source configuration and
+   connection testing.
 4. Metadata scan for schemas, tables, columns, keys, constraints, indexes, and
    views.
 5. SQLite-backed immutable snapshots.
@@ -107,7 +108,8 @@ be measured.
 - Full enterprise data governance.
 - Cross-database lineage.
 - LLM-required inference.
-- Multiple source engines before PostgreSQL quality is proven.
+- Broad engine-specific features that do not map to Graphit's shared structural
+  graph.
 
 ## Adoption strategy
 

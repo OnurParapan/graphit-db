@@ -172,6 +172,59 @@ def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
     assert len(list_sources(tmp_path)) == 1
 
 
+def test_init_discovers_scans_and_persists_mssql_and_oracle_sources(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    (tmp_path / ".env").write_text(
+        "MSSQL_DATABASE_URL=mssql://sql_reader:sql-secret@sql.local/erp?encrypt=true\n"
+        "ORACLE_DATABASE_URL=oracle://ora_reader:ora-secret@ora.local/ORCLPDB\n",
+        encoding="utf-8",
+    )
+    verified: list[SourceConfig] = []
+    scanned: list[str] = []
+
+    def successful_test(
+        source: SourceConfig, *, project_root: Path | None = None
+    ) -> ConnectionTestResult:
+        assert project_root == tmp_path
+        verified.append(source)
+        schemas = ("dbo",) if source.engine == "mssql" else ("APP",)
+        return ConnectionTestResult(source.database_name, source.username, "test-version", schemas)
+
+    def successful_scan(_root: Path, name: str) -> StoredSnapshot:
+        scanned.append(name)
+        return StoredSnapshot(name, len(scanned), 1, 10, 12, f"fingerprint-{name}")
+
+    monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
+    monkeypatch.setattr("graphit.cli.scan_source", successful_scan)
+
+    result = runner.invoke(
+        app,
+        [
+            "init",
+            "--project",
+            str(tmp_path),
+            "--yes",
+            "--no-erd",
+            "--no-agents",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "Discovered SQL Server from .env -> MSSQL_DATABASE_URL" in result.stdout
+    assert "Discovered Oracle from .env -> ORACLE_DATABASE_URL" in result.stdout
+    assert [source.engine for source in verified] == ["mssql", "oracle"]
+    saved = list_sources(tmp_path)
+    assert [(source.engine, source.schemas) for source in saved] == [
+        ("mssql", ("dbo",)),
+        ("oracle", ("APP",)),
+    ]
+    assert scanned == ["erp", "orclpdb"]
+    store = (tmp_path / ".graphit" / "graphit.db").read_bytes()
+    assert b"sql-secret" not in store
+    assert b"ora-secret" not in store
+
+
 def test_init_can_skip_scan_and_reports_scan_failure_after_source_persistence(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:

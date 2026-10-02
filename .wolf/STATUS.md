@@ -695,12 +695,44 @@
   `cbc1942fd6d556de023212154aac03f1c1671d57d0ccb09ce1e87003bc41f4e6`.
   Both have provenance. A fresh public-PyPI install passed version, dependency,
   SQLite, generated Codex/Claude launcher, and representative MCP checks.
+- The 0.2.0 development line adds Microsoft SQL Server and Oracle beside
+  PostgreSQL behind the shared scanner protocol. Init discovers URL and common
+  SQLAlchemy URL schemes, resolves passwords transiently, dispatches bounded
+  read-only verification/scanning, and reuses the same immutable SQLite graph,
+  complete ERD, CLI queries, and MCP tools. SQL Server uses pyodbc plus ODBC
+  Driver 18/17, advisory read-only mode, and direct-write permission rejection;
+  Oracle uses python-oracledb Thin mode, `SET TRANSACTION READ ONLY`, and rejects
+  SYS. Tables/views/materialized views where available, columns, declared keys,
+  ordered FKs, and safe indexes are normalized into one model. PostgreSQL's
+  historical `postgres:` keys remain compatible; new engines use `mssql:` and
+  `oracle:`. The ordinary suite has 365 passing tests and seven skips. Scripted
+  adapter tests, static gates, wheel/sdist inspection, and a clean installed-
+  wheel Codex/Claude MCP smoke pass. Separate loopback-only
+  disposable SQL Server 2022 and Oracle Free runs now pass real catalog scan,
+  snapshot, and local relationship paths. 0.2.0 is built locally but not
+  published. The refreshed wheel SHA-256 is
+  `135097d6b95f657e9577f2ea0c12296a1f6da267f7f995ceb5ad09ef5a20293d`;
+  the sdist SHA-256 is
+  `69d355f2b427c650afd1349c7691ea7f64bb5e1397804c30c7b8ac471cd9982b`.
+  Both archives pass scope/Twine checks, and a new clean Python 3.14 wheel
+  install passes dependency validation plus Codex/Claude stdio MCP smoke.
 
 ---
 
 ## 🚀 Next phase
 
-**Goal:** The primary one-command onboarding contract is implemented and public
+**Current goal (supersedes the historical goal below):** The 0.2.0 SQL Server
+and Oracle implementation and explicitly disposable live validation are
+complete. Refresh all local quality and distribution evidence, but do not tag
+or publish 0.2.0 without separate explicit release authority.
+
+**2026-10-02 multi-engine slice:** Added URL discovery, source validation,
+driver dispatch, safe connection verification, and bounded catalog scanners for
+SQL Server and Oracle. Both flow through existing snapshots, ERD, CLI, and MCP.
+Base dependencies now include pyodbc and python-oracledb; SQL Server's system
+ODBC driver remains external. Version 0.2.0 exists on main only.
+
+**Historical prior goal:** The primary one-command onboarding contract is implemented and public
 in `graphit-db 0.1.1`: discover, verify read-only, scan all accessible user
 schemas, generate a complete local ERD, and wire project-local compact Codex
 plus Claude MCP access without persisting secrets. Next gather real installed-
@@ -909,10 +941,11 @@ occurred. Establish isolation in a working environment before either arm.
 ## 📁 Active architecture
 
 - **Runtime:** Python 3.11+, Typer, stdlib SQLite, Psycopg PostgreSQL adapter,
-  official Python MCP SDK 2.x.
+  pyodbc SQL Server adapter, python-oracledb Thin adapter, official Python MCP SDK 2.x.
 - **Current modules:** `graphit.cli`, `graphit.project`, `graphit.store`,
   `graphit.sources`, `graphit.snapshots`, `graphit.queries`, `graphit.scanners.protocol`,
-  `graphit.scanners.postgresql`, `graphit.mcp_server`, `graphit.codex`,
+  `graphit.scanners.postgresql`, `graphit.scanners.mssql`,
+  `graphit.scanners.oracle`, `graphit.scanners.registry`, `graphit.mcp_server`, `graphit.codex`,
   `graphit.claude`, `graphit.mcp_launcher`, `graphit.inference`,
   `graphit.review`, `graphit.snapshot_diff`, `graphit.graph_export`, `graphit.graph_dot`,
   `graphit.graph_html`, package version.

@@ -61,11 +61,35 @@ def test_list_is_sorted_and_duplicates_do_not_replace(tmp_path: Path) -> None:
 
 
 @pytest.mark.parametrize(
+    ("engine", "port", "schema", "ssl_mode"),
+    [
+        ("mssql", 1433, "dbo", "require"),
+        ("oracle", 1521, "APP", "disable"),
+    ],
+)
+def test_mssql_and_oracle_source_metadata_round_trips(
+    tmp_path: Path, engine: str, port: int, schema: str, ssl_mode: str
+) -> None:
+    initialize_project(tmp_path)
+    source = _source(
+        engine=engine,
+        port=port,
+        schemas=(schema,),
+        ssl_mode=ssl_mode,
+    )
+
+    add_source(tmp_path, source)
+
+    assert show_source(tmp_path, "claims") == source
+
+
+@pytest.mark.parametrize(
     ("changes", "message"),
     [
         ({"name": "bad name"}, "Source name"),
-        ({"engine": "mysql"}, "PostgreSQL"),
+        ({"engine": "mysql"}, "postgresql, mssql, or oracle"),
         ({"host": "user@host"}, "Host"),
+        ({"host": "host;PWD=secret"}, "Host"),
         ({"port": 0}, "Port"),
         ({"port": 65536}, "Port"),
         ({"database_name": ""}, "Database"),
@@ -81,6 +105,8 @@ def test_list_is_sorted_and_duplicates_do_not_replace(tmp_path: Path) -> None:
         ({"schemas": ("public", "public")}, "schemas"),
         ({"schemas": ("bad\nschema",)}, "Schema"),
         ({"ssl_mode": "unknown"}, "SSL mode"),
+        ({"engine": "mssql", "ssl_mode": "prefer"}, "SSL mode for mssql"),
+        ({"engine": "oracle", "ssl_mode": "verify-full"}, "SSL mode for oracle"),
     ],
 )
 def test_invalid_metadata_is_rejected_before_write(

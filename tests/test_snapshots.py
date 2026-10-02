@@ -111,6 +111,30 @@ def _index() -> IndexMetadata:
     )
 
 
+@pytest.mark.parametrize(
+    ("engine", "port", "ssl_mode"),
+    [("mssql", 1433, "require"), ("oracle", 1521, "disable")],
+)
+def test_snapshot_logical_keys_use_the_source_engine_namespace(
+    tmp_path: Path, engine: str, port: int, ssl_mode: str
+) -> None:
+    initialize_project(tmp_path)
+    source = replace(_source(), engine=engine, port=port, ssl_mode=ssl_mode)
+    add_source(tmp_path, source)
+
+    persist_snapshot(tmp_path, source, _metadata())
+
+    with sqlite3.connect(tmp_path / ".graphit" / "graphit.db") as connection:
+        keys = [
+            str(row[0])
+            for row in connection.execute(
+                "SELECT logical_key FROM objects ORDER BY logical_key"
+            ).fetchall()
+        ]
+    assert keys
+    assert all(key.startswith(f"{engine}:") for key in keys)
+
+
 def test_persist_complete_graph_with_external_target(tmp_path: Path) -> None:
     source = _project(tmp_path)
 

@@ -44,7 +44,7 @@ Use cases coordinate domain rules and ports:
 
 Pure typed models and rules for database objects, edges, evidence, snapshots,
 review status, traversal bounds, and context budgets. Domain code does not know
-about Typer, MCP transports, SQLite, or PostgreSQL drivers.
+about Typer, MCP transports, SQLite, or database drivers.
 
 ### SQLite store
 
@@ -64,7 +64,8 @@ SQLAlchemy are not required unless later measurements demonstrate value.
 
 ### Source scanners
 
-Database-specific adapters implement a shared protocol. PostgreSQL is first.
+Database-specific adapters implement a shared protocol. PostgreSQL, Microsoft
+SQL Server, and Oracle are registered behind one dispatcher.
 
 Current initial interface:
 
@@ -90,6 +91,18 @@ returning a partial result. Scans use the same read-only startup settings and
 timeouts as connection verification, plus one repeatable-read transaction for
 a consistent catalog view. Adapter-specific I/O does not leak into
 the domain-facing metadata types.
+
+The SQL Server adapter uses pyodbc and Microsoft ODBC Driver 18/17. It requests
+ODBC read-only access, rejects principals with direct database/object write
+permissions, applies login/query timeouts, and reads only bounded `sys.*`
+catalog SELECTs. Because ODBC read-only mode is advisory, principal permission
+rejection is part of the safety contract. The Oracle adapter uses
+python-oracledb Thin mode, starts `SET TRANSACTION READ ONLY` before catalog
+access, applies a per-round-trip timeout, rejects SYS, and reads bounded
+`ALL_*` dictionary views. Both normalize tables, views, columns, declared keys,
+foreign keys, and safe index facts into the same `MetadataSnapshot`; Oracle
+materialized views are also represented. No downstream SQLite, ERD, CLI query,
+or MCP implementation branches on the source engine.
 
 For an init-discovered source, the connection verification SELECT also returns
 an ordered, bounded list of accessible non-system schemas. Init persists that

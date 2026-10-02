@@ -7,7 +7,7 @@ from pathlib import Path
 
 from graphit.inference import MAX_PREVIEW_FK_EDGES, candidate_review_keys, preview_candidates
 from graphit.queries import QueryError, _latest_snapshot, _metadata
-from graphit.sources import require_store_path, show_source
+from graphit.sources import logical_namespace, require_store_path, show_source
 
 DEFAULT_PROPOSAL_LIMIT = 20
 MAX_PROPOSAL_LIMIT = 50
@@ -81,7 +81,7 @@ def current_manual_graph_links(
         raise QueryError("INVALID_LIMIT", "Manual graph limit must be 1-50.")
     source = show_source(root, source_name)
     path = require_store_path(root)
-    prefix = f"{source.name}:postgres:column:"
+    prefix = f"{source.name}:{logical_namespace(source.engine)}:column:"
     focus_prefix = prefix + focus_table + "."
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection:
@@ -168,7 +168,7 @@ def list_proposals(
         raise QueryError("INVALID_LIMIT", "Use limit 1-50 and offset 0-5000.")
     source = show_source(root, source_name)
     path = require_store_path(root)
-    prefix = f"{source.name}:postgres:column:"
+    prefix = f"{source.name}:{logical_namespace(source.engine)}:column:"
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection:
             connection.execute("PRAGMA query_only = ON")
@@ -302,7 +302,7 @@ def approve_manual_proposal(
 
     pair = _validate_request(source_column, target_column, snapshot_version)
     source = show_source(root, source_name)
-    source_key, target_key = candidate_review_keys(source.name, *pair)
+    source_key, target_key = candidate_review_keys(source.name, *pair, source.engine)
     path = require_store_path(root)
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection, connection:
@@ -360,7 +360,7 @@ def revoke_manual_proposal(
 
     pair = _validate_request(source_column, target_column, snapshot_version)
     source = show_source(root, source_name)
-    source_key, target_key = candidate_review_keys(source.name, *pair)
+    source_key, target_key = candidate_review_keys(source.name, *pair, source.engine)
     path = require_store_path(root)
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection, connection:
@@ -412,7 +412,7 @@ def propose_relationship(
     if not _valid_manual_reason(reason):
         raise QueryError("INVALID_PROPOSAL", "Give a short, single-line business reason.")
     source = show_source(root, source_name)
-    source_key, target_key = candidate_review_keys(source.name, *pair)
+    source_key, target_key = candidate_review_keys(source.name, *pair, source.engine)
     path = require_store_path(root)
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection, connection:
@@ -553,12 +553,13 @@ def _decide_current_candidate(
     if not preview.candidates:
         raise QueryError("CANDIDATE_NOT_FOUND", "Pair is not a current inferred candidate.")
 
-    source_key, target_key = candidate_review_keys(source_name, *pair)
+    source = show_source(root, source_name)
+    source_key, target_key = candidate_review_keys(source.name, *pair, source.engine)
     path = require_store_path(root)
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection, connection:
             connection.execute("BEGIN IMMEDIATE")
-            _, current_version = _latest_snapshot(connection, source_name)
+            _, current_version = _latest_snapshot(connection, source.name)
             if current_version != snapshot_version:
                 raise QueryError("SNAPSHOT_CHANGED", "Refresh candidates from the latest snapshot.")
             current = _latest_decision(connection, source_key, target_key)
@@ -571,7 +572,7 @@ def _decide_current_candidate(
         raise QueryError(
             "STORE_WRITE_FAILED", "Could not save the local review decision."
         ) from None
-    return ReviewResult(source_name, snapshot_version, *pair, decision, changed)
+    return ReviewResult(source.name, snapshot_version, *pair, decision, changed)
 
 
 def reject_candidate(
@@ -616,7 +617,7 @@ def _reverse_decision(
 
     pair = _validate_request(source_column, target_column, snapshot_version)
     source = show_source(root, source_name)
-    source_key, target_key = candidate_review_keys(source.name, *pair)
+    source_key, target_key = candidate_review_keys(source.name, *pair, source.engine)
     path = require_store_path(root)
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection, connection:

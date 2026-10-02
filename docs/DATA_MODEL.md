@@ -16,14 +16,17 @@ Examples:
 
 ```text
 postgres:public.claim
-postgres:public.claim.customer_id
-postgres:public.claim:constraint:claim_pkey
+mssql:sales.order.customer_id
+oracle:ERP.CLAIM:constraint:CLAIM_PK
 ```
 
 Quoted identifiers preserve exact source spelling alongside normalized search
 forms.
 
-## PostgreSQL key and foreign-key extraction
+The logical-key namespace is `postgres` (retained for compatibility), `mssql`,
+or `oracle`. Reviews remain source- and engine-scoped.
+
+## Key and foreign-key extraction
 
 The scanner reads declared `p` (primary key), `u` (unique), and `f` (foreign
 key) constraints from `pg_catalog.pg_constraint`. It uses `conkey` for source
@@ -40,6 +43,13 @@ the target table was inside the selected scan scope. An out-of-scope target is
 recorded as such; Graphit must not invent a complete local target node. An
 unvalidated FK remains a declared database constraint, but its validation flag
 must be surfaced in later graph/context views.
+
+SQL Server maps the equivalent ordered facts from `sys.key_constraints`,
+`sys.index_columns`, `sys.foreign_keys`, and `sys.foreign_key_columns`. Oracle
+maps them from `ALL_CONSTRAINTS` and `ALL_CONS_COLUMNS`, matching referenced
+columns by constraint position. All engines emit the same typed key/FK model;
+missing positions, targets, or columns fail the scan instead of inventing an
+edge.
 
 The first persistence path creates a new `snapshots.version` per source inside
 one SQLite transaction. It inserts schema/table/column/constraint objects and
@@ -104,7 +114,7 @@ checksum text
 ```text
 id integer primary key
 name text unique
-engine text                  # postgresql initially
+engine text                  # postgresql, mssql, or oracle
 database_name text
 host text
 port integer

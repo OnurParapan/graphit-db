@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from graphit.queries import QueryError, _latest_snapshot, _metadata
-from graphit.sources import require_store_path, show_source
+from graphit.sources import logical_namespace, require_store_path, show_source
 
 DEFAULT_CANDIDATE_LIMIT = 20
 MAX_CANDIDATE_LIMIT = 50
@@ -77,18 +77,21 @@ class _Column:
 
 
 def candidate_review_keys(
-    source_name: str, source_column: str, target_column: str
+    source_name: str,
+    source_column: str,
+    target_column: str,
+    engine: str = "postgresql",
 ) -> tuple[str, str]:
     """Keep review identity stable across snapshots and separate between sources."""
 
-    prefix = f"{source_name}:postgres:column:"
+    prefix = f"{source_name}:{logical_namespace(engine)}:column:"
     return prefix + source_column, prefix + target_column
 
 
 def _review_decisions(
-    connection: sqlite3.Connection, source_name: str
+    connection: sqlite3.Connection, source_name: str, engine: str
 ) -> dict[tuple[str, str], str]:
-    prefix = f"{source_name}:postgres:column:"
+    prefix = f"{source_name}:{logical_namespace(engine)}:column:"
     rows = connection.execute(
         """SELECT source_logical_key, target_logical_key, decision
         FROM review_decisions
@@ -115,7 +118,7 @@ def current_approval_presence(
 
     source = show_source(root, source_name)
     path = require_store_path(root)
-    source_prefix = f"{source.name}:postgres:column:"
+    source_prefix = f"{source.name}:{logical_namespace(source.engine)}:column:"
     table_prefix = f"{source_prefix}{table_qualified}."
     try:
         with closing(sqlite3.connect(path, timeout=5)) as connection:
@@ -210,10 +213,11 @@ def _read_columns(connection: sqlite3.Connection, snapshot_id: int) -> list[_Col
 
 def _approved_source_names(
     source_name: str,
+    engine: str,
     table_qualified: str,
     decisions: dict[tuple[str, str], str],
 ) -> tuple[str, ...]:
-    prefix = f"{source_name}:postgres:column:"
+    prefix = f"{source_name}:{logical_namespace(engine)}:column:"
     adjacent_prefix = f"{prefix}{table_qualified}."
     names = sorted(
         {
@@ -373,9 +377,15 @@ def preview_candidates(
             connection.execute("PRAGMA query_only = ON")
             connection.execute("BEGIN")
             snapshot_id, version = _latest_snapshot(connection, source.name)
-            decisions = {} if include_rejected else _review_decisions(connection, source.name)
+            decisions = (
+                {}
+                if include_rejected
+                else _review_decisions(connection, source.name, source.engine)
+            )
             if approved_only and adjacent_table is not None:
-                selected_names = _approved_source_names(source.name, adjacent_table, decisions)
+                selected_names = _approved_source_names(
+                    source.name, source.engine, adjacent_table, decisions
+                )
                 columns = _read_approved_relevant_columns(connection, snapshot_id, selected_names)
                 selected_tables = {
                     column.table_id for column in columns if column.qualified in selected_names
@@ -412,7 +422,9 @@ def preview_candidates(
                     target
                     for target in matches
                     if decisions.get(
-                        candidate_review_keys(source.name, column.qualified, target.qualified)
+                        candidate_review_keys(
+                            source.name, column.qualified, target.qualified, source.engine
+                        )
                     )
                     != "REJECTED"
                 ]
@@ -420,7 +432,9 @@ def preview_candidates(
                     target
                     for target in matches
                     if decisions.get(
-                        candidate_review_keys(source.name, column.qualified, target.qualified)
+                        candidate_review_keys(
+                            source.name, column.qualified, target.qualified, source.engine
+                        )
                     )
                     == "APPROVED"
                 ]
@@ -446,7 +460,9 @@ def preview_candidates(
                     status = (
                         "APPROVED"
                         if decisions.get(
-                            candidate_review_keys(source.name, column.qualified, target.qualified)
+                            candidate_review_keys(
+                                source.name, column.qualified, target.qualified, source.engine
+                            )
                         )
                         == "APPROVED"
                         else "PENDING"
