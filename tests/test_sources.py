@@ -71,6 +71,12 @@ def test_list_is_sorted_and_duplicates_do_not_replace(tmp_path: Path) -> None:
         ({"database_name": ""}, "Database"),
         ({"username": "bad\nname"}, "Username"),
         ({"credential_env": "PASSWORD=secret"}, "Credential"),
+        ({"credential_kind": "raw_password"}, "Credential kind"),
+        (
+            {"credential_kind": "url_dotenv", "credential_file": "../outside.env"},
+            "allowlist",
+        ),
+        ({"credential_kind": "url_env", "credential_file": ".env"}, "valid only"),
         ({"schemas": ()}, "schemas"),
         ({"schemas": ("public", "public")}, "schemas"),
         ({"schemas": ("bad\nschema",)}, "Schema"),

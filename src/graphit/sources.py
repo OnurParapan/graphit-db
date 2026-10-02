@@ -13,6 +13,19 @@ from graphit.store import StoreError, initialize_store
 _NAME = re.compile(r"[A-Za-z][A-Za-z0-9_-]{0,63}\Z")
 _ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
 _SSL_MODES = frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"})
+_CREDENTIAL_KINDS = frozenset({"password_env", "url_env", "url_dotenv"})
+_DOTENV_NAMES = frozenset(
+    {
+        ".env",
+        ".env.local",
+        ".env.development",
+        ".env.development.local",
+        ".env.test",
+        ".env.test.local",
+        ".env.production",
+        ".env.production.local",
+    }
+)
 
 
 class SourceError(Exception):
@@ -44,6 +57,8 @@ class SourceConfig:
     schemas: tuple[str, ...]
     ssl_mode: str = "prefer"
     engine: str = "postgresql"
+    credential_kind: str = "password_env"
+    credential_file: str | None = None
 
 
 def validate_source(source: SourceConfig) -> None:
@@ -66,6 +81,13 @@ def validate_source(source: SourceConfig) -> None:
             raise SourceError(f"{label} must be non-empty and contain no control characters.")
     if not _ENV_NAME.fullmatch(source.credential_env):
         raise SourceError("Credential environment variable name is invalid.")
+    if source.credential_kind not in _CREDENTIAL_KINDS:
+        raise SourceError("Credential kind is invalid.")
+    if source.credential_kind == "url_dotenv":
+        if source.credential_file not in _DOTENV_NAMES:
+            raise SourceError("Credential dotenv file is not in the safe project allowlist.")
+    elif source.credential_file is not None:
+        raise SourceError("Credential file is valid only for a dotenv URL reference.")
     if (
         not source.schemas
         or len(source.schemas) > 100
@@ -115,6 +137,8 @@ def _record(row: sqlite3.Row) -> SourceConfig:
         credential_env=str(row["credential_env"]),
         schemas=tuple(json.loads(row["selected_schemas_json"])),
         ssl_mode=str(row["ssl_mode"]),
+        credential_kind=str(row["credential_kind"]),
+        credential_file=str(row["credential_file"]) if row["credential_file"] is not None else None,
     )
 
 
@@ -128,8 +152,9 @@ def add_source(root: Path, source: SourceConfig) -> None:
             connection.execute(
                 """INSERT INTO sources
                 (name, engine, host, port, database_name, username,
-                 credential_env, ssl_mode, selected_schemas_json)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                 credential_env, ssl_mode, selected_schemas_json,
+                 credential_kind, credential_file)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
                     source.name,
                     source.engine,
@@ -140,6 +165,8 @@ def add_source(root: Path, source: SourceConfig) -> None:
                     source.credential_env,
                     source.ssl_mode,
                     json.dumps(source.schemas),
+                    source.credential_kind,
+                    source.credential_file,
                 ),
             )
     except sqlite3.IntegrityError as error:

@@ -126,6 +126,13 @@ MIGRATIONS = (
             "CREATE INDEX edges_by_type_status ON edges(snapshot_id, edge_type, status)",
         ),
     ),
+    Migration(
+        2,
+        (
+            "ALTER TABLE sources ADD COLUMN credential_kind TEXT NOT NULL DEFAULT 'password_env'",
+            "ALTER TABLE sources ADD COLUMN credential_file TEXT",
+        ),
+    ),
 )
 
 SCHEMA_VERSION = MIGRATIONS[-1].version

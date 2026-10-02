@@ -1,12 +1,12 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-10-02T15:26:11.853Z",
+    "lastScanned": "2026-10-02T15:36:06.510Z",
     "fileCount": 166,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "d8db36fb3a03571d118b089ab01c256906d7dd14f249e7378c578897c467843c",
-    "storeUpdatedAt": "2026-10-02T15:26:11.856Z"
+    "renderedHash": "273e7900277a8c884e17fcdb2c750032c783f740307170379d9270c2927522aa",
+    "storeUpdatedAt": "2026-10-02T15:36:06.513Z"
   },
   "files": {
     ".claude/commands/reframe.md": {
@@ -15,7 +15,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1789538356605.9893,
-      "updatedAt": "2026-10-02T15:26:11.797Z",
+      "updatedAt": "2026-10-02T15:36:06.448Z",
       "source": "scan"
     },
     ".claude/commands/security-audit.md": {
@@ -24,7 +24,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1789538356603.9878,
-      "updatedAt": "2026-10-02T15:26:11.798Z",
+      "updatedAt": "2026-10-02T15:36:06.450Z",
       "source": "scan"
     },
     ".claude/rules/openwolf.md": {
@@ -33,7 +33,7 @@
       "hash": "6d735b2c1c54a916",
       "size": 1323,
       "mtimeMs": 1789538356429.0818,
-      "updatedAt": "2026-10-02T15:26:11.800Z",
+      "updatedAt": "2026-10-02T15:36:06.454Z",
       "source": "scan"
     },
     ".claude/settings.json": {
@@ -42,7 +42,7 @@
       "hash": "f68759bb50af5ee4",
       "size": 1799,
       "mtimeMs": 1789538356421.3833,
-      "updatedAt": "2026-10-02T15:26:11.801Z",
+      "updatedAt": "2026-10-02T15:36:06.454Z",
       "source": "scan"
     },
     ".codex/config.toml": {
@@ -51,7 +51,7 @@
       "hash": "d37497c327812159",
       "size": 24,
       "mtimeMs": 1789538356596.993,
-      "updatedAt": "2026-10-02T15:26:11.801Z",
+      "updatedAt": "2026-10-02T15:36:06.455Z",
       "source": "scan"
     },
     ".codex/hooks.json": {
@@ -60,7 +60,7 @@
       "hash": "dd98e7b77ead1a7f",
       "size": 2418,
       "mtimeMs": 1789538356595.988,
-      "updatedAt": "2026-10-02T15:26:11.802Z",
+      "updatedAt": "2026-10-02T15:36:06.457Z",
       "source": "scan"
     },
     ".codex/prompts/reframe.md": {
@@ -69,7 +69,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1789538356609.9875,
-      "updatedAt": "2026-10-02T15:26:11.803Z",
+      "updatedAt": "2026-10-02T15:36:06.458Z",
       "source": "scan"
     },
     ".codex/prompts/security-audit.md": {
@@ -78,7 +78,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1789538356607.989,
-      "updatedAt": "2026-10-02T15:26:11.804Z",
+      "updatedAt": "2026-10-02T15:36:06.459Z",
       "source": "scan"
     },
     ".editorconfig": {
@@ -87,7 +87,7 @@
       "hash": "83e82746303fdd2e",
       "size": 295,
       "mtimeMs": 1789541346105.375,
-      "updatedAt": "2026-10-02T15:26:11.804Z",
+      "updatedAt": "2026-10-02T15:36:06.459Z",
       "source": "scan"
     },
     ".gitattributes": {
@@ -96,7 +96,7 @@
       "hash": "f15a63073d50bfe1",
       "size": 268,
       "mtimeMs": 1790946069414.8171,
-      "updatedAt": "2026-10-02T15:26:11.805Z",
+      "updatedAt": "2026-10-02T15:36:06.460Z",
       "source": "scan"
     },
     ".github/workflows/ci.yml": {
@@ -105,7 +105,7 @@
       "hash": "db7d7a71fdfaf60a",
       "size": 2502,
       "mtimeMs": 1790946313220.5166,
-      "updatedAt": "2026-10-02T15:26:11.805Z",
+      "updatedAt": "2026-10-02T15:36:06.460Z",
       "source": "scan"
     },
     ".github/workflows/release.yml": {
@@ -114,7 +114,7 @@
       "hash": "86ac4be0f9672d4d",
       "size": 2578,
       "mtimeMs": 1790949979518.5232,
-      "updatedAt": "2026-10-02T15:26:11.805Z",
+      "updatedAt": "2026-10-02T15:36:06.461Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -123,7 +123,7 @@
       "hash": "7eb7dc0009427418",
       "size": 490,
       "mtimeMs": 1789542099870.826,
-      "updatedAt": "2026-10-02T15:26:11.806Z",
+      "updatedAt": "2026-10-02T15:36:06.461Z",
       "source": "scan"
     },
     "AGENTS.md": {
@@ -132,7 +132,7 @@
       "hash": "09d3d379796bdc34",
       "size": 4858,
       "mtimeMs": 1790949999330.0483,
-      "updatedAt": "2026-10-02T15:26:11.806Z",
+      "updatedAt": "2026-10-02T15:36:06.461Z",
       "source": "scan"
     },
     "CLAUDE.md": {
@@ -141,7 +141,7 @@
       "hash": "b1ca356fa9d5f3a6",
       "size": 225,
       "mtimeMs": 1789538356432.0945,
-      "updatedAt": "2026-10-02T15:26:11.806Z",
+      "updatedAt": "2026-10-02T15:36:06.461Z",
       "source": "scan"
     },
     "docs/AGENT_EVALUATION.md": {
@@ -150,7 +150,7 @@
       "hash": "d53349bbf4eda1a3",
       "size": 17500,
       "mtimeMs": 1790943720513.978,
-      "updatedAt": "2026-10-02T15:26:11.807Z",
+      "updatedAt": "2026-10-02T15:36:06.462Z",
       "source": "scan"
     },
     "docs/ARCHITECTURE.md": {
@@ -159,16 +159,16 @@
       "hash": "79da5e0579116a74",
       "size": 6138,
       "mtimeMs": 1789660273466.051,
-      "updatedAt": "2026-10-02T15:26:11.807Z",
+      "updatedAt": "2026-10-02T15:36:06.462Z",
       "source": "scan"
     },
     "docs/CLI.md": {
       "description": "Graphit — CLI Contract",
-      "tokens": 7185,
-      "hash": "31def94b5324df40",
-      "size": 28745,
-      "mtimeMs": 1790954713419.803,
-      "updatedAt": "2026-10-02T15:26:11.807Z",
+      "tokens": 7381,
+      "hash": "b589fdbe93ee61bb",
+      "size": 29531,
+      "mtimeMs": 1790955268094.81,
+      "updatedAt": "2026-10-02T15:36:06.463Z",
       "source": "scan"
     },
     "docs/CODEX_START.md": {
@@ -177,25 +177,25 @@
       "hash": "5b64090b623bae4a",
       "size": 944,
       "mtimeMs": 1790946071347.8523,
-      "updatedAt": "2026-10-02T15:26:11.808Z",
+      "updatedAt": "2026-10-02T15:36:06.463Z",
       "source": "scan"
     },
     "docs/DATA_MODEL.md": {
       "description": "Graphit — Local Knowledge Model",
-      "tokens": 3622,
-      "hash": "3f45f4e979e11d34",
-      "size": 14487,
-      "mtimeMs": 1789659134233.145,
-      "updatedAt": "2026-10-02T15:26:11.809Z",
+      "tokens": 3713,
+      "hash": "ecb19b4fcc59a288",
+      "size": 14853,
+      "mtimeMs": 1790955287323.105,
+      "updatedAt": "2026-10-02T15:36:06.463Z",
       "source": "scan"
     },
     "docs/DECISIONS.md": {
       "description": "Graphit — Architecture Decision Log",
-      "tokens": 18116,
-      "hash": "f36f40c7026d4619",
-      "size": 72629,
-      "mtimeMs": 1790954716182.557,
-      "updatedAt": "2026-10-02T15:26:11.809Z",
+      "tokens": 18206,
+      "hash": "d20ee88ef5d413b4",
+      "size": 72987,
+      "mtimeMs": 1790955289138.9968,
+      "updatedAt": "2026-10-02T15:36:06.464Z",
       "source": "scan"
     },
     "docs/DEVELOPMENT.md": {
@@ -204,7 +204,7 @@
       "hash": "9456e6004fe707fe",
       "size": 3150,
       "mtimeMs": 1790952099821.9275,
-      "updatedAt": "2026-10-02T15:26:11.809Z",
+      "updatedAt": "2026-10-02T15:36:06.464Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/final.txt": {
@@ -213,7 +213,7 @@
       "hash": "cb4bd2bdf2128716",
       "size": 368,
       "mtimeMs": 1790940179455.811,
-      "updatedAt": "2026-10-02T15:26:11.810Z",
+      "updatedAt": "2026-10-02T15:36:06.465Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/prompt.txt": {
@@ -222,7 +222,7 @@
       "hash": "c49245c9dcbf6cff",
       "size": 557,
       "mtimeMs": 1790940177662.2244,
-      "updatedAt": "2026-10-02T15:26:11.810Z",
+      "updatedAt": "2026-10-02T15:36:06.465Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/timing.txt": {
@@ -231,7 +231,7 @@
       "hash": "85f4e4d6b7511dae",
       "size": 20,
       "mtimeMs": 1790940180326.0273,
-      "updatedAt": "2026-10-02T15:26:11.810Z",
+      "updatedAt": "2026-10-02T15:36:06.465Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/transcript.jsonl": {
@@ -240,7 +240,7 @@
       "hash": "a7214049659e152f",
       "size": 6528,
       "mtimeMs": 1790940249251.45,
-      "updatedAt": "2026-10-02T15:26:11.811Z",
+      "updatedAt": "2026-10-02T15:36:06.465Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/final.txt": {
@@ -249,7 +249,7 @@
       "hash": "39ec78a253ac738d",
       "size": 327,
       "mtimeMs": 1790940175235.8801,
-      "updatedAt": "2026-10-02T15:26:11.811Z",
+      "updatedAt": "2026-10-02T15:36:06.465Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/prompt.txt": {
@@ -258,7 +258,7 @@
       "hash": "8d3f67a43f02cd42",
       "size": 517,
       "mtimeMs": 1790940173543.4094,
-      "updatedAt": "2026-10-02T15:26:11.811Z",
+      "updatedAt": "2026-10-02T15:36:06.466Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/timing.txt": {
@@ -267,7 +267,7 @@
       "hash": "44acc889b88749a7",
       "size": 20,
       "mtimeMs": 1790940176106.401,
-      "updatedAt": "2026-10-02T15:26:11.811Z",
+      "updatedAt": "2026-10-02T15:36:06.466Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/transcript.jsonl": {
@@ -276,7 +276,7 @@
       "hash": "7954707a64446fc9",
       "size": 1845,
       "mtimeMs": 1790940248375.1208,
-      "updatedAt": "2026-10-02T15:26:11.811Z",
+      "updatedAt": "2026-10-02T15:36:06.466Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/README.md": {
@@ -285,7 +285,7 @@
       "hash": "7ac17c7f10f2cf1c",
       "size": 2945,
       "mtimeMs": 1790940282630.2935,
-      "updatedAt": "2026-10-02T15:26:11.812Z",
+      "updatedAt": "2026-10-02T15:36:06.466Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/final.txt": {
@@ -294,7 +294,7 @@
       "hash": "255eacafdfdf5bdc",
       "size": 342,
       "mtimeMs": 1790941407195.507,
-      "updatedAt": "2026-10-02T15:26:11.812Z",
+      "updatedAt": "2026-10-02T15:36:06.466Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/prompt.txt": {
@@ -303,7 +303,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790941405494.697,
-      "updatedAt": "2026-10-02T15:26:11.812Z",
+      "updatedAt": "2026-10-02T15:36:06.467Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/timing.txt": {
@@ -312,7 +312,7 @@
       "hash": "ff2096680ceca852",
       "size": 19,
       "mtimeMs": 1790941408180.4045,
-      "updatedAt": "2026-10-02T15:26:11.812Z",
+      "updatedAt": "2026-10-02T15:36:06.467Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/transcript.jsonl": {
@@ -321,7 +321,7 @@
       "hash": "cf0453cc555ef79c",
       "size": 6488,
       "mtimeMs": 1790941406349.8943,
-      "updatedAt": "2026-10-02T15:26:11.813Z",
+      "updatedAt": "2026-10-02T15:36:06.467Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/final.txt": {
@@ -330,7 +330,7 @@
       "hash": "ae210c4fa8a23d84",
       "size": 329,
       "mtimeMs": 1790941411344.1157,
-      "updatedAt": "2026-10-02T15:26:11.813Z",
+      "updatedAt": "2026-10-02T15:36:06.467Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/prompt.txt": {
@@ -339,7 +339,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790941409576.6826,
-      "updatedAt": "2026-10-02T15:26:11.813Z",
+      "updatedAt": "2026-10-02T15:36:06.467Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/timing.txt": {
@@ -348,7 +348,7 @@
       "hash": "f803b9cae2ca3fef",
       "size": 19,
       "mtimeMs": 1790941412186.162,
-      "updatedAt": "2026-10-02T15:26:11.813Z",
+      "updatedAt": "2026-10-02T15:36:06.468Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/transcript.jsonl": {
@@ -357,7 +357,7 @@
       "hash": "1d3e09712c6256ac",
       "size": 1868,
       "mtimeMs": 1790941410459.9197,
-      "updatedAt": "2026-10-02T15:26:11.813Z",
+      "updatedAt": "2026-10-02T15:36:06.468Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/README.md": {
@@ -366,7 +366,7 @@
       "hash": "ed0412e7184c0a48",
       "size": 3208,
       "mtimeMs": 1790941442591.7798,
-      "updatedAt": "2026-10-02T15:26:11.814Z",
+      "updatedAt": "2026-10-02T15:36:06.468Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/aggregate.json": {
@@ -375,7 +375,7 @@
       "hash": "a207539533e92834",
       "size": 2457,
       "mtimeMs": 1790941940251.2495,
-      "updatedAt": "2026-10-02T15:26:11.814Z",
+      "updatedAt": "2026-10-02T15:36:06.468Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/final.txt": {
@@ -384,7 +384,7 @@
       "hash": "3e6767e11b0f5f54",
       "size": 354,
       "mtimeMs": 1790941886952.593,
-      "updatedAt": "2026-10-02T15:26:11.814Z",
+      "updatedAt": "2026-10-02T15:36:06.469Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/prompt.txt": {
@@ -393,7 +393,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790941885264.2012,
-      "updatedAt": "2026-10-02T15:26:11.814Z",
+      "updatedAt": "2026-10-02T15:36:06.469Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/timing.txt": {
@@ -402,7 +402,7 @@
       "hash": "7d8918309a1d9578",
       "size": 19,
       "mtimeMs": 1790941887800.7537,
-      "updatedAt": "2026-10-02T15:26:11.815Z",
+      "updatedAt": "2026-10-02T15:36:06.469Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/transcript.jsonl": {
@@ -411,7 +411,7 @@
       "hash": "213d8a7fe53793b4",
       "size": 6523,
       "mtimeMs": 1790941886107.3577,
-      "updatedAt": "2026-10-02T15:26:11.815Z",
+      "updatedAt": "2026-10-02T15:36:06.469Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/final.txt": {
@@ -420,7 +420,7 @@
       "hash": "d04406c890f1b941",
       "size": 369,
       "mtimeMs": 1790941882831.77,
-      "updatedAt": "2026-10-02T15:26:11.815Z",
+      "updatedAt": "2026-10-02T15:36:06.470Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/prompt.txt": {
@@ -429,7 +429,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790941881157.843,
-      "updatedAt": "2026-10-02T15:26:11.815Z",
+      "updatedAt": "2026-10-02T15:36:06.470Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/timing.txt": {
@@ -438,7 +438,7 @@
       "hash": "066b6c9284e6475e",
       "size": 19,
       "mtimeMs": 1790941883683.354,
-      "updatedAt": "2026-10-02T15:26:11.815Z",
+      "updatedAt": "2026-10-02T15:36:06.470Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/transcript.jsonl": {
@@ -447,7 +447,7 @@
       "hash": "41137af331cf588f",
       "size": 1939,
       "mtimeMs": 1790941881994.342,
-      "updatedAt": "2026-10-02T15:26:11.816Z",
+      "updatedAt": "2026-10-02T15:36:06.470Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/final.txt": {
@@ -456,7 +456,7 @@
       "hash": "c9b10f9d6ad2dd09",
       "size": 347,
       "mtimeMs": 1790941895119.6594,
-      "updatedAt": "2026-10-02T15:26:11.816Z",
+      "updatedAt": "2026-10-02T15:36:06.471Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/prompt.txt": {
@@ -465,7 +465,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790941893455.513,
-      "updatedAt": "2026-10-02T15:26:11.816Z",
+      "updatedAt": "2026-10-02T15:36:06.471Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/timing.txt": {
@@ -474,7 +474,7 @@
       "hash": "89aff2a0bcf7579d",
       "size": 19,
       "mtimeMs": 1790941895984.306,
-      "updatedAt": "2026-10-02T15:26:11.816Z",
+      "updatedAt": "2026-10-02T15:36:06.471Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/transcript.jsonl": {
@@ -483,7 +483,7 @@
       "hash": "6bd73fc633d78551",
       "size": 6487,
       "mtimeMs": 1790941894279.905,
-      "updatedAt": "2026-10-02T15:26:11.817Z",
+      "updatedAt": "2026-10-02T15:36:06.472Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/final.txt": {
@@ -492,7 +492,7 @@
       "hash": "8f8b10a7bb613229",
       "size": 348,
       "mtimeMs": 1790941891160.8594,
-      "updatedAt": "2026-10-02T15:26:11.817Z",
+      "updatedAt": "2026-10-02T15:36:06.472Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/prompt.txt": {
@@ -501,7 +501,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790941889409.4749,
-      "updatedAt": "2026-10-02T15:26:11.817Z",
+      "updatedAt": "2026-10-02T15:36:06.472Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/timing.txt": {
@@ -510,7 +510,7 @@
       "hash": "d9e4275ab7a1d2e1",
       "size": 19,
       "mtimeMs": 1790941892041.2505,
-      "updatedAt": "2026-10-02T15:26:11.817Z",
+      "updatedAt": "2026-10-02T15:36:06.472Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/transcript.jsonl": {
@@ -519,7 +519,7 @@
       "hash": "af593d4fd0f500d1",
       "size": 1877,
       "mtimeMs": 1790941890284.9065,
-      "updatedAt": "2026-10-02T15:26:11.817Z",
+      "updatedAt": "2026-10-02T15:36:06.473Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/README.md": {
@@ -528,7 +528,7 @@
       "hash": "28995af6a08ecb45",
       "size": 2584,
       "mtimeMs": 1790941969354.933,
-      "updatedAt": "2026-10-02T15:26:11.817Z",
+      "updatedAt": "2026-10-02T15:36:06.473Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/SHA256SUMS.txt": {
@@ -537,7 +537,7 @@
       "hash": "a35815fdbf47a09d",
       "size": 1581,
       "mtimeMs": 1790941968459.5317,
-      "updatedAt": "2026-10-02T15:26:11.818Z",
+      "updatedAt": "2026-10-02T15:36:06.473Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/final.txt": {
@@ -546,7 +546,7 @@
       "hash": "d1e202314d68a11d",
       "size": 382,
       "mtimeMs": 1790942961713.9382,
-      "updatedAt": "2026-10-02T15:26:11.818Z",
+      "updatedAt": "2026-10-02T15:36:06.473Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/prompt.txt": {
@@ -555,7 +555,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790942952318.4592,
-      "updatedAt": "2026-10-02T15:26:11.818Z",
+      "updatedAt": "2026-10-02T15:36:06.474Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/timing.txt": {
@@ -564,7 +564,7 @@
       "hash": "b72f50ae20b97882",
       "size": 19,
       "mtimeMs": 1790942967160.946,
-      "updatedAt": "2026-10-02T15:26:11.818Z",
+      "updatedAt": "2026-10-02T15:36:06.474Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/transcript.jsonl": {
@@ -573,7 +573,7 @@
       "hash": "71ad565f8d3a7801",
       "size": 61027,
       "mtimeMs": 1790942955848.037,
-      "updatedAt": "2026-10-02T15:26:11.819Z",
+      "updatedAt": "2026-10-02T15:36:06.474Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/final.txt": {
@@ -582,7 +582,7 @@
       "hash": "01e6c3240c2930dc",
       "size": 292,
       "mtimeMs": 1790942944589.85,
-      "updatedAt": "2026-10-02T15:26:11.819Z",
+      "updatedAt": "2026-10-02T15:36:06.475Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/prompt.txt": {
@@ -591,7 +591,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790942937441.2466,
-      "updatedAt": "2026-10-02T15:26:11.819Z",
+      "updatedAt": "2026-10-02T15:36:06.475Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/timing.txt": {
@@ -600,7 +600,7 @@
       "hash": "cf1fc9c7f9718f05",
       "size": 19,
       "mtimeMs": 1790942948127.831,
-      "updatedAt": "2026-10-02T15:26:11.819Z",
+      "updatedAt": "2026-10-02T15:36:06.475Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/transcript.jsonl": {
@@ -609,7 +609,7 @@
       "hash": "bea4b5b9782ccd86",
       "size": 1830,
       "mtimeMs": 1790942940810.001,
-      "updatedAt": "2026-10-02T15:26:11.819Z",
+      "updatedAt": "2026-10-02T15:36:06.475Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/README.md": {
@@ -618,7 +618,7 @@
       "hash": "0b42bfaef2c34f92",
       "size": 2453,
       "mtimeMs": 1790942993074.2578,
-      "updatedAt": "2026-10-02T15:26:11.820Z",
+      "updatedAt": "2026-10-02T15:36:06.476Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/SHA256SUMS.txt": {
@@ -627,7 +627,7 @@
       "hash": "a28f1e508722341d",
       "size": 694,
       "mtimeMs": 1790942993947.5435,
-      "updatedAt": "2026-10-02T15:26:11.820Z",
+      "updatedAt": "2026-10-02T15:36:06.476Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/aggregate.json": {
@@ -636,7 +636,7 @@
       "hash": "342190a98dcd0574",
       "size": 2458,
       "mtimeMs": 1790943675233.2642,
-      "updatedAt": "2026-10-02T15:26:11.820Z",
+      "updatedAt": "2026-10-02T15:36:06.476Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/final.txt": {
@@ -645,7 +645,7 @@
       "hash": "1084b8745a72e970",
       "size": 368,
       "mtimeMs": 1790943597520.6162,
-      "updatedAt": "2026-10-02T15:26:11.820Z",
+      "updatedAt": "2026-10-02T15:36:06.477Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/prompt.txt": {
@@ -654,7 +654,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790943590310.4363,
-      "updatedAt": "2026-10-02T15:26:11.821Z",
+      "updatedAt": "2026-10-02T15:36:06.477Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/timing.txt": {
@@ -663,7 +663,7 @@
       "hash": "f7ee3490c9d6cfbd",
       "size": 19,
       "mtimeMs": 1790943601220.4849,
-      "updatedAt": "2026-10-02T15:26:11.821Z",
+      "updatedAt": "2026-10-02T15:36:06.477Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/transcript.jsonl": {
@@ -672,7 +672,7 @@
       "hash": "0b7fb3ee0b63ea48",
       "size": 61003,
       "mtimeMs": 1790943593965.0918,
-      "updatedAt": "2026-10-02T15:26:11.822Z",
+      "updatedAt": "2026-10-02T15:36:06.478Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/final.txt": {
@@ -681,7 +681,7 @@
       "hash": "d518ea3244aaf5b6",
       "size": 303,
       "mtimeMs": 1790943582760.5835,
-      "updatedAt": "2026-10-02T15:26:11.822Z",
+      "updatedAt": "2026-10-02T15:36:06.479Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/prompt.txt": {
@@ -690,7 +690,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790943575086.7385,
-      "updatedAt": "2026-10-02T15:26:11.822Z",
+      "updatedAt": "2026-10-02T15:36:06.479Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/timing.txt": {
@@ -699,7 +699,7 @@
       "hash": "4f0bf3311cd110e4",
       "size": 19,
       "mtimeMs": 1790943586595.241,
-      "updatedAt": "2026-10-02T15:26:11.823Z",
+      "updatedAt": "2026-10-02T15:36:06.479Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/transcript.jsonl": {
@@ -708,7 +708,7 @@
       "hash": "75555ad5d52dcc99",
       "size": 1832,
       "mtimeMs": 1790943579159.202,
-      "updatedAt": "2026-10-02T15:26:11.823Z",
+      "updatedAt": "2026-10-02T15:36:06.480Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/final.txt": {
@@ -717,7 +717,7 @@
       "hash": "a0ab893bb113abc8",
       "size": 358,
       "mtimeMs": 1790943627206.287,
-      "updatedAt": "2026-10-02T15:26:11.823Z",
+      "updatedAt": "2026-10-02T15:36:06.480Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/prompt.txt": {
@@ -726,7 +726,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790943619806.5051,
-      "updatedAt": "2026-10-02T15:26:11.824Z",
+      "updatedAt": "2026-10-02T15:36:06.480Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/timing.txt": {
@@ -735,7 +735,7 @@
       "hash": "e26120fd11c11995",
       "size": 19,
       "mtimeMs": 1790943630955.0347,
-      "updatedAt": "2026-10-02T15:26:11.824Z",
+      "updatedAt": "2026-10-02T15:36:06.480Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/transcript.jsonl": {
@@ -744,7 +744,7 @@
       "hash": "d8b0623cba23d6d6",
       "size": 61604,
       "mtimeMs": 1790943623602.008,
-      "updatedAt": "2026-10-02T15:26:11.824Z",
+      "updatedAt": "2026-10-02T15:36:06.481Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/final.txt": {
@@ -753,7 +753,7 @@
       "hash": "c2da2efad46824e1",
       "size": 318,
       "mtimeMs": 1790943612419.4128,
-      "updatedAt": "2026-10-02T15:26:11.825Z",
+      "updatedAt": "2026-10-02T15:36:06.481Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/prompt.txt": {
@@ -762,7 +762,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790943605250.5815,
-      "updatedAt": "2026-10-02T15:26:11.825Z",
+      "updatedAt": "2026-10-02T15:36:06.481Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/timing.txt": {
@@ -771,7 +771,7 @@
       "hash": "99fc2be46d31df1b",
       "size": 19,
       "mtimeMs": 1790943616077.461,
-      "updatedAt": "2026-10-02T15:26:11.825Z",
+      "updatedAt": "2026-10-02T15:36:06.482Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/transcript.jsonl": {
@@ -780,7 +780,7 @@
       "hash": "f8a961c2ae5f8e14",
       "size": 1845,
       "mtimeMs": 1790943608970.6294,
-      "updatedAt": "2026-10-02T15:26:11.825Z",
+      "updatedAt": "2026-10-02T15:36:06.482Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/README.md": {
@@ -789,7 +789,7 @@
       "hash": "e94b21da0335f721",
       "size": 2785,
       "mtimeMs": 1790943676103.0803,
-      "updatedAt": "2026-10-02T15:26:11.825Z",
+      "updatedAt": "2026-10-02T15:36:06.482Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/SHA256SUMS.txt": {
@@ -798,7 +798,7 @@
       "hash": "397809aa7fdfdfdf",
       "size": 1581,
       "mtimeMs": 1790943693299.2283,
-      "updatedAt": "2026-10-02T15:26:11.825Z",
+      "updatedAt": "2026-10-02T15:36:06.482Z",
       "source": "scan"
     },
     "docs/MCP.md": {
@@ -807,16 +807,16 @@
       "hash": "081e624d475e57d9",
       "size": 22150,
       "mtimeMs": 1790952098046.3313,
-      "updatedAt": "2026-10-02T15:26:11.826Z",
+      "updatedAt": "2026-10-02T15:36:06.482Z",
       "source": "scan"
     },
     "docs/OPERATING_MODEL.md": {
       "description": "Graphit — Operating Model",
-      "tokens": 1173,
-      "hash": "4a1f48c63cac95ba",
-      "size": 4730,
-      "mtimeMs": 1789666454607.4753,
-      "updatedAt": "2026-10-02T15:26:11.826Z",
+      "tokens": 1271,
+      "hash": "501e8191c6e574ee",
+      "size": 5123,
+      "mtimeMs": 1790955288236.9707,
+      "updatedAt": "2026-10-02T15:36:06.483Z",
       "source": "scan"
     },
     "docs/PRODUCT.md": {
@@ -825,7 +825,7 @@
       "hash": "02e5e6a0f1acf39c",
       "size": 4636,
       "mtimeMs": 1790944225670.7097,
-      "updatedAt": "2026-10-02T15:26:11.826Z",
+      "updatedAt": "2026-10-02T15:36:06.483Z",
       "source": "scan"
     },
     "docs/RELATIONSHIP_ENGINE.md": {
@@ -834,7 +834,7 @@
       "hash": "b6e98a09d94f3e09",
       "size": 12838,
       "mtimeMs": 1789633292458.7703,
-      "updatedAt": "2026-10-02T15:26:11.826Z",
+      "updatedAt": "2026-10-02T15:36:06.483Z",
       "source": "scan"
     },
     "docs/RELEASE_READINESS.md": {
@@ -843,7 +843,7 @@
       "hash": "0452a46afff1f9b3",
       "size": 5859,
       "mtimeMs": 1790952098899.295,
-      "updatedAt": "2026-10-02T15:26:11.826Z",
+      "updatedAt": "2026-10-02T15:36:06.483Z",
       "source": "scan"
     },
     "docs/RELEASING.md": {
@@ -852,7 +852,7 @@
       "hash": "9a4a66ee4ca89814",
       "size": 3685,
       "mtimeMs": 1790952167430.4343,
-      "updatedAt": "2026-10-02T15:26:11.827Z",
+      "updatedAt": "2026-10-02T15:36:06.483Z",
       "source": "scan"
     },
     "docs/ROADMAP.md": {
@@ -861,25 +861,25 @@
       "hash": "807c9cff21575d86",
       "size": 4516,
       "mtimeMs": 1790944226540.6807,
-      "updatedAt": "2026-10-02T15:26:11.827Z",
+      "updatedAt": "2026-10-02T15:36:06.484Z",
       "source": "scan"
     },
     "docs/SECURITY.md": {
       "description": "Graphit — Security Model",
-      "tokens": 1298,
-      "hash": "a2e1c882aeb8a234",
-      "size": 5191,
-      "mtimeMs": 1790954714282.911,
-      "updatedAt": "2026-10-02T15:26:11.827Z",
+      "tokens": 1391,
+      "hash": "795121ce6b2f4193",
+      "size": 5567,
+      "mtimeMs": 1790955286450.659,
+      "updatedAt": "2026-10-02T15:36:06.484Z",
       "source": "scan"
     },
     "docs/TESTING.md": {
       "description": "Graphit — Testing Strategy",
-      "tokens": 7309,
-      "hash": "281bbd0f44d22f84",
-      "size": 29241,
-      "mtimeMs": 1790954715210.615,
-      "updatedAt": "2026-10-02T15:26:11.827Z",
+      "tokens": 7443,
+      "hash": "2a194a627316ad27",
+      "size": 29777,
+      "mtimeMs": 1790955290009.588,
+      "updatedAt": "2026-10-02T15:36:06.484Z",
       "source": "scan"
     },
     "docs/VISUALIZATION.md": {
@@ -888,7 +888,7 @@
       "hash": "3d64191380b06843",
       "size": 4683,
       "mtimeMs": 1790944055282.7615,
-      "updatedAt": "2026-10-02T15:26:11.827Z",
+      "updatedAt": "2026-10-02T15:36:06.484Z",
       "source": "scan"
     },
     "LICENSE": {
@@ -897,7 +897,7 @@
       "hash": "3a0b32a74c46bdda",
       "size": 11303,
       "mtimeMs": 1789635916720.077,
-      "updatedAt": "2026-10-02T15:26:11.828Z",
+      "updatedAt": "2026-10-02T15:36:06.484Z",
       "source": "scan"
     },
     "NOTICE": {
@@ -906,7 +906,7 @@
       "hash": "6709c86c10311f81",
       "size": 101,
       "mtimeMs": 1790944360047.68,
-      "updatedAt": "2026-10-02T15:26:11.828Z",
+      "updatedAt": "2026-10-02T15:36:06.485Z",
       "source": "scan"
     },
     "pyproject.toml": {
@@ -915,16 +915,16 @@
       "hash": "ff2fbfdf153dd03e",
       "size": 1686,
       "mtimeMs": 1790945759097.5906,
-      "updatedAt": "2026-10-02T15:26:11.828Z",
+      "updatedAt": "2026-10-02T15:36:06.485Z",
       "source": "scan"
     },
     "README.md": {
       "description": "Project documentation",
-      "tokens": 3119,
-      "hash": "36f2c309f2a0552c",
-      "size": 12557,
-      "mtimeMs": 1790954712534.7173,
-      "updatedAt": "2026-10-02T15:26:11.828Z",
+      "tokens": 3152,
+      "hash": "e929c922e1f545d9",
+      "size": 12690,
+      "mtimeMs": 1790955267188.037,
+      "updatedAt": "2026-10-02T15:36:06.485Z",
       "source": "scan"
     },
     "scripts/__init__.py": {
@@ -933,7 +933,7 @@
       "hash": "284aea876a7789ea",
       "size": 77,
       "mtimeMs": 1789636397284.3328,
-      "updatedAt": "2026-10-02T15:26:11.828Z",
+      "updatedAt": "2026-10-02T15:36:06.485Z",
       "source": "scan"
     },
     "scripts/check_dist.py": {
@@ -942,7 +942,7 @@
       "hash": "e5262e47aae34f9f",
       "size": 6217,
       "mtimeMs": 1790945802232.5784,
-      "updatedAt": "2026-10-02T15:26:11.829Z",
+      "updatedAt": "2026-10-02T15:36:06.486Z",
       "source": "scan",
       "symbols": [
         {
@@ -967,7 +967,7 @@
       "hash": "cf87749f1459b25d",
       "size": 7962,
       "mtimeMs": 1790942194839.4558,
-      "updatedAt": "2026-10-02T15:26:11.829Z",
+      "updatedAt": "2026-10-02T15:36:06.486Z",
       "source": "scan",
       "symbols": [
         {
@@ -1006,7 +1006,7 @@
       "hash": "e107d977e633e0c6",
       "size": 12420,
       "mtimeMs": 1790952032851.7273,
-      "updatedAt": "2026-10-02T15:26:11.829Z",
+      "updatedAt": "2026-10-02T15:36:06.487Z",
       "source": "scan",
       "symbols": [
         {
@@ -1045,7 +1045,7 @@
       "hash": "a6a13f9db2c67633",
       "size": 91,
       "mtimeMs": 1789541440243.864,
-      "updatedAt": "2026-10-02T15:26:11.830Z",
+      "updatedAt": "2026-10-02T15:36:06.487Z",
       "source": "scan"
     },
     "src/graphit/__main__.py": {
@@ -1054,7 +1054,7 @@
       "hash": "6af09cea9951611e",
       "size": 87,
       "mtimeMs": 1789541440243.864,
-      "updatedAt": "2026-10-02T15:26:11.830Z",
+      "updatedAt": "2026-10-02T15:36:06.487Z",
       "source": "scan"
     },
     "src/graphit/claude.py": {
@@ -1063,7 +1063,7 @@
       "hash": "4a04eb93350284fc",
       "size": 3694,
       "mtimeMs": 1789643748772.486,
-      "updatedAt": "2026-10-02T15:26:11.830Z",
+      "updatedAt": "2026-10-02T15:36:06.487Z",
       "source": "scan",
       "symbols": [
         {
@@ -1098,222 +1098,222 @@
     },
     "src/graphit/cli.py": {
       "description": "Graphit's command-line entry point.",
-      "tokens": 13705,
-      "hash": "57012652262ef578",
-      "size": 47965,
-      "mtimeMs": 1790954665360.8843,
-      "updatedAt": "2026-10-02T15:26:11.831Z",
+      "tokens": 14722,
+      "hash": "17011829cb926ff2",
+      "size": 51526,
+      "mtimeMs": 1790955205452.4697,
+      "updatedAt": "2026-10-02T15:36:06.488Z",
       "source": "scan",
       "symbols": [
         {
           "name": "main",
           "kind": "fn",
-          "startLine": 87,
-          "endLine": 91,
+          "startLine": 88,
+          "endLine": 92,
           "tokens": 31
         },
         {
           "name": "version",
           "kind": "fn",
-          "startLine": 92,
-          "endLine": 98,
+          "startLine": 93,
+          "endLine": 99,
           "tokens": 37
         },
         {
           "name": "init",
           "kind": "fn",
-          "startLine": 99,
-          "endLine": 134,
-          "tokens": 467
+          "startLine": 100,
+          "endLine": 197,
+          "tokens": 1257
+        },
+        {
+          "name": "_discovered_source_name",
+          "kind": "fn",
+          "startLine": 198,
+          "endLine": 211,
+          "tokens": 132
         },
         {
           "name": "_source_root",
           "kind": "fn",
-          "startLine": 135,
-          "endLine": 143,
+          "startLine": 212,
+          "endLine": 220,
           "tokens": 71
         },
         {
           "name": "_source_failure",
           "kind": "fn",
-          "startLine": 144,
-          "endLine": 151,
+          "startLine": 221,
+          "endLine": 228,
           "tokens": 88
         },
         {
           "name": "mcp_serve",
           "kind": "fn",
-          "startLine": 152,
-          "endLine": 165,
+          "startLine": 229,
+          "endLine": 242,
           "tokens": 116
         },
         {
           "name": "mcp_setup_codex",
           "kind": "fn",
-          "startLine": 166,
-          "endLine": 194,
+          "startLine": 243,
+          "endLine": 271,
           "tokens": 297
         },
         {
           "name": "mcp_setup_claude",
           "kind": "fn",
-          "startLine": 195,
-          "endLine": 217,
+          "startLine": 272,
+          "endLine": 294,
           "tokens": 256
         },
         {
           "name": "_query_failure",
           "kind": "fn",
-          "startLine": 218,
-          "endLine": 255,
+          "startLine": 295,
+          "endLine": 332,
           "tokens": 298
         },
         {
           "name": "_column_flags",
           "kind": "fn",
-          "startLine": 256,
-          "endLine": 264,
+          "startLine": 333,
+          "endLine": 341,
           "tokens": 74
         },
         {
           "name": "_foreign_key_flags",
           "kind": "fn",
-          "startLine": 265,
-          "endLine": 276,
+          "startLine": 342,
+          "endLine": 353,
           "tokens": 106
         },
         {
           "name": "source_add",
           "kind": "fn",
-          "startLine": 277,
-          "endLine": 313,
+          "startLine": 354,
+          "endLine": 390,
           "tokens": 439
         },
         {
           "name": "source_list",
           "kind": "fn",
-          "startLine": 314,
-          "endLine": 331,
+          "startLine": 391,
+          "endLine": 408,
           "tokens": 161
         },
         {
           "name": "source_show",
           "kind": "fn",
-          "startLine": 332,
-          "endLine": 353,
-          "tokens": 249
+          "startLine": 409,
+          "endLine": 435,
+          "tokens": 331
         },
         {
           "name": "source_test",
           "kind": "fn",
-          "startLine": 354,
-          "endLine": 375,
-          "tokens": 216
+          "startLine": 436,
+          "endLine": 458,
+          "tokens": 227
         },
         {
           "name": "scan",
           "kind": "fn",
-          "startLine": 376,
-          "endLine": 398,
+          "startLine": 459,
+          "endLine": 481,
           "tokens": 248
         },
         {
           "name": "candidates",
           "kind": "fn",
-          "startLine": 399,
-          "endLine": 445,
+          "startLine": 482,
+          "endLine": 528,
           "tokens": 596
         },
         {
           "name": "review_reject",
           "kind": "fn",
-          "startLine": 446,
-          "endLine": 473,
+          "startLine": 529,
+          "endLine": 556,
           "tokens": 357
         },
         {
           "name": "review_propose",
           "kind": "fn",
-          "startLine": 474,
-          "endLine": 502,
+          "startLine": 557,
+          "endLine": 585,
           "tokens": 388
         },
         {
           "name": "review_proposals",
           "kind": "fn",
-          "startLine": 503,
-          "endLine": 536,
+          "startLine": 586,
+          "endLine": 619,
           "tokens": 430
         },
         {
           "name": "review_approve_proposal",
           "kind": "fn",
-          "startLine": 537,
-          "endLine": 565,
+          "startLine": 620,
+          "endLine": 648,
           "tokens": 388
         },
         {
           "name": "review_revoke_proposal",
           "kind": "fn",
-          "startLine": 566,
-          "endLine": 593,
+          "startLine": 649,
+          "endLine": 676,
           "tokens": 365
         },
         {
           "name": "review_approve",
           "kind": "fn",
-          "startLine": 594,
-          "endLine": 622,
+          "startLine": 677,
+          "endLine": 705,
           "tokens": 376
         },
         {
           "name": "review_restore",
           "kind": "fn",
-          "startLine": 623,
-          "endLine": 650,
+          "startLine": 706,
+          "endLine": 733,
           "tokens": 351
         },
         {
           "name": "review_revoke",
           "kind": "fn",
-          "startLine": 651,
-          "endLine": 678,
+          "startLine": 734,
+          "endLine": 761,
           "tokens": 349
         },
         {
           "name": "snapshot_diff_command",
           "kind": "fn",
-          "startLine": 679,
-          "endLine": 729,
+          "startLine": 762,
+          "endLine": 812,
           "tokens": 609
         },
         {
           "name": "snapshot_list_command",
           "kind": "fn",
-          "startLine": 730,
-          "endLine": 758,
+          "startLine": 813,
+          "endLine": 841,
           "tokens": 349
         },
         {
           "name": "impact_command",
           "kind": "fn",
-          "startLine": 759,
-          "endLine": 798,
+          "startLine": 842,
+          "endLine": 881,
           "tokens": 501
         },
         {
           "name": "impact_tree_command",
           "kind": "fn",
-          "startLine": 799,
-          "endLine": 839,
-          "tokens": 536
-        },
-        {
-          "name": "impact_column_command",
-          "kind": "fn",
-          "startLine": 840,
-          "endLine": 1192,
-          "tokens": 4252
+          "startLine": 882,
+          "endLine": 1275,
+          "tokens": 4788
         }
       ]
     },
@@ -1323,7 +1323,7 @@
       "hash": "19b4c55f33ced6c8",
       "size": 5834,
       "mtimeMs": 1790940528158.1882,
-      "updatedAt": "2026-10-02T15:26:11.831Z",
+      "updatedAt": "2026-10-02T15:36:06.488Z",
       "source": "scan",
       "symbols": [
         {
@@ -1365,54 +1365,68 @@
     },
     "src/graphit/discovery.py": {
       "description": "Secret-safe discovery of project PostgreSQL connection URLs.",
-      "tokens": 1527,
-      "hash": "3a27b222d51fa1ce",
-      "size": 5342,
-      "mtimeMs": 1790954665358.791,
-      "updatedAt": "2026-10-02T15:26:11.831Z",
+      "tokens": 2230,
+      "hash": "a88e55a811bb5699",
+      "size": 7802,
+      "mtimeMs": 1790955061052.9966,
+      "updatedAt": "2026-10-02T15:36:06.489Z",
       "source": "scan",
       "symbols": [
         {
+          "name": "CredentialResolutionError",
+          "kind": "class",
+          "startLine": 35,
+          "endLine": 39,
+          "tokens": 42
+        },
+        {
           "name": "PostgreSQLCandidate",
           "kind": "class",
-          "startLine": 32,
-          "endLine": 50,
+          "startLine": 40,
+          "endLine": 58,
           "tokens": 133
         },
         {
           "name": "_dotenv_value",
           "kind": "fn",
-          "startLine": 51,
-          "endLine": 63,
+          "startLine": 59,
+          "endLine": 71,
           "tokens": 101
         },
         {
           "name": "_read_dotenv",
           "kind": "fn",
-          "startLine": 64,
-          "endLine": 88,
+          "startLine": 72,
+          "endLine": 96,
           "tokens": 230
         },
         {
           "name": "_safe_text",
           "kind": "fn",
-          "startLine": 89,
-          "endLine": 92,
+          "startLine": 97,
+          "endLine": 100,
           "tokens": 34
         },
         {
           "name": "_parse_candidate",
           "kind": "fn",
-          "startLine": 93,
-          "endLine": 130,
+          "startLine": 101,
+          "endLine": 138,
           "tokens": 359
         },
         {
           "name": "discover_postgresql",
           "kind": "fn",
-          "startLine": 131,
-          "endLine": 170,
+          "startLine": 139,
+          "endLine": 179,
           "tokens": 447
+        },
+        {
+          "name": "resolve_postgresql_password",
+          "kind": "fn",
+          "startLine": 180,
+          "endLine": 236,
+          "tokens": 640
         }
       ]
     },
@@ -1422,7 +1436,7 @@
       "hash": "9460f500dbad23ad",
       "size": 3743,
       "mtimeMs": 1789632840501.2036,
-      "updatedAt": "2026-10-02T15:26:11.832Z",
+      "updatedAt": "2026-10-02T15:36:06.489Z",
       "source": "scan",
       "symbols": [
         {
@@ -1454,7 +1468,7 @@
       "hash": "732268a91d11d821",
       "size": 6604,
       "mtimeMs": 1789632945066.0337,
-      "updatedAt": "2026-10-02T15:26:11.832Z",
+      "updatedAt": "2026-10-02T15:36:06.489Z",
       "source": "scan",
       "symbols": [
         {
@@ -1493,7 +1507,7 @@
       "hash": "a1ad8cede194a11e",
       "size": 16194,
       "mtimeMs": 1790943979864.3552,
-      "updatedAt": "2026-10-02T15:26:11.832Z",
+      "updatedAt": "2026-10-02T15:36:06.490Z",
       "source": "scan",
       "symbols": [
         {
@@ -1553,7 +1567,7 @@
       "hash": "20a8c3afedf6aa06",
       "size": 18620,
       "mtimeMs": 1789559791848.8896,
-      "updatedAt": "2026-10-02T15:26:11.833Z",
+      "updatedAt": "2026-10-02T15:36:06.490Z",
       "source": "scan",
       "symbols": [
         {
@@ -1662,7 +1676,7 @@
       "hash": "66bde057662826ee",
       "size": 1545,
       "mtimeMs": 1790946490940.4868,
-      "updatedAt": "2026-10-02T15:26:11.833Z",
+      "updatedAt": "2026-10-02T15:36:06.490Z",
       "source": "scan"
     },
     "src/graphit/mcp_server.py": {
@@ -1671,7 +1685,7 @@
       "hash": "9f13a99f697fa131",
       "size": 17130,
       "mtimeMs": 1789666215610.844,
-      "updatedAt": "2026-10-02T15:26:11.833Z",
+      "updatedAt": "2026-10-02T15:36:06.490Z",
       "source": "scan",
       "symbols": [
         {
@@ -1703,7 +1717,7 @@
       "hash": "17ba0a106e6eeb1c",
       "size": 4098,
       "mtimeMs": 1789542346962.4382,
-      "updatedAt": "2026-10-02T15:26:11.833Z",
+      "updatedAt": "2026-10-02T15:36:06.491Z",
       "source": "scan",
       "symbols": [
         {
@@ -1749,7 +1763,7 @@
       "hash": "01ba4719c80b6fe9",
       "size": 1,
       "mtimeMs": 1789541329856.958,
-      "updatedAt": "2026-10-02T15:26:11.834Z",
+      "updatedAt": "2026-10-02T15:36:06.491Z",
       "source": "scan"
     },
     "src/graphit/queries.py": {
@@ -1758,7 +1772,7 @@
       "hash": "248962d914e27b29",
       "size": 62074,
       "mtimeMs": 1789666069342.2666,
-      "updatedAt": "2026-10-02T15:26:11.834Z",
+      "updatedAt": "2026-10-02T15:36:06.491Z",
       "source": "scan",
       "symbols": [
         {
@@ -1979,7 +1993,7 @@
       "hash": "144d1e3fb1985e07",
       "size": 28763,
       "mtimeMs": 1789632897137.5564,
-      "updatedAt": "2026-10-02T15:26:11.834Z",
+      "updatedAt": "2026-10-02T15:36:06.492Z",
       "source": "scan",
       "symbols": [
         {
@@ -2144,73 +2158,73 @@
       "hash": "2709b0b8db8a58ab",
       "size": 42,
       "mtimeMs": 1789542837357.3357,
-      "updatedAt": "2026-10-02T15:26:11.835Z",
+      "updatedAt": "2026-10-02T15:36:06.492Z",
       "source": "scan"
     },
     "src/graphit/scanners/postgresql.py": {
       "description": "Bounded, read-only PostgreSQL connection and catalog scanning.",
-      "tokens": 5212,
-      "hash": "8f6b1bb93e835640",
-      "size": 18242,
-      "mtimeMs": 1789658185650.357,
-      "updatedAt": "2026-10-02T15:26:11.835Z",
+      "tokens": 5304,
+      "hash": "6c30d4df0c02f102",
+      "size": 18561,
+      "mtimeMs": 1790955178492.9868,
+      "updatedAt": "2026-10-02T15:36:06.492Z",
       "source": "scan",
       "symbols": [
         {
           "name": "ConnectionTestError",
           "kind": "class",
-          "startLine": 127,
-          "endLine": 134,
+          "startLine": 128,
+          "endLine": 135,
           "tokens": 62
         },
         {
           "name": "MetadataScanError",
           "kind": "class",
-          "startLine": 135,
-          "endLine": 143,
+          "startLine": 136,
+          "endLine": 144,
           "tokens": 68
         },
         {
           "name": "ConnectionTestResult",
           "kind": "class",
-          "startLine": 144,
-          "endLine": 151,
+          "startLine": 145,
+          "endLine": 152,
           "tokens": 48
         },
         {
           "name": "_safe_error",
           "kind": "fn",
-          "startLine": 152,
-          "endLine": 171,
+          "startLine": 153,
+          "endLine": 172,
           "tokens": 345
         },
         {
           "name": "_read_only_connection",
           "kind": "fn",
-          "startLine": 172,
-          "endLine": 196,
-          "tokens": 261
+          "startLine": 173,
+          "endLine": 197,
+          "tokens": 260
         },
         {
           "name": "_assert_read_only",
           "kind": "fn",
-          "startLine": 197,
-          "endLine": 207,
+          "startLine": 198,
+          "endLine": 208,
           "tokens": 128
         },
         {
           "name": "verify_connection",
           "kind": "fn",
-          "startLine": 208,
-          "endLine": 228,
-          "tokens": 262
+          "startLine": 209,
+          "endLine": 234,
+          "tokens": 289
         },
         {
           "name": "PostgreSQLScanner",
           "kind": "class",
-          "startLine": 229,
-          "endLine": 433,
-          "tokens": 2774
+          "startLine": 235,
+          "endLine": 442,
+          "tokens": 2810
         }
       ]
     },
@@ -2220,7 +2234,7 @@
       "hash": "4eaa52d0b911a504",
       "size": 2788,
       "mtimeMs": 1789658105038.6821,
-      "updatedAt": "2026-10-02T15:26:11.835Z",
+      "updatedAt": "2026-10-02T15:36:06.492Z",
       "source": "scan",
       "symbols": [
         {
@@ -2301,7 +2315,7 @@
       "hash": "882f69272986638a",
       "size": 11460,
       "mtimeMs": 1789654299641.7512,
-      "updatedAt": "2026-10-02T15:26:11.836Z",
+      "updatedAt": "2026-10-02T15:36:06.493Z",
       "source": "scan",
       "symbols": [
         {
@@ -2368,7 +2382,7 @@
       "hash": "88c42de2384fc4f9",
       "size": 2832,
       "mtimeMs": 1789653998024.402,
-      "updatedAt": "2026-10-02T15:26:11.836Z",
+      "updatedAt": "2026-10-02T15:36:06.493Z",
       "source": "scan",
       "symbols": [
         {
@@ -2396,11 +2410,11 @@
     },
     "src/graphit/snapshots.py": {
       "description": "Atomic local persistence for successful structural metadata scans.",
-      "tokens": 4736,
-      "hash": "ca3df228c2dcc5a0",
-      "size": 16576,
-      "mtimeMs": 1789658633143.9297,
-      "updatedAt": "2026-10-02T15:26:11.836Z",
+      "tokens": 4738,
+      "hash": "cfd8d1d226e459a6",
+      "size": 16580,
+      "mtimeMs": 1790955072318.7102,
+      "updatedAt": "2026-10-02T15:36:06.494Z",
       "source": "scan",
       "symbols": [
         {
@@ -2478,105 +2492,105 @@
           "kind": "fn",
           "startLine": 420,
           "endLine": 431,
-          "tokens": 152
+          "tokens": 153
         }
       ]
     },
     "src/graphit/sources.py": {
       "description": "Validated PostgreSQL source configuration in the local knowledge store.",
-      "tokens": 1870,
-      "hash": "029dd45875512f0d",
-      "size": 6543,
-      "mtimeMs": 1789544167433.86,
-      "updatedAt": "2026-10-02T15:26:11.837Z",
+      "tokens": 2197,
+      "hash": "4f568bed0936218e",
+      "size": 7687,
+      "mtimeMs": 1790955178491.8428,
+      "updatedAt": "2026-10-02T15:36:06.494Z",
       "source": "scan",
       "symbols": [
         {
           "name": "SourceError",
           "kind": "class",
-          "startLine": 18,
-          "endLine": 21,
+          "startLine": 31,
+          "endLine": 34,
           "tokens": 28
         },
         {
           "name": "ProjectNotInitialized",
           "kind": "class",
-          "startLine": 22,
-          "endLine": 25,
+          "startLine": 35,
+          "endLine": 38,
           "tokens": 33
         },
         {
           "name": "SourceNotFound",
           "kind": "class",
-          "startLine": 26,
-          "endLine": 29,
+          "startLine": 39,
+          "endLine": 42,
           "tokens": 23
         },
         {
           "name": "SourceAlreadyExists",
           "kind": "class",
-          "startLine": 30,
-          "endLine": 34,
+          "startLine": 43,
+          "endLine": 47,
           "tokens": 34
         },
         {
           "name": "SourceConfig",
           "kind": "class",
-          "startLine": 35,
-          "endLine": 48,
-          "tokens": 86
+          "startLine": 48,
+          "endLine": 63,
+          "tokens": 109
         },
         {
           "name": "validate_source",
           "kind": "fn",
-          "startLine": 49,
-          "endLine": 83,
-          "tokens": 499
+          "startLine": 64,
+          "endLine": 105,
+          "tokens": 626
         },
         {
           "name": "require_store_path",
           "kind": "fn",
-          "startLine": 84,
-          "endLine": 106,
+          "startLine": 106,
+          "endLine": 128,
           "tokens": 199
         },
         {
           "name": "_record",
           "kind": "fn",
-          "startLine": 107,
-          "endLine": 120,
-          "tokens": 129
+          "startLine": 129,
+          "endLine": 144,
+          "tokens": 173
         },
         {
           "name": "add_source",
           "kind": "fn",
-          "startLine": 121,
-          "endLine": 150,
-          "tokens": 344
+          "startLine": 145,
+          "endLine": 177,
+          "tokens": 385
         },
         {
           "name": "list_sources",
           "kind": "fn",
-          "startLine": 151,
-          "endLine": 163,
+          "startLine": 178,
+          "endLine": 190,
           "tokens": 158
         },
         {
           "name": "show_source",
           "kind": "fn",
-          "startLine": 164,
-          "endLine": 177,
+          "startLine": 191,
+          "endLine": 204,
           "tokens": 190
         }
       ]
     },
     "src/graphit/store.py": {
       "description": "Versioned, project-local SQLite knowledge store.",
-      "tokens": 2484,
-      "hash": "9401159368d2c4fe",
-      "size": 8693,
-      "mtimeMs": 1789542400205.0725,
-      "updatedAt": "2026-10-02T15:26:11.837Z",
+      "tokens": 2547,
+      "hash": "702c181d43db8d1e",
+      "size": 8913,
+      "mtimeMs": 1790955178490.8428,
+      "updatedAt": "2026-10-02T15:36:06.494Z",
       "source": "scan",
       "symbols": [
         {
@@ -2590,14 +2604,14 @@
           "name": "Migration",
           "kind": "class",
           "startLine": 14,
-          "endLine": 133,
-          "tokens": 1516
+          "endLine": 140,
+          "tokens": 1579
         },
         {
           "name": "initialize_store",
           "kind": "fn",
-          "startLine": 134,
-          "endLine": 204,
+          "startLine": 141,
+          "endLine": 211,
           "tokens": 889
         }
       ]
@@ -2608,7 +2622,7 @@
       "hash": "9e94d30fc1fad065",
       "size": 26,
       "mtimeMs": 1789541440243.864,
-      "updatedAt": "2026-10-02T15:26:11.837Z",
+      "updatedAt": "2026-10-02T15:36:06.494Z",
       "source": "scan"
     },
     "tests/test_agent_eval_bundle.py": {
@@ -2617,7 +2631,7 @@
       "hash": "cc1ea61ef75e9d09",
       "size": 5582,
       "mtimeMs": 1790942174183.9502,
-      "updatedAt": "2026-10-02T15:26:11.837Z",
+      "updatedAt": "2026-10-02T15:36:06.494Z",
       "source": "scan",
       "symbols": [
         {
@@ -2663,7 +2677,7 @@
       "hash": "94bdedf2c5cd295a",
       "size": 5875,
       "mtimeMs": 1790946492766.1846,
-      "updatedAt": "2026-10-02T15:26:11.837Z",
+      "updatedAt": "2026-10-02T15:36:06.495Z",
       "source": "scan",
       "symbols": [
         {
@@ -2733,116 +2747,130 @@
     },
     "tests/test_cli.py": {
       "description": "CLI foundation contract tests.",
-      "tokens": 4733,
-      "hash": "6cc4e3ddccc8050f",
-      "size": 16563,
-      "mtimeMs": 1790954624058.382,
-      "updatedAt": "2026-10-02T15:26:11.838Z",
+      "tokens": 5610,
+      "hash": "19d9fedbd7bd6722",
+      "size": 19634,
+      "mtimeMs": 1790955306927.8362,
+      "updatedAt": "2026-10-02T15:36:06.495Z",
       "source": "scan",
       "symbols": [
         {
           "name": "test_version_reports_installed_version",
           "kind": "fn",
-          "startLine": 30,
-          "endLine": 36,
+          "startLine": 31,
+          "endLine": 37,
           "tokens": 54
         },
         {
           "name": "test_root_help_describes_product_boundary",
           "kind": "fn",
-          "startLine": 37,
-          "endLine": 44,
+          "startLine": 38,
+          "endLine": 45,
           "tokens": 69
         },
         {
           "name": "test_init_explicit_project_and_conflict",
           "kind": "fn",
-          "startLine": 45,
-          "endLine": 56,
+          "startLine": 46,
+          "endLine": 57,
           "tokens": 145
         },
         {
           "name": "test_init_uses_git_root_from_nested_directory",
           "kind": "fn",
-          "startLine": 57,
-          "endLine": 69,
+          "startLine": 58,
+          "endLine": 70,
           "tokens": 118
         },
         {
           "name": "test_init_discovers_dotenv_postgresql_url_without_leaking_or_persisting_password",
           "kind": "fn",
-          "startLine": 70,
-          "endLine": 93,
-          "tokens": 293
+          "startLine": 71,
+          "endLine": 94,
+          "tokens": 301
+        },
+        {
+          "name": "test_init_verifies_and_saves_approved_dotenv_source_without_secret",
+          "kind": "fn",
+          "startLine": 95,
+          "endLine": 133,
+          "tokens": 449
+        },
+        {
+          "name": "test_init_declined_or_failed_connection_does_not_save_source",
+          "kind": "fn",
+          "startLine": 134,
+          "endLine": 167,
+          "tokens": 357
         },
         {
           "name": "test_source_add_list_show_without_password_output",
           "kind": "fn",
-          "startLine": 94,
-          "endLine": 131,
+          "startLine": 168,
+          "endLine": 205,
           "tokens": 359
         },
         {
           "name": "test_source_cli_missing_project_and_duplicate",
           "kind": "fn",
-          "startLine": 132,
-          "endLine": 162,
+          "startLine": 206,
+          "endLine": 236,
           "tokens": 265
         },
         {
           "name": "test_source_test_cli_success_and_missing_credential",
           "kind": "fn",
-          "startLine": 163,
-          "endLine": 200,
-          "tokens": 329
+          "startLine": 237,
+          "endLine": 277,
+          "tokens": 355
         },
         {
           "name": "test_source_test_cli_sanitizes_driver_failure",
           "kind": "fn",
-          "startLine": 201,
-          "endLine": 232,
-          "tokens": 274
+          "startLine": 278,
+          "endLine": 310,
+          "tokens": 296
         },
         {
           "name": "test_scan_cli_reports_snapshot_and_sanitized_failure",
           "kind": "fn",
-          "startLine": 233,
-          "endLine": 258,
+          "startLine": 311,
+          "endLine": 336,
           "tokens": 305
         },
         {
           "name": "test_search_cli_human_json_and_no_snapshot",
           "kind": "fn",
-          "startLine": 259,
-          "endLine": 303,
+          "startLine": 337,
+          "endLine": 381,
           "tokens": 493
         },
         {
           "name": "test_show_cli_compact_human_and_json_output",
           "kind": "fn",
-          "startLine": 304,
-          "endLine": 348,
+          "startLine": 382,
+          "endLine": 426,
           "tokens": 537
         },
         {
           "name": "test_show_cli_not_found_exit_code",
           "kind": "fn",
-          "startLine": 349,
-          "endLine": 360,
+          "startLine": 427,
+          "endLine": 438,
           "tokens": 144
         },
         {
           "name": "test_relationships_cli_human_json_and_error",
           "kind": "fn",
-          "startLine": 361,
-          "endLine": 418,
+          "startLine": 439,
+          "endLine": 496,
           "tokens": 570
         },
         {
           "name": "test_path_cli_human_json_and_budget_error",
           "kind": "fn",
-          "startLine": 419,
-          "endLine": 474,
+          "startLine": 497,
+          "endLine": 552,
           "tokens": 604
         }
       ]
@@ -2853,7 +2881,7 @@
       "hash": "548ff5adfbe1799b",
       "size": 8517,
       "mtimeMs": 1790946491885.228,
-      "updatedAt": "2026-10-02T15:26:11.838Z",
+      "updatedAt": "2026-10-02T15:36:06.495Z",
       "source": "scan",
       "symbols": [
         {
@@ -2955,7 +2983,7 @@
       "hash": "cc7295da351d510e",
       "size": 7800,
       "mtimeMs": 1789655207267.38,
-      "updatedAt": "2026-10-02T15:26:11.838Z",
+      "updatedAt": "2026-10-02T15:36:06.495Z",
       "source": "scan",
       "symbols": [
         {
@@ -3022,7 +3050,7 @@
       "hash": "45c1606f2d477f2a",
       "size": 31541,
       "mtimeMs": 1789645475906.129,
-      "updatedAt": "2026-10-02T15:26:11.838Z",
+      "updatedAt": "2026-10-02T15:36:06.496Z",
       "source": "scan",
       "symbols": [
         {
@@ -3106,33 +3134,61 @@
     },
     "tests/test_discovery.py": {
       "description": "Secret-safe PostgreSQL connection discovery.",
-      "tokens": 733,
-      "hash": "d69cda40fb65d510",
-      "size": 2565,
-      "mtimeMs": 1790954665358.791,
-      "updatedAt": "2026-10-02T15:26:11.839Z",
+      "tokens": 1243,
+      "hash": "e159604df7377275",
+      "size": 4350,
+      "mtimeMs": 1790955178491.8428,
+      "updatedAt": "2026-10-02T15:36:06.496Z",
       "source": "scan",
       "symbols": [
         {
           "name": "test_discovers_encoded_postgresql_environment_url_without_representing_secret",
           "kind": "fn",
-          "startLine": 8,
-          "endLine": 32,
+          "startLine": 15,
+          "endLine": 39,
           "tokens": 222
         },
         {
           "name": "test_process_environment_wins_and_duplicate_dotenv_connection_is_collapsed",
           "kind": "fn",
-          "startLine": 33,
-          "endLine": 56,
+          "startLine": 40,
+          "endLine": 63,
           "tokens": 222
         },
         {
           "name": "test_discovery_ignores_examples_symlinks_oversized_and_invalid_urls",
           "kind": "fn",
-          "startLine": 57,
-          "endLine": 83,
-          "tokens": 252
+          "startLine": 64,
+          "endLine": 91,
+          "tokens": 253
+        },
+        {
+          "name": "_url_source",
+          "kind": "fn",
+          "startLine": 92,
+          "endLine": 108,
+          "tokens": 137
+        },
+        {
+          "name": "test_resolves_saved_dotenv_url_password_without_persisting_the_value",
+          "kind": "fn",
+          "startLine": 109,
+          "endLine": 119,
+          "tokens": 108
+        },
+        {
+          "name": "test_url_credential_resolution_fails_closed_when_identity_changes",
+          "kind": "fn",
+          "startLine": 120,
+          "endLine": 129,
+          "tokens": 116
+        },
+        {
+          "name": "test_resolves_legacy_password_environment_reference",
+          "kind": "fn",
+          "startLine": 130,
+          "endLine": 143,
+          "tokens": 113
         }
       ]
     },
@@ -3142,7 +3198,7 @@
       "hash": "3ab0e1139b2f6eca",
       "size": 4751,
       "mtimeMs": 1790945784118.5134,
-      "updatedAt": "2026-10-02T15:26:11.839Z",
+      "updatedAt": "2026-10-02T15:36:06.496Z",
       "source": "scan",
       "symbols": [
         {
@@ -3216,7 +3272,7 @@
       "hash": "bb6cb5e709969aae",
       "size": 3739,
       "mtimeMs": 1789560852836.052,
-      "updatedAt": "2026-10-02T15:26:11.839Z",
+      "updatedAt": "2026-10-02T15:36:06.496Z",
       "source": "scan",
       "symbols": [
         {
@@ -3248,7 +3304,7 @@
       "hash": "00781212306bcc38",
       "size": 11081,
       "mtimeMs": 1789559823500.5525,
-      "updatedAt": "2026-10-02T15:26:11.839Z",
+      "updatedAt": "2026-10-02T15:36:06.496Z",
       "source": "scan",
       "symbols": [
         {
@@ -3336,7 +3392,7 @@
       "hash": "0a0e1159b136fdeb",
       "size": 5941,
       "mtimeMs": 1790943980725.01,
-      "updatedAt": "2026-10-02T15:26:11.839Z",
+      "updatedAt": "2026-10-02T15:36:06.497Z",
       "source": "scan",
       "symbols": [
         {
@@ -3375,7 +3431,7 @@
       "hash": "f485b86d786a0a7e",
       "size": 16521,
       "mtimeMs": 1789666272575.2615,
-      "updatedAt": "2026-10-02T15:26:11.840Z",
+      "updatedAt": "2026-10-02T15:36:06.497Z",
       "source": "scan",
       "symbols": [
         {
@@ -3470,7 +3526,7 @@
       "hash": "e3d0cc0e7b13c298",
       "size": 7488,
       "mtimeMs": 1789659087214.573,
-      "updatedAt": "2026-10-02T15:26:11.840Z",
+      "updatedAt": "2026-10-02T15:36:06.497Z",
       "source": "scan",
       "symbols": [
         {
@@ -3523,7 +3579,7 @@
       "hash": "f55b75ee504e0c63",
       "size": 10557,
       "mtimeMs": 1789570752568.087,
-      "updatedAt": "2026-10-02T15:26:11.840Z",
+      "updatedAt": "2026-10-02T15:36:06.497Z",
       "source": "scan",
       "symbols": [
         {
@@ -3590,7 +3646,7 @@
       "hash": "fb5e7645b789b3f6",
       "size": 12563,
       "mtimeMs": 1789554659241.5183,
-      "updatedAt": "2026-10-02T15:26:11.840Z",
+      "updatedAt": "2026-10-02T15:36:06.498Z",
       "source": "scan",
       "symbols": [
         {
@@ -3685,7 +3741,7 @@
       "hash": "8bb7ce35f3f52474",
       "size": 301,
       "mtimeMs": 1789656474323.4795,
-      "updatedAt": "2026-10-02T15:26:11.841Z",
+      "updatedAt": "2026-10-02T15:36:06.498Z",
       "source": "scan"
     },
     "tests/test_manual_graph.py": {
@@ -3694,7 +3750,7 @@
       "hash": "59178cb02ab7d47c",
       "size": 12531,
       "mtimeMs": 1789633239231.9153,
-      "updatedAt": "2026-10-02T15:26:11.841Z",
+      "updatedAt": "2026-10-02T15:36:06.498Z",
       "source": "scan",
       "symbols": [
         {
@@ -3761,7 +3817,7 @@
       "hash": "e537bacdffc85892",
       "size": 19558,
       "mtimeMs": 1789574593422.4224,
-      "updatedAt": "2026-10-02T15:26:11.841Z",
+      "updatedAt": "2026-10-02T15:36:06.498Z",
       "source": "scan",
       "symbols": [
         {
@@ -3849,7 +3905,7 @@
       "hash": "77cb0a31eb058849",
       "size": 6076,
       "mtimeMs": 1789654396676.032,
-      "updatedAt": "2026-10-02T15:26:11.841Z",
+      "updatedAt": "2026-10-02T15:36:06.499Z",
       "source": "scan",
       "symbols": [
         {
@@ -3916,7 +3972,7 @@
       "hash": "c42eeca5a462295f",
       "size": 6063,
       "mtimeMs": 1789660267546.3943,
-      "updatedAt": "2026-10-02T15:26:11.842Z",
+      "updatedAt": "2026-10-02T15:36:06.499Z",
       "source": "scan",
       "symbols": [
         {
@@ -3997,7 +4053,7 @@
       "hash": "620f744a4560304f",
       "size": 1023,
       "mtimeMs": 1790946493617.6184,
-      "updatedAt": "2026-10-02T15:26:11.842Z",
+      "updatedAt": "2026-10-02T15:36:06.499Z",
       "source": "scan"
     },
     "tests/test_mcp_server.py": {
@@ -4006,7 +4062,7 @@
       "hash": "db496e995b4635dd",
       "size": 22372,
       "mtimeMs": 1789666241113.2588,
-      "updatedAt": "2026-10-02T15:26:11.842Z",
+      "updatedAt": "2026-10-02T15:36:06.499Z",
       "source": "scan",
       "symbols": [
         {
@@ -4125,67 +4181,74 @@
     },
     "tests/test_postgresql_connection.py": {
       "description": "PostgreSQL connection-test safety without a live target server.",
-      "tokens": 1544,
-      "hash": "b0c1c9096447a0da",
-      "size": 5404,
-      "mtimeMs": 1789543226719.8472,
-      "updatedAt": "2026-10-02T15:26:11.842Z",
+      "tokens": 1879,
+      "hash": "560153f25cb1c7b8",
+      "size": 6575,
+      "mtimeMs": 1790955172772.7996,
+      "updatedAt": "2026-10-02T15:36:06.499Z",
       "source": "scan",
       "symbols": [
         {
           "name": "_source",
           "kind": "fn",
-          "startLine": 13,
-          "endLine": 25,
+          "startLine": 14,
+          "endLine": 26,
           "tokens": 86
         },
         {
           "name": "FakeCursor",
           "kind": "class",
-          "startLine": 26,
-          "endLine": 43,
+          "startLine": 27,
+          "endLine": 44,
           "tokens": 126
         },
         {
           "name": "FakeConnection",
           "kind": "class",
-          "startLine": 44,
-          "endLine": 61,
+          "startLine": 45,
+          "endLine": 62,
           "tokens": 148
         },
         {
           "name": "test_one_bounded_read_only_query_and_no_persisted_secret",
           "kind": "fn",
-          "startLine": 62,
-          "endLine": 89,
+          "startLine": 63,
+          "endLine": 90,
           "tokens": 343
+        },
+        {
+          "name": "test_connection_resolves_password_from_saved_dotenv_url",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 126,
+          "tokens": 328
         },
         {
           "name": "test_missing_credential_does_not_attempt_connection",
           "kind": "fn",
-          "startLine": 90,
-          "endLine": 114,
+          "startLine": 127,
+          "endLine": 151,
           "tokens": 275
         },
         {
           "name": "test_driver_errors_are_classified_without_exposing_secrets",
           "kind": "fn",
-          "startLine": 115,
-          "endLine": 131,
+          "startLine": 152,
+          "endLine": 168,
           "tokens": 180
         },
         {
           "name": "test_statement_timeout_has_distinct_code",
           "kind": "fn",
-          "startLine": 132,
-          "endLine": 145,
+          "startLine": 169,
+          "endLine": 182,
           "tokens": 165
         },
         {
           "name": "test_unconfirmed_read_only_state_fails_closed",
           "kind": "fn",
-          "startLine": 146,
-          "endLine": 158,
+          "startLine": 183,
+          "endLine": 195,
           "tokens": 143
         }
       ]
@@ -4196,7 +4259,7 @@
       "hash": "4d9d14fd239a1662",
       "size": 13570,
       "mtimeMs": 1789660507619.1995,
-      "updatedAt": "2026-10-02T15:26:11.843Z",
+      "updatedAt": "2026-10-02T15:36:06.500Z",
       "source": "scan",
       "symbols": [
         {
@@ -4228,7 +4291,7 @@
       "hash": "02a76891ae59fd10",
       "size": 18974,
       "mtimeMs": 1789658191282.0403,
-      "updatedAt": "2026-10-02T15:26:11.843Z",
+      "updatedAt": "2026-10-02T15:36:06.500Z",
       "source": "scan",
       "symbols": [
         {
@@ -4362,10 +4425,10 @@
     "tests/test_project.py": {
       "description": "Project initialization and discovery tests.",
       "tokens": 1737,
-      "hash": "4328fdbc570a00b0",
+      "hash": "1e60f85ed30674d1",
       "size": 6079,
-      "mtimeMs": 1789542388586.021,
-      "updatedAt": "2026-10-02T15:26:11.843Z",
+      "mtimeMs": 1790955119055.254,
+      "updatedAt": "2026-10-02T15:36:06.500Z",
       "source": "scan",
       "symbols": [
         {
@@ -4467,7 +4530,7 @@
       "hash": "374f0fb93cc7cdbd",
       "size": 34873,
       "mtimeMs": 1789645416613.3928,
-      "updatedAt": "2026-10-02T15:26:11.843Z",
+      "updatedAt": "2026-10-02T15:36:06.500Z",
       "source": "scan",
       "symbols": [
         {
@@ -4688,7 +4751,7 @@
       "hash": "6445f07129400c7d",
       "size": 1296,
       "mtimeMs": 1790949980371.9539,
-      "updatedAt": "2026-10-02T15:26:11.844Z",
+      "updatedAt": "2026-10-02T15:36:06.501Z",
       "source": "scan"
     },
     "tests/test_review.py": {
@@ -4697,7 +4760,7 @@
       "hash": "b13fad858e19eb6f",
       "size": 24920,
       "mtimeMs": 1789558749822.6274,
-      "updatedAt": "2026-10-02T15:26:11.844Z",
+      "updatedAt": "2026-10-02T15:36:06.502Z",
       "source": "scan",
       "symbols": [
         {
@@ -4855,7 +4918,7 @@
       "hash": "e05c2d502a361fce",
       "size": 17155,
       "mtimeMs": 1789654397574.131,
-      "updatedAt": "2026-10-02T15:26:11.845Z",
+      "updatedAt": "2026-10-02T15:36:06.502Z",
       "source": "scan",
       "symbols": [
         {
@@ -4950,7 +5013,7 @@
       "hash": "3c1e3de0e5793ae4",
       "size": 5944,
       "mtimeMs": 1789654162174.5278,
-      "updatedAt": "2026-10-02T15:26:11.845Z",
+      "updatedAt": "2026-10-02T15:36:06.502Z",
       "source": "scan",
       "symbols": [
         {
@@ -5017,7 +5080,7 @@
       "hash": "01beceb399e72295",
       "size": 20083,
       "mtimeMs": 1789658649345.6582,
-      "updatedAt": "2026-10-02T15:26:11.845Z",
+      "updatedAt": "2026-10-02T15:36:06.502Z",
       "source": "scan",
       "symbols": [
         {
@@ -5136,11 +5199,11 @@
     },
     "tests/test_sources.py": {
       "description": "Source configuration safety and persistence tests.",
-      "tokens": 1087,
-      "hash": "cc94a35714663263",
-      "size": 3803,
-      "mtimeMs": 1789542627895.5137,
-      "updatedAt": "2026-10-02T15:26:11.845Z",
+      "tokens": 1167,
+      "hash": "1665e27d4e3ea95c",
+      "size": 4082,
+      "mtimeMs": 1790955171909.589,
+      "updatedAt": "2026-10-02T15:36:06.503Z",
       "source": "scan",
       "symbols": [
         {
@@ -5161,46 +5224,46 @@
           "name": "test_list_is_sorted_and_duplicates_do_not_replace",
           "kind": "fn",
           "startLine": 52,
-          "endLine": 79,
-          "tokens": 317
+          "endLine": 85,
+          "tokens": 396
         },
         {
           "name": "test_invalid_metadata_is_rejected_before_write",
           "kind": "fn",
-          "startLine": 80,
-          "endLine": 90,
+          "startLine": 86,
+          "endLine": 96,
           "tokens": 86
         },
         {
           "name": "test_missing_project_and_store_do_not_get_created_by_source_commands",
           "kind": "fn",
-          "startLine": 91,
-          "endLine": 102,
+          "startLine": 97,
+          "endLine": 108,
           "tokens": 145
         },
         {
           "name": "test_show_missing_source",
           "kind": "fn",
-          "startLine": 103,
-          "endLine": 108,
+          "startLine": 109,
+          "endLine": 114,
           "tokens": 55
         },
         {
           "name": "test_store_constraint_is_enforced_without_replacing_existing_source",
           "kind": "fn",
-          "startLine": 109,
-          "endLine": 115,
+          "startLine": 115,
+          "endLine": 121,
           "tokens": 99
         }
       ]
     },
     "tests/test_store.py": {
       "description": "Versioned SQLite store behavior and failure safety.",
-      "tokens": 1161,
-      "hash": "85befd08e29652c7",
-      "size": 4062,
-      "mtimeMs": 1789542400205.0725,
-      "updatedAt": "2026-10-02T15:26:11.846Z",
+      "tokens": 1505,
+      "hash": "c2cd1ad66a97a243",
+      "size": 5266,
+      "mtimeMs": 1790955153439.23,
+      "updatedAt": "2026-10-02T15:36:06.503Z",
       "source": "scan",
       "symbols": [
         {
@@ -5239,10 +5302,17 @@
           "tokens": 263
         },
         {
-          "name": "test_unversioned_database_is_not_adopted",
+          "name": "test_migrates_v1_source_credentials_without_changing_existing_reference",
           "kind": "fn",
           "startLine": 105,
-          "endLine": 117,
+          "endLine": 132,
+          "tokens": 344
+        },
+        {
+          "name": "test_unversioned_database_is_not_adopted",
+          "kind": "fn",
+          "startLine": 133,
+          "endLine": 145,
           "tokens": 145
         }
       ]
@@ -5253,7 +5323,7 @@
       "hash": "dd0a568252fc513e",
       "size": 7743,
       "mtimeMs": 1789634130523.7502,
-      "updatedAt": "2026-10-02T15:26:11.846Z",
+      "updatedAt": "2026-10-02T15:36:06.503Z",
       "source": "scan",
       "symbols": [
         {

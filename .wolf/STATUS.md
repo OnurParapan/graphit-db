@@ -693,7 +693,16 @@ password presence and sanitized connection facts; passwords are excluded from
 representation and never copied into Graphit config/SQLite. Environment
 precedence, duplicate collapse, percent decoding, SSL mode, invalid inputs,
 example files, symlinks, and the 1 MiB bound have focused tests. Connection and
-persistence intentionally remain the next micro-slice.
+persistence were completed in the following micro-slice.
+
+**2026-10-02 verified-source slice:** SQLite schema v2 adds only non-secret
+credential kind/file references and migrates v1 sources to unchanged
+`password_env` behavior. Init now confirms each password-bearing URL candidate
+(or accepts explicit `--yes`), resolves its password at call time, enforces the
+existing bounded read-only PostgreSQL verification, and saves the source only
+after success. `--no-connect` remains discovery-only. Rejection, connection
+failure, URL identity drift, and repeat `--force` all fail or skip without
+duplicate/partial source state. Automatic metadata scan is the next micro-slice.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100
@@ -861,7 +870,7 @@ occurred. Establish isolation in a working environment before either arm.
   `graphit.graph_html`, package version.
 - **Patterns:** local-first, dependency-inward boundaries, immutable snapshots,
   read-only source access, deterministic inference, progressive bounded context.
-- **Generated state:** `graphit init` creates `.graphit/graphit.db` (schema v1).
+- **Generated state:** `graphit init` creates `.graphit/graphit.db` (schema v2).
   Local state is ignored by Git and OpenWolf anatomy.
 
 ---

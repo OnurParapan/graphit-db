@@ -2,7 +2,14 @@
 
 from pathlib import Path
 
-from graphit.discovery import discover_postgresql
+import pytest
+
+from graphit.discovery import (
+    CredentialResolutionError,
+    discover_postgresql,
+    resolve_postgresql_password,
+)
+from graphit.sources import SourceConfig
 
 
 def test_discovers_encoded_postgresql_environment_url_without_representing_secret(
@@ -80,3 +87,56 @@ def test_discovery_ignores_examples_symlinks_oversized_and_invalid_urls(tmp_path
     )
 
     assert candidates == ()
+
+
+def _url_source(**changes: object) -> SourceConfig:
+    values = {
+        "name": "erp",
+        "host": "localhost",
+        "port": 5432,
+        "database_name": "erp",
+        "username": "reader",
+        "credential_env": "DATABASE_URL",
+        "schemas": ("public",),
+        "ssl_mode": "require",
+        "credential_kind": "url_dotenv",
+        "credential_file": ".env",
+    }
+    values.update(changes)
+    return SourceConfig(**values)  # type: ignore[arg-type]
+
+
+def test_resolves_saved_dotenv_url_password_without_persisting_the_value(tmp_path: Path) -> None:
+    (tmp_path / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:runtime-secret@localhost/erp?sslmode=require\n",
+        encoding="utf-8",
+    )
+
+    assert resolve_postgresql_password(_url_source(), root=tmp_path, environ={}) == (
+        "runtime-secret"
+    )
+
+
+def test_url_credential_resolution_fails_closed_when_identity_changes(tmp_path: Path) -> None:
+    (tmp_path / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:secret@other-host/erp?sslmode=require\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(CredentialResolutionError, match="identity changed"):
+        resolve_postgresql_password(_url_source(), root=tmp_path, environ={})
+
+
+def test_resolves_legacy_password_environment_reference(tmp_path: Path) -> None:
+    source = _url_source(
+        credential_kind="password_env",
+        credential_file=None,
+        credential_env="ERP_PASSWORD",
+    )
+
+    assert (
+        resolve_postgresql_password(
+            source, root=tmp_path, environ={"ERP_PASSWORD": "legacy-secret"}
+        )
+        == "legacy-secret"
+    )

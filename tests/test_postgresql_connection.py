@@ -1,5 +1,6 @@
 """PostgreSQL connection-test safety without a live target server."""
 
+from pathlib import Path
 from typing import Any
 
 import psycopg
@@ -85,6 +86,42 @@ def test_one_bounded_read_only_query_and_no_persisted_secret(monkeypatch: Monkey
     assert fake.closed is True
     assert fake.isolation_level == psycopg.IsolationLevel.REPEATABLE_READ
     assert "very-private-value" not in repr(result)
+
+
+def test_connection_resolves_password_from_saved_dotenv_url(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    secret = "dotenv-private-value"
+    (tmp_path / ".env").write_text(
+        f"DATABASE_URL=postgresql://reader:{secret}@db.example.test/claims_db?sslmode=require\n",
+        encoding="utf-8",
+    )
+    source = SourceConfig(
+        name="claims",
+        host="db.example.test",
+        port=5432,
+        database_name="claims_db",
+        username="reader",
+        credential_env="DATABASE_URL",
+        schemas=("public",),
+        ssl_mode="require",
+        credential_kind="url_dotenv",
+        credential_file=".env",
+    )
+    fake = FakeConnection(("claims_db", "reader", "on", "16.2"))
+    connection_args: dict[str, Any] = {}
+
+    def connect(**kwargs: Any) -> FakeConnection:
+        connection_args.update(kwargs)
+        return fake
+
+    monkeypatch.setattr("graphit.scanners.postgresql.psycopg.connect", connect)
+
+    result = verify_connection(source, project_root=tmp_path)
+
+    assert result.database == "claims_db"
+    assert connection_args["password"] == secret
+    assert secret not in repr(result)
 
 
 def test_missing_credential_does_not_attempt_connection(monkeypatch: MonkeyPatch) -> None:

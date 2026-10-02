@@ -7,6 +7,7 @@ import re
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, unquote, urlsplit
 
 _URL_ENV_NAME = re.compile(
@@ -26,6 +27,13 @@ _DOTENV_NAMES = (
 )
 _MAX_DOTENV_BYTES = 1024 * 1024
 _SSL_MODES = frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"})
+
+if TYPE_CHECKING:
+    from graphit.sources import SourceConfig
+
+
+class CredentialResolutionError(Exception):
+    """A saved non-secret credential reference cannot be resolved safely."""
 
 
 @dataclass(frozen=True)
@@ -167,3 +175,61 @@ def discover_postgresql(
             seen_connections.add(identity)
             candidates.append(candidate)
     return tuple(candidates)
+
+
+def resolve_postgresql_password(
+    source: SourceConfig,
+    *,
+    root: Path | None = None,
+    environ: Mapping[str, str] | None = None,
+) -> str:
+    """Resolve one password at call time and fail if its URL identity changed."""
+
+    process_environment = os.environ if environ is None else environ
+    if source.credential_kind == "password_env":
+        password = process_environment.get(source.credential_env)
+        if not password:
+            raise CredentialResolutionError(
+                f"Set the {source.credential_env} environment variable before using this source."
+            )
+        return password
+
+    if source.credential_kind == "url_env":
+        value = process_environment.get(source.credential_env)
+        origin = "environment"
+    elif source.credential_kind == "url_dotenv":
+        if root is None or source.credential_file not in _DOTENV_NAMES:
+            raise CredentialResolutionError("The saved dotenv credential reference is unavailable.")
+        value = _read_dotenv(root.resolve() / source.credential_file).get(source.credential_env)
+        origin = source.credential_file
+    else:
+        raise CredentialResolutionError("The saved credential reference kind is unsupported.")
+
+    if not value:
+        raise CredentialResolutionError(
+            f"Credential variable {source.credential_env} is unavailable at its saved origin."
+        )
+    candidate = _parse_candidate(source.credential_env, value, origin)
+    if candidate is None:
+        raise CredentialResolutionError("The saved PostgreSQL URL is invalid.")
+    expected = (
+        source.host.casefold(),
+        source.port,
+        source.database_name,
+        source.username,
+        source.ssl_mode,
+    )
+    actual = (
+        candidate.host.casefold(),
+        candidate.port,
+        candidate.database_name,
+        candidate.username,
+        candidate.ssl_mode,
+    )
+    if actual != expected:
+        raise CredentialResolutionError(
+            "The PostgreSQL URL identity changed; run init again before connecting."
+        )
+    if not candidate.has_password or candidate.password is None:
+        raise CredentialResolutionError("The saved PostgreSQL URL has no password.")
+    return candidate.password

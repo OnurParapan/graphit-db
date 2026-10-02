@@ -24,7 +24,7 @@ def test_initialize_git_project_with_local_store(tmp_path: Path) -> None:
     assert (tmp_path / ".gitignore").read_text(encoding="utf-8") == ".graphit/\n"
     assert {path.name for path in (tmp_path / ".graphit").iterdir()} == {"graphit.db"}
     with sqlite3.connect(tmp_path / ".graphit" / "graphit.db") as connection:
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 1
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
     config = tomllib.loads((tmp_path / "graphit.toml").read_text(encoding="utf-8"))
     assert config["sampling"]["enabled"] is False
     assert config["scan"]["infer_relationships"] is False

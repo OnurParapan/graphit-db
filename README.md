@@ -65,9 +65,11 @@ Run a second scan before comparing versions with `graphit diff`.
 `graphit init` creates project-local configuration and a versioned SQLite store
 at `.graphit/graphit.db`. The unreleased next version also discovers PostgreSQL
 URLs from the current environment and supported project `.env*` files, reports
-only sanitized host/database/user facts, and keeps any password transient; this
-first discovery slice does not connect or save a source yet. `graphit scan
---source NAME` creates immutable
+only sanitized host/database/user facts, and keeps any password transient. It
+asks before connecting unless `--yes` is given, forces a bounded read-only
+verification session, and saves only a non-secret reference after success;
+`--no-connect` keeps discovery-only behavior. `graphit scan --source NAME`
+creates immutable
 structural snapshots. PostgreSQL views and materialized views are searchable
 with their catalog columns through `show-view`/`get_view`; `show` and FK graph
 tools remain base-table-only, and view lineage is not inferred. To connect a

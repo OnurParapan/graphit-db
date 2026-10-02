@@ -1,13 +1,14 @@
 """Bounded, read-only PostgreSQL connection and catalog scanning."""
 
-import os
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import psycopg
 
+from graphit.discovery import CredentialResolutionError, resolve_postgresql_password
 from graphit.scanners.protocol import (
     ColumnMetadata,
     ForeignKeyMetadata,
@@ -169,15 +170,15 @@ def _safe_error(error: psycopg.Error) -> ConnectionTestError:
 
 
 @contextmanager
-def _read_only_connection(source: SourceConfig) -> Iterator[psycopg.Connection[tuple[Any, ...]]]:
+def _read_only_connection(
+    source: SourceConfig, project_root: Path | None = None
+) -> Iterator[psycopg.Connection[tuple[Any, ...]]]:
     """Open a bounded read-only session shared by verification and scanning."""
 
-    password = os.environ.get(source.credential_env)
-    if not password:
-        raise ConnectionTestError(
-            "MISSING_CREDENTIAL",
-            f"Set the {source.credential_env} environment variable before testing this source.",
-        )
+    try:
+        password = resolve_postgresql_password(source, root=project_root)
+    except CredentialResolutionError as error:
+        raise ConnectionTestError("MISSING_CREDENTIAL", str(error)) from None
     with psycopg.connect(
         host=source.host,
         port=source.port,
@@ -205,11 +206,16 @@ def _assert_read_only(connection: psycopg.Connection[tuple[Any, ...]]) -> None:
             )
 
 
-def verify_connection(source: SourceConfig) -> ConnectionTestResult:
+def verify_connection(
+    source: SourceConfig, *, project_root: Path | None = None
+) -> ConnectionTestResult:
     """Connect only for one bounded SELECT inside a read-only transaction."""
 
     try:
-        with _read_only_connection(source) as connection, connection.cursor() as cursor:
+        with (
+            _read_only_connection(source, project_root) as connection,
+            connection.cursor() as cursor,
+        ):
             cursor.execute(
                 "SELECT pg_catalog.current_database(), current_user, "
                 "pg_catalog.current_setting('transaction_read_only'), "
@@ -229,6 +235,9 @@ def verify_connection(source: SourceConfig) -> ConnectionTestResult:
 class PostgreSQLScanner:
     """Read a bounded structural slice from PostgreSQL system catalogs."""
 
+    def __init__(self, project_root: Path | None = None) -> None:
+        self.project_root = project_root
+
     def scan_metadata(self, source: SourceConfig, scope: ScanScope) -> MetadataSnapshot:
         if (
             not scope.schemas
@@ -246,7 +255,7 @@ class PostgreSQLScanner:
 
         names = list(scope.schemas)
         try:
-            with _read_only_connection(source) as connection:
+            with _read_only_connection(source, self.project_root) as connection:
                 _assert_read_only(connection)
                 with connection.cursor() as cursor:
                     cursor.execute(_SCHEMAS_SQL, (names,))

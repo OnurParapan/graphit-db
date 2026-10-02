@@ -1418,7 +1418,7 @@ or release trigger must change.
 
 ## ADR-077 — Discover connection URLs without persisting secrets
 
-**Status:** Accepted; discovery implemented, orchestration pending.
+**Status:** Accepted; discovery and verified source persistence implemented.
 
 **Decision:** During `graphit init`, inspect only the process environment and a
 fixed project-root `.env*` allowlist for conventional PostgreSQL URL variable
@@ -1426,15 +1426,19 @@ names. Parse valid URLs into transient candidates whose password field is
 excluded from representation. Print only origin, variable name, host, port,
 database, username, password presence, and SSL mode. Give the process
 environment precedence, collapse duplicate non-secret identities, refuse
-symlinked or oversized dotenv files, and do not connect or persist a source in
-this first slice.
+symlinked or oversized dotenv files. Request sanitized confirmation unless
+`--yes` is explicit, verify through a bounded read-only session, and persist
+only the non-secret credential reference after success. `--no-connect` retains
+discovery-only behavior. On later use, reread the reference and fail closed if
+the URL's non-secret connection identity changed.
 
 **Reason:** One-command onboarding requires Graphit to understand configuration
 already present in a project, including URL-contained passwords. A narrow,
 deterministic reader avoids executing framework code or recursively harvesting
-secrets, while a separate connection/orchestration slice keeps irreversible or
-external behavior independently testable.
+secrets. Transaction-level read-only enforcement protects a target even when
+the project's account itself has broader privileges, while confirm-before-I/O
+and persist-after-success keep failed or unwanted candidates out of local state.
 
-**Revisit when:** Split `PG*`/`DB_*`, Docker Compose, or framework-specific
-discovery is added, or when the confirmed candidate is passed into source
-persistence and read-only scanning.
+**Revisit when:** Split `PG*`/`DB_*`, Docker Compose, framework-specific
+discovery, automatic scan orchestration, or broader credential providers are
+added.

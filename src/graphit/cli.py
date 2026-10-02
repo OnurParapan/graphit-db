@@ -1,6 +1,7 @@
 """Graphit's command-line entry point."""
 
 import json
+import re
 from dataclasses import asdict
 from pathlib import Path
 from typing import Annotated, Literal
@@ -99,8 +100,14 @@ def version() -> None:
 def init(
     project: Annotated[Path | None, typer.Option(help="Project directory override.")] = None,
     force: Annotated[bool, typer.Option(help="Replace existing graphit.toml.")] = False,
+    connect: Annotated[
+        bool, typer.Option("--connect/--no-connect", help="Verify discovered databases.")
+    ] = True,
+    yes: Annotated[
+        bool, typer.Option("--yes", help="Accept every discovered database without prompting.")
+    ] = False,
 ) -> None:
-    """Initialize project-local Graphit configuration without connecting to a database."""
+    """Initialize Graphit and verify approved discovered PostgreSQL databases."""
 
     try:
         root = project if project is not None else find_project_root(Path.cwd())
@@ -129,7 +136,77 @@ def init(
         typer.echo(f"  User: {candidate.username}")
         typer.echo(f"  Password: {password_status}")
         typer.echo(f"  SSL mode: {candidate.ssl_mode}")
-    typer.echo("Discovery only: no database connection was made in this step.")
+    if not connect:
+        typer.echo("Database connection skipped by --no-connect.")
+        return
+
+    existing = list_sources(result.root)
+    used_names = {source.name for source in existing}
+    for candidate in candidates:
+        credential_kind = "url_env" if candidate.origin == "environment" else "url_dotenv"
+        credential_file = None if candidate.origin == "environment" else candidate.origin
+        if any(
+            source.host.casefold() == candidate.host.casefold()
+            and source.port == candidate.port
+            and source.database_name == candidate.database_name
+            and source.username == candidate.username
+            and source.credential_env == candidate.variable_name
+            and source.credential_kind == credential_kind
+            and source.credential_file == credential_file
+            for source in existing
+        ):
+            typer.echo(f"Source for {candidate.variable_name} is already configured.")
+            continue
+        if not candidate.has_password:
+            typer.echo(f"Skipped {candidate.variable_name}: the PostgreSQL URL has no password.")
+            continue
+        if not yes and not typer.confirm(
+            f"Connect read-only to {candidate.host}:{candidate.port}/{candidate.database_name}?",
+            default=True,
+        ):
+            typer.echo(f"Skipped {candidate.variable_name} by user choice.")
+            continue
+        source_name = _discovered_source_name(candidate.database_name, used_names)
+        source = SourceConfig(
+            name=source_name,
+            host=candidate.host,
+            port=candidate.port,
+            database_name=candidate.database_name,
+            username=candidate.username,
+            credential_env=candidate.variable_name,
+            schemas=("public",),
+            ssl_mode=candidate.ssl_mode,
+            credential_kind=credential_kind,
+            credential_file=credential_file,
+        )
+        try:
+            verified = verify_connection(source, project_root=result.root)
+            add_source(result.root, source)
+        except ConnectionTestError as error:
+            typer.echo(f"{error.code}: {error}", err=True)
+            raise typer.Exit(code=4) from None
+        except SourceError as error:
+            _source_failure(error)
+        used_names.add(source_name)
+        typer.echo(
+            f"Added source '{source_name}' after read-only verification: "
+            f"PostgreSQL {verified.server_version}, {verified.database} as {verified.username}."
+        )
+    typer.echo("No metadata scan was run yet.")
+
+
+def _discovered_source_name(database_name: str, used: set[str]) -> str:
+    base = re.sub(r"[^A-Za-z0-9_-]+", "-", database_name).strip("-_").lower()
+    if not base or not base[0].isalpha():
+        base = f"db-{base}" if base else "database"
+    base = base[:64]
+    candidate = base
+    suffix = 2
+    while candidate in used:
+        ending = f"-{suffix}"
+        candidate = f"{base[: 64 - len(ending)]}{ending}"
+        suffix += 1
+    return candidate
 
 
 def _source_root(project: Path | None) -> Path:
@@ -345,7 +422,12 @@ def source_show(
     typer.echo(f"Port: {source.port}")
     typer.echo(f"Database: {source.database_name}")
     typer.echo(f"Username: {source.username}")
-    typer.echo(f"Credential environment variable: {source.credential_env}")
+    if source.credential_kind == "url_dotenv":
+        typer.echo(f"Credential reference: {source.credential_file} -> {source.credential_env}")
+    elif source.credential_kind == "url_env":
+        typer.echo(f"Credential reference: environment -> {source.credential_env}")
+    else:
+        typer.echo(f"Credential environment variable: {source.credential_env}")
     typer.echo(f"Schemas: {', '.join(source.schemas)}")
     typer.echo(f"SSL mode: {source.ssl_mode}")
 
@@ -358,11 +440,12 @@ def source_test(
     """Verify a PostgreSQL source using one bounded read-only SELECT."""
 
     try:
-        source = show_source(_source_root(project), name)
+        root = _source_root(project)
+        source = show_source(root, name)
     except SourceError as error:
         _source_failure(error)
     try:
-        result = verify_connection(source)
+        result = verify_connection(source, project_root=root)
     except ConnectionTestError as error:
         typer.echo(f"{error.code}: {error}", err=True)
         raise typer.Exit(code=4) from None

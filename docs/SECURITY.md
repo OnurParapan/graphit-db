@@ -14,9 +14,10 @@ Recommended source account:
 - limited to selected databases/schemas,
 - bounded SELECT permission only when enhanced inference is enabled.
 
-Configuration stores the name of a credential environment variable, not its
-value. Credentials are never written to `graphit.toml`, SQLite, generated graph
-exports, logs, exceptions, or MCP responses.
+Configuration stores a credential variable name and, for discovered dotenv
+URLs, one allowlisted project-root filename—not either value. Credentials and
+full URLs are never written to `graphit.toml`, SQLite, generated graph exports,
+logs, exceptions, or MCP responses.
 
 Initialization discovery may read a PostgreSQL URL from the current process
 environment or a bounded allowlist of project-root `.env*` files. It parses a
@@ -24,9 +25,12 @@ password only into a transient in-process candidate and reports its presence as
 `present (hidden)`. It never prints the URL, represents the password in the
 candidate's debug output, or persists either value. Discovery refuses symlinked
 dotenv files, ignores example/template names, caps each file at 1 MiB, and does
-not recursively search the repository. A later connection step must preserve
-these guarantees and obtain sanitized user confirmation before contacting a
-candidate database.
+not recursively search the repository. Init obtains sanitized user confirmation
+before contacting a candidate unless `--yes` was explicit. It enforces the same
+read-only startup options, transaction assertion, and timeouts as `source test`,
+then persists only the non-secret reference after success. Rejected and failed
+candidates are not saved. Later resolution also checks that the URL's non-secret
+connection identity still matches the saved source before using its password.
 
 `graphit source test` reads the configured environment variable only at call
 time. It passes host, username, database, password, and SSL mode as separate

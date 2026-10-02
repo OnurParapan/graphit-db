@@ -421,7 +421,7 @@ def scan_source(root: Path, name: str, *, scanner: DatabaseScanner | None = None
     """Scan one configured source and persist only a complete successful result."""
 
     source = show_source(root, name)
-    adapter = scanner if scanner is not None else PostgreSQLScanner()
+    adapter = scanner if scanner is not None else PostgreSQLScanner(root)
     try:
         metadata = adapter.scan_metadata(source, ScanScope(source.schemas))
     except MetadataScanError as error:

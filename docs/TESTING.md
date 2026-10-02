@@ -505,3 +505,11 @@ files, symlinks, and the 1 MiB file bound. CLI coverage proves a discovered
 password is neither printed nor copied into `graphit.toml` or the SQLite store.
 This slice does not claim that init already connects, scans, exports a complete
 ERD, or configures agents.
+
+The following credential-reference slice adds migration coverage from SQLite v1
+to v2, legacy password-environment compatibility, URL password resolution,
+dotenv connection plumbing, identity-drift rejection, source validation,
+confirmation decline, authentication failure without persistence, explicit
+`--yes`, idempotent `--force`, and secret-byte absence in SQLite. Mocked driver
+assertions retain the existing read-only startup, timeout, and one-query
+contract. It verifies and saves approved sources but still does not scan them.

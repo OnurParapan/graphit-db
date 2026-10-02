@@ -27,6 +27,8 @@ graphit <command> --json
 graphit init
 graphit init --project path/to/repository
 graphit init --force
+graphit init --yes
+graphit init --no-connect
 ```
 
 Behavior:
@@ -41,15 +43,20 @@ Behavior:
    bounded project files `.env`, `.env.local`, `.env.development*`, `.env.test*`,
    and `.env.production*`. Show variable origin, host, port, database, user,
    password presence, and SSL mode without showing the URL or password.
+7. For each password-bearing candidate, request confirmation and run the same
+   bounded read-only verification used by `source test`. `--yes` accepts all
+   candidates without prompting; `--no-connect` stops after discovery.
+8. Persist non-secret source metadata and a URL variable/file reference only
+   after successful verification. A failure or rejection saves no source.
 
 `--force` replaces only `graphit.toml`; it preserves existing `.graphit/`
 contents while applying compatible store migrations. Symlinked
 configuration/state/store paths are rejected. By default, project
 discovery stops at the nearest existing `graphit.toml` or Git root. `init`
-does not modify agent settings or connect to a discovered database yet. Explicit
+does not modify agent settings or scan a discovered database yet. Explicit
 project-local Codex setup is available
 with `graphit mcp setup-codex`; `graphit mcp setup-claude` similarly edits only
-the project's `.mcp.json`. Connection, scan, whole-database ERD generation, and
+the project's `.mcp.json`. Metadata scan, whole-database ERD generation, and
 agent setup remain subsequent init-orchestration slices. Global agent
 configuration is never changed here.
 
@@ -58,8 +65,10 @@ Discovery recognizes `postgres://` and `postgresql://` values in conventional
 Process-environment values take precedence over matching dotenv variables;
 duplicate connection identities collapse deterministically. Example/template,
 symlinked, invalid UTF-8, and files larger than 1 MiB are not read. A discovered
-password exists only in the transient candidate object and is never written by
-`init`.
+password exists only in transient process memory and is never written by
+`init`. SQLite schema v2 stores `credential_kind` and an optional allowlisted
+`credential_file` reference. Later tests/scans reread the password at call time
+and fail closed if the URL host, port, database, user, or SSL mode changed.
 
 ## Source management
 
@@ -74,12 +83,15 @@ graphit source remove NAME
 `source add`, `source list`, `source show`, and `source test` are implemented.
 `source remove` is planned. `source add` stores connection metadata in
 `.graphit/graphit.db` and only the name of a credential environment variable;
-it does not read or write the password value. Sources are not currently written
+it does not read or write the password value. Init-discovered sources instead
+store the URL variable name and optional allowlisted dotenv filename, never the
+URL. Sources are not currently written
 to `graphit.toml`. Source names must be unique. `--schema` is repeatable and
 defaults to `public`; `--ssl-mode` defaults to `prefer`. `--project` can select
-an initialized Graphit project. Only `source test` connects to PostgreSQL.
-It resolves the named environment variable at call time and runs one bounded
-read-only verification query. Authentication, TLS, connection timeout, and
+an initialized Graphit project. Approved init verification, `source test`, and
+`scan` may connect to PostgreSQL. They resolve the saved credential reference at
+call time; verification runs one bounded read-only query. Authentication, TLS,
+connection timeout, and
 query timeout failures have sanitized error codes and exit code 4. The default
 SSL mode `prefer` can fall back to an unencrypted connection; use `require` or
 `verify-full` when transport encryption or identity verification is required.

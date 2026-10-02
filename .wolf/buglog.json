@@ -1824,6 +1824,54 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-153",
+      "timestamp": "2026-10-02T18:24:00+03:00",
+      "error_message": "The first credential-reference patch was rejected because it targeted scanners/postgresql.py in two separate update operations.",
+      "file": "src/graphit/scanners/postgresql.py and credential-reference slice",
+      "root_cause": "The patch format does not allow multiple update sections for the same absolute file in one invocation.",
+      "fix": "Confirmed no partial changes and split the work so each file is targeted once per patch.",
+      "tags": ["patch", "scanner", "credentials"],
+      "related_bugs": ["bug-145", "bug-147"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-154",
+      "timestamp": "2026-10-02T18:29:00+03:00",
+      "error_message": "The first store-test update patch failed because its final context accidentally contained 'assert assert'.",
+      "file": "tests/test_store.py; tests/test_project.py",
+      "root_cause": "A manually composed patch context included a duplicated keyword that was not present in the file.",
+      "fix": "Confirmed no partial changes and reapplied only the four exact version lines with narrow context.",
+      "tags": ["patch", "tests", "migration"],
+      "related_bugs": ["bug-147"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-155",
+      "timestamp": "2026-10-02T18:38:00+03:00",
+      "error_message": "The first multi-document verified-source patch failed because the expected CLI source-test sentence wrapped differently.",
+      "file": "README.md; docs/CLI.md; security/data-model/operating/decision/testing docs; .wolf state",
+      "root_cause": "A broad patch used reconstructed line wrapping instead of the exact CLI text.",
+      "fix": "Confirmed no partial changes, reread the narrow CLI/README ranges, and split documentation updates into exact smaller patches.",
+      "tags": ["patch", "documentation", "credentials"],
+      "related_bugs": ["bug-145", "bug-147"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-156",
+      "timestamp": "2026-10-02T18:47:00+03:00",
+      "error_message": "The elevated commit command's preliminary plain 'git diff --check' reported not-a-repository/dubious ownership help before the command-local-safe add and commit succeeded.",
+      "file": "elevated Git verification command",
+      "root_cause": "The known command-local safe.directory option was applied to add/commit/status/log but omitted from the first Git segment running as the owner identity.",
+      "fix": "Relied on the already successful sandbox diff check, retained the valid commit, logged the diagnostic mistake, and require command-local safe.directory on every elevated Git segment going forward.",
+      "tags": ["git", "safe-directory", "windows", "workflow"],
+      "related_bugs": ["bug-149"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

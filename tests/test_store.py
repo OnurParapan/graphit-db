@@ -15,7 +15,7 @@ def test_creates_versioned_store_with_documented_tables(tmp_path: Path) -> None:
     assert store.initialize_store(path) is True
 
     with sqlite3.connect(path) as connection:
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 1
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
         names = {
             row[0]
             for row in connection.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
@@ -84,22 +84,50 @@ def test_failed_migration_rolls_back_all_its_statements(
 ) -> None:
     path = tmp_path / "graphit.db"
     store.initialize_store(path)
-    broken = store.Migration(2, ("CREATE TABLE temporary_data (id INTEGER)", "INVALID SQL"))
+    broken = store.Migration(3, ("CREATE TABLE temporary_data (id INTEGER)", "INVALID SQL"))
     monkeypatch.setattr(store, "MIGRATIONS", (*store.MIGRATIONS, broken))
-    monkeypatch.setattr(store, "SCHEMA_VERSION", 2)
+    monkeypatch.setattr(store, "SCHEMA_VERSION", 3)
 
     with pytest.raises(store.StoreError, match="Cannot initialize local store"):
         store.initialize_store(path)
 
     with sqlite3.connect(path) as connection:
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 1
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
         assert (
             connection.execute(
                 "SELECT name FROM sqlite_master WHERE name = 'temporary_data'"
             ).fetchone()
             is None
         )
-        assert connection.execute("SELECT count(*) FROM store_migrations").fetchone()[0] == 1
+        assert connection.execute("SELECT count(*) FROM store_migrations").fetchone()[0] == 2
+
+
+def test_migrates_v1_source_credentials_without_changing_existing_reference(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    path = tmp_path / "graphit.db"
+    migrations = store.MIGRATIONS
+    monkeypatch.setattr(store, "MIGRATIONS", migrations[:1])
+    monkeypatch.setattr(store, "SCHEMA_VERSION", 1)
+    store.initialize_store(path)
+    with sqlite3.connect(path) as connection:
+        connection.execute(
+            """INSERT INTO sources
+            (name, engine, database_name, host, port, username,
+             credential_env, ssl_mode, selected_schemas_json)
+            VALUES ('legacy', 'postgresql', 'erp', 'localhost', 5432, 'reader',
+                    'ERP_PASSWORD', 'require', '[\"public\"]')"""
+        )
+
+    monkeypatch.setattr(store, "MIGRATIONS", migrations)
+    monkeypatch.setattr(store, "SCHEMA_VERSION", 2)
+    assert store.initialize_store(path) is False
+
+    with sqlite3.connect(path) as connection:
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute(
+            "SELECT credential_env, credential_kind, credential_file FROM sources"
+        ).fetchone() == ("ERP_PASSWORD", "password_env", None)
 
 
 def test_unversioned_database_is_not_adopted(tmp_path: Path) -> None:

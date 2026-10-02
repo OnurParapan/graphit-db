@@ -23,6 +23,7 @@ from graphit.queries import (
 )
 from graphit.scanners.postgresql import ConnectionTestError, ConnectionTestResult, MetadataScanError
 from graphit.snapshots import StoredSnapshot
+from graphit.sources import SourceConfig, list_sources
 
 runner = CliRunner()
 
@@ -76,7 +77,7 @@ def test_init_discovers_dotenv_postgresql_url_without_leaking_or_persisting_pass
         encoding="utf-8",
     )
 
-    result = runner.invoke(app, ["init", "--project", str(tmp_path)])
+    result = runner.invoke(app, ["init", "--project", str(tmp_path), "--no-connect"])
 
     assert result.exit_code == 0
     assert "Discovered PostgreSQL from .env -> DATABASE_URL" in result.stdout
@@ -85,10 +86,83 @@ def test_init_discovers_dotenv_postgresql_url_without_leaking_or_persisting_pass
     assert "User: reader" in result.stdout
     assert "Password: present (hidden)" in result.stdout
     assert "SSL mode: require" in result.stdout
-    assert "no database connection was made" in result.stdout
+    assert "Database connection skipped by --no-connect" in result.stdout
     assert secret not in result.stdout + result.stderr
     assert secret.encode() not in (tmp_path / "graphit.toml").read_bytes()
     assert secret.encode() not in (tmp_path / ".graphit" / "graphit.db").read_bytes()
+
+
+def test_init_verifies_and_saves_approved_dotenv_source_without_secret(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    secret = "runtime-only-secret"
+    (tmp_path / ".env").write_text(
+        f"DATABASE_URL=postgresql://reader:{secret}@localhost/erp?sslmode=require\n",
+        encoding="utf-8",
+    )
+    verified: list[tuple[SourceConfig, Path | None]] = []
+
+    def successful_test(
+        source: SourceConfig, *, project_root: Path | None = None
+    ) -> ConnectionTestResult:
+        verified.append((source, project_root))
+        return ConnectionTestResult("erp", "reader", "16.4")
+
+    monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
+
+    result = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes"])
+
+    assert result.exit_code == 0
+    assert "Added source 'erp' after read-only verification" in result.stdout
+    assert "No metadata scan was run yet" in result.stdout
+    assert "Connect read-only" not in result.stdout
+    source, project_root = verified[0]
+    assert project_root == tmp_path
+    assert source.credential_kind == "url_dotenv"
+    assert source.credential_file == ".env"
+    stored = (tmp_path / ".graphit" / "graphit.db").read_bytes()
+    assert secret.encode() not in stored
+    assert b"DATABASE_URL" in stored
+
+    again = runner.invoke(app, ["init", "--project", str(tmp_path), "--force", "--yes"])
+    assert again.exit_code == 0
+    assert "Source for DATABASE_URL is already configured" in again.stdout
+    assert len(verified) == 1
+    assert len(list_sources(tmp_path)) == 1
+
+
+def test_init_declined_or_failed_connection_does_not_save_source(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    (tmp_path / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:secret@localhost/erp\n", encoding="utf-8"
+    )
+    attempts = 0
+
+    def should_not_connect(*_args: object, **_kwargs: object) -> ConnectionTestResult:
+        nonlocal attempts
+        attempts += 1
+        raise AssertionError("declined candidate must not connect")
+
+    monkeypatch.setattr("graphit.cli.verify_connection", should_not_connect)
+    declined = runner.invoke(app, ["init", "--project", str(tmp_path)], input="n\n")
+
+    assert declined.exit_code == 0
+    assert attempts == 0
+    assert "Skipped DATABASE_URL by user choice" in declined.stdout
+
+    def failed_test(*_args: object, **_kwargs: object) -> ConnectionTestResult:
+        raise ConnectionTestError("AUTHENTICATION_FAILED", "PostgreSQL authentication failed.")
+
+    monkeypatch.setattr("graphit.cli.verify_connection", failed_test)
+    failed = runner.invoke(
+        app,
+        ["init", "--project", str(tmp_path), "--force", "--yes"],
+    )
+
+    assert failed.exit_code == 4
+    assert "AUTHENTICATION_FAILED" in failed.stderr
+    assert list_sources(tmp_path) == ()
 
 
 def test_source_add_list_show_without_password_output(
@@ -188,7 +262,10 @@ def test_source_test_cli_success_and_missing_credential(
     assert missing.exit_code == 4
     assert "MISSING_CREDENTIAL" in missing.stderr
 
-    def successful_test(_source: object) -> ConnectionTestResult:
+    def successful_test(
+        _source: object, *, project_root: Path | None = None
+    ) -> ConnectionTestResult:
+        assert project_root == tmp_path
         return ConnectionTestResult("claims_db", "reader", "16.2")
 
     monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
@@ -219,7 +296,8 @@ def test_source_test_cli_sanitizes_driver_failure(tmp_path: Path, monkeypatch: M
         ],
     )
 
-    def failing_test(_source: object) -> ConnectionTestResult:
+    def failing_test(_source: object, *, project_root: Path | None = None) -> ConnectionTestResult:
+        assert project_root == tmp_path
         raise ConnectionTestError("TLS_ERROR", "PostgreSQL TLS negotiation failed.")
 
     monkeypatch.setattr("graphit.cli.verify_connection", failing_test)

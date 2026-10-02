@@ -110,11 +110,17 @@ host text
 port integer
 username text
 credential_env text          # name of environment variable, never its value
+credential_kind text         # password_env, url_env, or url_dotenv
+credential_file text null    # allowlisted root dotenv name for url_dotenv
 ssl_mode text
 selected_schemas_json text
 created_at text
 updated_at text
 ```
+
+Store migration v2 adds the two credential-reference columns. Existing v1
+sources migrate to `password_env` with no credential file, preserving their
+previous runtime behavior. URL and password values are never persisted.
 
 ### `scan_runs`
 
