@@ -1442,3 +1442,24 @@ and persist-after-success keep failed or unwanted candidates out of local state.
 **Revisit when:** Split `PG*`/`DB_*`, Docker Compose, framework-specific
 discovery, automatic scan orchestration, or broader credential providers are
 added.
+
+## ADR-078 — Let init scan all accessible bounded user schemas
+
+**Status:** Accepted and implemented.
+
+**Decision:** Extend the single read-only connection-verification SELECT with an
+ordered subquery for namespaces on which the current role has `USAGE`. Exclude
+`pg_catalog`, `information_schema`, toast, and temporary schemas. Fail closed if
+none or more than 100 are returned. Persist that exact scope on the verified
+source, then have init call the shared `scan_source` application service by
+default. `--no-scan` stops after source persistence; scan failure retains the
+verified source but no successful snapshot.
+
+**Reason:** Defaulting an automatically discovered ERP database to `public`
+would silently omit real tables in multi-schema systems. Reusing one bounded
+verification result and the existing scanner preserves read-only safety,
+avoids CLI-specific graph logic, and prevents a truncated graph from appearing
+complete.
+
+**Revisit when:** PostgreSQL installations with more than 100 intentional user
+schemas require an explicit paged scope-selection workflow.

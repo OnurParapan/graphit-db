@@ -25,7 +25,7 @@ def _source() -> SourceConfig:
 
 
 class FakeCursor:
-    def __init__(self, row: tuple[str, str, str, str] | None) -> None:
+    def __init__(self, row: tuple[Any, ...] | None) -> None:
         self.row = row
         self.query: str | None = None
 
@@ -38,12 +38,12 @@ class FakeCursor:
     def execute(self, query: str) -> None:
         self.query = query
 
-    def fetchone(self) -> tuple[str, str, str, str] | None:
+    def fetchone(self) -> tuple[Any, ...] | None:
         return self.row
 
 
 class FakeConnection:
-    def __init__(self, row: tuple[str, str, str, str] | None) -> None:
+    def __init__(self, row: tuple[Any, ...] | None) -> None:
         self.read_only = False
         self.isolation_level: psycopg.IsolationLevel | None = None
         self.cursor_object = FakeCursor(row)
@@ -62,7 +62,7 @@ class FakeConnection:
 
 def test_one_bounded_read_only_query_and_no_persisted_secret(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setenv("CLAIMS_DB_PASSWORD", "very-private-value")
-    fake = FakeConnection(("claims_db", "reader", "on", "16.2"))
+    fake = FakeConnection(("claims_db", "reader", "on", "16.2", ["billing", "public"]))
     connection_args: dict[str, Any] = {}
 
     def connect(**kwargs: Any) -> FakeConnection:
@@ -76,6 +76,7 @@ def test_one_bounded_read_only_query_and_no_persisted_secret(monkeypatch: Monkey
     assert result.database == "claims_db"
     assert result.username == "reader"
     assert result.server_version == "16.2"
+    assert result.schemas == ("billing", "public")
     assert connection_args["password"] == "very-private-value"
     assert connection_args["sslmode"] == "require"
     assert connection_args["connect_timeout"] == 5
@@ -83,6 +84,8 @@ def test_one_bounded_read_only_query_and_no_persisted_secret(monkeypatch: Monkey
     assert "statement_timeout=5000" in connection_args["options"]
     assert fake.cursor_object.query is not None
     assert fake.cursor_object.query.startswith("SELECT ")
+    assert "has_schema_privilege" in fake.cursor_object.query
+    assert "LIMIT 101" in fake.cursor_object.query
     assert fake.closed is True
     assert fake.isolation_level == psycopg.IsolationLevel.REPEATABLE_READ
     assert "very-private-value" not in repr(result)
@@ -108,7 +111,7 @@ def test_connection_resolves_password_from_saved_dotenv_url(
         credential_kind="url_dotenv",
         credential_file=".env",
     )
-    fake = FakeConnection(("claims_db", "reader", "on", "16.2"))
+    fake = FakeConnection(("claims_db", "reader", "on", "16.2", ["public"]))
     connection_args: dict[str, Any] = {}
 
     def connect(**kwargs: Any) -> FakeConnection:
@@ -179,9 +182,9 @@ def test_statement_timeout_has_distinct_code(monkeypatch: MonkeyPatch) -> None:
     assert raised.value.code == "QUERY_TIMEOUT"
 
 
-@pytest.mark.parametrize("row", [None, ("claims_db", "reader", "off", "16.2")])
+@pytest.mark.parametrize("row", [None, ("claims_db", "reader", "off", "16.2", ["public"])])
 def test_unconfirmed_read_only_state_fails_closed(
-    monkeypatch: MonkeyPatch, row: tuple[str, str, str, str] | None
+    monkeypatch: MonkeyPatch, row: tuple[Any, ...] | None
 ) -> None:
     monkeypatch.setenv("CLAIMS_DB_PASSWORD", "very-private-value")
     fake = FakeConnection(row)
@@ -192,3 +195,23 @@ def test_unconfirmed_read_only_state_fails_closed(
 
     assert raised.value.code == "READ_ONLY_NOT_ENFORCED"
     assert fake.closed is True
+
+
+@pytest.mark.parametrize(
+    ("schemas", "code"),
+    [
+        ([], "NO_ACCESSIBLE_SCHEMA"),
+        ([f"schema_{index}" for index in range(101)], "SCHEMA_LIMIT_EXCEEDED"),
+    ],
+)
+def test_schema_discovery_fails_closed_on_empty_or_overflow(
+    monkeypatch: MonkeyPatch, schemas: list[str], code: str
+) -> None:
+    monkeypatch.setenv("CLAIMS_DB_PASSWORD", "very-private-value")
+    fake = FakeConnection(("claims_db", "reader", "on", "16.2", schemas))
+    monkeypatch.setattr("graphit.scanners.postgresql.psycopg.connect", lambda **_: fake)
+
+    with pytest.raises(ConnectionTestError) as raised:
+        verify_connection(_source())
+
+    assert raised.value.code == code

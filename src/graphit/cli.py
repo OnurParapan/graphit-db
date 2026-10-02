@@ -2,7 +2,7 @@
 
 import json
 import re
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Annotated, Literal
 
@@ -106,8 +106,11 @@ def init(
     yes: Annotated[
         bool, typer.Option("--yes", help="Accept every discovered database without prompting.")
     ] = False,
+    scan_metadata: Annotated[
+        bool, typer.Option("--scan/--no-scan", help="Scan verified databases immediately.")
+    ] = True,
 ) -> None:
-    """Initialize Graphit and verify approved discovered PostgreSQL databases."""
+    """Initialize Graphit, verify discovered databases, and scan their metadata."""
 
     try:
         root = project if project is not None else find_project_root(Path.cwd())
@@ -181,6 +184,7 @@ def init(
         )
         try:
             verified = verify_connection(source, project_root=result.root)
+            source = replace(source, schemas=verified.schemas)
             add_source(result.root, source)
         except ConnectionTestError as error:
             typer.echo(f"{error.code}: {error}", err=True)
@@ -192,7 +196,22 @@ def init(
             f"Added source '{source_name}' after read-only verification: "
             f"PostgreSQL {verified.server_version}, {verified.database} as {verified.username}."
         )
-    typer.echo("No metadata scan was run yet.")
+        typer.echo(f"  Schemas: {', '.join(verified.schemas)}")
+        if not scan_metadata:
+            typer.echo(f"Metadata scan skipped for '{source_name}' by --no-scan.")
+            continue
+        try:
+            snapshot = scan_source(result.root, source_name)
+        except MetadataScanError as error:
+            typer.echo(f"SCAN_FAILED: {error.code}: {error}", err=True)
+            raise typer.Exit(code=5) from None
+        except SnapshotError as error:
+            typer.echo(f"SCAN_FAILED: {error.code}: {error}", err=True)
+            raise typer.Exit(code=6) from None
+        typer.echo(
+            f"Snapshot {snapshot.version} saved for {source_name}: "
+            f"{snapshot.object_count} objects, {snapshot.edge_count} edges."
+        )
 
 
 def _discovered_source_name(database_name: str, used: set[str]) -> str:

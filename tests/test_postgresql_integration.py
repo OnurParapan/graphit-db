@@ -189,6 +189,9 @@ def test_real_postgresql_catalog_scan_and_snapshot(
             )
             verified = verify_connection(source)
             assert (verified.database, verified.username) == (database, role)
+            assert schema_a in verified.schemas
+            assert schema_b in verified.schemas
+            assert hidden_schema not in verified.schemas
             with psycopg.connect(
                 host=host, port=port, dbname=database, user=role, password=password
             ) as reader:

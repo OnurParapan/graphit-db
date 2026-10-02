@@ -23,7 +23,7 @@ from graphit.queries import (
 )
 from graphit.scanners.postgresql import ConnectionTestError, ConnectionTestResult, MetadataScanError
 from graphit.snapshots import StoredSnapshot
-from graphit.sources import SourceConfig, list_sources
+from graphit.sources import SourceConfig, list_sources, show_source
 
 runner = CliRunner()
 
@@ -92,7 +92,7 @@ def test_init_discovers_dotenv_postgresql_url_without_leaking_or_persisting_pass
     assert secret.encode() not in (tmp_path / ".graphit" / "graphit.db").read_bytes()
 
 
-def test_init_verifies_and_saves_approved_dotenv_source_without_secret(
+def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:
     secret = "runtime-only-secret"
@@ -101,25 +101,34 @@ def test_init_verifies_and_saves_approved_dotenv_source_without_secret(
         encoding="utf-8",
     )
     verified: list[tuple[SourceConfig, Path | None]] = []
+    scanned: list[tuple[Path, str]] = []
 
     def successful_test(
         source: SourceConfig, *, project_root: Path | None = None
     ) -> ConnectionTestResult:
         verified.append((source, project_root))
-        return ConnectionTestResult("erp", "reader", "16.4")
+        return ConnectionTestResult("erp", "reader", "16.4", ("billing", "public"))
+
+    def successful_scan(root: Path, name: str) -> StoredSnapshot:
+        scanned.append((root, name))
+        assert show_source(root, name).schemas == ("billing", "public")
+        return StoredSnapshot(name, 1, 1, 87, 143, "fingerprint")
 
     monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
+    monkeypatch.setattr("graphit.cli.scan_source", successful_scan)
 
     result = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes"])
 
     assert result.exit_code == 0
     assert "Added source 'erp' after read-only verification" in result.stdout
-    assert "No metadata scan was run yet" in result.stdout
+    assert "Schemas: billing, public" in result.stdout
+    assert "Snapshot 1 saved for erp: 87 objects, 143 edges" in result.stdout
     assert "Connect read-only" not in result.stdout
     source, project_root = verified[0]
     assert project_root == tmp_path
     assert source.credential_kind == "url_dotenv"
     assert source.credential_file == ".env"
+    assert scanned == [(tmp_path, "erp")]
     stored = (tmp_path / ".graphit" / "graphit.db").read_bytes()
     assert secret.encode() not in stored
     assert b"DATABASE_URL" in stored
@@ -128,7 +137,51 @@ def test_init_verifies_and_saves_approved_dotenv_source_without_secret(
     assert again.exit_code == 0
     assert "Source for DATABASE_URL is already configured" in again.stdout
     assert len(verified) == 1
+    assert len(scanned) == 1
     assert len(list_sources(tmp_path)) == 1
+
+
+def test_init_can_skip_scan_and_reports_scan_failure_after_source_persistence(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    (tmp_path / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:secret@localhost/erp\n", encoding="utf-8"
+    )
+
+    def successful_test(
+        source: SourceConfig, *, project_root: Path | None = None
+    ) -> ConnectionTestResult:
+        assert project_root is not None
+        return ConnectionTestResult(source.database_name, "reader", "16.4", ("public",))
+
+    monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
+    monkeypatch.setattr(
+        "graphit.cli.scan_source",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("--no-scan must not call scan_source")
+        ),
+    )
+    skipped = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes", "--no-scan"])
+
+    assert skipped.exit_code == 0
+    assert "Metadata scan skipped for 'erp' by --no-scan" in skipped.stdout
+    assert len(list_sources(tmp_path)) == 1
+
+    second = tmp_path / "second"
+    second.mkdir()
+    (second / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:secret@localhost/reporting\n", encoding="utf-8"
+    )
+
+    def failed_scan(_root: Path, _name: str) -> StoredSnapshot:
+        raise MetadataScanError("TABLE_LIMIT_EXCEEDED", "The selected schemas exceed the limit.")
+
+    monkeypatch.setattr("graphit.cli.scan_source", failed_scan)
+    failed = runner.invoke(app, ["init", "--project", str(second), "--yes"])
+
+    assert failed.exit_code == 5
+    assert "TABLE_LIMIT_EXCEEDED" in failed.stderr
+    assert len(list_sources(second)) == 1
 
 
 def test_init_declined_or_failed_connection_does_not_save_source(

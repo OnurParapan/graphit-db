@@ -29,9 +29,11 @@ It discovers conventional PostgreSQL URLs in the process environment and a
 bounded project-root dotenv allowlist. After sanitized confirmation—or explicit
 `--yes`—it verifies each password-bearing candidate through a forced read-only
 session and saves only a credential reference. `--no-connect` performs
-discovery without contact. Metadata scanning, whole-database ERD generation,
-and agent wiring follow in later init slices; initialization never copies source
-business data.
+discovery without contact. The verification query discovers accessible
+non-system schemas and init scans their bounded structural metadata into the
+first immutable snapshot; `--no-scan` stops after source persistence.
+Whole-database ERD generation and agent wiring follow in later init slices;
+initialization never copies source business data.
 
 ```text
 my-project/

@@ -513,3 +513,11 @@ confirmation decline, authentication failure without persistence, explicit
 `--yes`, idempotent `--force`, and secret-byte absence in SQLite. Mocked driver
 assertions retain the existing read-only startup, timeout, and one-query
 contract. It verifies and saves approved sources but still does not scan them.
+
+The init-scan slice extends the one verification row with ordered accessible
+user schemas and tests empty/over-100 fail-closed behavior. CLI tests prove the
+verified scope is persisted before the shared scan service runs, a successful
+snapshot is reported, `--no-scan` performs no scan call, and a scan failure
+retains the verified source without claiming success. The opt-in live
+PostgreSQL fixture asserts accessible fixture schemas are discovered while its
+revoked schema is excluded.

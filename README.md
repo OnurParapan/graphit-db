@@ -68,8 +68,10 @@ URLs from the current environment and supported project `.env*` files, reports
 only sanitized host/database/user facts, and keeps any password transient. It
 asks before connecting unless `--yes` is given, forces a bounded read-only
 verification session, and saves only a non-secret reference after success;
-`--no-connect` keeps discovery-only behavior. `graphit scan --source NAME`
-creates immutable
+the verification also discovers accessible non-system schemas and init scans
+them into the first immutable snapshot. `--no-connect` keeps discovery-only
+behavior and `--no-scan` stops after verified source persistence. Later
+`graphit scan --source NAME` commands create additional immutable
 structural snapshots. PostgreSQL views and materialized views are searchable
 with their catalog columns through `show-view`/`get_view`; `show` and FK graph
 tools remain base-table-only, and view lineage is not inferred. To connect a

@@ -29,6 +29,7 @@ graphit init --project path/to/repository
 graphit init --force
 graphit init --yes
 graphit init --no-connect
+graphit init --no-scan
 ```
 
 Behavior:
@@ -48,16 +49,20 @@ Behavior:
    candidates without prompting; `--no-connect` stops after discovery.
 8. Persist non-secret source metadata and a URL variable/file reference only
    after successful verification. A failure or rejection saves no source.
+9. Discover up to 100 accessible non-system schemas in the verification query,
+   then scan their bounded table, view, column, key, foreign-key, and index
+   metadata into the first immutable snapshot. `--no-scan` stops after source
+   persistence. Scan failure keeps the verified source but creates no successful
+   snapshot.
 
 `--force` replaces only `graphit.toml`; it preserves existing `.graphit/`
 contents while applying compatible store migrations. Symlinked
 configuration/state/store paths are rejected. By default, project
 discovery stops at the nearest existing `graphit.toml` or Git root. `init`
-does not modify agent settings or scan a discovered database yet. Explicit
-project-local Codex setup is available
+does not modify agent settings yet. Explicit project-local Codex setup is available
 with `graphit mcp setup-codex`; `graphit mcp setup-claude` similarly edits only
-the project's `.mcp.json`. Metadata scan, whole-database ERD generation, and
-agent setup remain subsequent init-orchestration slices. Global agent
+the project's `.mcp.json`. Whole-database ERD generation and agent setup remain
+subsequent init-orchestration slices. Global agent
 configuration is never changed here.
 
 Discovery recognizes `postgres://` and `postgresql://` values in conventional
@@ -69,6 +74,9 @@ password exists only in transient process memory and is never written by
 `init`. SQLite schema v2 stores `credential_kind` and an optional allowlisted
 `credential_file` reference. Later tests/scans reread the password at call time
 and fail closed if the URL host, port, database, user, or SSL mode changed.
+The verification query excludes PostgreSQL catalog, information-schema, toast,
+and temporary schemas; it fails rather than silently truncating above 100 user
+schemas or when none is accessible.
 
 ## Source management
 

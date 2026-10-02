@@ -31,6 +31,11 @@ read-only startup options, transaction assertion, and timeouts as `source test`,
 then persists only the non-secret reference after success. Rejected and failed
 candidates are not saved. Later resolution also checks that the URL's non-secret
 connection identity still matches the saved source before using its password.
+The same bounded verification SELECT discovers accessible user schemas while
+excluding catalog, information-schema, toast, and temporary namespaces. Init
+then runs the existing bounded catalog scanner under a new forced read-only
+connection. Schema overflow or catalog limits fail closed; no partial successful
+snapshot is presented.
 
 `graphit source test` reads the configured environment variable only at call
 time. It passes host, username, database, password, and SSL mode as separate

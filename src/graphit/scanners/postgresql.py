@@ -148,6 +148,7 @@ class ConnectionTestResult:
     database: str
     username: str
     server_version: str
+    schemas: tuple[str, ...] = ()
 
 
 def _safe_error(error: psycopg.Error) -> ConnectionTestError:
@@ -219,7 +220,14 @@ def verify_connection(
             cursor.execute(
                 "SELECT pg_catalog.current_database(), current_user, "
                 "pg_catalog.current_setting('transaction_read_only'), "
-                "pg_catalog.current_setting('server_version')"
+                "pg_catalog.current_setting('server_version'), "
+                "ARRAY("
+                "SELECT n.nspname::text FROM pg_catalog.pg_namespace AS n "
+                "WHERE n.nspname::text <> ALL(ARRAY['pg_catalog', 'information_schema']) "
+                "AND n.nspname::text NOT LIKE 'pg_toast%' "
+                "AND n.nspname::text NOT LIKE 'pg_temp_%' "
+                "AND pg_catalog.has_schema_privilege(n.oid, 'USAGE') "
+                "ORDER BY n.nspname LIMIT 101)"
             )
             row = cursor.fetchone()
             if row is None or row[2] != "on":
@@ -227,7 +235,20 @@ def verify_connection(
                     "READ_ONLY_NOT_ENFORCED",
                     "PostgreSQL did not confirm a read-only transaction.",
                 )
-            return ConnectionTestResult(str(row[0]), str(row[1]), str(row[3]))
+            if len(row) < 5 or not isinstance(row[4], (list, tuple)):
+                raise ConnectionTestError(
+                    "INVALID_SCHEMA_RESULT", "PostgreSQL returned invalid schema metadata."
+                )
+            schemas = tuple(str(name) for name in row[4])
+            if len(schemas) > 100:
+                raise ConnectionTestError(
+                    "SCHEMA_LIMIT_EXCEEDED", "The database exposes more than 100 user schemas."
+                )
+            if not schemas:
+                raise ConnectionTestError(
+                    "NO_ACCESSIBLE_SCHEMA", "No accessible user schema was discovered."
+                )
+            return ConnectionTestResult(str(row[0]), str(row[1]), str(row[3]), schemas)
     except psycopg.Error as error:
         raise _safe_error(error) from None
 

@@ -1872,6 +1872,30 @@
       "related_bugs": ["bug-149"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-157",
+      "timestamp": "2026-10-02T19:00:00+03:00",
+      "error_message": "A diagnostic rg regex for fake PostgreSQL rows was malformed by over-escaped parentheses and returned 'unclosed group'.",
+      "file": "tests/test_postgresql_connection.py inspection command",
+      "root_cause": "A complex alternation was unnecessarily escaped inside a PowerShell command string.",
+      "fix": "Repeated the search with a simple single-quoted alternation and used the returned exact line locations.",
+      "tags": ["ripgrep", "powershell", "regex", "tests"],
+      "related_bugs": ["bug-150"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-158",
+      "timestamp": "2026-10-02T19:10:00+03:00",
+      "error_message": "The first init-scan documentation patch failed because the expected architecture paragraph wrapped differently.",
+      "file": "README.md; docs/CLI.md; docs/ARCHITECTURE.md; related contracts and .wolf state",
+      "root_cause": "A broad multi-file patch used approximate architecture line wrapping.",
+      "fix": "Confirmed no partial changes and split the exact README/CLI/security/operating updates from a separately located architecture insertion.",
+      "tags": ["patch", "documentation", "init", "scan"],
+      "related_bugs": ["bug-155"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

@@ -91,6 +91,11 @@ timeouts as connection verification, plus one repeatable-read transaction for
 a consistent catalog view. Adapter-specific I/O does not leak into
 the domain-facing metadata types.
 
+For an init-discovered source, the connection verification SELECT also returns
+an ordered, bounded list of accessible non-system schemas. Init persists that
+scope only after successful read-only verification, then invokes the existing
+scan application service; it does not duplicate scanner logic in the CLI.
+
 ### MCP
 
 The initial transport is stdio. MCP tools are thin adapters over application

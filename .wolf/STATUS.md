@@ -704,6 +704,15 @@ after success. `--no-connect` remains discovery-only. Rejection, connection
 failure, URL identity drift, and repeat `--force` all fail or skip without
 duplicate/partial source state. Automatic metadata scan is the next micro-slice.
 
+**2026-10-02 init-scan slice:** The bounded read-only verification SELECT now
+returns ordered accessible user schemas while excluding PostgreSQL catalog,
+information-schema, toast, and temporary namespaces. Empty or more-than-100
+scope fails closed. Init persists that verified scope and calls the shared
+`scan_source` service by default, producing the first immutable snapshot of
+tables/views, columns, declared keys/FKs, and indexes. `--no-scan` preserves a
+verified source without scanning; scan failure preserves the source but never a
+partial successful snapshot. Whole-database ERD generation is next.
+
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100
 unrelated archive tables, the unchanged exact-FK task, and the single declared
