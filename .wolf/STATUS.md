@@ -685,21 +685,27 @@
   `--refresh-agents` replaces only recognized generated launchers. Unrelated
   settings and all global configuration remain untouched. Together with the
   previous slices, the requested one-command onboarding chain is implemented
-  on `main`; it is not yet part of the published PyPI 0.1.0 release.
+  and published in `graphit-db 0.1.1`.
+- Published `graphit-db 0.1.1` from tag `v0.1.1` at commit
+  `875967c6a9f9e6409b34981288a958fb27af1923`. Protected workflow run
+  `37034365431` passed build/archive/installed smoke and the explicitly approved
+  OIDC publish. Wheel SHA-256 is
+  `9a788d8f4315a5bc70edd9768b5ce6e8b733f3f1a4f6a3380850b2bdb9317597`;
+  sdist SHA-256 is
+  `cbc1942fd6d556de023212154aac03f1c1671d57d0ccb09ce1e87003bc41f4e6`.
+  Both have provenance. A fresh public-PyPI install passed version, dependency,
+  SQLite, generated Codex/Claude launcher, and representative MCP checks.
 
 ---
 
 ## 🚀 Next phase
 
-**Goal:** The primary one-command onboarding contract from user feedback is now
-implemented on `main`: discover, verify read-only, scan all accessible user
+**Goal:** The primary one-command onboarding contract is implemented and public
+in `graphit-db 0.1.1`: discover, verify read-only, scan all accessible user
 schemas, generate a complete local ERD, and wire project-local compact Codex
-plus Claude MCP access without persisting secrets. The user authorized release
-0.1.1. Local release-level acceptance is complete: official PyPI JSON reports
-0.1.1 absent, isolated archives and Twine pass, clean-wheel CLI/Codex/Claude
-smoke passes, and the full suite is green. Next commit the version, tag
-`v0.1.1`, publish the GitHub Release, obtain the protected `pypi` deployment
-approval, and verify the public artifacts. No paid model calls are authorized.
+plus Claude MCP access without persisting secrets. Next gather real installed-
+user feedback and test a 0.1.0→0.1.1 upgrade path; do not infer new feature,
+model-call, or publication authority.
 
 **2026-10-02 discovery slice:** `graphit init` now discovers conventional
 PostgreSQL URL variables from the process environment and a bounded root-level
@@ -743,8 +749,8 @@ now reuses the existing safe writers to add Codex's exact compact eight-tool
 Graphit entry and Claude's project-local stdio entry. `--no-agents` skips both;
 `--refresh-agents` recognizes only generated launchers. Conflicts are reported
 without overwriting unrelated/custom settings, and global configuration is
-never touched. This completes the requested onboarding chain in source; PyPI
-0.1.0 remains unchanged.
+never touched. This completes the requested onboarding chain, now published in
+PyPI 0.1.1.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100

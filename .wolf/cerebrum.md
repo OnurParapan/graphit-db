@@ -54,6 +54,9 @@
 - The user explicitly authorized publishing the completed onboarding work as
   the next compatible patch release. Version 0.1.1 is available on PyPI and its
   local isolated wheel/sdist plus installed MCP smoke passed before tagging.
+- `graphit-db 0.1.1` is now public from immutable tag `v0.1.1` at commit
+  `875967c6a9f9e6409b34981288a958fb27af1923`. Protected run `37034365431`
+  succeeded; public-PyPI clean install and both generated MCP launchers pass.
 - Repository documentation lives under `docs/`, except `README.md` and
   `AGENTS.md`.
 - Hatchling's default source archive selection can include local OpenWolf and

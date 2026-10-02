@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T16:25:56.227Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T16:36:14.944Z
 > Files: 166 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
@@ -56,8 +56,8 @@
 - `OPERATING_MODEL.md` — Graphit — Operating Model (~1313 tok)
 - `PRODUCT.md` — Graphit — Product Specification (~1156 tok)
 - `RELATIONSHIP_ENGINE.md` — Graphit — Relationship Discovery (~3203 tok)
-- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1464 tok)
-- `RELEASING.md` — Releasing Graphit (~922 tok)
+- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1457 tok)
+- `RELEASING.md` — Releasing Graphit (~1182 tok)
 - `ROADMAP.md` — Graphit — Roadmap (~1208 tok)
 - `SECURITY.md` — Graphit — Security Model (~1612 tok)
 - `TESTING.md` — Graphit — Testing Strategy (~7824 tok)

@@ -65,6 +65,25 @@ After publication:
 
 ## Published release evidence
 
+Version `0.1.1` was published on 2026-10-02 from tag `v0.1.1` and commit
+`875967c6a9f9e6409b34981288a958fb27af1923`:
+
+- GitHub release: <https://github.com/OnurParapan/graphit-db/releases/tag/v0.1.1>
+- protected workflow run: <https://github.com/OnurParapan/graphit-db/actions/runs/37034365431>
+- PyPI project: <https://pypi.org/project/graphit-db/0.1.1/>
+- wheel SHA-256: `9a788d8f4315a5bc70edd9768b5ce6e8b733f3f1a4f6a3380850b2bdb9317597`
+- sdist SHA-256: `cbc1942fd6d556de023212154aac03f1c1671d57d0ccb09ce1e87003bc41f4e6`
+
+Both files have one PyPI Integrity API provenance bundle from Trusted
+Publishing. After Simple Index propagation, a fresh Windows environment
+installed `graphit-db==0.1.1` directly from public PyPI and passed `pip check`,
+version, initialization, SQLite snapshot seeding, generated Codex/Claude stdio
+launchers, and representative MCP calls. This release adds the default
+discovery → read-only verification → all-accessible-schema scan → complete ERD
+→ project-local agent wiring onboarding chain.
+
+### Prior release
+
 Version `0.1.0` was published on 2026-10-02 from tag `v0.1.0` and commit
 `33cef8b16c7ae9de9adb0d07baba81a2776ca5f5`:
 

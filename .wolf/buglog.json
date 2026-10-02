@@ -2004,6 +2004,42 @@
       "related_bugs": ["bug-145"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-168",
+      "timestamp": "2026-10-02T19:52:00+03:00",
+      "error_message": "The elevated GitHub pre-release command authenticated gh successfully but its three plain git status/rev-parse/tag segments failed dubious-ownership checks.",
+      "file": "v0.1.1 pre-release verification command",
+      "root_cause": "The known command-local safe.directory option was omitted from each elevated git segment.",
+      "fix": "No release mutation occurred; rerun every git segment with command-local -c safe.directory and keep global Git configuration unchanged.",
+      "tags": ["git", "safe-directory", "release", "windows"],
+      "related_bugs": ["bug-156"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-169",
+      "timestamp": "2026-10-02T19:59:00+03:00",
+      "error_message": "Immediately after successful Trusted Publishing, PyPI JSON exposed 0.1.1 but the public Simple Index still offered only 0.1.0; semicolon-separated pip check and graphit version commands then ran after the failed install.",
+      "file": "public PyPI 0.1.1 clean-install verification",
+      "root_cause": "PyPI JSON/integrity and Simple Index propagation were briefly inconsistent, and PowerShell semicolons did not short-circuit the remaining verification stages.",
+      "fix": "Wait for index propagation, retry only the exact public-index installation in the still-empty environment, then run dependency/version/smoke checks separately after install success.",
+      "tags": ["pypi", "propagation", "pip", "release", "powershell"],
+      "related_bugs": ["bug-166"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-170",
+      "timestamp": "2026-10-02T20:03:00+03:00",
+      "error_message": "The first post-release multi-file OpenWolf patch did not apply because the final init-agent STATUS sentence wrapped differently.",
+      "file": ".wolf/memory.md; .wolf/cerebrum.md; .wolf/STATUS.md",
+      "root_cause": "A combined patch included one approximate STATUS prose anchor.",
+      "fix": "Confirmed atomic rejection and split each OpenWolf state update into exact-context patches.",
+      "tags": ["patch", "openwolf", "release", "status"],
+      "related_bugs": ["bug-162"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }
