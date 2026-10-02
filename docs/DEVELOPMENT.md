@@ -78,7 +78,7 @@ For a local, unpublished packaging check:
 ```
 
 This creates a wheel and source archive in `dist/`. The source archive has an
-explicit allowlist (`src`, `tests`, `docs`, README, LICENSE, and `pyproject.toml`)
+explicit allowlist (`src`, `tests`, `docs`, README, LICENSE, NOTICE, and `pyproject.toml`)
 so local agent configuration and OpenWolf state are not distributed. Check both
 archives with `python scripts/check_dist.py` and install the wheel in a clean
 environment before publishing. CI performs those archive and isolated-install
@@ -90,6 +90,10 @@ table-impact responses
 through both generated stdio launch commands. The fixture is local-only; no
 source database is contacted. These paths are installation-specific; the smoke does not run the
 actual Codex or Claude application. It does not upload or publish artifacts.
+
+The protected Trusted Publishing procedure and exact one-time configuration are
+documented in [`RELEASING.md`](RELEASING.md). Do not upload from a developer
+machine or store a long-lived PyPI token.
 
 Before publishing:
 

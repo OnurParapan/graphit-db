@@ -653,16 +653,25 @@
   Focused HTML/manual tests pass (10); the full offline suite passes with four
   environment skips, and Ruff, formatting, strict mypy, and pip check pass.
   Multi-hop depth and expand/collapse remain out of scope.
+- Prepared a protected PyPI Trusted Publishing workflow at `release.yml`.
+  It runs only for a published GitHub Release, requires an exact `vVERSION`
+  tag, pins all actions and build/Twine tools, verifies and smoke-tests artifacts
+  in a build job, and gives only a separate `pypi` publish job OIDC permission.
+  Publication remains inert until Onur Parapan registers the exact pending PyPI
+  publisher and protected GitHub environment, then explicitly publishes and
+  approves the release. `graphit-db` returned HTTP 404 on PyPI at check time;
+  no name reservation or upload occurred.
 
 ---
 
 ## 🚀 Next phase
 
 **Goal:** Treat the local MVP, controlled Codex context-delivery evaluation,
-and copyright-attribution package gate as complete. Preserve the small/large
-crossover boundary honestly. Remaining work is external release validation
-and user-owned publication decisions; do not make more model calls or publish
-without fresh explicit authority.
+copyright-attribution package gate, public GitHub repository, remote CI, and
+protected release workflow as complete. Preserve the small/large crossover
+boundary honestly. Remaining publication requires the user-owned PyPI pending
+publisher/environment setup and an explicit release approval; do not make more
+model calls or upload without fresh explicit authority.
 
 **2026-10-02 scaled preparation:** Added `scripts.prepare_agent_eval --scaled`
 to build a deterministic 114-table / 420-column equal-facts bundle with 100

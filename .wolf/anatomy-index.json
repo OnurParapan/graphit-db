@@ -1,12 +1,12 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-10-02T13:12:45.302Z",
-    "fileCount": 161,
+    "lastScanned": "2026-10-02T14:08:52.122Z",
+    "fileCount": 164,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "b42236da2975c759b7b97abfeece64a748cbc4fbec0576cea2856d6fcc95f1b0",
-    "storeUpdatedAt": "2026-10-02T13:12:45.305Z"
+    "renderedHash": "1db98133d21873bbfdf78e26f1573aef7da0728897caa93bfb2a355a70138c06",
+    "storeUpdatedAt": "2026-10-02T14:08:52.125Z"
   },
   "files": {
     ".claude/commands/reframe.md": {
@@ -15,7 +15,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1789538356605.9893,
-      "updatedAt": "2026-10-02T13:12:45.250Z",
+      "updatedAt": "2026-10-02T14:08:52.071Z",
       "source": "scan"
     },
     ".claude/commands/security-audit.md": {
@@ -24,7 +24,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1789538356603.9878,
-      "updatedAt": "2026-10-02T13:12:45.251Z",
+      "updatedAt": "2026-10-02T14:08:52.072Z",
       "source": "scan"
     },
     ".claude/rules/openwolf.md": {
@@ -33,7 +33,7 @@
       "hash": "6d735b2c1c54a916",
       "size": 1323,
       "mtimeMs": 1789538356429.0818,
-      "updatedAt": "2026-10-02T13:12:45.252Z",
+      "updatedAt": "2026-10-02T14:08:52.074Z",
       "source": "scan"
     },
     ".claude/settings.json": {
@@ -42,7 +42,7 @@
       "hash": "f68759bb50af5ee4",
       "size": 1799,
       "mtimeMs": 1789538356421.3833,
-      "updatedAt": "2026-10-02T13:12:45.253Z",
+      "updatedAt": "2026-10-02T14:08:52.074Z",
       "source": "scan"
     },
     ".codex/config.toml": {
@@ -51,7 +51,7 @@
       "hash": "d37497c327812159",
       "size": 24,
       "mtimeMs": 1789538356596.993,
-      "updatedAt": "2026-10-02T13:12:45.253Z",
+      "updatedAt": "2026-10-02T14:08:52.075Z",
       "source": "scan"
     },
     ".codex/hooks.json": {
@@ -60,7 +60,7 @@
       "hash": "dd98e7b77ead1a7f",
       "size": 2418,
       "mtimeMs": 1789538356595.988,
-      "updatedAt": "2026-10-02T13:12:45.254Z",
+      "updatedAt": "2026-10-02T14:08:52.076Z",
       "source": "scan"
     },
     ".codex/prompts/reframe.md": {
@@ -69,7 +69,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1789538356609.9875,
-      "updatedAt": "2026-10-02T13:12:45.256Z",
+      "updatedAt": "2026-10-02T14:08:52.077Z",
       "source": "scan"
     },
     ".codex/prompts/security-audit.md": {
@@ -78,7 +78,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1789538356607.989,
-      "updatedAt": "2026-10-02T13:12:45.258Z",
+      "updatedAt": "2026-10-02T14:08:52.078Z",
       "source": "scan"
     },
     ".editorconfig": {
@@ -87,7 +87,7 @@
       "hash": "83e82746303fdd2e",
       "size": 295,
       "mtimeMs": 1789541346105.375,
-      "updatedAt": "2026-10-02T13:12:45.258Z",
+      "updatedAt": "2026-10-02T14:08:52.078Z",
       "source": "scan"
     },
     ".gitattributes": {
@@ -96,7 +96,7 @@
       "hash": "f15a63073d50bfe1",
       "size": 268,
       "mtimeMs": 1790946069414.8171,
-      "updatedAt": "2026-10-02T13:12:45.258Z",
+      "updatedAt": "2026-10-02T14:08:52.078Z",
       "source": "scan"
     },
     ".github/workflows/ci.yml": {
@@ -105,7 +105,16 @@
       "hash": "db7d7a71fdfaf60a",
       "size": 2502,
       "mtimeMs": 1790946313220.5166,
-      "updatedAt": "2026-10-02T13:12:45.259Z",
+      "updatedAt": "2026-10-02T14:08:52.079Z",
+      "source": "scan"
+    },
+    ".github/workflows/release.yml": {
+      "description": "CI: Release to PyPI",
+      "tokens": 737,
+      "hash": "86ac4be0f9672d4d",
+      "size": 2578,
+      "mtimeMs": 1790949979518.5232,
+      "updatedAt": "2026-10-02T14:08:52.079Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -114,16 +123,16 @@
       "hash": "7eb7dc0009427418",
       "size": 490,
       "mtimeMs": 1789542099870.826,
-      "updatedAt": "2026-10-02T13:12:45.259Z",
+      "updatedAt": "2026-10-02T14:08:52.079Z",
       "source": "scan"
     },
     "AGENTS.md": {
       "description": "OpenWolf",
-      "tokens": 1207,
-      "hash": "75bb776b790b8568",
-      "size": 4834,
-      "mtimeMs": 1790946070369.6802,
-      "updatedAt": "2026-10-02T13:12:45.259Z",
+      "tokens": 1213,
+      "hash": "09d3d379796bdc34",
+      "size": 4858,
+      "mtimeMs": 1790949999330.0483,
+      "updatedAt": "2026-10-02T14:08:52.079Z",
       "source": "scan"
     },
     "CLAUDE.md": {
@@ -132,7 +141,7 @@
       "hash": "b1ca356fa9d5f3a6",
       "size": 225,
       "mtimeMs": 1789538356432.0945,
-      "updatedAt": "2026-10-02T13:12:45.259Z",
+      "updatedAt": "2026-10-02T14:08:52.080Z",
       "source": "scan"
     },
     "docs/AGENT_EVALUATION.md": {
@@ -141,7 +150,7 @@
       "hash": "d53349bbf4eda1a3",
       "size": 17500,
       "mtimeMs": 1790943720513.978,
-      "updatedAt": "2026-10-02T13:12:45.260Z",
+      "updatedAt": "2026-10-02T14:08:52.080Z",
       "source": "scan"
     },
     "docs/ARCHITECTURE.md": {
@@ -150,7 +159,7 @@
       "hash": "79da5e0579116a74",
       "size": 6138,
       "mtimeMs": 1789660273466.051,
-      "updatedAt": "2026-10-02T13:12:45.260Z",
+      "updatedAt": "2026-10-02T14:08:52.080Z",
       "source": "scan"
     },
     "docs/CLI.md": {
@@ -159,7 +168,7 @@
       "hash": "1bfce3114770032f",
       "size": 27860,
       "mtimeMs": 1790944054414.7078,
-      "updatedAt": "2026-10-02T13:12:45.260Z",
+      "updatedAt": "2026-10-02T14:08:52.081Z",
       "source": "scan"
     },
     "docs/CODEX_START.md": {
@@ -168,7 +177,7 @@
       "hash": "5b64090b623bae4a",
       "size": 944,
       "mtimeMs": 1790946071347.8523,
-      "updatedAt": "2026-10-02T13:12:45.260Z",
+      "updatedAt": "2026-10-02T14:08:52.081Z",
       "source": "scan"
     },
     "docs/DATA_MODEL.md": {
@@ -177,25 +186,25 @@
       "hash": "3f45f4e979e11d34",
       "size": 14487,
       "mtimeMs": 1789659134233.145,
-      "updatedAt": "2026-10-02T13:12:45.261Z",
+      "updatedAt": "2026-10-02T14:08:52.082Z",
       "source": "scan"
     },
     "docs/DECISIONS.md": {
       "description": "Graphit — Architecture Decision Log",
-      "tokens": 17329,
-      "hash": "607c49ad5d21e095",
-      "size": 69478,
-      "mtimeMs": 1790946733801.2395,
-      "updatedAt": "2026-10-02T13:12:45.261Z",
+      "tokens": 17681,
+      "hash": "b347dc0f7608d385",
+      "size": 70887,
+      "mtimeMs": 1790950007762.1433,
+      "updatedAt": "2026-10-02T14:08:52.082Z",
       "source": "scan"
     },
     "docs/DEVELOPMENT.md": {
       "description": "Graphit — Development Guide",
-      "tokens": 745,
-      "hash": "9e0f57c001134ec4",
-      "size": 3024,
-      "mtimeMs": 1789666598851.9128,
-      "updatedAt": "2026-10-02T13:12:45.262Z",
+      "tokens": 797,
+      "hash": "21d1c602a340a58f",
+      "size": 3232,
+      "mtimeMs": 1790949982078.462,
+      "updatedAt": "2026-10-02T14:08:52.082Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/final.txt": {
@@ -204,7 +213,7 @@
       "hash": "cb4bd2bdf2128716",
       "size": 368,
       "mtimeMs": 1790940179455.811,
-      "updatedAt": "2026-10-02T13:12:45.262Z",
+      "updatedAt": "2026-10-02T14:08:52.083Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/prompt.txt": {
@@ -213,7 +222,7 @@
       "hash": "c49245c9dcbf6cff",
       "size": 557,
       "mtimeMs": 1790940177662.2244,
-      "updatedAt": "2026-10-02T13:12:45.262Z",
+      "updatedAt": "2026-10-02T14:08:52.083Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/timing.txt": {
@@ -222,7 +231,7 @@
       "hash": "85f4e4d6b7511dae",
       "size": 20,
       "mtimeMs": 1790940180326.0273,
-      "updatedAt": "2026-10-02T13:12:45.262Z",
+      "updatedAt": "2026-10-02T14:08:52.083Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/baseline/transcript.jsonl": {
@@ -231,7 +240,7 @@
       "hash": "a7214049659e152f",
       "size": 6528,
       "mtimeMs": 1790940249251.45,
-      "updatedAt": "2026-10-02T13:12:45.263Z",
+      "updatedAt": "2026-10-02T14:08:52.083Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/final.txt": {
@@ -240,7 +249,7 @@
       "hash": "39ec78a253ac738d",
       "size": 327,
       "mtimeMs": 1790940175235.8801,
-      "updatedAt": "2026-10-02T13:12:45.263Z",
+      "updatedAt": "2026-10-02T14:08:52.084Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/prompt.txt": {
@@ -249,7 +258,7 @@
       "hash": "8d3f67a43f02cd42",
       "size": 517,
       "mtimeMs": 1790940173543.4094,
-      "updatedAt": "2026-10-02T13:12:45.263Z",
+      "updatedAt": "2026-10-02T14:08:52.084Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/timing.txt": {
@@ -258,7 +267,7 @@
       "hash": "44acc889b88749a7",
       "size": 20,
       "mtimeMs": 1790940176106.401,
-      "updatedAt": "2026-10-02T13:12:45.263Z",
+      "updatedAt": "2026-10-02T14:08:52.084Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/graphit/transcript.jsonl": {
@@ -267,7 +276,7 @@
       "hash": "7954707a64446fc9",
       "size": 1845,
       "mtimeMs": 1790940248375.1208,
-      "updatedAt": "2026-10-02T13:12:45.264Z",
+      "updatedAt": "2026-10-02T14:08:52.084Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-2026-10-02/README.md": {
@@ -276,7 +285,7 @@
       "hash": "7ac17c7f10f2cf1c",
       "size": 2945,
       "mtimeMs": 1790940282630.2935,
-      "updatedAt": "2026-10-02T13:12:45.264Z",
+      "updatedAt": "2026-10-02T14:08:52.084Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/final.txt": {
@@ -285,7 +294,7 @@
       "hash": "255eacafdfdf5bdc",
       "size": 342,
       "mtimeMs": 1790941407195.507,
-      "updatedAt": "2026-10-02T13:12:45.264Z",
+      "updatedAt": "2026-10-02T14:08:52.084Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/prompt.txt": {
@@ -294,7 +303,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790941405494.697,
-      "updatedAt": "2026-10-02T13:12:45.264Z",
+      "updatedAt": "2026-10-02T14:08:52.085Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/timing.txt": {
@@ -303,7 +312,7 @@
       "hash": "ff2096680ceca852",
       "size": 19,
       "mtimeMs": 1790941408180.4045,
-      "updatedAt": "2026-10-02T13:12:45.264Z",
+      "updatedAt": "2026-10-02T14:08:52.085Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/baseline/transcript.jsonl": {
@@ -312,7 +321,7 @@
       "hash": "cf0453cc555ef79c",
       "size": 6488,
       "mtimeMs": 1790941406349.8943,
-      "updatedAt": "2026-10-02T13:12:45.265Z",
+      "updatedAt": "2026-10-02T14:08:52.085Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/final.txt": {
@@ -321,7 +330,7 @@
       "hash": "ae210c4fa8a23d84",
       "size": 329,
       "mtimeMs": 1790941411344.1157,
-      "updatedAt": "2026-10-02T13:12:45.265Z",
+      "updatedAt": "2026-10-02T14:08:52.085Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/prompt.txt": {
@@ -330,7 +339,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790941409576.6826,
-      "updatedAt": "2026-10-02T13:12:45.265Z",
+      "updatedAt": "2026-10-02T14:08:52.085Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/timing.txt": {
@@ -339,7 +348,7 @@
       "hash": "f803b9cae2ca3fef",
       "size": 19,
       "mtimeMs": 1790941412186.162,
-      "updatedAt": "2026-10-02T13:12:45.265Z",
+      "updatedAt": "2026-10-02T14:08:52.086Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/compact/transcript.jsonl": {
@@ -348,7 +357,7 @@
       "hash": "1d3e09712c6256ac",
       "size": 1868,
       "mtimeMs": 1790941410459.9197,
-      "updatedAt": "2026-10-02T13:12:45.265Z",
+      "updatedAt": "2026-10-02T14:08:52.086Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-2026-10-02/README.md": {
@@ -357,7 +366,7 @@
       "hash": "ed0412e7184c0a48",
       "size": 3208,
       "mtimeMs": 1790941442591.7798,
-      "updatedAt": "2026-10-02T13:12:45.265Z",
+      "updatedAt": "2026-10-02T14:08:52.086Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/aggregate.json": {
@@ -366,7 +375,7 @@
       "hash": "a207539533e92834",
       "size": 2457,
       "mtimeMs": 1790941940251.2495,
-      "updatedAt": "2026-10-02T13:12:45.266Z",
+      "updatedAt": "2026-10-02T14:08:52.086Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/final.txt": {
@@ -375,7 +384,7 @@
       "hash": "3e6767e11b0f5f54",
       "size": 354,
       "mtimeMs": 1790941886952.593,
-      "updatedAt": "2026-10-02T13:12:45.266Z",
+      "updatedAt": "2026-10-02T14:08:52.086Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/prompt.txt": {
@@ -384,7 +393,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790941885264.2012,
-      "updatedAt": "2026-10-02T13:12:45.266Z",
+      "updatedAt": "2026-10-02T14:08:52.086Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/timing.txt": {
@@ -393,7 +402,7 @@
       "hash": "7d8918309a1d9578",
       "size": 19,
       "mtimeMs": 1790941887800.7537,
-      "updatedAt": "2026-10-02T13:12:45.266Z",
+      "updatedAt": "2026-10-02T14:08:52.087Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/baseline/transcript.jsonl": {
@@ -402,7 +411,7 @@
       "hash": "213d8a7fe53793b4",
       "size": 6523,
       "mtimeMs": 1790941886107.3577,
-      "updatedAt": "2026-10-02T13:12:45.267Z",
+      "updatedAt": "2026-10-02T14:08:52.087Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/final.txt": {
@@ -411,7 +420,7 @@
       "hash": "d04406c890f1b941",
       "size": 369,
       "mtimeMs": 1790941882831.77,
-      "updatedAt": "2026-10-02T13:12:45.267Z",
+      "updatedAt": "2026-10-02T14:08:52.087Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/prompt.txt": {
@@ -420,7 +429,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790941881157.843,
-      "updatedAt": "2026-10-02T13:12:45.267Z",
+      "updatedAt": "2026-10-02T14:08:52.087Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/timing.txt": {
@@ -429,7 +438,7 @@
       "hash": "066b6c9284e6475e",
       "size": 19,
       "mtimeMs": 1790941883683.354,
-      "updatedAt": "2026-10-02T13:12:45.267Z",
+      "updatedAt": "2026-10-02T14:08:52.087Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-2/compact/transcript.jsonl": {
@@ -438,7 +447,7 @@
       "hash": "41137af331cf588f",
       "size": 1939,
       "mtimeMs": 1790941881994.342,
-      "updatedAt": "2026-10-02T13:12:45.267Z",
+      "updatedAt": "2026-10-02T14:08:52.087Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/final.txt": {
@@ -447,7 +456,7 @@
       "hash": "c9b10f9d6ad2dd09",
       "size": 347,
       "mtimeMs": 1790941895119.6594,
-      "updatedAt": "2026-10-02T13:12:45.268Z",
+      "updatedAt": "2026-10-02T14:08:52.088Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/prompt.txt": {
@@ -456,7 +465,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790941893455.513,
-      "updatedAt": "2026-10-02T13:12:45.268Z",
+      "updatedAt": "2026-10-02T14:08:52.088Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/timing.txt": {
@@ -465,7 +474,7 @@
       "hash": "89aff2a0bcf7579d",
       "size": 19,
       "mtimeMs": 1790941895984.306,
-      "updatedAt": "2026-10-02T13:12:45.268Z",
+      "updatedAt": "2026-10-02T14:08:52.088Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/baseline/transcript.jsonl": {
@@ -474,7 +483,7 @@
       "hash": "6bd73fc633d78551",
       "size": 6487,
       "mtimeMs": 1790941894279.905,
-      "updatedAt": "2026-10-02T13:12:45.268Z",
+      "updatedAt": "2026-10-02T14:08:52.088Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/final.txt": {
@@ -483,7 +492,7 @@
       "hash": "8f8b10a7bb613229",
       "size": 348,
       "mtimeMs": 1790941891160.8594,
-      "updatedAt": "2026-10-02T13:12:45.268Z",
+      "updatedAt": "2026-10-02T14:08:52.089Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/prompt.txt": {
@@ -492,7 +501,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790941889409.4749,
-      "updatedAt": "2026-10-02T13:12:45.268Z",
+      "updatedAt": "2026-10-02T14:08:52.089Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/timing.txt": {
@@ -501,7 +510,7 @@
       "hash": "d9e4275ab7a1d2e1",
       "size": 19,
       "mtimeMs": 1790941892041.2505,
-      "updatedAt": "2026-10-02T13:12:45.269Z",
+      "updatedAt": "2026-10-02T14:08:52.089Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/pair-3/compact/transcript.jsonl": {
@@ -510,7 +519,7 @@
       "hash": "af593d4fd0f500d1",
       "size": 1877,
       "mtimeMs": 1790941890284.9065,
-      "updatedAt": "2026-10-02T13:12:45.269Z",
+      "updatedAt": "2026-10-02T14:08:52.089Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/README.md": {
@@ -519,7 +528,7 @@
       "hash": "28995af6a08ecb45",
       "size": 2584,
       "mtimeMs": 1790941969354.933,
-      "updatedAt": "2026-10-02T13:12:45.269Z",
+      "updatedAt": "2026-10-02T14:08:52.089Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-compact-repeats-2026-10-02/SHA256SUMS.txt": {
@@ -528,7 +537,7 @@
       "hash": "a35815fdbf47a09d",
       "size": 1581,
       "mtimeMs": 1790941968459.5317,
-      "updatedAt": "2026-10-02T13:12:45.269Z",
+      "updatedAt": "2026-10-02T14:08:52.089Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/final.txt": {
@@ -537,7 +546,7 @@
       "hash": "d1e202314d68a11d",
       "size": 382,
       "mtimeMs": 1790942961713.9382,
-      "updatedAt": "2026-10-02T13:12:45.269Z",
+      "updatedAt": "2026-10-02T14:08:52.090Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/prompt.txt": {
@@ -546,7 +555,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790942952318.4592,
-      "updatedAt": "2026-10-02T13:12:45.270Z",
+      "updatedAt": "2026-10-02T14:08:52.090Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/timing.txt": {
@@ -555,7 +564,7 @@
       "hash": "b72f50ae20b97882",
       "size": 19,
       "mtimeMs": 1790942967160.946,
-      "updatedAt": "2026-10-02T13:12:45.270Z",
+      "updatedAt": "2026-10-02T14:08:52.090Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/baseline/transcript.jsonl": {
@@ -564,7 +573,7 @@
       "hash": "71ad565f8d3a7801",
       "size": 61027,
       "mtimeMs": 1790942955848.037,
-      "updatedAt": "2026-10-02T13:12:45.270Z",
+      "updatedAt": "2026-10-02T14:08:52.090Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/final.txt": {
@@ -573,7 +582,7 @@
       "hash": "01e6c3240c2930dc",
       "size": 292,
       "mtimeMs": 1790942944589.85,
-      "updatedAt": "2026-10-02T13:12:45.270Z",
+      "updatedAt": "2026-10-02T14:08:52.091Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/prompt.txt": {
@@ -582,7 +591,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790942937441.2466,
-      "updatedAt": "2026-10-02T13:12:45.271Z",
+      "updatedAt": "2026-10-02T14:08:52.091Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/timing.txt": {
@@ -591,7 +600,7 @@
       "hash": "cf1fc9c7f9718f05",
       "size": 19,
       "mtimeMs": 1790942948127.831,
-      "updatedAt": "2026-10-02T13:12:45.271Z",
+      "updatedAt": "2026-10-02T14:08:52.091Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/compact/transcript.jsonl": {
@@ -600,7 +609,7 @@
       "hash": "bea4b5b9782ccd86",
       "size": 1830,
       "mtimeMs": 1790942940810.001,
-      "updatedAt": "2026-10-02T13:12:45.271Z",
+      "updatedAt": "2026-10-02T14:08:52.091Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/README.md": {
@@ -609,7 +618,7 @@
       "hash": "0b42bfaef2c34f92",
       "size": 2453,
       "mtimeMs": 1790942993074.2578,
-      "updatedAt": "2026-10-02T13:12:45.271Z",
+      "updatedAt": "2026-10-02T14:08:52.091Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-2026-10-02/SHA256SUMS.txt": {
@@ -618,7 +627,7 @@
       "hash": "a28f1e508722341d",
       "size": 694,
       "mtimeMs": 1790942993947.5435,
-      "updatedAt": "2026-10-02T13:12:45.271Z",
+      "updatedAt": "2026-10-02T14:08:52.091Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/aggregate.json": {
@@ -627,7 +636,7 @@
       "hash": "342190a98dcd0574",
       "size": 2458,
       "mtimeMs": 1790943675233.2642,
-      "updatedAt": "2026-10-02T13:12:45.272Z",
+      "updatedAt": "2026-10-02T14:08:52.092Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/final.txt": {
@@ -636,7 +645,7 @@
       "hash": "1084b8745a72e970",
       "size": 368,
       "mtimeMs": 1790943597520.6162,
-      "updatedAt": "2026-10-02T13:12:45.272Z",
+      "updatedAt": "2026-10-02T14:08:52.092Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/prompt.txt": {
@@ -645,7 +654,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790943590310.4363,
-      "updatedAt": "2026-10-02T13:12:45.272Z",
+      "updatedAt": "2026-10-02T14:08:52.092Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/timing.txt": {
@@ -654,7 +663,7 @@
       "hash": "f7ee3490c9d6cfbd",
       "size": 19,
       "mtimeMs": 1790943601220.4849,
-      "updatedAt": "2026-10-02T13:12:45.272Z",
+      "updatedAt": "2026-10-02T14:08:52.092Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/baseline/transcript.jsonl": {
@@ -663,7 +672,7 @@
       "hash": "0b7fb3ee0b63ea48",
       "size": 61003,
       "mtimeMs": 1790943593965.0918,
-      "updatedAt": "2026-10-02T13:12:45.273Z",
+      "updatedAt": "2026-10-02T14:08:52.093Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/final.txt": {
@@ -672,7 +681,7 @@
       "hash": "d518ea3244aaf5b6",
       "size": 303,
       "mtimeMs": 1790943582760.5835,
-      "updatedAt": "2026-10-02T13:12:45.273Z",
+      "updatedAt": "2026-10-02T14:08:52.093Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/prompt.txt": {
@@ -681,7 +690,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790943575086.7385,
-      "updatedAt": "2026-10-02T13:12:45.273Z",
+      "updatedAt": "2026-10-02T14:08:52.094Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/timing.txt": {
@@ -690,7 +699,7 @@
       "hash": "4f0bf3311cd110e4",
       "size": 19,
       "mtimeMs": 1790943586595.241,
-      "updatedAt": "2026-10-02T13:12:45.274Z",
+      "updatedAt": "2026-10-02T14:08:52.094Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-2/compact/transcript.jsonl": {
@@ -699,7 +708,7 @@
       "hash": "75555ad5d52dcc99",
       "size": 1832,
       "mtimeMs": 1790943579159.202,
-      "updatedAt": "2026-10-02T13:12:45.274Z",
+      "updatedAt": "2026-10-02T14:08:52.094Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/final.txt": {
@@ -708,7 +717,7 @@
       "hash": "a0ab893bb113abc8",
       "size": 358,
       "mtimeMs": 1790943627206.287,
-      "updatedAt": "2026-10-02T13:12:45.274Z",
+      "updatedAt": "2026-10-02T14:08:52.094Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/prompt.txt": {
@@ -717,7 +726,7 @@
       "hash": "22ae53ad329f5fb8",
       "size": 556,
       "mtimeMs": 1790943619806.5051,
-      "updatedAt": "2026-10-02T13:12:45.275Z",
+      "updatedAt": "2026-10-02T14:08:52.095Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/timing.txt": {
@@ -726,7 +735,7 @@
       "hash": "e26120fd11c11995",
       "size": 19,
       "mtimeMs": 1790943630955.0347,
-      "updatedAt": "2026-10-02T13:12:45.275Z",
+      "updatedAt": "2026-10-02T14:08:52.095Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/baseline/transcript.jsonl": {
@@ -735,7 +744,7 @@
       "hash": "d8b0623cba23d6d6",
       "size": 61604,
       "mtimeMs": 1790943623602.008,
-      "updatedAt": "2026-10-02T13:12:45.276Z",
+      "updatedAt": "2026-10-02T14:08:52.095Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/final.txt": {
@@ -744,7 +753,7 @@
       "hash": "c2da2efad46824e1",
       "size": 318,
       "mtimeMs": 1790943612419.4128,
-      "updatedAt": "2026-10-02T13:12:45.276Z",
+      "updatedAt": "2026-10-02T14:08:52.095Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/prompt.txt": {
@@ -753,7 +762,7 @@
       "hash": "6154cb80ad2ea312",
       "size": 516,
       "mtimeMs": 1790943605250.5815,
-      "updatedAt": "2026-10-02T13:12:45.276Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/timing.txt": {
@@ -762,7 +771,7 @@
       "hash": "99fc2be46d31df1b",
       "size": 19,
       "mtimeMs": 1790943616077.461,
-      "updatedAt": "2026-10-02T13:12:45.276Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/pair-3/compact/transcript.jsonl": {
@@ -771,7 +780,7 @@
       "hash": "f8a961c2ae5f8e14",
       "size": 1845,
       "mtimeMs": 1790943608970.6294,
-      "updatedAt": "2026-10-02T13:12:45.276Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/README.md": {
@@ -780,7 +789,7 @@
       "hash": "e94b21da0335f721",
       "size": 2785,
       "mtimeMs": 1790943676103.0803,
-      "updatedAt": "2026-10-02T13:12:45.276Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/evidence/agent-eval-scaled-repeats-2026-10-02/SHA256SUMS.txt": {
@@ -789,7 +798,7 @@
       "hash": "397809aa7fdfdfdf",
       "size": 1581,
       "mtimeMs": 1790943693299.2283,
-      "updatedAt": "2026-10-02T13:12:45.277Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/MCP.md": {
@@ -798,7 +807,7 @@
       "hash": "bf322437c554a35c",
       "size": 22133,
       "mtimeMs": 1790946512867.3696,
-      "updatedAt": "2026-10-02T13:12:45.277Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/OPERATING_MODEL.md": {
@@ -807,7 +816,7 @@
       "hash": "4a1f48c63cac95ba",
       "size": 4730,
       "mtimeMs": 1789666454607.4753,
-      "updatedAt": "2026-10-02T13:12:45.277Z",
+      "updatedAt": "2026-10-02T14:08:52.096Z",
       "source": "scan"
     },
     "docs/PRODUCT.md": {
@@ -816,7 +825,7 @@
       "hash": "02e5e6a0f1acf39c",
       "size": 4636,
       "mtimeMs": 1790944225670.7097,
-      "updatedAt": "2026-10-02T13:12:45.277Z",
+      "updatedAt": "2026-10-02T14:08:52.097Z",
       "source": "scan"
     },
     "docs/RELATIONSHIP_ENGINE.md": {
@@ -825,16 +834,25 @@
       "hash": "b6e98a09d94f3e09",
       "size": 12838,
       "mtimeMs": 1789633292458.7703,
-      "updatedAt": "2026-10-02T13:12:45.277Z",
+      "updatedAt": "2026-10-02T14:08:52.097Z",
       "source": "scan"
     },
     "docs/RELEASE_READINESS.md": {
       "description": "Graphit — MVP and release readiness",
-      "tokens": 1326,
-      "hash": "48fb1b216c3ffa50",
-      "size": 5308,
-      "mtimeMs": 1790946732059.2834,
-      "updatedAt": "2026-10-02T13:12:45.277Z",
+      "tokens": 1352,
+      "hash": "4a240dc8f2cb0606",
+      "size": 5411,
+      "mtimeMs": 1790949983944.7676,
+      "updatedAt": "2026-10-02T14:08:52.097Z",
+      "source": "scan"
+    },
+    "docs/RELEASING.md": {
+      "description": "Releasing Graphit",
+      "tokens": 687,
+      "hash": "6ec4049034d84b22",
+      "size": 2745,
+      "mtimeMs": 1790949981214.2898,
+      "updatedAt": "2026-10-02T14:08:52.097Z",
       "source": "scan"
     },
     "docs/ROADMAP.md": {
@@ -843,16 +861,16 @@
       "hash": "807c9cff21575d86",
       "size": 4516,
       "mtimeMs": 1790944226540.6807,
-      "updatedAt": "2026-10-02T13:12:45.278Z",
+      "updatedAt": "2026-10-02T14:08:52.097Z",
       "source": "scan"
     },
     "docs/SECURITY.md": {
       "description": "Graphit — Security Model",
-      "tokens": 1027,
-      "hash": "a5761c51d5d5ebd3",
-      "size": 4107,
-      "mtimeMs": 1790944056135.4683,
-      "updatedAt": "2026-10-02T13:12:45.278Z",
+      "tokens": 1137,
+      "hash": "503d670f180c1ec3",
+      "size": 4547,
+      "mtimeMs": 1790949983088.287,
+      "updatedAt": "2026-10-02T14:08:52.097Z",
       "source": "scan"
     },
     "docs/TESTING.md": {
@@ -861,7 +879,7 @@
       "hash": "14f212ac0d77095d",
       "size": 28034,
       "mtimeMs": 1790946732942.6118,
-      "updatedAt": "2026-10-02T13:12:45.278Z",
+      "updatedAt": "2026-10-02T14:08:52.098Z",
       "source": "scan"
     },
     "docs/VISUALIZATION.md": {
@@ -870,7 +888,7 @@
       "hash": "3d64191380b06843",
       "size": 4683,
       "mtimeMs": 1790944055282.7615,
-      "updatedAt": "2026-10-02T13:12:45.278Z",
+      "updatedAt": "2026-10-02T14:08:52.098Z",
       "source": "scan"
     },
     "LICENSE": {
@@ -879,7 +897,7 @@
       "hash": "3a0b32a74c46bdda",
       "size": 11303,
       "mtimeMs": 1789635916720.077,
-      "updatedAt": "2026-10-02T13:12:45.278Z",
+      "updatedAt": "2026-10-02T14:08:52.098Z",
       "source": "scan"
     },
     "NOTICE": {
@@ -888,7 +906,7 @@
       "hash": "6709c86c10311f81",
       "size": 101,
       "mtimeMs": 1790944360047.68,
-      "updatedAt": "2026-10-02T13:12:45.279Z",
+      "updatedAt": "2026-10-02T14:08:52.098Z",
       "source": "scan"
     },
     "pyproject.toml": {
@@ -897,16 +915,16 @@
       "hash": "ff2fbfdf153dd03e",
       "size": 1686,
       "mtimeMs": 1790945759097.5906,
-      "updatedAt": "2026-10-02T13:12:45.279Z",
+      "updatedAt": "2026-10-02T14:08:52.098Z",
       "source": "scan"
     },
     "README.md": {
       "description": "Project documentation",
-      "tokens": 2859,
-      "hash": "c9a748a03b09ebf8",
-      "size": 11517,
-      "mtimeMs": 1790946749025.7363,
-      "updatedAt": "2026-10-02T13:12:45.279Z",
+      "tokens": 2981,
+      "hash": "ebc434b93907dc05",
+      "size": 12005,
+      "mtimeMs": 1790949990834.5286,
+      "updatedAt": "2026-10-02T14:08:52.098Z",
       "source": "scan"
     },
     "scripts/__init__.py": {
@@ -915,7 +933,7 @@
       "hash": "284aea876a7789ea",
       "size": 77,
       "mtimeMs": 1789636397284.3328,
-      "updatedAt": "2026-10-02T13:12:45.279Z",
+      "updatedAt": "2026-10-02T14:08:52.099Z",
       "source": "scan"
     },
     "scripts/check_dist.py": {
@@ -924,7 +942,7 @@
       "hash": "e5262e47aae34f9f",
       "size": 6217,
       "mtimeMs": 1790945802232.5784,
-      "updatedAt": "2026-10-02T13:12:45.280Z",
+      "updatedAt": "2026-10-02T14:08:52.099Z",
       "source": "scan",
       "symbols": [
         {
@@ -949,7 +967,7 @@
       "hash": "cf87749f1459b25d",
       "size": 7962,
       "mtimeMs": 1790942194839.4558,
-      "updatedAt": "2026-10-02T13:12:45.280Z",
+      "updatedAt": "2026-10-02T14:08:52.099Z",
       "source": "scan",
       "symbols": [
         {
@@ -988,7 +1006,7 @@
       "hash": "2bd30daf9555be90",
       "size": 12134,
       "mtimeMs": 1790940851900.5217,
-      "updatedAt": "2026-10-02T13:12:45.280Z",
+      "updatedAt": "2026-10-02T14:08:52.100Z",
       "source": "scan",
       "symbols": [
         {
@@ -1027,7 +1045,7 @@
       "hash": "a6a13f9db2c67633",
       "size": 91,
       "mtimeMs": 1789541440243.864,
-      "updatedAt": "2026-10-02T13:12:45.281Z",
+      "updatedAt": "2026-10-02T14:08:52.100Z",
       "source": "scan"
     },
     "src/graphit/__main__.py": {
@@ -1036,7 +1054,7 @@
       "hash": "6af09cea9951611e",
       "size": 87,
       "mtimeMs": 1789541440243.864,
-      "updatedAt": "2026-10-02T13:12:45.281Z",
+      "updatedAt": "2026-10-02T14:08:52.100Z",
       "source": "scan"
     },
     "src/graphit/claude.py": {
@@ -1045,7 +1063,7 @@
       "hash": "4a04eb93350284fc",
       "size": 3694,
       "mtimeMs": 1789643748772.486,
-      "updatedAt": "2026-10-02T13:12:45.281Z",
+      "updatedAt": "2026-10-02T14:08:52.100Z",
       "source": "scan",
       "symbols": [
         {
@@ -1084,7 +1102,7 @@
       "hash": "165074ec2ecd6628",
       "size": 47112,
       "mtimeMs": 1790940478403.2124,
-      "updatedAt": "2026-10-02T13:12:45.281Z",
+      "updatedAt": "2026-10-02T14:08:52.101Z",
       "source": "scan",
       "symbols": [
         {
@@ -1305,7 +1323,7 @@
       "hash": "19b4c55f33ced6c8",
       "size": 5834,
       "mtimeMs": 1790940528158.1882,
-      "updatedAt": "2026-10-02T13:12:45.282Z",
+      "updatedAt": "2026-10-02T14:08:52.101Z",
       "source": "scan",
       "symbols": [
         {
@@ -1351,7 +1369,7 @@
       "hash": "9460f500dbad23ad",
       "size": 3743,
       "mtimeMs": 1789632840501.2036,
-      "updatedAt": "2026-10-02T13:12:45.282Z",
+      "updatedAt": "2026-10-02T14:08:52.101Z",
       "source": "scan",
       "symbols": [
         {
@@ -1383,7 +1401,7 @@
       "hash": "732268a91d11d821",
       "size": 6604,
       "mtimeMs": 1789632945066.0337,
-      "updatedAt": "2026-10-02T13:12:45.282Z",
+      "updatedAt": "2026-10-02T14:08:52.102Z",
       "source": "scan",
       "symbols": [
         {
@@ -1422,7 +1440,7 @@
       "hash": "a1ad8cede194a11e",
       "size": 16194,
       "mtimeMs": 1790943979864.3552,
-      "updatedAt": "2026-10-02T13:12:45.282Z",
+      "updatedAt": "2026-10-02T14:08:52.102Z",
       "source": "scan",
       "symbols": [
         {
@@ -1482,7 +1500,7 @@
       "hash": "20a8c3afedf6aa06",
       "size": 18620,
       "mtimeMs": 1789559791848.8896,
-      "updatedAt": "2026-10-02T13:12:45.283Z",
+      "updatedAt": "2026-10-02T14:08:52.103Z",
       "source": "scan",
       "symbols": [
         {
@@ -1591,7 +1609,7 @@
       "hash": "66bde057662826ee",
       "size": 1545,
       "mtimeMs": 1790946490940.4868,
-      "updatedAt": "2026-10-02T13:12:45.283Z",
+      "updatedAt": "2026-10-02T14:08:52.103Z",
       "source": "scan"
     },
     "src/graphit/mcp_server.py": {
@@ -1600,7 +1618,7 @@
       "hash": "9f13a99f697fa131",
       "size": 17130,
       "mtimeMs": 1789666215610.844,
-      "updatedAt": "2026-10-02T13:12:45.283Z",
+      "updatedAt": "2026-10-02T14:08:52.103Z",
       "source": "scan",
       "symbols": [
         {
@@ -1632,7 +1650,7 @@
       "hash": "17ba0a106e6eeb1c",
       "size": 4098,
       "mtimeMs": 1789542346962.4382,
-      "updatedAt": "2026-10-02T13:12:45.284Z",
+      "updatedAt": "2026-10-02T14:08:52.103Z",
       "source": "scan",
       "symbols": [
         {
@@ -1678,7 +1696,7 @@
       "hash": "01ba4719c80b6fe9",
       "size": 1,
       "mtimeMs": 1789541329856.958,
-      "updatedAt": "2026-10-02T13:12:45.284Z",
+      "updatedAt": "2026-10-02T14:08:52.104Z",
       "source": "scan"
     },
     "src/graphit/queries.py": {
@@ -1687,7 +1705,7 @@
       "hash": "248962d914e27b29",
       "size": 62074,
       "mtimeMs": 1789666069342.2666,
-      "updatedAt": "2026-10-02T13:12:45.284Z",
+      "updatedAt": "2026-10-02T14:08:52.104Z",
       "source": "scan",
       "symbols": [
         {
@@ -1908,7 +1926,7 @@
       "hash": "144d1e3fb1985e07",
       "size": 28763,
       "mtimeMs": 1789632897137.5564,
-      "updatedAt": "2026-10-02T13:12:45.285Z",
+      "updatedAt": "2026-10-02T14:08:52.104Z",
       "source": "scan",
       "symbols": [
         {
@@ -2073,7 +2091,7 @@
       "hash": "2709b0b8db8a58ab",
       "size": 42,
       "mtimeMs": 1789542837357.3357,
-      "updatedAt": "2026-10-02T13:12:45.285Z",
+      "updatedAt": "2026-10-02T14:08:52.105Z",
       "source": "scan"
     },
     "src/graphit/scanners/postgresql.py": {
@@ -2082,7 +2100,7 @@
       "hash": "8f6b1bb93e835640",
       "size": 18242,
       "mtimeMs": 1789658185650.357,
-      "updatedAt": "2026-10-02T13:12:45.285Z",
+      "updatedAt": "2026-10-02T14:08:52.105Z",
       "source": "scan",
       "symbols": [
         {
@@ -2149,7 +2167,7 @@
       "hash": "4eaa52d0b911a504",
       "size": 2788,
       "mtimeMs": 1789658105038.6821,
-      "updatedAt": "2026-10-02T13:12:45.286Z",
+      "updatedAt": "2026-10-02T14:08:52.105Z",
       "source": "scan",
       "symbols": [
         {
@@ -2230,7 +2248,7 @@
       "hash": "882f69272986638a",
       "size": 11460,
       "mtimeMs": 1789654299641.7512,
-      "updatedAt": "2026-10-02T13:12:45.286Z",
+      "updatedAt": "2026-10-02T14:08:52.105Z",
       "source": "scan",
       "symbols": [
         {
@@ -2297,7 +2315,7 @@
       "hash": "88c42de2384fc4f9",
       "size": 2832,
       "mtimeMs": 1789653998024.402,
-      "updatedAt": "2026-10-02T13:12:45.286Z",
+      "updatedAt": "2026-10-02T14:08:52.106Z",
       "source": "scan",
       "symbols": [
         {
@@ -2329,7 +2347,7 @@
       "hash": "ca3df228c2dcc5a0",
       "size": 16576,
       "mtimeMs": 1789658633143.9297,
-      "updatedAt": "2026-10-02T13:12:45.286Z",
+      "updatedAt": "2026-10-02T14:08:52.106Z",
       "source": "scan",
       "symbols": [
         {
@@ -2417,7 +2435,7 @@
       "hash": "029dd45875512f0d",
       "size": 6543,
       "mtimeMs": 1789544167433.86,
-      "updatedAt": "2026-10-02T13:12:45.287Z",
+      "updatedAt": "2026-10-02T14:08:52.107Z",
       "source": "scan",
       "symbols": [
         {
@@ -2505,7 +2523,7 @@
       "hash": "9401159368d2c4fe",
       "size": 8693,
       "mtimeMs": 1789542400205.0725,
-      "updatedAt": "2026-10-02T13:12:45.287Z",
+      "updatedAt": "2026-10-02T14:08:52.107Z",
       "source": "scan",
       "symbols": [
         {
@@ -2537,7 +2555,7 @@
       "hash": "9e94d30fc1fad065",
       "size": 26,
       "mtimeMs": 1789541440243.864,
-      "updatedAt": "2026-10-02T13:12:45.287Z",
+      "updatedAt": "2026-10-02T14:08:52.107Z",
       "source": "scan"
     },
     "tests/test_agent_eval_bundle.py": {
@@ -2546,7 +2564,7 @@
       "hash": "cc1ea61ef75e9d09",
       "size": 5582,
       "mtimeMs": 1790942174183.9502,
-      "updatedAt": "2026-10-02T13:12:45.288Z",
+      "updatedAt": "2026-10-02T14:08:52.107Z",
       "source": "scan",
       "symbols": [
         {
@@ -2592,7 +2610,7 @@
       "hash": "94bdedf2c5cd295a",
       "size": 5875,
       "mtimeMs": 1790946492766.1846,
-      "updatedAt": "2026-10-02T13:12:45.288Z",
+      "updatedAt": "2026-10-02T14:08:52.108Z",
       "source": "scan",
       "symbols": [
         {
@@ -2666,7 +2684,7 @@
       "hash": "1a4e15540ec2cbbe",
       "size": 15538,
       "mtimeMs": 1789546319057.4934,
-      "updatedAt": "2026-10-02T13:12:45.288Z",
+      "updatedAt": "2026-10-02T14:08:52.108Z",
       "source": "scan",
       "symbols": [
         {
@@ -2775,7 +2793,7 @@
       "hash": "548ff5adfbe1799b",
       "size": 8517,
       "mtimeMs": 1790946491885.228,
-      "updatedAt": "2026-10-02T13:12:45.288Z",
+      "updatedAt": "2026-10-02T14:08:52.108Z",
       "source": "scan",
       "symbols": [
         {
@@ -2877,7 +2895,7 @@
       "hash": "cc7295da351d510e",
       "size": 7800,
       "mtimeMs": 1789655207267.38,
-      "updatedAt": "2026-10-02T13:12:45.289Z",
+      "updatedAt": "2026-10-02T14:08:52.108Z",
       "source": "scan",
       "symbols": [
         {
@@ -2944,7 +2962,7 @@
       "hash": "45c1606f2d477f2a",
       "size": 31541,
       "mtimeMs": 1789645475906.129,
-      "updatedAt": "2026-10-02T13:12:45.289Z",
+      "updatedAt": "2026-10-02T14:08:52.109Z",
       "source": "scan",
       "symbols": [
         {
@@ -3032,7 +3050,7 @@
       "hash": "3ab0e1139b2f6eca",
       "size": 4751,
       "mtimeMs": 1790945784118.5134,
-      "updatedAt": "2026-10-02T13:12:45.289Z",
+      "updatedAt": "2026-10-02T14:08:52.109Z",
       "source": "scan",
       "symbols": [
         {
@@ -3106,7 +3124,7 @@
       "hash": "bb6cb5e709969aae",
       "size": 3739,
       "mtimeMs": 1789560852836.052,
-      "updatedAt": "2026-10-02T13:12:45.289Z",
+      "updatedAt": "2026-10-02T14:08:52.109Z",
       "source": "scan",
       "symbols": [
         {
@@ -3138,7 +3156,7 @@
       "hash": "00781212306bcc38",
       "size": 11081,
       "mtimeMs": 1789559823500.5525,
-      "updatedAt": "2026-10-02T13:12:45.289Z",
+      "updatedAt": "2026-10-02T14:08:52.109Z",
       "source": "scan",
       "symbols": [
         {
@@ -3226,7 +3244,7 @@
       "hash": "0a0e1159b136fdeb",
       "size": 5941,
       "mtimeMs": 1790943980725.01,
-      "updatedAt": "2026-10-02T13:12:45.290Z",
+      "updatedAt": "2026-10-02T14:08:52.109Z",
       "source": "scan",
       "symbols": [
         {
@@ -3265,7 +3283,7 @@
       "hash": "f485b86d786a0a7e",
       "size": 16521,
       "mtimeMs": 1789666272575.2615,
-      "updatedAt": "2026-10-02T13:12:45.290Z",
+      "updatedAt": "2026-10-02T14:08:52.110Z",
       "source": "scan",
       "symbols": [
         {
@@ -3360,7 +3378,7 @@
       "hash": "e3d0cc0e7b13c298",
       "size": 7488,
       "mtimeMs": 1789659087214.573,
-      "updatedAt": "2026-10-02T13:12:45.290Z",
+      "updatedAt": "2026-10-02T14:08:52.110Z",
       "source": "scan",
       "symbols": [
         {
@@ -3413,7 +3431,7 @@
       "hash": "f55b75ee504e0c63",
       "size": 10557,
       "mtimeMs": 1789570752568.087,
-      "updatedAt": "2026-10-02T13:12:45.290Z",
+      "updatedAt": "2026-10-02T14:08:52.110Z",
       "source": "scan",
       "symbols": [
         {
@@ -3480,7 +3498,7 @@
       "hash": "fb5e7645b789b3f6",
       "size": 12563,
       "mtimeMs": 1789554659241.5183,
-      "updatedAt": "2026-10-02T13:12:45.290Z",
+      "updatedAt": "2026-10-02T14:08:52.110Z",
       "source": "scan",
       "symbols": [
         {
@@ -3575,7 +3593,7 @@
       "hash": "8bb7ce35f3f52474",
       "size": 301,
       "mtimeMs": 1789656474323.4795,
-      "updatedAt": "2026-10-02T13:12:45.291Z",
+      "updatedAt": "2026-10-02T14:08:52.110Z",
       "source": "scan"
     },
     "tests/test_manual_graph.py": {
@@ -3584,7 +3602,7 @@
       "hash": "59178cb02ab7d47c",
       "size": 12531,
       "mtimeMs": 1789633239231.9153,
-      "updatedAt": "2026-10-02T13:12:45.291Z",
+      "updatedAt": "2026-10-02T14:08:52.111Z",
       "source": "scan",
       "symbols": [
         {
@@ -3651,7 +3669,7 @@
       "hash": "e537bacdffc85892",
       "size": 19558,
       "mtimeMs": 1789574593422.4224,
-      "updatedAt": "2026-10-02T13:12:45.291Z",
+      "updatedAt": "2026-10-02T14:08:52.111Z",
       "source": "scan",
       "symbols": [
         {
@@ -3739,7 +3757,7 @@
       "hash": "77cb0a31eb058849",
       "size": 6076,
       "mtimeMs": 1789654396676.032,
-      "updatedAt": "2026-10-02T13:12:45.291Z",
+      "updatedAt": "2026-10-02T14:08:52.111Z",
       "source": "scan",
       "symbols": [
         {
@@ -3806,7 +3824,7 @@
       "hash": "c42eeca5a462295f",
       "size": 6063,
       "mtimeMs": 1789660267546.3943,
-      "updatedAt": "2026-10-02T13:12:45.292Z",
+      "updatedAt": "2026-10-02T14:08:52.111Z",
       "source": "scan",
       "symbols": [
         {
@@ -3887,7 +3905,7 @@
       "hash": "620f744a4560304f",
       "size": 1023,
       "mtimeMs": 1790946493617.6184,
-      "updatedAt": "2026-10-02T13:12:45.292Z",
+      "updatedAt": "2026-10-02T14:08:52.112Z",
       "source": "scan"
     },
     "tests/test_mcp_server.py": {
@@ -3896,7 +3914,7 @@
       "hash": "db496e995b4635dd",
       "size": 22372,
       "mtimeMs": 1789666241113.2588,
-      "updatedAt": "2026-10-02T13:12:45.292Z",
+      "updatedAt": "2026-10-02T14:08:52.112Z",
       "source": "scan",
       "symbols": [
         {
@@ -4019,7 +4037,7 @@
       "hash": "b0c1c9096447a0da",
       "size": 5404,
       "mtimeMs": 1789543226719.8472,
-      "updatedAt": "2026-10-02T13:12:45.292Z",
+      "updatedAt": "2026-10-02T14:08:52.112Z",
       "source": "scan",
       "symbols": [
         {
@@ -4086,7 +4104,7 @@
       "hash": "4d9d14fd239a1662",
       "size": 13570,
       "mtimeMs": 1789660507619.1995,
-      "updatedAt": "2026-10-02T13:12:45.293Z",
+      "updatedAt": "2026-10-02T14:08:52.112Z",
       "source": "scan",
       "symbols": [
         {
@@ -4118,7 +4136,7 @@
       "hash": "02a76891ae59fd10",
       "size": 18974,
       "mtimeMs": 1789658191282.0403,
-      "updatedAt": "2026-10-02T13:12:45.293Z",
+      "updatedAt": "2026-10-02T14:08:52.113Z",
       "source": "scan",
       "symbols": [
         {
@@ -4255,7 +4273,7 @@
       "hash": "4328fdbc570a00b0",
       "size": 6079,
       "mtimeMs": 1789542388586.021,
-      "updatedAt": "2026-10-02T13:12:45.293Z",
+      "updatedAt": "2026-10-02T14:08:52.113Z",
       "source": "scan",
       "symbols": [
         {
@@ -4357,7 +4375,7 @@
       "hash": "374f0fb93cc7cdbd",
       "size": 34873,
       "mtimeMs": 1789645416613.3928,
-      "updatedAt": "2026-10-02T13:12:45.293Z",
+      "updatedAt": "2026-10-02T14:08:52.113Z",
       "source": "scan",
       "symbols": [
         {
@@ -4572,13 +4590,22 @@
         }
       ]
     },
+    "tests/test_release_workflow.py": {
+      "description": "Static safety contract for the first PyPI release workflow.",
+      "tokens": 371,
+      "hash": "6445f07129400c7d",
+      "size": 1296,
+      "mtimeMs": 1790949980371.9539,
+      "updatedAt": "2026-10-02T14:08:52.113Z",
+      "source": "scan"
+    },
     "tests/test_review.py": {
       "description": "Local review decisions for inferred, never database-confirmed, pairs.",
       "tokens": 7120,
       "hash": "b13fad858e19eb6f",
       "size": 24920,
       "mtimeMs": 1789558749822.6274,
-      "updatedAt": "2026-10-02T13:12:45.294Z",
+      "updatedAt": "2026-10-02T14:08:52.114Z",
       "source": "scan",
       "symbols": [
         {
@@ -4736,7 +4763,7 @@
       "hash": "e05c2d502a361fce",
       "size": 17155,
       "mtimeMs": 1789654397574.131,
-      "updatedAt": "2026-10-02T13:12:45.294Z",
+      "updatedAt": "2026-10-02T14:08:52.114Z",
       "source": "scan",
       "symbols": [
         {
@@ -4831,7 +4858,7 @@
       "hash": "3c1e3de0e5793ae4",
       "size": 5944,
       "mtimeMs": 1789654162174.5278,
-      "updatedAt": "2026-10-02T13:12:45.294Z",
+      "updatedAt": "2026-10-02T14:08:52.115Z",
       "source": "scan",
       "symbols": [
         {
@@ -4898,7 +4925,7 @@
       "hash": "01beceb399e72295",
       "size": 20083,
       "mtimeMs": 1789658649345.6582,
-      "updatedAt": "2026-10-02T13:12:45.294Z",
+      "updatedAt": "2026-10-02T14:08:52.115Z",
       "source": "scan",
       "symbols": [
         {
@@ -5021,7 +5048,7 @@
       "hash": "cc94a35714663263",
       "size": 3803,
       "mtimeMs": 1789542627895.5137,
-      "updatedAt": "2026-10-02T13:12:45.295Z",
+      "updatedAt": "2026-10-02T14:08:52.115Z",
       "source": "scan",
       "symbols": [
         {
@@ -5081,7 +5108,7 @@
       "hash": "85befd08e29652c7",
       "size": 4062,
       "mtimeMs": 1789542400205.0725,
-      "updatedAt": "2026-10-02T13:12:45.295Z",
+      "updatedAt": "2026-10-02T14:08:52.115Z",
       "source": "scan",
       "symbols": [
         {
@@ -5134,7 +5161,7 @@
       "hash": "dd0a568252fc513e",
       "size": 7743,
       "mtimeMs": 1789634130523.7502,
-      "updatedAt": "2026-10-02T13:12:45.296Z",
+      "updatedAt": "2026-10-02T14:08:52.115Z",
       "source": "scan",
       "symbols": [
         {

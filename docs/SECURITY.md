@@ -102,6 +102,13 @@ unredacted exception context from drivers.
 - Run dependency and artifact security checks in CI.
 - Standalone binaries must publish hashes and signed provenance when introduced.
 
+The PyPI release workflow separates an unprivileged build/verification job from
+the publishing job. Actions and release tools are pinned, and only the publish
+job receives `id-token: write`. It uses a protected `pypi` environment and
+short-lived Trusted Publishing credentials; no PyPI token belongs in GitHub
+secrets or local configuration. The publish job consumes verified artifacts and
+does not check out or execute repository source.
+
 The initial CI workflow uses read-only repository token permissions and a
 disposable PostgreSQL service with a test-only password. It does not consume
 production database credentials or publish artifacts. The workflow checks

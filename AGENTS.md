@@ -25,8 +25,9 @@ serves compact context through CLI and MCP.
 9. `docs/VISUALIZATION.md`
 10. `docs/SECURITY.md`
 11. `docs/TESTING.md`
-12. `docs/ROADMAP.md`
-13. `docs/DECISIONS.md`
+12. `docs/RELEASING.md`
+13. `docs/ROADMAP.md`
+14. `docs/DECISIONS.md`
 
 ## Product invariant
 

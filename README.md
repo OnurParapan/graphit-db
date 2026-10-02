@@ -70,7 +70,7 @@ project and restart Codex. Use `graphit mcp setup-codex --compact-tools` to
 expose only the eight core discovery/table/relationship/graph tools and reduce
 Codex's up-front tool-definition context; the full 14-tool profile remains the
 default. `graphit-db` is not published yet. See
-[MCP setup](docs/MCP.md#codex-project-setup-opt-in).
+[MCP setup](https://github.com/OnurParapan/graphit-db/blob/main/docs/MCP.md#codex-project-setup-opt-in).
 For Claude Code, use `graphit mcp setup-claude` instead; its project `.mcp.json`
 entry has machine-specific absolute paths, so review it before committing.
 `graphit candidates --source NAME` now previews conservative, evidence-labeled
@@ -132,7 +132,8 @@ database overview, saved object search, table context, direct FK relationships a
 reviewed one-hop graph context, shortest FK paths, local version discovery, and explicit snapshot
 diffs through a read-only stdio
 MCP server. See
-[`docs/MCP.md`](docs/MCP.md) for the current tool contract and manual setup.
+[`docs/MCP.md`](https://github.com/OnurParapan/graphit-db/blob/main/docs/MCP.md)
+for the current tool contract and manual setup.
 
 The commands above are implemented, but `pipx install graphit-db` is not yet
 available from PyPI. For a local installation, run `python -m pip install -e .`
@@ -140,8 +141,10 @@ in this repository, or install a locally built wheel. Set the named password
 environment variable before `graphit source test` or `graphit scan`, and use a
 read-only PostgreSQL account. Codex/Claude setup is an explicit separate step;
 `graphit init` does not change agent configuration. See
-[release readiness](docs/RELEASE_READINESS.md) for verified and outstanding
-gates.
+[release readiness](https://github.com/OnurParapan/graphit-db/blob/main/docs/RELEASE_READINESS.md)
+for verified and outstanding gates, and
+[RELEASING.md](https://github.com/OnurParapan/graphit-db/blob/main/docs/RELEASING.md)
+for the protected PyPI procedure.
 
 ## Structural scope
 
@@ -241,10 +244,13 @@ graphit/
 └── AGENTS.md
 ```
 
-See [ROADMAP.md](docs/ROADMAP.md) for implementation status and
-[ARCHITECTURE.md](docs/ARCHITECTURE.md) for technical boundaries.
+See [ROADMAP.md](https://github.com/OnurParapan/graphit-db/blob/main/docs/ROADMAP.md)
+for implementation status and
+[ARCHITECTURE.md](https://github.com/OnurParapan/graphit-db/blob/main/docs/ARCHITECTURE.md)
+for technical boundaries.
 
 Copyright 2026 Onur Parapan. Graphit is licensed under
-[Apache License 2.0](LICENSE); see [NOTICE](NOTICE). The package is not
+[Apache License 2.0](https://github.com/OnurParapan/graphit-db/blob/main/LICENSE);
+see [NOTICE](https://github.com/OnurParapan/graphit-db/blob/main/NOTICE). The package is not
 published on PyPI yet; `graphit-db` remains a distribution-name candidate
 until publication succeeds.

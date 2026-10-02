@@ -1704,6 +1704,42 @@
       "related_bugs": ["bug-130"],
       "occurrences": 1,
       "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-143",
+      "timestamp": "2026-10-02T18:32:00+03:00",
+      "error_message": "The web reader returned cache-miss errors for the graphit-db PyPI JSON and project URLs.",
+      "file": "https://pypi.org/pypi/graphit-db/json; https://pypi.org/project/graphit-db/",
+      "root_cause": "The web fetch path could not populate these uncached PyPI endpoints.",
+      "fix": "Queried the official PyPI JSON API directly with read-only network approval; it returned HTTP 404 for graphit-db.",
+      "tags": ["pypi", "web", "verification"],
+      "related_bugs": ["bug-133"],
+      "occurrences": 2,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-144",
+      "timestamp": "2026-10-02T18:33:00+03:00",
+      "error_message": "The first direct PyPI JSON request could not connect inside the default sandbox.",
+      "file": "PyPI package-name verification",
+      "root_cause": "Default sandbox networking blocks direct PyPI access.",
+      "fix": "Repeated only the official read-only endpoint with scoped network approval; graphit-db was absent at the check time.",
+      "tags": ["pypi", "network", "sandbox"],
+      "related_bugs": ["bug-125", "bug-134"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
+    },
+    {
+      "id": "bug-145",
+      "timestamp": "2026-10-02T18:40:00+03:00",
+      "error_message": "The first combined release-documentation patch failed because the expected README release-readiness lines wrapped differently.",
+      "file": "README.md; .github/workflows/release.yml; release docs and tests",
+      "root_cause": "A large multi-file patch used stale README line wrapping after earlier absolute-link edits.",
+      "fix": "Confirmed no partial changes, applied workflow/docs separately, reread the exact README range, and patched it narrowly.",
+      "tags": ["patch", "documentation", "release"],
+      "related_bugs": ["bug-130", "bug-142"],
+      "occurrences": 1,
+      "last_seen": "2026-10-02"
     }
   ]
 }

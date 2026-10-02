@@ -41,9 +41,10 @@ fixed POSIX virtual-environment symlink bug.
 2. The cold-backup/restore and pre-upgrade procedure is documented in
    `OPERATING_MODEL.md`. Test an upgrade path from a previous released version
    when one exists; there is no prior public release yet.
-3. Confirm distribution-name ownership/availability at publication time,
-   build and inspect release artifacts, and publish checksums/provenance.
-   No upload or name reservation has been performed here.
+3. Complete the one-time pending Trusted Publisher and protected GitHub
+   `pypi` environment setup described in `RELEASING.md`. The release workflow
+   is prepared but deliberately cannot upload until that user-owned setup and
+   a matching GitHub Release exist. No upload or name reservation has occurred.
 
 The opt-in MCP index lookup reuses the shared local query and passed the
 disposable PostgreSQL 16 fixture end to end. This validates the fixture's

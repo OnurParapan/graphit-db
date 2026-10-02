@@ -1381,3 +1381,27 @@ no-script representation preserves accessibility and reviewability.
 
 **Revisit when:** Multi-hop projection has a measured use case. Expansion must
 remain bounded and must not turn the local viewer into a required frontend.
+
+## ADR-076 — Publish through a protected PyPI Trusted Publisher
+
+**Status:** Accepted.
+
+**Decision:** Prepare a dedicated `release.yml` that runs only for a published
+GitHub Release, requires its `vVERSION` tag to match `pyproject.toml`, and keeps
+build/verification separate from publication. Pin every action and release tool.
+Pass only verified wheel/sdist artifacts to a `pypi` environment whose publish
+job alone receives `id-token: write`. Use PyPI Trusted Publishing, short-lived
+OIDC credentials, and default PEP 740 attestations; do not create a long-lived
+PyPI token or publish from a developer machine. Require a human deployment
+approval and keep the workflow inert until Onur Parapan registers the exact
+pending publisher and protected GitHub environment.
+
+**Reason:** PyPI publication is irreversible for a version and has a different
+trust boundary from ordinary CI. Separate jobs prevent build dependencies from
+running with publishing authority, full action hashes reduce mutable-action
+risk, and the environment approval preserves an explicit human decision at the
+only step that can upload. Trusted Publishing avoids copying a reusable secret.
+
+**Revisit when:** The first `graphit-db` release succeeds. Record the PyPI file
+hashes, verified repository URL, attestations, clean public installation checks,
+and any required publisher/workflow correction before releasing another version.

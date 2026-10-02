@@ -1,19 +1,19 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T13:12:45.302Z
-> Files: 161 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-02T14:08:52.122Z
+> Files: 164 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.editorconfig` — Editor configuration (~79 tok)
 - `.gitattributes` — Git attributes (~72 tok)
 - `.gitignore` — Git ignore rules (~131 tok)
-- `AGENTS.md` — OpenWolf (~1207 tok)
+- `AGENTS.md` — OpenWolf (~1213 tok)
 - `CLAUDE.md` — OpenWolf (~57 tok)
 - `LICENSE` — Canonical Apache License 2.0 text (~3015 tok)
 - `NOTICE` (~27 tok)
 - `pyproject.toml` — Python project configuration (~482 tok)
-- `README.md` — Project documentation (~2859 tok)
+- `README.md` — Project documentation (~2981 tok)
 
 ## .claude/
 
@@ -41,6 +41,7 @@
 ## .github/workflows/
 
 - `ci.yml` — CI: CI (~715 tok)
+- `release.yml` — CI: Release to PyPI (~737 tok)
 
 ## docs/
 
@@ -49,15 +50,16 @@
 - `CLI.md` — Graphit — CLI Contract (~6963 tok)
 - `CODEX_START.md` — Graphit — Implementation Start Prompt (~236 tok)
 - `DATA_MODEL.md` — Graphit — Local Knowledge Model (~3622 tok)
-- `DECISIONS.md` — Graphit — Architecture Decision Log (~17329 tok)
-- `DEVELOPMENT.md` — Graphit — Development Guide (~745 tok)
+- `DECISIONS.md` — Graphit — Architecture Decision Log (~17681 tok)
+- `DEVELOPMENT.md` — Graphit — Development Guide (~797 tok)
 - `MCP.md` — Graphit — MCP Contract (~5527 tok)
 - `OPERATING_MODEL.md` — Graphit — Operating Model (~1173 tok)
 - `PRODUCT.md` — Graphit — Product Specification (~1156 tok)
 - `RELATIONSHIP_ENGINE.md` — Graphit — Relationship Discovery (~3203 tok)
-- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1326 tok)
+- `RELEASE_READINESS.md` — Graphit — MVP and release readiness (~1352 tok)
+- `RELEASING.md` — Releasing Graphit (~687 tok)
 - `ROADMAP.md` — Graphit — Roadmap (~1123 tok)
-- `SECURITY.md` — Graphit — Security Model (~1027 tok)
+- `SECURITY.md` — Graphit — Security Model (~1137 tok)
 - `TESTING.md` — Graphit — Testing Strategy (~7007 tok)
 - `VISUALIZATION.md` — Graphit — Visualization (~1171 tok)
 
@@ -690,6 +692,7 @@
   - fn `test_direct_relationships_bounds_and_excludes_inferred_edges` L738-766 (~382 tok)
   - fn `test_direct_relationships_latest_snapshot_and_errors` L767-783 (~231 tok)
   - fn `test_direct_relationships_rejects_ambiguous_bare_table` L784-913 (~1566 tok)
+- `test_release_workflow.py` — Static safety contract for the first PyPI release workflow. (~371 tok)
 - `test_review.py` — Local review decisions for inferred, never database-confirmed, pairs. (~7120 tok)
   - fn `_source` L32-45 (~104 tok)
   - fn `_save` L46-104 (~561 tok)

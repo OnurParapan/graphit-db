@@ -481,6 +481,11 @@
 - Apache-2.0 is approved and included in package metadata/artifacts. Onur
   Parapan is the confirmed copyright holder and package author; remaining
   release gates must still finish before public distribution.
+- `graphit-db` returned HTTP 404 from the official PyPI JSON API on 2026-10-02,
+  but that does not reserve the name. Release automation uses a pinned,
+  build/publish-separated `release.yml` with a protected `pypi` environment and
+  Trusted Publishing; it remains inert until the user completes pending-publisher
+  setup and explicitly approves the first release.
 - Stale project MCP paths are repaired only with an explicit `--refresh` flag;
   default setup still rejects any differing Graphit entry. This is safe
   regeneration, not a portable launcher for every machine.

@@ -1,0 +1,84 @@
+name: Release to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pypi-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and verify distributions
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.14"
+
+      - name: Require the release tag to match the package version
+        run: >-
+          python -c "import os, pathlib, tomllib;
+          version = str(tomllib.loads(pathlib.Path('pyproject.toml').read_text(encoding='utf-8'))['project']['version']);
+          expected = f'v{version}'; actual = os.environ['RELEASE_TAG'];
+          assert actual == expected, f'release tag {actual!r} must equal {expected!r}'"
+
+      - name: Build source and wheel distributions
+        run: |
+          python -m pip install build==1.6.1 twine==7.0.0
+          python -m build
+
+      - name: Inspect distribution contents and metadata
+        run: |
+          python scripts/check_dist.py
+          python -m twine check --strict dist/*
+
+      - name: Smoke test the release wheel
+        run: |
+          python -m venv .release-smoke
+          .release-smoke/bin/python -m pip install dist/*.whl
+          .release-smoke/bin/python -m pip check
+          .release-smoke/bin/graphit version
+          .release-smoke/bin/python scripts/smoke_installed.py
+
+      - name: Store verified distributions
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: python-package-distributions
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    name: Publish verified distributions to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: pypi
+      url: https://pypi.org/project/graphit-db/
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download verified distributions
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Publish distributions with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1
+        with:
+          print-hash: true
