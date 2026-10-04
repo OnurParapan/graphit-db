@@ -15,7 +15,7 @@ _ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
 _ENGINES = frozenset({"postgresql", "mssql", "oracle"})
 _SSL_MODES = {
     "postgresql": frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"}),
-    "mssql": frozenset({"disable", "require"}),
+    "mssql": frozenset({"disable", "require", "require-trust-server-certificate"}),
     "oracle": frozenset({"disable", "require"}),
 }
 _CREDENTIAL_KINDS = frozenset({"password_env", "url_env", "url_dotenv"})
@@ -31,6 +31,22 @@ _DOTENV_NAMES = frozenset(
         ".env.production.local",
     }
 )
+_DOTENV_EXCLUDED_PARENTS = frozenset(
+    {
+        ".git",
+        ".graphit",
+        ".hg",
+        ".svn",
+        ".tox",
+        ".venv",
+        "build",
+        "dist",
+        "node_modules",
+        "venv",
+        "vendor",
+    }
+)
+_MAX_DOTENV_DEPTH = 3
 
 
 class SourceError(Exception):
@@ -66,6 +82,23 @@ class SourceConfig:
     credential_file: str | None = None
 
 
+def valid_dotenv_credential_file(value: str | None) -> bool:
+    """Accept a bounded project-relative dotenv path without traversal."""
+
+    if value is None or "\\" in value or any(ord(char) < 32 for char in value):
+        return False
+    path = Path(value)
+    parts = path.parts
+    return (
+        not path.is_absolute()
+        and 1 <= len(parts) <= _MAX_DOTENV_DEPTH + 1
+        and all(part not in {"", ".", ".."} for part in parts)
+        and path.name in _DOTENV_NAMES
+        and not any(part.casefold() in _DOTENV_EXCLUDED_PARENTS for part in parts[:-1])
+        and path.as_posix() == value
+    )
+
+
 def logical_namespace(engine: str) -> str:
     """Return the stable graph-key namespace, preserving PostgreSQL v1 keys."""
 
@@ -99,7 +132,7 @@ def validate_source(source: SourceConfig) -> None:
     if source.credential_kind not in _CREDENTIAL_KINDS:
         raise SourceError("Credential kind is invalid.")
     if source.credential_kind == "url_dotenv":
-        if source.credential_file not in _DOTENV_NAMES:
+        if not valid_dotenv_credential_file(source.credential_file):
             raise SourceError("Credential dotenv file is not in the safe project allowlist.")
     elif source.credential_file is not None:
         raise SourceError("Credential file is valid only for a dotenv URL reference.")

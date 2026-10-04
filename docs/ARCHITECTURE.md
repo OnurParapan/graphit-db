@@ -93,20 +93,22 @@ a consistent catalog view. Adapter-specific I/O does not leak into
 the domain-facing metadata types.
 
 The SQL Server adapter uses pyodbc and Microsoft ODBC Driver 18/17. It requests
-ODBC read-only access, rejects principals with direct database/object write
-permissions, applies login/query timeouts, and reads only bounded `sys.*`
-catalog SELECTs. Because ODBC read-only mode is advisory, principal permission
-rejection is part of the safety contract. The Oracle adapter uses
+ODBC read-only access, detects and visibly warns about principals with direct
+database/object write permissions, applies login/query timeouts, and reads only
+fixed bounded `sys.*` catalog SELECTs. Privileged credentials are permitted
+because Graphit has no SQL-generation or DDL/DML execution path; the advisory
+ODBC flag and final rollback remain defense in depth. The Oracle adapter uses
 python-oracledb Thin mode, starts `SET TRANSACTION READ ONLY` before catalog
-access, applies a per-round-trip timeout, rejects SYS, and reads bounded
-`ALL_*` dictionary views. Both normalize tables, views, columns, declared keys,
+access, applies a per-round-trip timeout, rejects SYS, discovers the current
+user plus visible non-Oracle-maintained schemas, and reads bounded `ALL_*`
+dictionary views. Both normalize tables, views, columns, declared keys,
 foreign keys, and safe index facts into the same `MetadataSnapshot`; Oracle
 materialized views are also represented. No downstream SQLite, ERD, CLI query,
 or MCP implementation branches on the source engine.
 
 For an init-discovered source, the connection verification SELECT also returns
 an ordered, bounded list of accessible non-system schemas. Init persists that
-scope only after successful read-only verification, then invokes the existing
+scope only after successful metadata-access verification, then invokes the existing
 scan application service; it does not duplicate scanner logic in the CLI.
 
 ### MCP

@@ -7,7 +7,7 @@
 **Turn your database into compact context for AI coding agents.**
 
 Graphit is a local-first database knowledge layer for Codex, Claude, and SQL
-MCPs. It scans database structure with read-only credentials, stores a durable
+MCPs. It scans database structure with fixed metadata-only catalog queries, stores a durable
 project-local knowledge graph, and answers small questions so an agent does not
 need the complete schema in every context window.
 
@@ -45,7 +45,7 @@ pipx install graphit-db
 cd /path/to/my-project
 graphit init
 # If a PostgreSQL, SQL Server, or Oracle URL is discovered, init verifies it
-# through the adapter's read-only safety contract, scans it, and creates
+# through the adapter's metadata-only safety contract, scans it, and creates
 # .graphit/exports/<source>-snapshot-<n>-erd.html.
 
 # Advanced/manual controls remain available:
@@ -71,10 +71,11 @@ Run a second scan before comparing versions with `graphit diff`.
 `graphit init` creates project-local configuration and a versioned SQLite store
 at `.graphit/graphit.db`. The current version discovers PostgreSQL, Microsoft
 SQL Server, and Oracle
-URLs from the current environment and supported project `.env*` files, reports
+URLs from the current environment and supported project `.env*` files (including
+bounded monorepo locations such as `backend/.env`), reports
 only sanitized host/database/user facts, and keeps any password transient. It
-asks before connecting unless `--yes` is given, forces a bounded read-only
-verification session, and saves only a non-secret reference after success;
+asks before connecting unless `--yes` is given, runs bounded metadata-access
+verification, and saves only a non-secret reference after success;
 the verification also discovers accessible non-system schemas and init scans
 them into the first immutable snapshot. After a successful scan, init creates
 a self-contained whole-database ERD from every saved table and confirmed FK at
@@ -82,7 +83,9 @@ a self-contained whole-database ERD from every saved table and confirmed FK at
 discovery-only behavior, `--no-scan` stops after verified source persistence,
 and `--no-erd` keeps the snapshot without the HTML artifact. Later
 `graphit scan --source NAME` commands create additional immutable
-structural snapshots. Supported views and materialized views are searchable
+structural snapshots and their ERDs by default; use `--no-erd` to opt out.
+ERD table cards show columns and PK/UQ/FK markers, with confirmed FK lines
+anchored to the related source and target columns. Supported views and materialized views are searchable
 with their catalog columns through `show-view`/`get_view`; `show` and FK graph
 tools remain base-table-only, and view lineage is not inferred. Default init
 also adds project-local Codex and Claude MCP entries; restart the agents after
@@ -164,8 +167,10 @@ for the current tool contract and manual setup.
 Install the public release with `pipx install graphit-db` or
 `uv tool install graphit-db`. Contributors can instead run
 `python -m pip install -e .` in this repository. Set the named password
-environment variable before `graphit source test` or `graphit scan`, and use a
-read-only database account. SQL Server additionally requires Microsoft ODBC
+environment variable before `graphit source test` or `graphit scan`. A
+read-only database account is recommended but is not required; Graphit never
+generates or executes DDL/DML. Privileged SQL Server credentials produce a
+visible warning. SQL Server additionally requires Microsoft ODBC
 Driver 18 or 17 on the host; the Python driver is included. Oracle uses
 python-oracledb Thin mode for Easy Connect sources. Default init configures only project-local
 Codex/Claude MCP entries; it never changes global agent configuration. See

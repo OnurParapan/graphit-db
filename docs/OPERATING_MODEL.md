@@ -27,8 +27,10 @@ graphit init
 Initialization creates safe configuration and a versioned local SQLite store.
 It discovers conventional PostgreSQL, SQL Server, and Oracle URLs in the process environment and a
 bounded project-root dotenv allowlist. After sanitized confirmation—or explicit
-`--yes`—it verifies each password-bearing candidate through a forced read-only
-session and saves only a credential reference. `--no-connect` performs
+`--yes`—it verifies each password-bearing candidate through bounded metadata
+access and saves only a credential reference. Privileged SQL Server credentials
+are accepted with a visible warning; Graphit still runs only fixed catalog
+SELECTs. `--no-connect` performs
 discovery without contact. The verification query discovers accessible
 non-system schemas and init scans their bounded structural metadata into the
 first immutable snapshot; `--no-scan` stops after source persistence.

@@ -64,6 +64,7 @@ def test_list_is_sorted_and_duplicates_do_not_replace(tmp_path: Path) -> None:
     ("engine", "port", "schema", "ssl_mode"),
     [
         ("mssql", 1433, "dbo", "require"),
+        ("mssql", 1433, "dbo", "require-trust-server-certificate"),
         ("oracle", 1521, "APP", "disable"),
     ],
 )
@@ -98,6 +99,14 @@ def test_mssql_and_oracle_source_metadata_round_trips(
         ({"credential_kind": "raw_password"}, "Credential kind"),
         (
             {"credential_kind": "url_dotenv", "credential_file": "../outside.env"},
+            "allowlist",
+        ),
+        (
+            {"credential_kind": "url_dotenv", "credential_file": "node_modules/.env"},
+            "allowlist",
+        ),
+        (
+            {"credential_kind": "url_dotenv", "credential_file": "backend\\.env"},
             "allowlist",
         ),
         ({"credential_kind": "url_env", "credential_file": ".env"}, "valid only"),

@@ -24,7 +24,7 @@ from graphit.queries import (
 )
 from graphit.scanners.postgresql import ConnectionTestError, ConnectionTestResult, MetadataScanError
 from graphit.snapshots import StoredSnapshot
-from graphit.sources import SourceConfig, list_sources, show_source
+from graphit.sources import SourceConfig, add_source, list_sources, show_source
 
 runner = CliRunner()
 
@@ -134,11 +134,11 @@ def test_init_verifies_saves_and_scans_approved_dotenv_source_without_secret(
     result = runner.invoke(app, ["init", "--project", str(tmp_path), "--yes"])
 
     assert result.exit_code == 0
-    assert "Added source 'erp' after read-only verification" in result.stdout
+    assert "Added source 'erp' after metadata-access verification" in result.stdout
     assert "Schemas: billing, public" in result.stdout
     assert "Snapshot 1 saved for erp: 87 objects, 143 edges" in result.stdout
     assert "Created whole-database ERD: .graphit" in result.stdout
-    assert "Connect read-only" not in result.stdout
+    assert "Connect for a bounded metadata scan" not in result.stdout
     source, project_root = verified[0]
     assert project_root == tmp_path
     assert source.credential_kind == "url_dotenv"
@@ -223,6 +223,88 @@ def test_init_discovers_scans_and_persists_mssql_and_oracle_sources(
     store = (tmp_path / ".graphit" / "graphit.db").read_bytes()
     assert b"sql-secret" not in store
     assert b"ora-secret" not in store
+
+
+def test_init_does_not_duplicate_database_identity_with_a_new_credential_reference(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    (tmp_path / ".env").write_text(
+        "DATABASE_URL=postgresql://reader:new-secret@localhost:5434/erp\n",
+        encoding="utf-8",
+    )
+    initialized = runner.invoke(
+        app,
+        ["init", "--project", str(tmp_path), "--no-connect", "--no-agents"],
+    )
+    assert initialized.exit_code == 0
+    add_source(
+        tmp_path,
+        SourceConfig(
+            name="existing_erp",
+            host="LOCALHOST",
+            port=5434,
+            database_name="erp",
+            username="reader",
+            credential_env="EXISTING_ERP_PASSWORD",
+            schemas=("public",),
+        ),
+    )
+
+    monkeypatch.setattr(
+        "graphit.cli.verify_connection",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("an already configured database identity must not reconnect")
+        ),
+    )
+    repeated = runner.invoke(
+        app,
+        ["init", "--project", str(tmp_path), "--force", "--yes", "--no-agents"],
+    )
+
+    assert repeated.exit_code == 0
+    assert "same database identity" in repeated.stdout
+    assert [source.name for source in list_sources(tmp_path)] == ["existing_erp"]
+
+
+def test_init_continues_after_one_candidate_fails_and_preserves_later_success(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    (tmp_path / ".env").write_text(
+        "MSSQL_DATABASE_URL=mssql://sql_reader:bad-secret@sql.local/erp\n"
+        "ORACLE_DATABASE_URL=oracle://ora_reader:good-secret@ora.local/ORCLPDB\n",
+        encoding="utf-8",
+    )
+    verified: list[str] = []
+    scanned: list[str] = []
+
+    def mixed_test(
+        source: SourceConfig, *, project_root: Path | None = None
+    ) -> ConnectionTestResult:
+        assert project_root == tmp_path
+        verified.append(source.engine)
+        if source.engine == "mssql":
+            raise ConnectionTestError("AUTHENTICATION_FAILED", "SQL Server authentication failed.")
+        return ConnectionTestResult(source.database_name, source.username, "23", ("APP",))
+
+    def successful_scan(_root: Path, name: str) -> StoredSnapshot:
+        scanned.append(name)
+        return StoredSnapshot(name, 1, 1, 5, 4, "oracle-fingerprint")
+
+    monkeypatch.setattr("graphit.cli.verify_connection", mixed_test)
+    monkeypatch.setattr("graphit.cli.scan_source", successful_scan)
+
+    result = runner.invoke(
+        app,
+        ["init", "--project", str(tmp_path), "--yes", "--no-erd", "--no-agents"],
+    )
+
+    assert result.exit_code == 4
+    assert "AUTHENTICATION_FAILED" in result.stderr
+    assert "INIT_PARTIAL_FAILURE: 1 discovered database operation(s) failed" in result.stderr
+    assert verified == ["mssql", "oracle"]
+    assert scanned == ["orclpdb"]
+    saved = list_sources(tmp_path)
+    assert [(source.engine, source.name) for source in saved] == [("oracle", "orclpdb")]
 
 
 def test_init_can_skip_scan_and_reports_scan_failure_after_source_persistence(
@@ -449,13 +531,19 @@ def test_source_test_cli_success_and_missing_credential(
         _source: object, *, project_root: Path | None = None
     ) -> ConnectionTestResult:
         assert project_root == tmp_path
-        return ConnectionTestResult("claims_db", "reader", "16.2")
+        return ConnectionTestResult(
+            "claims_db",
+            "reader",
+            "16.2",
+            warnings=("PRIVILEGED_CREDENTIAL: metadata-only access will continue.",),
+        )
 
     monkeypatch.setattr("graphit.cli.verify_connection", successful_test)
     success = runner.invoke(app, ["source", "test", "claims", *common])
 
     assert success.exit_code == 0
-    assert "claims_db as reader (read-only)" in success.stdout
+    assert "claims_db as reader (metadata access only)" in success.stdout
+    assert "WARNING: PRIVILEGED_CREDENTIAL" in success.stderr
 
 
 def test_source_test_cli_sanitizes_driver_failure(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
@@ -500,11 +588,19 @@ def test_scan_cli_reports_snapshot_and_sanitized_failure(
         assert name == "erp"
         return StoredSnapshot("erp", 7, 2, 15, 23, "fingerprint")
 
+    def successful_erd(
+        root: Path, name: str, version: int | None, output: Path | None = None
+    ) -> Path:
+        assert (name, version, output) == ("erp", 2, None)
+        return root / ".graphit" / "exports" / "erp-snapshot-2-erd.html"
+
     monkeypatch.setattr("graphit.cli.scan_source", successful_scan)
+    monkeypatch.setattr("graphit.cli._create_database_erd", successful_erd)
     success = runner.invoke(app, ["scan", "--source", "erp", "--project", str(tmp_path)])
 
     assert success.exit_code == 0
     assert "Snapshot 2 saved for erp: 15 objects, 23 edges." in success.stdout
+    assert "Created whole-database ERD: .graphit" in success.stdout
 
     def failed_scan(_root: Path, _name: str) -> StoredSnapshot:
         raise MetadataScanError("SCHEMA_PERMISSION_DENIED", "Selected schema is inaccessible.")

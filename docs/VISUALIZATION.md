@@ -64,12 +64,15 @@ The HTML file can be opened locally in a browser without Graphviz or a server.
 The separate `graphit erd --source NAME` command projects the complete latest
 saved table/FK scope instead of a focus-table neighborhood. It includes every
 saved table, out-of-scope FK target stubs, and every confirmed database FK,
-with exact ordered column pairs in the matching accessible list. `graphit init`
-creates this snapshot-named artifact automatically after its default successful
-scan. This complete fact view deliberately excludes inferred/manual assertions.
+with exact ordered column pairs in the matching accessible list. Tables render
+as cards containing column names, types, PK/UQ/FK markers, and nullability; each
+confirmed FK path starts and ends on its actual source/target column row.
+`graphit init` and the default `graphit scan` create this snapshot-named artifact
+automatically after a successful scan (`scan --no-erd` opts out). This complete
+fact view deliberately excludes inferred/manual assertions.
 It fails without creating a partial artifact above 5,000 table nodes or 100,000
-FK links. The diagram uses a deterministic scrollable grid; dense databases are
-primarily navigated with its local search and exact relationship list.
+FK links. The diagram uses a deterministic scrollable card grid; dense databases
+are primarily navigated with its local search and exact relationship list.
 
 ## Projection controls
 

@@ -22,11 +22,22 @@ MAX_DATABASE_GRAPH_LINKS = 100_000
 
 
 @dataclass(frozen=True)
+class GraphColumn:
+    qualified_name: str
+    name: str
+    data_type: str
+    nullable: bool
+    primary_key: bool
+    unique: bool
+
+
+@dataclass(frozen=True)
 class GraphNode:
     qualified_name: str
     in_scope: bool
     selected: bool
     kind: str = "TABLE"
+    columns: tuple[GraphColumn, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -196,12 +207,40 @@ def database_graph(
                     f"Snapshot has more than {link_limit} foreign keys; "
                     "no partial ERD was created.",
                 )
+            column_rows = connection.execute(
+                """SELECT table_object.qualified_name, column_object.qualified_name,
+                    column_object.object_name, columns.data_type, columns.nullable,
+                    columns.primary_key, columns.unique_value
+                FROM columns
+                JOIN objects AS column_object ON column_object.id = columns.object_id
+                JOIN objects AS table_object ON table_object.id = columns.table_object_id
+                WHERE table_object.snapshot_id = ?
+                ORDER BY table_object.qualified_name, columns.ordinal_position""",
+                (snapshot_id,),
+            ).fetchall()
     except QueryError:
         raise
     except sqlite3.Error:
         raise QueryError("STORE_READ_FAILED", "Could not read the local graph store.") from None
+    columns_by_table: dict[str, list[GraphColumn]] = {}
+    for table_name, qualified_name, name, data_type, nullable, primary_key, unique in column_rows:
+        columns_by_table.setdefault(str(table_name), []).append(
+            GraphColumn(
+                str(qualified_name),
+                str(name),
+                str(data_type),
+                bool(nullable),
+                bool(primary_key),
+                bool(unique),
+            )
+        )
     nodes = tuple(
-        GraphNode(str(name), _table_scope(str(raw_metadata)), False)
+        GraphNode(
+            str(name),
+            _table_scope(str(raw_metadata)),
+            False,
+            columns=tuple(columns_by_table.get(str(name), ())),
+        )
         for name, raw_metadata in node_rows
     )
     links = tuple(

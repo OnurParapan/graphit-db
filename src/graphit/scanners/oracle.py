@@ -27,14 +27,19 @@ from graphit.sources import SourceConfig
 
 CONNECT_TIMEOUT_SECONDS = 5
 CALL_TIMEOUT_MS = 5000
-_SYSTEM_OWNERS = "'SYS','SYSTEM','OUTLN','DBSNMP','AUDSYS','XDB','CTXSYS','MDSYS'"
-
-_SCHEMAS_SQL = f"""
-SELECT owner FROM (
-  SELECT DISTINCT owner FROM all_objects
-  WHERE object_type IN ('TABLE', 'VIEW', 'MATERIALIZED VIEW')
-    AND owner NOT IN ({_SYSTEM_OWNERS})
-  ORDER BY owner
+_SCHEMAS_SQL = """
+SELECT username FROM (
+  SELECT username FROM all_users
+  WHERE oracle_maintained = 'N'
+    AND (
+      username = SYS_CONTEXT('USERENV', 'SESSION_USER')
+      OR EXISTS (
+        SELECT 1 FROM all_objects object
+        WHERE object.owner = all_users.username
+          AND object.object_type IN ('TABLE', 'VIEW', 'MATERIALIZED VIEW')
+      )
+    )
+  ORDER BY username
 ) WHERE ROWNUM <= 101
 """
 

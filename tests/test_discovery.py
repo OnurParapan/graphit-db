@@ -62,6 +62,51 @@ def test_process_environment_wins_and_duplicate_dotenv_connection_is_collapsed(
     assert candidates[0].password == "process-secret"
 
 
+def test_discovers_and_resolves_database_urls_from_nested_project_dotenv(
+    tmp_path: Path,
+) -> None:
+    backend = tmp_path / "backend"
+    backend.mkdir()
+    (backend / ".env").write_text(
+        "MSSQL_DATABASE_URL=mssql://reader:sql-secret@localhost/erp?encrypt=false\n"
+        "ORACLE_DATABASE_URL=oracle://report:ora-secret@localhost/REPORTS\n",
+        encoding="utf-8",
+    )
+
+    candidates = discover_databases(tmp_path, environ={})
+
+    assert [(item.engine, item.origin) for item in candidates] == [
+        ("mssql", "backend/.env"),
+        ("oracle", "backend/.env"),
+    ]
+    source = _url_source(
+        engine="mssql",
+        port=1433,
+        ssl_mode="disable",
+        credential_env="MSSQL_DATABASE_URL",
+        credential_file="backend/.env",
+    )
+    assert resolve_postgresql_password(source, root=tmp_path, environ={}) == "sql-secret"
+
+
+def test_nested_discovery_excludes_dependency_state_and_overdeep_directories(
+    tmp_path: Path,
+) -> None:
+    for relative in (
+        Path("node_modules/package/.env"),
+        Path(".graphit/.env"),
+        Path("one/two/three/four/.env"),
+    ):
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            "DATABASE_URL=postgresql://reader:secret@localhost/ignored\n",
+            encoding="utf-8",
+        )
+
+    assert discover_databases(tmp_path, environ={}) == ()
+
+
 def test_discovery_ignores_examples_symlinks_oversized_and_invalid_urls(tmp_path: Path) -> None:
     secret = "must-not-be-read"
     (tmp_path / ".env.example").write_text(
@@ -178,6 +223,42 @@ def test_discovers_common_sqlalchemy_mssql_and_oracle_url_schemes(tmp_path: Path
         ("oracle", "REPORTS"),
         ("mssql", "erp"),
     ]
+
+
+def test_discovers_async_sqlalchemy_urls_and_oracle_query_service(tmp_path: Path) -> None:
+    candidates = discover_databases(
+        tmp_path,
+        environ={
+            "POSTGRESQL_DATABASE_URL": ("postgresql+asyncpg://reader:secret@localhost:5434/erp"),
+            "MSSQL_DATABASE_URL": (
+                "mssql+aioodbc://reader:secret@localhost/erp?Encrypt=yes&"
+                "TrustServerCertificate=yes&driver=ODBC+Driver+18"
+            ),
+            "ORACLE_DATABASE_URL": (
+                "oracle+oracledb://reader:secret@localhost:1521/?service_name=FREEPDB1"
+            ),
+        },
+    )
+
+    assert [(item.engine, item.database_name, item.ssl_mode) for item in candidates] == [
+        ("mssql", "erp", "require-trust-server-certificate"),
+        ("oracle", "FREEPDB1", "disable"),
+        ("postgresql", "erp", "prefer"),
+    ]
+
+
+def test_rejects_invalid_mssql_encryption_flags(tmp_path: Path) -> None:
+    assert (
+        discover_databases(
+            tmp_path,
+            environ={
+                "MSSQL_DATABASE_URL": (
+                    "mssql://reader:secret@localhost/erp?Encrypt=yes&TrustServerCertificate=maybe"
+                )
+            },
+        )
+        == ()
+    )
 
 
 @pytest.mark.parametrize(

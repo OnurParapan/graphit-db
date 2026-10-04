@@ -1,7 +1,7 @@
 # Graphit — MVP and release readiness
 
 This is an evidence ledger, not a claim that the product is finished. Last
-reviewed 2026-10-02. "Verified locally" means the implemented behavior and
+reviewed 2026-10-04. "Verified locally" means the implemented behavior and
 tests were exercised in this workspace; it does not mean a public user has
 completed the workflow.
 The full local test suite passed with the already-cached `tiktoken` encoding
@@ -12,6 +12,16 @@ explicitly gated live fixtures. Both fixtures also passed separately against
 disposable loopback-only SQL Server and Oracle Free containers.
 Without that cache setting, two benchmark tests fail while attempting a
 blocked first-time network fetch, not while querying Graphit.
+
+The unpublished `0.2.1` candidate is locally packaged and install-verified.
+Its wheel and sdist passed the repository archive allowlist and Twine metadata
+checks. A separate environment upgraded from the installed `0.2.0` wheel to
+the local `0.2.1` wheel, passed `pip check`, reported `Graphit 0.2.1`, and
+completed SQLite initialization plus both generated Codex and Claude MCP smoke
+paths. The official PyPI JSON endpoint returned 404 for version `0.2.1` on
+2026-10-04; no tag, GitHub Release, or upload has been created. Final artifact
+hashes belong to the immutable published release record, not this mutable
+pre-release ledger.
 
 | Goal | Current evidence | Remaining gap |
 |---|---|---|

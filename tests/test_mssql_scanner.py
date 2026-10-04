@@ -85,7 +85,7 @@ def _install_driver(
     return connection, call
 
 
-def test_mssql_verification_uses_readonly_odbc_and_rejects_write_principal(
+def test_mssql_verification_uses_readonly_odbc_and_warns_for_write_principal(
     monkeypatch: MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("ERP_PASSWORD", "private;value}")
@@ -108,19 +108,37 @@ def test_mssql_verification_uses_readonly_odbc_and_rejects_write_principal(
     assert connection.timeout == 5
     assert connection.rolled_back and connection.closed
 
-    _install_driver(monkeypatch, [[("erp", "writer", "16.0")], [(1,)]])
-    with pytest.raises(ConnectionTestError) as raised:
-        verify_connection(_source())
-    assert raised.value.code == "READ_ONLY_NOT_ENFORCED"
+    _install_driver(monkeypatch, [[("erp", "writer", "16.0")], [(1,)], [("dbo",)]])
+    privileged = verify_connection(_source())
+    assert privileged.schemas == ("dbo",)
+    assert privileged.warnings == (
+        "PRIVILEGED_CREDENTIAL: this SQL Server principal has write permissions; "
+        "Graphit will still execute only fixed, bounded metadata SELECTs.",
+    )
 
 
-def test_mssql_scanner_maps_tables_columns_keys_fks_and_indexes(
+def test_mssql_honors_explicit_trust_server_certificate_mode(
+    monkeypatch: MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("ERP_PASSWORD", "private")
+    _connection, call = _install_driver(
+        monkeypatch,
+        [[("erp", "reader", "16.0.1000")], [(0,)], [("dbo",)]],
+    )
+
+    verify_connection(_source(ssl_mode="require-trust-server-certificate"))
+
+    assert "Encrypt=yes" in call["connection_string"]
+    assert "TrustServerCertificate=yes" in call["connection_string"]
+
+
+def test_mssql_scanner_uses_only_catalog_selects_even_for_privileged_principal(
     monkeypatch: MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("ERP_PASSWORD", "secret")
     results: list[list[tuple[Any, ...]]] = [
         [("erp", "reader", "16.0")],
-        [(0,)],
+        [(1,)],
         [("dbo",), ("sales",)],
         [("dbo", "Customer", "U ", 0), ("sales", "Order", "U ", 1)],
         [

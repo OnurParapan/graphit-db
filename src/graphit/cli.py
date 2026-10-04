@@ -164,6 +164,7 @@ def init(
 
     existing = list_sources(result.root)
     used_names = {source.name for source in existing}
+    failure_codes: list[int] = []
     for candidate in candidates:
         credential_kind = "url_env" if candidate.origin == "environment" else "url_dotenv"
         credential_file = None if candidate.origin == "environment" else candidate.origin
@@ -173,18 +174,19 @@ def init(
             and source.port == candidate.port
             and source.database_name == candidate.database_name
             and source.username == candidate.username
-            and source.credential_env == candidate.variable_name
-            and source.credential_kind == credential_kind
-            and source.credential_file == credential_file
             for source in existing
         ):
-            typer.echo(f"Source for {candidate.variable_name} is already configured.")
+            typer.echo(
+                f"Source for {candidate.variable_name} is already configured "
+                "with the same database identity."
+            )
             continue
         if not candidate.has_password:
             typer.echo(f"Skipped {candidate.variable_name}: the database URL has no password.")
             continue
         if not yes and not typer.confirm(
-            f"Connect read-only to {candidate.host}:{candidate.port}/{candidate.database_name}?",
+            f"Connect for a bounded metadata scan to "
+            f"{candidate.host}:{candidate.port}/{candidate.database_name}?",
             default=True,
         ):
             typer.echo(f"Skipped {candidate.variable_name} by user choice.")
@@ -209,16 +211,19 @@ def init(
             add_source(result.root, source)
         except ConnectionTestError as error:
             typer.echo(f"{error.code}: {error}", err=True)
-            raise typer.Exit(code=4) from None
+            failure_codes.append(4)
+            continue
         except SourceError as error:
             _source_failure(error)
         used_names.add(source_name)
         typer.echo(
-            f"Added source '{source_name}' after read-only verification: "
+            f"Added source '{source_name}' after metadata-access verification: "
             f"{_engine_label(candidate.engine)} {verified.server_version}, "
             f"{verified.database} as {verified.username}."
         )
         typer.echo(f"  Schemas: {', '.join(verified.schemas)}")
+        for warning in verified.warnings:
+            typer.echo(f"  WARNING: {warning}", err=True)
         if not scan_metadata:
             typer.echo(f"Metadata scan skipped for '{source_name}' by --no-scan.")
             continue
@@ -226,10 +231,12 @@ def init(
             snapshot = scan_source(result.root, source_name)
         except MetadataScanError as error:
             typer.echo(f"SCAN_FAILED: {error.code}: {error}", err=True)
-            raise typer.Exit(code=5) from None
+            failure_codes.append(5)
+            continue
         except SnapshotError as error:
             typer.echo(f"SCAN_FAILED: {error.code}: {error}", err=True)
-            raise typer.Exit(code=6) from None
+            failure_codes.append(6)
+            continue
         typer.echo(
             f"Snapshot {snapshot.version} saved for {source_name}: "
             f"{snapshot.object_count} objects, {snapshot.edge_count} edges."
@@ -241,16 +248,26 @@ def init(
             erd_path = _create_database_erd(result.root, source_name, snapshot.version)
         except QueryError as error:
             typer.echo(f"ERD_FAILED: {error.code}: {error}", err=True)
-            raise typer.Exit(code=7) from None
+            failure_codes.append(7)
+            continue
         except FileExistsError:
             typer.echo("ERD_FAILED: output already exists; no file was overwritten.", err=True)
-            raise typer.Exit(code=7) from None
+            failure_codes.append(7)
+            continue
         except OSError:
             typer.echo("ERD_FAILED: the offline ERD could not be written.", err=True)
-            raise typer.Exit(code=7) from None
+            failure_codes.append(7)
+            continue
         typer.echo(f"Created whole-database ERD: {erd_path.relative_to(result.root)}")
 
     _configure_init_agents(result.root, setup_agents, refresh_agents)
+    if failure_codes:
+        typer.echo(
+            f"INIT_PARTIAL_FAILURE: {len(failure_codes)} discovered database operation(s) failed; "
+            "successful sources and artifacts were preserved.",
+            err=True,
+        )
+        raise typer.Exit(code=failure_codes[0])
 
 
 def _configure_init_agents(root: Path, enabled: bool, refresh: bool) -> None:
@@ -575,7 +592,7 @@ def source_test(
     name: Annotated[str, typer.Argument(help="Configured source name.")],
     project: Annotated[Path | None, typer.Option(help="Graphit project directory.")] = None,
 ) -> None:
-    """Verify a supported source with bounded read-only catalog access."""
+    """Verify bounded metadata access without modifying the source database."""
 
     try:
         root = _source_root(project)
@@ -589,19 +606,25 @@ def source_test(
         raise typer.Exit(code=4) from None
     typer.echo(
         f"Connected to {_engine_label(source.engine)} {result.server_version}: "
-        f"{result.database} as {result.username} (read-only)."
+        f"{result.database} as {result.username} (metadata access only)."
     )
+    for warning in result.warnings:
+        typer.echo(f"WARNING: {warning}", err=True)
 
 
 @app.command()
 def scan(
     source: Annotated[str, typer.Option(help="Configured source name.")],
     project: Annotated[Path | None, typer.Option(help="Graphit project directory.")] = None,
+    generate_erd: Annotated[
+        bool, typer.Option("--erd/--no-erd", help="Create an offline ERD after scanning.")
+    ] = True,
 ) -> None:
-    """Read source metadata and save one immutable local snapshot."""
+    """Read source metadata, save one snapshot, and create its offline ERD."""
 
     try:
-        result = scan_source(_source_root(project), source)
+        root = _source_root(project)
+        result = scan_source(root, source)
     except SourceError as error:
         _source_failure(error)
     except MetadataScanError as error:
@@ -614,6 +637,21 @@ def scan(
         f"Snapshot {result.version} saved for {result.source_name}: "
         f"{result.object_count} objects, {result.edge_count} edges."
     )
+    if not generate_erd:
+        typer.echo(f"Whole-database ERD skipped for '{result.source_name}' by --no-erd.")
+        return
+    try:
+        erd_path = _create_database_erd(root, result.source_name, result.version)
+    except QueryError as error:
+        typer.echo(f"ERD_FAILED: {error.code}: {error}", err=True)
+        raise typer.Exit(code=7) from None
+    except FileExistsError:
+        typer.echo("ERD_FAILED: output already exists; no file was overwritten.", err=True)
+        raise typer.Exit(code=7) from None
+    except OSError:
+        typer.echo("ERD_FAILED: the offline ERD could not be written.", err=True)
+        raise typer.Exit(code=7) from None
+    typer.echo(f"Created whole-database ERD: {erd_path.relative_to(root)}")
 
 
 @app.command()

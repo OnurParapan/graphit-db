@@ -9,7 +9,7 @@ This project uses OpenWolf for context management. Read and follow .wolf/OPENWOL
 # AGENTS.md — Graphit Coding Instructions
 
 Graphit is a local-first database knowledge layer for AI coding agents. It scans
-database metadata with read-only credentials, builds a durable local graph, and
+database metadata with fixed catalog-only queries, builds a durable local graph, and
 serves compact context through CLI and MCP.
 
 ## Read before architectural changes
@@ -76,7 +76,8 @@ Do not duplicate business logic between CLI, MCP, and visualization.
 
 ## Target database safety
 
-- Assume credentials are read-only.
+- Prefer read-only credentials, but accept privileged credentials with a visible
+  warning when the adapter still guarantees a fixed catalog-only query path.
 - Issue only metadata reads and explicitly bounded SELECTs.
 - Apply statement timeouts.
 - Avoid full-table scans.

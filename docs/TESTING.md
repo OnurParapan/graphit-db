@@ -103,8 +103,8 @@ database and login. The Graphit source uses a separate principal with only
 schema `SELECT` and `VIEW DEFINITION`; it verifies tables, a view, ordered
 composite PK/FK metadata, a filtered index with included columns, SQLite
 snapshot persistence, and local relationship lookup. The same live fixture
-then grants the reader `db_datawriter` and verifies Graphit rejects it before
-catalog scanning.
+then grants the reader `db_datawriter` and verifies Graphit reports a privileged
+credential warning without blocking fixed catalog access.
 
 `tests/test_oracle_integration.py` similarly requires
 `GRAPHIT_TEST_ORACLE_DISPOSABLE=1` plus a loopback-only

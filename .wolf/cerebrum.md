@@ -2,7 +2,7 @@
 
 > OpenWolf's learning memory. Updated automatically as the AI learns from interactions.
 > Do not edit manually unless correcting an error.
-> Last updated: 2026-09-16
+> Last updated: 2026-10-04
 
 ## User Preferences
 
@@ -22,8 +22,13 @@
   hosted database platform or mandatory web application.
 - Prioritize fewer tokens, faster agent discovery, fewer irrelevant tables and
   columns, accurate relationship paths, and minimal installation friction.
+- Do not require users to provision a separate read-only database account when
+  Graphit itself executes only fixed metadata catalog queries. Prefer such an
+  account, but accept privileged credentials with a visible warning.
 - An ERD-like graph is valuable as an optional local export, not as the primary
   product surface.
+- Whole-database ERDs should still be visually useful: render table columns and
+  connect confirmed FK lines to the exact related source/target column rows.
 - The intended zero-configuration experience is stronger than the 0.1.0 flow:
   running `graphit init` in an existing project should discover its database
   configuration, connect safely, scan structure and relationships, generate a
@@ -34,6 +39,22 @@
 ## Key Learnings
 
 - **Project:** Graphit
+- Real monorepos may keep database URLs in bounded paths such as `backend/.env`
+  and use SQLAlchemy async schemes (`postgresql+asyncpg`, `mssql+aioodbc`) or
+  Oracle `service_name` query parameters; safe zero-config discovery must cover
+  these without recursively reading dependency/state directories.
+- SQL Server ODBC read-only mode is advisory, but this does not require blocking
+  `sa` or another write-capable principal: Graphit's enforceable boundary is its
+  fixed, bounded catalog-SELECT-only implementation plus rollback. Detect broad
+  permission and surface `PRIVILEGED_CREDENTIAL` without preventing the scan.
+- Oracle schema discovery must use `ALL_USERS.ORACLE_MAINTAINED='N'`, retain the
+  current session user even when its schema is empty, and include other owners
+  only when structural objects are visible. A hard-coded system-owner list over
+  `ALL_OBJECTS` both leaked maintenance schemas and omitted new app users.
+- Init database identity is engine/host/port/database/user, independent of the
+  credential variable or dotenv file that exposed it. Multi-database init must
+  keep processing after per-source failures, preserve completed artifacts, and
+  return a final non-zero partial-failure result so automation remains honest.
 - Product core: persistent, queryable database knowledge graph exposed to humans
   and AI coding agents through compact, progressive context.
 - Current architecture: Python 3.11+ Typer CLI, project-local SQLite, PostgreSQL
@@ -43,8 +64,8 @@
   queries, and MCP stay engine-neutral. PostgreSQL must retain its historical
   `postgres:` logical-key namespace; SQL Server and Oracle use `mssql:` and
   `oracle:` so review decisions remain stable and source-scoped.
-- SQL Server's ODBC read-only mode is advisory, so Graphit also rejects
-  principals with effective direct database/schema/object write grants and runs
+- SQL Server's ODBC read-only mode is advisory, so Graphit warns on principals
+  with effective direct database/schema/object write grants and continues using
   only fixed bounded catalog SELECTs. Oracle starts `SET TRANSACTION READ ONLY`,
   rejects SYS, and uses python-oracledb Thin mode. Explicitly gated disposable
   SQL Server 2022 and Oracle Free runs passed the full scanner-to-snapshot-to-
@@ -369,6 +390,13 @@
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
 
+- [2026-10-04] Do not turn the recommendation to use read-only credentials into
+  an onboarding blocker when the user expects zero-config discovery. For SQL
+  Server, warn on privileged principals and retain the fixed catalog-only path.
+- [2026-10-04] In PowerShell, invoke executable paths containing spaces with the
+  call operator and a quoted path (`& "C:\\path with spaces\\python.exe"`).
+  Quoting arguments alone does not make the executable path callable.
+
 - [2026-10-02] Do not combine public-package behavior and recursive temporary
   environment cleanup behind silent output. Emit flushed smoke stage labels and
   keep verified cleanup separate so a slow Windows deletion cannot masquerade
@@ -493,6 +521,11 @@
 ## Decision Log
 
 <!-- Significant technical decisions with rationale. Why X was chosen over Y. -->
+
+- SQL Server write-capable credentials are accepted rather than rejected. The
+  adapter still issues only fixed bounded catalog SELECTs, requests ODBC
+  read-only mode, rolls back, and reports `PRIVILEGED_CREDENTIAL`; Graphit never
+  exposes an application SQL, DDL, or DML execution surface.
 
 - Graphit supplies database context but does not generate, optimize, or execute
   application SQL; SQL-capable agents and dedicated MCPs consume its context.
@@ -691,3 +724,8 @@
   eight-tool allowlist while standalone setup retains its full-profile default.
   Both Codex and Claude writes stay project-local; no-agents is a full opt-out
   and refresh-agents accepts only recognized generated Graphit launchers.
+- Default init deduplicates existing sources by non-secret database identity,
+  not credential-reference location. It isolates each candidate's operation
+  failures, finishes later candidates and agent setup, preserves successes, and
+  only then returns the first applicable failure code with a partial-failure
+  summary.

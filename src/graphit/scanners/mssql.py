@@ -194,13 +194,14 @@ def _read_only_connection(source: SourceConfig, project_root: Path | None = None
         module = _driver()
         driver = _selected_driver(module)
         encrypt = "no" if source.ssl_mode == "disable" else "yes"
+        trust_certificate = "yes" if source.ssl_mode == "require-trust-server-certificate" else "no"
         server_host = f"[{source.host}]" if ":" in source.host else source.host
         connection_string = (
             f"Driver={_odbc_value(driver)};"
             f"Server=tcp:{server_host},{source.port};"
             f"Database={_odbc_value(source.database_name)};"
             f"UID={_odbc_value(source.username)};PWD={_odbc_value(password)};"
-            f"Encrypt={encrypt};TrustServerCertificate=no;APP=Graphit;"
+            f"Encrypt={encrypt};TrustServerCertificate={trust_certificate};APP=Graphit;"
         )
         connection = module.connect(
             connection_string,
@@ -230,7 +231,7 @@ def _cursor(connection: Any) -> Any:
     return cursor
 
 
-def _assert_read_only_principal(cursor: Any) -> tuple[str, str, str]:
+def _principal_identity(cursor: Any) -> tuple[str, str, str, bool]:
     cursor.execute(_IDENTITY_SQL)
     row = cursor.fetchone()
     if row is None or len(row) < 3:
@@ -243,12 +244,7 @@ def _assert_read_only_principal(cursor: Any) -> tuple[str, str, str]:
         raise ConnectionTestError(
             "INVALID_SERVER_RESULT", "SQL Server returned invalid permission metadata."
         )
-    if bool(permission_row[0]):
-        raise ConnectionTestError(
-            "READ_ONLY_NOT_ENFORCED",
-            "The SQL Server principal has direct write permissions; use a read-only account.",
-        )
-    return str(row[0]), str(row[1]), str(row[2])
+    return str(row[0]), str(row[1]), str(row[2]), bool(permission_row[0])
 
 
 def verify_connection(
@@ -261,7 +257,7 @@ def verify_connection(
             _read_only_connection(source, project_root) as connection,
             closing(_cursor(connection)) as cursor,
         ):
-            database, username, version = _assert_read_only_principal(cursor)
+            database, username, version, has_write_permissions = _principal_identity(cursor)
             cursor.execute(_SCHEMAS_TEMPLATE.format(limit=101))
             schemas = tuple(str(row[0]) for row in cursor.fetchall())
             if len(schemas) > 100:
@@ -272,7 +268,17 @@ def verify_connection(
                 raise ConnectionTestError(
                     "NO_ACCESSIBLE_SCHEMA", "No accessible user schema was discovered."
                 )
-            return ConnectionTestResult(database, username, version, schemas)
+            warnings = (
+                (
+                    (
+                        "PRIVILEGED_CREDENTIAL: this SQL Server principal has write permissions; "
+                        "Graphit will still execute only fixed, bounded metadata SELECTs."
+                    ),
+                )
+                if has_write_permissions
+                else ()
+            )
+            return ConnectionTestResult(database, username, version, schemas, warnings)
     except ConnectionTestError:
         raise
     except Exception as error:
@@ -396,7 +402,7 @@ class MSSQLScanner:
                 _read_only_connection(source, self.project_root) as connection,
                 closing(_cursor(connection)) as cursor,
             ):
-                _assert_read_only_principal(cursor)
+                _principal_identity(cursor)
                 cursor.execute(_SCHEMAS_TEMPLATE.format(limit=101))
                 visible = {str(row[0]) for row in cursor.fetchall()}
                 if not set(scope.schemas).issubset(visible):

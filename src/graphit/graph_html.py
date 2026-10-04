@@ -28,6 +28,15 @@ svg .node rect{fill:white;stroke:#273b50;stroke-width:2}
 svg .node.selected rect{stroke-width:4}
 svg .node.external rect{stroke-dasharray:7 4}
 svg .node text{fill:#17212b;font-size:13px}
+svg .erd-node .table-body{fill:#fff;stroke:#273b50;stroke-width:2}
+svg .erd-node.external .table-body{stroke-dasharray:7 4}
+svg .erd-node .table-header{fill:#273b50;stroke:#273b50}
+svg .erd-node .table-title{fill:#fff;font-size:13px;font-weight:700}
+svg .erd-node .column-row{fill:#fff;stroke:#d7e0ea;stroke-width:1}
+svg .erd-node .column-row.alt{fill:#f3f6fa}
+svg .erd-node .column-name{font-size:12px;font-weight:600}
+svg .erd-node .column-type{fill:#45576b;font-size:11px}
+svg .erd-node .column-badge{fill:#274c77;font-size:10px;font-weight:800}
 ol{padding-left:1.5rem} li{margin:.7rem 0;overflow-wrap:anywhere}
 code{background:#e9eef5;padding:.1rem .25rem}
 details{margin:.5rem 0} summary{cursor:pointer} summary:focus-visible{outline:3px solid #274c77}
@@ -240,38 +249,144 @@ def _graph_svg(projection: GraphProjection) -> str:
     return "\n".join(parts)
 
 
+_CARD_WIDTH = 300
+_HEADER_HEIGHT = 38
+_COLUMN_HEIGHT = 24
+_CARD_GAP_X = 120
+_CARD_GAP_Y = 80
+
+
 def _database_positions(
     projection: DatabaseGraphProjection,
-) -> tuple[dict[str, tuple[int, int]], int, int]:
+) -> tuple[dict[str, tuple[int, int, int]], int, int]:
     count = max(len(projection.nodes), 1)
-    columns = min(math.ceil(math.sqrt(count)), 32)
-    rows = math.ceil(count / columns)
-    width = max(900, columns * 300 + 100)
-    height = max(260, rows * 90 + 100)
-    positions = {
-        node.qualified_name: (200 + (index % columns) * 300, 80 + (index // columns) * 90)
-        for index, node in enumerate(projection.nodes)
-    }
+    columns = min(math.ceil(math.sqrt(count)), 16)
+    positions: dict[str, tuple[int, int, int]] = {}
+    y = 50
+    for row_start in range(0, len(projection.nodes), columns):
+        row = projection.nodes[row_start : row_start + columns]
+        heights = [_HEADER_HEIGHT + max(len(node.columns), 1) * _COLUMN_HEIGHT for node in row]
+        row_height = max(heights, default=_HEADER_HEIGHT + _COLUMN_HEIGHT)
+        for index, (node, card_height) in enumerate(zip(row, heights, strict=True)):
+            x = 50 + index * (_CARD_WIDTH + _CARD_GAP_X)
+            positions[node.qualified_name] = (x, y, card_height)
+        y += row_height + _CARD_GAP_Y
+    width = max(900, columns * (_CARD_WIDTH + _CARD_GAP_X) - _CARD_GAP_X + 100)
+    height = max(260, y - _CARD_GAP_Y + 50)
     return positions, width, height
 
 
-def _database_edge_svg(link: GraphLink, positions: dict[str, tuple[int, int]]) -> str:
+def _column_anchor(node: GraphNode, column_name: str, top: int) -> int:
+    for index, column in enumerate(node.columns):
+        if column.qualified_name == column_name:
+            return top + _HEADER_HEIGHT + index * _COLUMN_HEIGHT + _COLUMN_HEIGHT // 2
+    return top + _HEADER_HEIGHT // 2
+
+
+def _database_node_svg(
+    node: GraphNode,
+    position: tuple[int, int, int],
+    foreign_key_columns: frozenset[str],
+) -> str:
+    x, y, height = position
+    classes = "erd-node" + (" external" if not node.in_scope else "")
+    label = (
+        node.qualified_name if len(node.qualified_name) <= 38 else node.qualified_name[:37] + "…"
+    )
+    search_text = " ".join(
+        (node.qualified_name, *(f"{column.name} {column.data_type}" for column in node.columns))
+    ).lower()
+    parts = [
+        f'<g class="{classes}" data-node="{escape(node.qualified_name)}" '
+        f'data-search="{escape(search_text)}" data-selected="false">',
+        f"<title>{escape(node.qualified_name)}</title>",
+        f'<rect class="table-body" x="{x}" y="{y}" width="{_CARD_WIDTH}" '
+        f'height="{height}" rx="8"/>',
+        f'<rect class="table-header" x="{x}" y="{y}" width="{_CARD_WIDTH}" '
+        f'height="{_HEADER_HEIGHT}" rx="8"/>',
+        f'<text class="table-title" x="{x + 12}" y="{y + 24}">{escape(label)}</text>',
+    ]
+    if not node.columns:
+        parts.append(
+            f'<text class="column-type" x="{x + 12}" y="{y + _HEADER_HEIGHT + 17}">'
+            "outside scanned columns</text>"
+        )
+    for index, column in enumerate(node.columns):
+        row_y = y + _HEADER_HEIGHT + index * _COLUMN_HEIGHT
+        row_class = "column-row alt" if index % 2 else "column-row"
+        badges = []
+        if column.primary_key:
+            badges.append("PK")
+        elif column.unique:
+            badges.append("UQ")
+        if column.qualified_name in foreign_key_columns:
+            badges.append("FK")
+        badge = " ".join(badges)
+        display_name = column.name if len(column.name) <= 25 else column.name[:24] + "…"
+        display_type = (
+            column.data_type if len(column.data_type) <= 19 else column.data_type[:18] + "…"
+        )
+        nullable_type = display_type + ("?" if column.nullable else "")
+        parts.extend(
+            (
+                f'<rect class="{row_class}" x="{x + 1}" y="{row_y}" '
+                f'width="{_CARD_WIDTH - 2}" height="{_COLUMN_HEIGHT}"/>',
+                f'<text class="column-badge" x="{x + 8}" y="{row_y + 16}">{escape(badge)}</text>',
+                f'<text class="column-name" x="{x + 48}" y="{row_y + 16}">'
+                f"{escape(display_name)}</text>",
+                f'<text class="column-type" x="{x + _CARD_WIDTH - 8}" y="{row_y + 16}" '
+                f'text-anchor="end">{escape(nullable_type)}</text>',
+            )
+        )
+    parts.append("</g>")
+    return "".join(parts)
+
+
+def _database_edge_svg(
+    link: GraphLink,
+    nodes: dict[str, GraphNode],
+    positions: dict[str, tuple[int, int, int]],
+) -> str:
     kind, css_class = _link_kind(link)
     source = positions.get(link.source_table)
     target = positions.get(link.target_table)
     if source is None or target is None:
         raise ValueError("Database graph link endpoint is missing from projection nodes.")
-    sx, sy = source
-    tx, ty = target
-    if source == target:
-        path = (
-            f"M {sx + 120} {sy - 12} C {sx + 220} {sy - 85}, "
-            f"{sx + 220} {sy + 85}, {sx + 120} {sy + 12}"
-        )
-        label_x, label_y = sx + 205, sy
-    else:
-        path = f"M {sx} {sy} L {tx} {ty}"
-        label_x, label_y = (sx + tx) // 2, (sy + ty) // 2 - 8
+    source_node = nodes[link.source_table]
+    target_node = nodes[link.target_table]
+    sx, source_top, _ = source
+    tx, target_top, _ = target
+    source_center = sx + _CARD_WIDTH // 2
+    target_center = tx + _CARD_WIDTH // 2
+    paths = []
+    anchors = []
+    label_xs = []
+    for source_column, target_column in link.column_pairs:
+        source_y = _column_anchor(source_node, source_column, source_top)
+        target_y = _column_anchor(target_node, target_column, target_top)
+        if link.source_table == link.target_table:
+            x1 = sx + _CARD_WIDTH
+            loop_x = x1 + 70
+            path = f"M {x1} {source_y} C {loop_x} {source_y}, {loop_x} {target_y}, {x1} {target_y}"
+            label_xs.append(loop_x)
+        elif sx == tx:
+            x1 = sx + _CARD_WIDTH
+            outer_x = x1 + 70
+            path = (
+                f"M {x1} {source_y} C {outer_x} {source_y}, {outer_x} {target_y}, {x1} {target_y}"
+            )
+            label_xs.append(outer_x)
+        else:
+            left_to_right = source_center <= target_center
+            x1 = sx + _CARD_WIDTH if left_to_right else sx
+            x2 = tx if left_to_right else tx + _CARD_WIDTH
+            middle = (x1 + x2) // 2
+            path = f"M {x1} {source_y} C {middle} {source_y}, {middle} {target_y}, {x2} {target_y}"
+            label_xs.append(middle)
+        paths.append(f'<path d="{path}" marker-end="url(#{css_class}-arrow)"/>')
+        anchors.append((source_y, target_y))
+    label_x = min(label_xs)
+    label_y = min((first + second) // 2 for first, second in anchors) - 7
     search_text = " ".join(
         (
             link.name or "",
@@ -281,21 +396,28 @@ def _database_edge_svg(link: GraphLink, positions: dict[str, tuple[int, int]]) -
         )
     ).lower()
     tooltip = f"FK {link.name or '(unnamed)'}: " + "; ".join(
-        f"{source_column} â†’ {target_column}" for source_column, target_column in link.column_pairs
+        f"{source_column} → {target_column}" for source_column, target_column in link.column_pairs
     )
+    label = f"FK · {link.name or '(unnamed)'}"
+    if len(label) > 30:
+        label = label[:29] + "…"
     return (
         f'<g class="{css_class}" data-edge data-kind="{kind.lower()}" '
         f'data-source="{escape(link.source_table)}" '
         f'data-target="{escape(link.target_table)}" '
         f'data-search="{escape(search_text)}"><title>{escape(tooltip)}</title>'
-        f'<path d="{path}" marker-end="url(#{css_class}-arrow)"/>'
-        f'<text class="edge-label" x="{label_x}" y="{label_y}" '
-        f'text-anchor="middle">{kind}</text></g>'
+        + "".join(paths)
+        + f'<text class="edge-label" x="{label_x}" y="{label_y}" '
+        f'text-anchor="middle">{escape(label)}</text></g>'
     )
 
 
 def _database_graph_svg(projection: DatabaseGraphProjection) -> str:
     positions, width, height = _database_positions(projection)
+    nodes = {node.qualified_name: node for node in projection.nodes}
+    foreign_key_columns = frozenset(
+        source for link in projection.links for source, _target in link.column_pairs
+    )
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
         f'width="{width}" height="{height}" role="img" '
@@ -307,8 +429,11 @@ def _database_graph_svg(projection: DatabaseGraphProjection) -> str:
         'refX="8" refY="5" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" '
         'fill="#274c77"/></marker></defs>',
     ]
-    parts.extend(_database_edge_svg(link, positions) for link in projection.links)
-    parts.extend(_node_svg(node, *positions[node.qualified_name]) for node in projection.nodes)
+    parts.extend(_database_edge_svg(link, nodes, positions) for link in projection.links)
+    parts.extend(
+        _database_node_svg(node, positions[node.qualified_name], foreign_key_columns)
+        for node in projection.nodes
+    )
     parts.append("</svg>")
     return "\n".join(parts)
 

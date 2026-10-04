@@ -1,11 +1,56 @@
 # STATUS — Graphit
 
 > Single source of truth for resuming work. Read this first at session start.
-> Last updated: 2026-10-02
+> Last updated: 2026-10-04
 
 ---
 
 ## ✅ Done
+
+- The unpublished `graphit-db 0.2.1` local release candidate is packaged.
+  Wheel/sdist archive scope and Twine metadata pass; a separate environment
+  upgraded its installed 0.2.0 wheel to 0.2.1 and passed version, dependency,
+  SQLite init, and Codex/Claude MCP smoke checks. PyPI's official version
+  endpoint returns 404. Final local SHA-256 values are
+  `d9022df3d83d4e620df5990394e0a22e78006912060daee818f5eea6023e590d`
+  (wheel) and
+  `17dc0290a8f56e741510f7612402df81750fc42d0feb25c41c2302a74e0878b1`
+  (sdist). No tag, GitHub Release, or publication was created.
+
+- Multi-database `graphit init` is now failure-isolated and identity-idempotent.
+  It tries every discovered database even when an earlier connection, scan,
+  snapshot, or ERD step fails, preserves completed work, then reports
+  `INIT_PARTIAL_FAILURE`. Existing engine/host/port/database/user identities are
+  not duplicated when their credential variable/file changes. Two focused
+  regression tests and the full suite pass. A real repeated `tdss` init found
+  MSSQL, Oracle, and PostgreSQL and skipped all three as already configured,
+  without reconnecting, rescanning, or creating duplicate sources.
+
+- SQL Server privileged credentials no longer block zero-config onboarding.
+  Graphit detects write-capable principals, emits `PRIVILEGED_CREDENTIAL`, and
+  continues through its fixed bounded catalog-SELECT-only path with ODBC
+  read-only intent, timeouts, and rollback. Real `tdss` verification with `sa`
+  completed, saved MSSQL snapshot 1 (164 objects/258 edges), and generated an
+  8-table/99-column/2-FK column-linked ERD. Full
+  pytest, Ruff, formatting, strict mypy, and pip check pass.
+
+- A persistent local `tdss_oracle` Oracle Free 23 container now serves `XE` on
+  port 1521 with restart-always and named volume `tdss_oracle_data`. The real
+  Oracle integration test passes against it, including temporary tables, view,
+  composite PK/FK, index, snapshot, and relationship lookup. Live testing found
+  and fixed Oracle schema discovery: it now selects non-Oracle-maintained users,
+  always retains the current empty user, and excludes maintenance schemas.
+  `tdss` source `oracle_xe` now correctly targets `TDSS_USER`; snapshot 2 and its
+  ERD are complete (the application schema currently contains no tables).
+
+- Prepared the unpublished `0.2.1` fix: bounded nested dotenv discovery now
+  supports real monorepo paths, asyncpg/aioodbc SQLAlchemy URLs, case-insensitive
+  query keys, and Oracle `service_name`; `graphit scan` creates an ERD by default.
+  Whole-database ERDs now render column/type/PK/UQ/FK table cards and anchor each
+  confirmed FK path to the exact paired column rows. The real `tdss/backend/.env`
+  safely discovers PostgreSQL, SQL Server, and Oracle without printing secrets;
+  its existing PostgreSQL snapshot generated an 8-table/99-column/2-FK artifact.
+  Full pytest, Ruff, formatting, and strict mypy pass. No release/tag was created.
 
 - Product direction clarified as a local-first database knowledge/context layer
   for Codex, Claude, and SQL MCPs.
@@ -724,9 +769,13 @@
 
 ## 🚀 Next phase
 
-**Current goal (supersedes the historical goal below):** `graphit-db 0.2.0` is
-implemented, live-validated, and public. Preserve release evidence and gather
-real external installation/use feedback; do not infer broad version, scale, or
+**Current goal (supersedes the historical goal below):** the unpublished
+`graphit-db 0.2.1` monorepo-discovery and column-linked ERD fix is locally
+  packaged and install-verified; publish only with explicit user approval. The real tdss MSSQL `sa` credential
+  is now accepted with a visible warning and its snapshot/ERD are complete.
+  Oracle Free is now running and live-validated; next publication remains subject
+  to explicit user approval.
+Preserve 0.2.0 release evidence and do not infer broad version, scale, or
 universal token-savings claims from the current fixtures.
 
 **2026-10-02 multi-engine slice:** Added URL discovery, source validation,

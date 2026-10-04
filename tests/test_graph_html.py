@@ -8,7 +8,13 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from graphit.cli import app
-from graphit.graph_export import DatabaseGraphProjection, GraphLink, GraphNode, GraphProjection
+from graphit.graph_export import (
+    DatabaseGraphProjection,
+    GraphColumn,
+    GraphLink,
+    GraphNode,
+    GraphProjection,
+)
 from graphit.graph_html import render_database_html, render_html
 from graphit.inference import CandidateEvidence
 from graphit.project import initialize_project
@@ -100,8 +106,28 @@ def test_database_html_is_complete_searchable_and_has_no_fake_focus() -> None:
         "erp",
         3,
         (
-            GraphNode('"billing"."invoice"', True, False),
-            GraphNode('"crm"."customer"', True, False),
+            GraphNode(
+                '"billing"."invoice"',
+                True,
+                False,
+                columns=(
+                    GraphColumn('"billing"."invoice"."id"', "id", "bigint", False, True, True),
+                    GraphColumn(
+                        '"billing"."invoice"."customer_id"',
+                        "customer_id",
+                        "bigint",
+                        False,
+                        False,
+                        False,
+                    ),
+                ),
+            ),
+            GraphNode(
+                '"crm"."customer"',
+                True,
+                False,
+                columns=(GraphColumn('"crm"."customer"."id"', "id", "bigint", False, True, True),),
+            ),
         ),
         (
             GraphLink(
@@ -130,6 +156,11 @@ def test_database_html_is_complete_searchable_and_has_no_fake_focus() -> None:
     assert "Whole-database relationship graph" in html
     assert "invoice_customer_fk" in html
     assert "customer_id" in html
+    assert 'class="column-badge"' in html
+    assert ">FK</text>" in html
+    assert ">PK</text>" in html
+    assert "FK · invoice_customer_fk" in html
+    assert "M 350 124 C 410 124, 410 100, 470 100" in html
     assert "depth" not in html
     assert 'data-selected="false"' in html
 

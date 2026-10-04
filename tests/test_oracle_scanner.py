@@ -38,10 +38,10 @@ class FakeCursor:
         normalized = query.upper()
         if normalized.startswith("SET TRANSACTION"):
             key = "transaction"
+        elif "FROM ALL_USERS" in normalized:
+            key = "schemas"
         elif "SYS_CONTEXT" in normalized:
             key = "identity"
-        elif "FROM ALL_OBJECTS" in normalized and "DISTINCT OWNER" in normalized:
-            key = "schemas"
         elif "FROM ALL_OBJECTS" in normalized:
             key = "tables"
         elif "FROM ALL_TAB_COLUMNS" in normalized:
@@ -123,6 +123,8 @@ def test_oracle_verification_starts_read_only_transaction_and_hides_secret(
 
     assert result.schemas == ("CRM", "SALES")
     assert connection.queries[0] == "SET TRANSACTION READ ONLY"
+    assert "FROM all_users" in connection.queries[2]
+    assert "oracle_maintained = 'N'" in connection.queries[2]
     assert connection.call_timeout == 5000
     assert call["params"]["tcp_connect_timeout"] == 5
     assert call["connect"]["password"] == "oracle-private"

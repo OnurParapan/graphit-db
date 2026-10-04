@@ -135,9 +135,10 @@ class MetadataScanError(Exception):
 
 @dataclass(frozen=True)
 class ConnectionTestResult:
-    """Non-secret identity returned by an adapter's read-only verification."""
+    """Non-secret identity and safety notices returned by adapter verification."""
 
     database: str
     username: str
     server_version: str
     schemas: tuple[str, ...] = ()
+    warnings: tuple[str, ...] = ()

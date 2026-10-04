@@ -45,13 +45,18 @@ Behavior:
 5. Show exactly which files were created or updated.
 6. Discover PostgreSQL, SQL Server, and Oracle URL candidates from the process environment and the
    bounded project files `.env`, `.env.local`, `.env.development*`, `.env.test*`,
-   and `.env.production*`. Show variable origin, host, port, database, user,
+   and `.env.production*` at the root or up to three safe subdirectory levels.
+   Dependency, VCS, build, virtual-environment, and Graphit state directories are
+   excluded; at most 32 dotenv files are considered. Show variable origin, host, port, database, user,
    password presence, and SSL mode without showing the URL or password.
 7. For each password-bearing candidate, request confirmation and run the same
-   bounded read-only verification used by `source test`. `--yes` accepts all
+   bounded metadata-access verification used by `source test`. `--yes` accepts all
    candidates without prompting; `--no-connect` stops after discovery.
 8. Persist non-secret source metadata and a URL variable/file reference only
-   after successful verification. A failure or rejection saves no source.
+   after successful verification. A failure or rejection saves no source. An
+   already configured engine/host/port/database/user identity is not duplicated
+   merely because discovery now finds it through a different credential
+   variable or dotenv file.
 9. Discover up to 100 accessible non-system schemas in the verification query,
    then scan their bounded table, view, column, key, foreign-key, and index
    metadata into the first immutable snapshot. `--no-scan` stops after source
@@ -65,6 +70,10 @@ Behavior:
     entries for Codex and Claude. Init selects Codex's eight-tool compact
     allowlist; `--no-agents` skips both. A differing existing entry is never
     overwritten unless `--refresh-agents` recognizes it as Graphit-generated.
+12. Attempt every accepted database candidate even when an earlier connection,
+    scan, snapshot, or ERD operation fails. Successful sources and artifacts are
+    preserved; after all candidates and agent setup are processed, init reports
+    `INIT_PARTIAL_FAILURE` and returns the first applicable non-zero exit code.
 
 `--force` replaces only `graphit.toml`; it preserves existing `.graphit/`
 contents while applying compatible store migrations. Symlinked
@@ -76,18 +85,24 @@ for advanced profile/refresh control. Global agent configuration is never
 changed here. If one agent file conflicts, init reports every setup failure;
 another independently safe agent entry may already have been created.
 
-Discovery recognizes `postgres://`, `postgresql://`, `mssql://`,
+Discovery recognizes `postgres://`, `postgresql://`, `postgresql+asyncpg://`,
+`postgresql+psycopg://`, `mssql://`, `mssql+aioodbc://`,
 `mssql+pyodbc://`, `sqlserver://`, `oracle://`, `oracles://`,
 `oracle+oracledb://`, and `oracle+cx_oracle://` values in conventional
 `DATABASE_URL`/`DATABASE_URI`, engine-specific URL variables, `PGURL`,
 `SQLALCHEMY_DATABASE_URI`, and prefixed variants.
 Process-environment values take precedence over matching dotenv variables;
 duplicate connection identities collapse deterministically. Example/template,
-symlinked, invalid UTF-8, and files larger than 1 MiB are not read. A discovered
+symlinked, invalid UTF-8, and files larger than 1 MiB are not read. Oracle URLs
+may identify the database in their path or with `service_name`. A discovered
 password exists only in transient process memory and is never written by
 `init`. SQLite schema v2 stores `credential_kind` and an optional allowlisted
 `credential_file` reference. Later tests/scans reread the password at call time
 and fail closed if the URL host, port, database, user, or SSL mode changed.
+For SQL Server, explicit `TrustServerCertificate=yes` is preserved as the
+visible `require-trust-server-certificate` mode: transport encryption remains
+enabled, but certificate identity is not verified. It is never enabled by
+default.
 Each adapter excludes its system/catalog namespaces and fails rather than
 silently truncating above 100 visible user schemas or when none is accessible.
 
@@ -120,6 +135,9 @@ query timeout failures have sanitized error codes and exit code 4. The default
 PostgreSQL's `prefer` mode can fall back to an unencrypted connection. SQL
 Server `require` uses encryption with certificate validation. Oracle `require`
 uses TCPS; wallet and certificate setup remains the deployment's responsibility.
+SQL Server principals with write permission are accepted and reported with a
+`PRIVILEGED_CREDENTIAL` warning; the adapter still executes only its fixed,
+bounded catalog `SELECT` statements.
 
 Non-interactive form:
 
@@ -144,8 +162,10 @@ Microsoft ODBC Driver 18 or 17 to be installed on the host.
 graphit scan --source claims
 ```
 
-`scan --source NAME` is implemented. It reads the selected source schemas and
-atomically saves a new immutable snapshot in `.graphit/graphit.db`; an identical
+`scan --source NAME` is implemented. It reads the selected source schemas,
+atomically saves a new immutable snapshot in `.graphit/graphit.db`, and creates
+that snapshot's self-contained whole-database ERD under `.graphit/exports/`.
+Use `--no-erd` to skip only the artifact. An identical
 rescan still creates a new version. Current coverage is schemas, ordinary and
 partitioned tables, views, materialized views, their columns, declared
 table primary/unique constraints, and declared table foreign keys. View
@@ -153,8 +173,8 @@ definitions and lineage are not yet scanned. The shared table/view scan limit
 fails closed instead of saving a partial snapshot. Failed source scans are
 recorded without changing the latest
 successful snapshot. A failed local write rolls back all objects and edges.
-Output reports only source alias, version, and object/edge counts; it never
-prints credentials. `Ctrl+C` cannot expose a partial successful snapshot.
+Output reports only source alias, version, object/edge counts, and the local ERD
+path; it never prints credentials. `Ctrl+C` cannot expose a partial successful snapshot.
 `graphit scan` without `--source`, `--metadata-only`, and `--no-inference` are
 planned for later slices.
 

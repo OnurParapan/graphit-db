@@ -1427,7 +1427,7 @@ excluded from representation. Print only origin, variable name, host, port,
 database, username, password presence, and SSL mode. Give the process
 environment precedence, collapse duplicate non-secret identities, refuse
 symlinked or oversized dotenv files. Request sanitized confirmation unless
-`--yes` is explicit, verify through a bounded read-only session, and persist
+`--yes` is explicit, verify through bounded adapter-owned metadata access, and persist
 only the non-secret credential reference after success. `--no-connect` retains
 discovery-only behavior. On later use, reread the reference and fail closed if
 the URL's non-secret connection identity changed.
@@ -1435,8 +1435,9 @@ the URL's non-secret connection identity changed.
 **Reason:** One-command onboarding requires Graphit to understand configuration
 already present in a project, including URL-contained passwords. A narrow,
 deterministic reader avoids executing framework code or recursively harvesting
-secrets. Transaction-level read-only enforcement protects a target even when
-the project's account itself has broader privileges, while confirm-before-I/O
+secrets. Transaction-level read-only enforcement is used where the engine
+provides it; SQL Server instead uses only fixed catalog SELECTs and warns when
+the project's account has broader privileges. Confirm-before-I/O
 and persist-after-success keep failed or unwanted candidates out of local state.
 
 **Revisit when:** Split `PG*`/`DB_*`, Docker Compose, framework-specific
@@ -1515,12 +1516,39 @@ portable launcher eliminates machine-specific interpreter paths.
 
 **Status:** Accepted and implemented for the 0.2.0 development line.
 
+## ADR-082 — Bound monorepo discovery and anchor ERDs to FK columns
+
+**Decision:** Database URL discovery may inspect allowlisted dotenv basenames at
+the project root and at most three safe subdirectory levels, with a 32-file cap.
+It never follows symlinks and excludes VCS, dependency, build,
+virtual-environment, vendor, and Graphit state directories. Saved credential
+files remain normalized project-relative references and are revalidated before
+runtime resolution. Common SQLAlchemy asyncpg/aioodbc schemes and Oracle
+`service_name` URLs normalize to the existing scanner engines. An explicit SQL
+Server `TrustServerCertificate=yes` becomes a separate visible SSL mode that
+keeps encryption enabled without pretending certificate identity was verified.
+
+Whole-database HTML ERDs read saved columns from the same immutable snapshot as
+their tables and confirmed FKs. Table cards display type/nullability and
+PK/UQ/FK markers; every confirmed FK pair is drawn between its exact source and
+target column rows. Manual/inferred relationships remain excluded. A successful
+manual `graphit scan` creates the snapshot ERD by default, with `--no-erd` as an
+explicit opt-out.
+
+**Rationale:** Real monorepos commonly keep backend credentials below the
+repository root and use framework-specific driver schemes. Unbounded recursive
+search would expand secret exposure and work unpredictably. Table-center lines
+also hide the most useful ERD fact—exact column mapping—while scan-only ERD
+generation made later snapshots unexpectedly lack diagrams.
+
+**Status:** Accepted and implemented for the unpublished 0.2.1 development line.
+
 **Decision:** Register `mssql` and `oracle` beside `postgresql` behind one
 verification/scanner dispatcher. Discover URL and SQLAlchemy URL forms without
 persisting secrets. Include pyodbc and python-oracledb in the base distribution;
 require Microsoft ODBC Driver 18/17 externally for SQL Server and use Oracle
 Thin mode by default. SQL Server requests advisory ODBC read-only mode and
-fails verification when the principal has direct write permissions. Oracle
+warns, without blocking, when the principal has direct write permissions. Oracle
 starts `SET TRANSACTION READ ONLY` and rejects SYS. Both adapters issue only
 fixed, bounded catalog reads and normalize schemas, tables/views, columns,
 declared keys/FKs, and safe indexes into the existing `MetadataSnapshot`.
@@ -1531,19 +1559,50 @@ query, MCP, and agent-setup layers.
 **Reason:** Multiple database engines are useful only if they keep Graphit's
 compact local graph and one-command onboarding contract. Adapter-specific
 stores or MCP tools would fragment agent behavior. SQL Server's ODBC read-only
-attribute is advisory, so permission rejection is required rather than claiming
-transactional enforcement equivalent to PostgreSQL or Oracle.
+attribute is advisory, so it remains defense in depth without being presented as
+transactional enforcement equivalent to PostgreSQL or Oracle. Because every SQL
+statement is a fixed catalog SELECT, blocking otherwise valid existing credentials
+would add setup friction without removing an application SQL execution path.
 
 **Validation:** Explicitly gated, loopback-only disposable tests now exercise
 both real catalog implementations end to end. SQL Server 2022 validates ODBC
-connection safety, permission rejection, tables/views, composite PK/FK facts,
+connection behavior, privileged-credential warnings, tables/views, composite PK/FK facts,
 a filtered included-column index, snapshot persistence, and local relationship
 queries. Oracle Free validates Thin connectivity, the read-only transaction,
 separate owner/reader users, cross-schema composite FK facts, tables/views,
 indexes, persistence, and relationship queries. The containers were stopped
 and auto-removed after the passing runs.
 
+Oracle schema discovery uses `ALL_USERS.ORACLE_MAINTAINED='N'`, always includes
+the current session user even before it owns an object, and includes other
+non-maintained users only when structural objects are visible through `ALL_*`.
+This replaces an incomplete hard-coded system-owner exclusion list found by the
+live empty `TDSS_USER` schema test.
+
 **Revisit when:** CI can carry both service images without unacceptable runtime
 or storage cost, or compatibility must be expanded across older versions,
 managed services, wallets/integrated authentication, or production-scale
 catalogs.
+
+## ADR-083 — Make multi-database init identity-idempotent and failure-isolated
+
+**Status:** Accepted and implemented for the unpublished 0.2.1 development line.
+
+**Decision:** Treat engine, case-insensitive host, port, database/service name,
+and username as the configured database identity during init. Do not add a
+second source when only the discovered credential variable or dotenv origin has
+changed. Process every accepted discovered identity independently: connection,
+scan, snapshot, or ERD failure for one identity must not prevent later
+identities from completing. Preserve each completed source and artifact, run
+project-local agent setup after candidate processing, then return a non-zero
+exit with `INIT_PARTIAL_FAILURE` when any operation failed.
+
+**Reason:** Monorepos commonly expose the same database through more than one
+framework variable, while an ERP project may contain PostgreSQL, SQL Server,
+and Oracle together. Credential-reference equality created duplicate local
+graphs, and fail-fast onboarding hid healthy databases behind the first broken
+service. The final non-zero exit keeps automation honest without discarding
+useful completed work.
+
+**Revisit when:** Graphit gains an explicit source credential-rebinding command;
+identity matching must then remain separate from deliberate credential updates.

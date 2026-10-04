@@ -13,7 +13,7 @@ import pytest
 from graphit.project import initialize_project
 from graphit.queries import show_table, table_relationships
 from graphit.scanners.mssql import MSSQLScanner, verify_connection
-from graphit.scanners.protocol import ConnectionTestError, ScanScope
+from graphit.scanners.protocol import ScanScope
 from graphit.snapshots import scan_source
 from graphit.sources import SourceConfig, add_source
 
@@ -146,9 +146,9 @@ def test_real_mssql_catalog_scan_and_snapshot(
 
         with _admin_connection(database) as admin:
             admin.execute(f"ALTER ROLE db_datawriter ADD MEMBER {quoted_login}")
-        with pytest.raises(ConnectionTestError) as unsafe:
-            verify_connection(source)
-        assert unsafe.value.code == "READ_ONLY_NOT_ENFORCED"
+        privileged = verify_connection(source)
+        assert privileged.warnings
+        assert privileged.warnings[0].startswith("PRIVILEGED_CREDENTIAL:")
     finally:
         with _admin_connection() as admin:
             admin.execute(

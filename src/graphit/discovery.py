@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, unquote, urlsplit
 
+from graphit.sources import valid_dotenv_credential_file
+
 _URL_ENV_NAME = re.compile(
     r"(?:^|_)(?:DATABASE|DB|POSTGRES|POSTGRESQL|MSSQL|SQLSERVER|ORACLE)_(?:URL|URI)\Z"
     r"|^SQLALCHEMY_DATABASE_URI\Z|^PGURL\Z",
@@ -27,8 +29,25 @@ _DOTENV_NAMES = (
     ".env.production.local",
 )
 _MAX_DOTENV_BYTES = 1024 * 1024
+_MAX_DOTENV_FILES = 32
+_MAX_DOTENV_DEPTH = 3
+_EXCLUDED_DIRECTORIES = frozenset(
+    {
+        ".git",
+        ".graphit",
+        ".hg",
+        ".svn",
+        ".tox",
+        ".venv",
+        "build",
+        "dist",
+        "node_modules",
+        "venv",
+        "vendor",
+    }
+)
 _POSTGRES_SSL_MODES = frozenset({"disable", "prefer", "require", "verify-ca", "verify-full"})
-_MSSQL_SSL_MODES = frozenset({"disable", "require"})
+_MSSQL_SSL_MODES = frozenset({"disable", "require", "require-trust-server-certificate"})
 _ORACLE_SSL_MODES = frozenset({"disable", "require"})
 
 if TYPE_CHECKING:
@@ -98,6 +117,36 @@ def _read_dotenv(path: Path) -> dict[str, str]:
     return values
 
 
+def _dotenv_files(root: Path) -> tuple[tuple[str, Path], ...]:
+    """Return deterministic, bounded dotenv files without following links."""
+
+    found: list[tuple[str, Path]] = []
+    pending: list[tuple[Path, int]] = [(root, 0)]
+    while pending and len(found) < _MAX_DOTENV_FILES:
+        directory, depth = pending.pop(0)
+        try:
+            entries = sorted(directory.iterdir(), key=lambda item: item.name.casefold())
+        except OSError:
+            continue
+        files = {entry.name: entry for entry in entries if entry.name in _DOTENV_NAMES}
+        for name in _DOTENV_NAMES:
+            path = files.get(name)
+            if path is not None and path.is_file() and not path.is_symlink():
+                found.append((path.relative_to(root).as_posix(), path))
+                if len(found) == _MAX_DOTENV_FILES:
+                    break
+        if depth >= _MAX_DOTENV_DEPTH:
+            continue
+        for entry in entries:
+            if (
+                entry.name.casefold() not in _EXCLUDED_DIRECTORIES
+                and entry.is_dir()
+                and not entry.is_symlink()
+            ):
+                pending.append((entry, depth + 1))
+    return tuple(found)
+
+
 def _safe_text(value: str) -> bool:
     return bool(value) and not any(ord(character) < 32 for character in value)
 
@@ -109,7 +158,10 @@ def _parse_candidate(variable_name: str, value: str, origin: str) -> DatabaseCan
         engine = {
             "postgres": "postgresql",
             "postgresql": "postgresql",
+            "postgresql+asyncpg": "postgresql",
+            "postgresql+psycopg": "postgresql",
             "mssql": "mssql",
+            "mssql+aioodbc": "mssql",
             "mssql+pyodbc": "mssql",
             "sqlserver": "mssql",
             "oracle": "oracle",
@@ -123,16 +175,30 @@ def _parse_candidate(variable_name: str, value: str, origin: str) -> DatabaseCan
         port = parsed.port or {"postgresql": 5432, "mssql": 1433, "oracle": 1521}[engine]
         username = unquote(parsed.username) if parsed.username is not None else ""
         password = unquote(parsed.password) if parsed.password is not None else None
+        query = {
+            name.casefold(): values
+            for name, values in parse_qs(parsed.query, keep_blank_values=True).items()
+        }
         database_name = unquote(parsed.path.removeprefix("/"))
-        query = parse_qs(parsed.query, keep_blank_values=True)
+        if engine == "oracle" and not database_name:
+            database_name = unquote(query.get("service_name", [""])[-1])
         if engine == "postgresql":
             ssl_mode = query.get("sslmode", ["prefer"])[-1].lower()
             valid_ssl_modes = _POSTGRES_SSL_MODES
         elif engine == "mssql":
             encrypt = query.get("encrypt", ["true"])[-1].lower()
+            trust_certificate = query.get("trustservercertificate", ["false"])[-1].lower()
             if encrypt not in {"true", "yes", "1", "false", "no", "0"}:
                 return None
-            ssl_mode = "disable" if encrypt in {"false", "no", "0"} else "require"
+            if trust_certificate not in {"true", "yes", "1", "false", "no", "0"}:
+                return None
+            ssl_mode = (
+                "disable"
+                if encrypt in {"false", "no", "0"}
+                else "require-trust-server-certificate"
+                if trust_certificate in {"true", "yes", "1"}
+                else "require"
+            )
             valid_ssl_modes = _MSSQL_SSL_MODES
         else:
             ssl_mode = "require" if scheme == "oracles" else "disable"
@@ -173,8 +239,7 @@ def discover_databases(
     locations: list[tuple[str, Mapping[str, str]]] = [
         ("environment", process_environment),
     ]
-    for name in _DOTENV_NAMES:
-        path = root / name
+    for name, path in _dotenv_files(root):
         dotenv_values = _read_dotenv(path)
         if dotenv_values:
             locations.append((name, dotenv_values))
@@ -241,10 +306,21 @@ def resolve_database_password(
         value = process_environment.get(source.credential_env)
         origin = "environment"
     elif source.credential_kind == "url_dotenv":
-        if root is None or source.credential_file not in _DOTENV_NAMES:
+        credential_file = source.credential_file
+        if root is None or not valid_dotenv_credential_file(credential_file):
             raise CredentialResolutionError("The saved dotenv credential reference is unavailable.")
-        value = _read_dotenv(root.resolve() / source.credential_file).get(source.credential_env)
-        origin = source.credential_file
+        assert credential_file is not None
+        project_root = root.resolve()
+        credential_path = project_root.joinpath(*Path(credential_file).parts)
+        current = project_root
+        for part in Path(credential_file).parts:
+            current /= part
+            if current.is_symlink():
+                raise CredentialResolutionError(
+                    "The saved dotenv credential reference is unavailable."
+                )
+        value = _read_dotenv(credential_path).get(source.credential_env)
+        origin = credential_file
     else:
         raise CredentialResolutionError("The saved credential reference kind is unsupported.")
 

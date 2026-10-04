@@ -97,6 +97,9 @@ def test_database_graph_contains_every_table_and_confirmed_fk_without_truncation
     )
     assert not external.in_scope
     assert '"public"."orders"' in {node.qualified_name for node in projection.nodes}
+    orders = next(node for node in projection.nodes if node.qualified_name == '"public"."orders"')
+    assert orders.columns
+    assert orders.columns[0].qualified_name.startswith('"public"."orders".')
 
 
 def test_database_graph_fails_instead_of_emitting_partial_erd(tmp_path: Path) -> None:
