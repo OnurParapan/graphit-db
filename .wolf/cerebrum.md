@@ -559,6 +559,11 @@
   have PyPI attestations; clean public-PyPI install, init, SQLite, generated
   Codex/Claude launchers, and MCP calls pass. Future releases must keep the same
   separated build/publish and human-approval boundary.
+- `graphit-db 0.2.1` was published on 2026-10-04 from tag `v0.2.1` at commit
+  `b9832afe8ca4b827f0567fde6c7a84ec54c33dfc`. CI `37218730682` and protected
+  publish run `37218891628` passed; both PyPI artifacts have GitHub provenance,
+  and a fresh public install passed dependency, version, SQLite, and generated
+  Codex/Claude MCP smoke checks.
 - Stale project MCP paths are repaired only with an explicit `--refresh` flag;
   default setup still rejects any differing Graphit entry. This is safe
   regeneration, not a portable launcher for every machine.

@@ -65,6 +65,26 @@ After publication:
 
 ## Published release evidence
 
+Version `0.2.1` was published on 2026-10-04 from tag `v0.2.1` and commit
+`b9832afe8ca4b827f0567fde6c7a84ec54c33dfc`:
+
+- GitHub release: <https://github.com/OnurParapan/graphit-db/releases/tag/v0.2.1>
+- CI run: <https://github.com/OnurParapan/graphit-db/actions/runs/37218730682>
+- protected workflow run: <https://github.com/OnurParapan/graphit-db/actions/runs/37218891628>
+- PyPI project: <https://pypi.org/project/graphit-db/0.2.1/>
+- wheel SHA-256: `d29e6611797141833269d41748c4c5e80fb24fcd8e608433b7982068215b461f`
+- sdist SHA-256: `970b24f5cefc728d89d4b4ada7fceaccb122537595784f8dbd135c88eccae66b`
+
+Python 3.11–3.14 CI, distribution inspection, Twine, and the installed-wheel
+smoke passed before publication. Both files expose one PyPI Integrity API
+provenance bundle identifying GitHub repository `OnurParapan/graphit-db`,
+workflow `release.yml`, and environment `pypi`. A fresh Windows environment
+then installed `graphit-db==0.2.1` directly from public PyPI and passed
+`pip check`, version, initialization, SQLite snapshot seeding, and generated
+Codex/Claude stdio MCP calls.
+
+### Previous releases
+
 Version `0.1.1` was published on 2026-10-02 from tag `v0.1.1` and commit
 `875967c6a9f9e6409b34981288a958fb27af1923`:
 
@@ -81,8 +101,6 @@ version, initialization, SQLite snapshot seeding, generated Codex/Claude stdio
 launchers, and representative MCP calls. This release adds the default
 discovery → read-only verification → all-accessible-schema scan → complete ERD
 → project-local agent wiring onboarding chain.
-
-### Prior release
 
 Version `0.1.0` was published on 2026-10-02 from tag `v0.1.0` and commit
 `33cef8b16c7ae9de9adb0d07baba81a2776ca5f5`:

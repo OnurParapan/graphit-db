@@ -13,22 +13,18 @@ disposable loopback-only SQL Server and Oracle Free containers.
 Without that cache setting, two benchmark tests fail while attempting a
 blocked first-time network fetch, not while querying Graphit.
 
-The unpublished `0.2.1` candidate is locally packaged and install-verified.
-Its wheel and sdist passed the repository archive allowlist and Twine metadata
-checks. A separate environment upgraded from the installed `0.2.0` wheel to
-the local `0.2.1` wheel, passed `pip check`, reported `Graphit 0.2.1`, and
-completed SQLite initialization plus both generated Codex and Claude MCP smoke
-paths. The official PyPI JSON endpoint returned 404 for version `0.2.1` on
-2026-10-04; no tag, GitHub Release, or upload has been created. Final artifact
-hashes belong to the immutable published release record, not this mutable
-pre-release ledger.
+Public release `0.2.1` passed Python 3.11–3.14 CI, protected Trusted
+Publishing, archive/Twine checks, and installed-wheel smoke. A fresh Windows
+environment installed it directly from public PyPI, passed `pip check`,
+reported `Graphit 0.2.1`, and completed SQLite initialization plus generated
+Codex and Claude MCP calls. Both artifacts have PyPI-hosted provenance.
 
 | Goal | Current evidence | Remaining gap |
 |---|---|---|
-| Install and initialize | `graphit-db 0.2.0` is public on PyPI. Its wheel and sdist passed archive checks and protected Trusted Publishing; a fresh public-PyPI install passed dependency, version, init, SQLite, Codex/Claude launcher, and MCP call checks. | A real external user's pipx/uv installation has not yet been observed; the clean verification used pip in an isolated venv. |
+| Install and initialize | `graphit-db 0.2.1` is public on PyPI. Its wheel and sdist passed archive checks and protected Trusted Publishing; a fresh public-PyPI install passed dependency, version, init, SQLite, Codex/Claude launcher, and MCP call checks. | A real external user's pipx/uv installation has not yet been observed; the clean verification used pip in an isolated venv. |
 | Scan PostgreSQL safely | Source configuration, read-only connection test, bounded catalog scanner, immutable snapshots, and local unit tests exist. A disposable local PostgreSQL 16 run and the successful Python 3.11–3.14 GitHub matrix verified the integration fixture. | The fixture is small and covers PostgreSQL 16 only; broad PostgreSQL-version and production-scale results do not exist. |
 | Query useful structure | CLI search, table/view/index detail, declared FK relationships/paths, local history/diff, direct table/column impact, and 14 bounded read-only MCP tools have tests. Bounded transitive declared-FK table impact is exposed through CLI and MCP. | Transitive FK reachability is a structural hint, not application lineage. View definitions and application lineage are not available. |
-| Connect agents | Default 0.2.0 init writes project-local compact Codex and Claude Graphit entries; generated stdio launchers pass clean-wheel MCP tool-list, saved-FK, and saved-index calls. Authenticated Codex 0.160.0 runs in WSL2 with verified per-arm isolation. | No Claude executable was found on `PATH`; an actual Claude task and a real external installed-user workflow remain unverified. |
+| Connect agents | Default 0.2.1 init writes project-local compact Codex and Claude Graphit entries; generated stdio launchers pass clean-wheel MCP tool-list, saved-FK, and saved-index calls. Authenticated Codex 0.160.0 runs in WSL2 with verified per-arm isolation. | No Claude executable was found on `PATH`; an actual Claude task and a real external installed-user workflow remain unverified. |
 | Discover logical relations | Conservative metadata-only candidate evidence, human review, and approved graph context are implemented. | A tiny synthetic ERP fixture yields 3 true positives, 1 false positive, and 5 false negatives by default; this is not production precision. No automatic business-identity proof. |
 | Explore a graph | Bounded JSON/DOT/HTML one-hop exports and the complete confirmed-FK whole-database HTML ERD are implemented. Default init writes the snapshot-named ERD; HTML remains offline, searchable, escaped, CSP-bounded, and accessible without scripts. | Multi-hop interactive depth controls, expand/collapse, and richer layout are not implemented. |
 | Reduce agent cost | Deterministic progressive context and response ceilings exist. The three-pair 14-table compact aggregate and separate three-pair 114-table aggregate are preserved; all 12 arms were correct. On the scaled task, Graphit returned 99.2% fewer fact bytes and averaged 16.1% lower total / 39.6% lower non-cached input, with both lower in all three pairs. | The small aggregate remained negative, proving workload size matters. Scaled latency was inconsistent, pair 3 baseline read twice, and no billing, production, SQL-MCP, Claude, or controlled profile-ablation result exists; do not claim universal savings. |
@@ -70,6 +66,18 @@ release run `37061092185` rebuilt and inspected the archives, passed the clean
 installed-wheel smoke, received explicit `pypi` environment approval, and
 published with Trusted Publishing. A fresh public-PyPI Windows installation
 then passed version, dependency, SQLite, and Codex/Claude MCP smoke checks.
+
+Release `v0.2.1` points to commit
+`b9832afe8ca4b827f0567fde6c7a84ec54c33dfc`. CI run `37218730682`
+passed the Python 3.11–3.14 matrix and package job. Protected release run
+`37218891628` rebuilt and inspected the archives, passed installed-wheel smoke,
+received explicit `pypi` approval, and published through OIDC Trusted
+Publishing. PyPI reports wheel SHA-256
+`d29e6611797141833269d41748c4c5e80fb24fcd8e608433b7982068215b461f`
+and sdist SHA-256
+`970b24f5cefc728d89d4b4ada7fceaccb122537595784f8dbd135c88eccae66b`;
+each has one matching GitHub provenance bundle. A fresh public-PyPI Windows
+installation passed dependency, version, SQLite, and Codex/Claude MCP smoke.
 
 1. Exercise an installed Graphit release in actual Codex and Claude projects:
    initialize, configure a read-only disposable PostgreSQL source, scan, trust

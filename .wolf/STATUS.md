@@ -7,15 +7,15 @@
 
 ## ✅ Done
 
-- The unpublished `graphit-db 0.2.1` local release candidate is packaged.
-  Wheel/sdist archive scope and Twine metadata pass; a separate environment
-  upgraded its installed 0.2.0 wheel to 0.2.1 and passed version, dependency,
-  SQLite init, and Codex/Claude MCP smoke checks. PyPI's official version
-  endpoint returns 404. Final local SHA-256 values are
-  `d9022df3d83d4e620df5990394e0a22e78006912060daee818f5eea6023e590d`
+- Published and verified `graphit-db 0.2.1` from tag `v0.2.1` at commit
+  `b9832afe8ca4b827f0567fde6c7a84ec54c33dfc`. CI run `37218730682` and
+  protected Trusted Publishing run `37218891628` passed. Public PyPI hashes
+  are `d29e6611797141833269d41748c4c5e80fb24fcd8e608433b7982068215b461f`
   (wheel) and
-  `17dc0290a8f56e741510f7612402df81750fc42d0feb25c41c2302a74e0878b1`
-  (sdist). No tag, GitHub Release, or publication was created.
+  `970b24f5cefc728d89d4b4ada7fceaccb122537595784f8dbd135c88eccae66b`
+  (sdist); each has one PyPI Integrity API GitHub provenance bundle. A fresh
+  public-PyPI install passed dependency, version, SQLite, and Codex/Claude MCP
+  smoke checks.
 
 - Multi-database `graphit init` is now failure-isolated and identity-idempotent.
   It tries every discovered database even when an earlier connection, scan,
@@ -43,14 +43,14 @@
   `tdss` source `oracle_xe` now correctly targets `TDSS_USER`; snapshot 2 and its
   ERD are complete (the application schema currently contains no tables).
 
-- Prepared the unpublished `0.2.1` fix: bounded nested dotenv discovery now
+- Published the `0.2.1` fix: bounded nested dotenv discovery now
   supports real monorepo paths, asyncpg/aioodbc SQLAlchemy URLs, case-insensitive
   query keys, and Oracle `service_name`; `graphit scan` creates an ERD by default.
   Whole-database ERDs now render column/type/PK/UQ/FK table cards and anchor each
   confirmed FK path to the exact paired column rows. The real `tdss/backend/.env`
   safely discovers PostgreSQL, SQL Server, and Oracle without printing secrets;
   its existing PostgreSQL snapshot generated an 8-table/99-column/2-FK artifact.
-  Full pytest, Ruff, formatting, and strict mypy pass. No release/tag was created.
+  Full pytest, Ruff, formatting, and strict mypy pass.
 
 - Product direction clarified as a local-first database knowledge/context layer
   for Codex, Claude, and SQL MCPs.
@@ -769,14 +769,11 @@
 
 ## 🚀 Next phase
 
-**Current goal (supersedes the historical goal below):** the unpublished
-`graphit-db 0.2.1` monorepo-discovery and column-linked ERD fix is locally
-  packaged and install-verified; publish only with explicit user approval. The real tdss MSSQL `sa` credential
-  is now accepted with a visible warning and its snapshot/ERD are complete.
-  Oracle Free is now running and live-validated; next publication remains subject
-  to explicit user approval.
-Preserve 0.2.0 release evidence and do not infer broad version, scale, or
-universal token-savings claims from the current fixtures.
+**Current goal (supersedes the historical goal below):** `graphit-db 0.2.1` is
+published and independently installed from public PyPI. Gather real installed-
+user feedback and preserve release evidence. The real tdss MSSQL and Oracle
+paths are live-validated; do not infer broad version, scale, or universal
+token-savings claims from the current fixtures.
 
 **2026-10-02 multi-engine slice:** Added URL discovery, source validation,
 driver dispatch, safe connection verification, and bounded catalog scanners for

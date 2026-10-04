@@ -2676,6 +2676,30 @@
       "related_bugs": ["bug-222"],
       "occurrences": 1,
       "last_seen": "2026-10-04"
+    },
+    {
+      "id": "bug-224",
+      "timestamp": "2026-10-04T20:06:00+03:00",
+      "error_message": "The chained public-PyPI verification printed successful install, pip check, and version results but the following smoke command produced no output and did not terminate.",
+      "file": "public 0.2.1 smoke invocation",
+      "root_cause": "The long elevated multi-command session did not expose a diagnosable smoke stage after completing network installation; the process had to be interrupted.",
+      "fix": "Rerun the installed-wheel smoke as a separate unbuffered command so its exact stage and exit status are observable independently.",
+      "tags": ["release", "smoke-test", "windows", "process"],
+      "related_bugs": ["bug-216"],
+      "occurrences": 1,
+      "last_seen": "2026-10-04"
+    },
+    {
+      "id": "bug-225",
+      "timestamp": "2026-10-04T20:07:24+03:00",
+      "error_message": "A PowerShell rg inspection command failed because a double-quoted regex containing a Markdown backtick lost its closing quote.",
+      "file": "post-release cerebrum inspection command",
+      "root_cause": "PowerShell treated the Markdown backtick inside a double-quoted search pattern as an escape character.",
+      "fix": "Use a single-quoted regex for Markdown-bearing PowerShell search patterns; the targeted inspection then succeeded.",
+      "tags": ["powershell", "quoting", "rg", "release"],
+      "related_bugs": ["bug-207"],
+      "occurrences": 1,
+      "last_seen": "2026-10-04"
     }
   ]
 }
